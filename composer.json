@@ -1,0 +1,22 @@
+{
+    "name": "openbuildings/cherry",
+    "description": "SQL Query Builder for Jam",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Ivan Kerin",
+            "email": "ivan@openbuildings.com",
+            "role": "Author"
+        }
+    ],
+    "requires": {
+        "php": ">=5.3.0",
+        "ext-pdo": "*"
+    },
+    "require-dev": {
+        "openbuildings/environment-backup": "0.1.*"
+    },
+    "autoload": {
+        "psr-0": {"Openbuildings\\Cherry\\": "src/"}
+    }
+}
