@@ -1,7 +1,9 @@
 <?php
 namespace Openbuildings\Cherry;
 
-trait Dsl_Where {
+class Query_Where extends Statement {
+
+	public $children = array();
 
 	protected $where;
 

@@ -16,24 +16,27 @@ class Statement_Condition_Group extends Statement {
 	{
 		$compiled_array = array();
 
-		foreach ($this->children as $i => $item)
+		if ($this->children) 
 		{
-			if ($item instanceof Statement_Condition_Group) 
+			foreach ($this->children as $i => $item)
 			{
-				$compiled = "({$item->compile()})";
-			}
-			elseif ($item instanceof Statement_Condition) 
-			{
-				$compiled = $item->compile();
-			}
-			else
-			{
-				$compiled = (string) $item;
-			}
+				if ($item instanceof Statement_Condition_Group) 
+				{
+					$compiled = "({$item->compile()})";
+				}
+				elseif ($item instanceof Statement_Condition) 
+				{
+					$compiled = $item->compile();
+				}
+				else
+				{
+					$compiled = (string) $item;
+				}
 
-			$compiled_array []= $compiled;
+				$compiled_array []= $compiled;
+			}
 		}
-
+		
 		return ( ! $this->parent ? $this->keyword.' ' : '').implode(' ', $compiled_array);
 	}
 }
