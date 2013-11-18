@@ -4,12 +4,22 @@ namespace Openbuildings\Cherry;
 class Statement_Condition_Group extends Statement {
 
 	public $parent;
-	public $keyword;
 
-	public function __construct($keyword, Statement_Condition_Group $parent = NULL)
+	public function __construct(Statement_Condition_Group $parent = NULL)
 	{
-		$this->keyword = $keyword;
 		$this->parent = $parent;
+	}
+
+	public function add($operator, Statement $condition)
+	{
+		if (count($this->children)) 
+		{
+			$this->children []= $operator;
+		}
+
+		$this->children []= $condition;
+
+		return $this;
 	}
 	
 	public function compile()
@@ -24,7 +34,7 @@ class Statement_Condition_Group extends Statement {
 				{
 					$compiled = "({$item->compile()})";
 				}
-				elseif ($item instanceof Statement_Condition) 
+				elseif ($item instanceof Statement_Part_Condition) 
 				{
 					$compiled = $item->compile();
 				}
@@ -37,6 +47,6 @@ class Statement_Condition_Group extends Statement {
 			}
 		}
 		
-		return ( ! $this->parent ? $this->keyword.' ' : '').implode(' ', $compiled_array);
+		return implode(' ', $compiled_array);
 	}
 }

@@ -1,33 +1,60 @@
 <?php
 namespace Openbuildings\Cherry;
 
-class Query_Where extends Statement {
+abstract class Query_Where extends Statement {
 
-	public $children = array();
+	protected $current_where;
 
-	protected $where;
-
-	protected function add_where_child($condition, Statement $child)
+	public function distinct()
 	{
-		if ( ! $this->where)
+		$this
+			->child('Distinct');
+
+		return $this;
+	}
+
+
+	public function limit($rows)
+	{
+		$this
+			->child('Limit')
+			->value($rows);
+
+		return $this;
+	}
+
+	public function offset($rows)
+	{
+		$this
+			->child('Offset')
+			->value($rows);
+
+		return $this;
+	}
+
+	public function order_by($column, $direction = NULL)
+	{
+		$this
+			->child('Orderby')
+			->add(new Statement_Part_Order($column, $direction));
+
+		return $this;
+	}
+
+	protected function current_where()
+	{
+		if ( ! $this->current_where)
 		{
-			$this->where = new Statement_Condition_Group('WHERE');
-			$this->children []= $this->where;
+			$this->current_where = 
+			$this->children['Where'] = new Statement_Where();
 		}
 
-		if (count($this->where->children)) 
-		{
-			$this->where->children []= $condition;
-		}
-
-		$this->where->children []= $child;
-
-		return $child;
+		return $this->current_where;
 	}
 
 	public function and_where($column, $operator, $value)
 	{
-		$this->add_where_child('AND', new Statement_Condition($column, $operator, $value));
+		$this->current_where()->add('AND', new Statement_Part_Condition($column, $operator, $value));
 
 		return $this;
 	}
@@ -39,7 +66,7 @@ class Query_Where extends Statement {
 
 	public function or_where($column, $operator, $value)
 	{
-		$this->add_where_child('OR', new Statement_Condition($column, $operator, $value));
+		$this->current_where()->add('OR', new Statement_Part_Condition($column, $operator, $value));
 
 		return $this;
 	}
@@ -56,25 +83,27 @@ class Query_Where extends Statement {
 
 	public function and_where_open()
 	{
-		$child = $this->add_where_child('AND', new Statement_Condition_Group('WHERE', $this->where));
-		$this->where = $child;
+		$child = new Statement_Where($this->current_where());
+		$this->current_where()->add('AND', $child);
+		$this->current_where = $child;
 
 		return $this;
 	}
 
 	public function or_where_open()
 	{
-		$child = $this->add_where_child('OR', new Statement_Condition_Group('WHERE', $this->where));
-		$this->where = $child;
+		$child = new Statement_Where($this->current_where());
+		$this->current_where()->add('OR', $child);
+		$this->current_where = $child;
 
 		return $this;
 	}
 
 	public function and_where_close()
 	{
-		if (isset($this->where) AND $this->where->parent)
+		if (isset($this->current_where) AND $this->current_where->parent)
 		{
-			$this->where = $this->where->parent;
+			$this->current_where = $this->current_where->parent;
 		}
 
 		return $this;

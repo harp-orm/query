@@ -3,16 +3,15 @@ namespace Openbuildings\Cherry;
 
 class Statement_Orderby extends Statement {
 
-	protected $column;
-	protected $direction;
-
-	function __construct($column, $direction = 'ASC') 
+	public function add(Statement_Part_Order $child)
 	{
-		$this->children = $foo;
+		$this->children []= $child;
+
+		return $this;
 	}
 
 	public function compile()
 	{
-		return 'ORDER BY '.($this->source ? ' '.$this->source->compile() : '');
+		return 'ORDER BY '.implode(', ', Statement::compile_array($this->children()));
 	}
 }

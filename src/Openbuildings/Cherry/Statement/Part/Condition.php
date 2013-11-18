@@ -1,7 +1,7 @@
 <?php
 namespace Openbuildings\Cherry;
 
-class Statement_Condition extends Statement {
+class Statement_Part_Condition extends Statement {
 
 	protected $column;
 	protected $operator;
@@ -24,7 +24,7 @@ class Statement_Condition extends Statement {
 		switch ($this->operator) 
 		{
 			case 'IN':
-				$value = '('.join(', ', array_pad(array(), count($this->value), '?')).')';
+				$value = '('.join(', ', array_fill(0, count($this->value), '?')).')';
 			break;
 
 			case 'BETWEEN':
