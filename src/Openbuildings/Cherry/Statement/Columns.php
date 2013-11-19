@@ -22,8 +22,10 @@ class Statement_Columns extends Statement {
 		}
 	}
 
-	public function compile()
+	public function compile($humanized = FALSE)
 	{
-		return implode(', ', Statement::compile_array($this->children()));
+		$columns = implode(', ', $this->children());
+
+		return $humanized ? Statement::indent($columns) : $columns;
 	}
 }

@@ -7,14 +7,22 @@ class Statement_Part_Table extends Statement_Part_Aliased {
 	{
 		parent::__construct($name, $alias);
 
-		if ($this->name instanceof Statement_Select) 
-		{
-			$this->children []= $this->name;
-		}
+		$this->children []= $this->name;
 	}
 
-	public function compile_name()
+	public function compile_name($humanized = FALSE)
 	{
-		return ($this->name instanceof Query_Select) ? "({$this->name->compile()})" : $this->name;
+		if ($this->name instanceof Query_Select) 
+		{
+			return $humanized 
+				? Statement::indent("(\n".Statement::indent($this->name->compile($humanized))."\n)")
+				: "({$this->name})";
+		}
+		else
+		{
+			return $humanized 
+				? Statement::indent($this->name)
+				: $this->name;
+		}
 	}
 }

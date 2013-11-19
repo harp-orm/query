@@ -10,9 +10,12 @@ class Statement_Part_Group extends Statement {
 	{
 		$this->column = $column;
 		$this->direction = $direction;
+
+		$this->children []= $column;
+		$this->children []= $direction;
 	}
 
-	public function compile()
+	public function compile($humanized = FALSE)
 	{
 		return $this->column.($this->direction ? ' '.$this->direction : '');
 	}

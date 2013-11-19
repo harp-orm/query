@@ -20,7 +20,7 @@ class Statement_Limit extends Statement {
 		return $this->value;
 	}
 
-	public function compile()
+	public function compile($humanized = FALSE)
 	{
 		return 'LIMIT '.$this->value;
 	}

@@ -3,15 +3,18 @@ namespace Openbuildings\Cherry;
 
 class Statement_From extends Statement {
 
-	public function add(Statement_Part_Table $child)
+	public function add(Statement $child)
 	{
 		$this->children[$child->identifier()] = $child;
 
 		return $this;
 	}
 
-	public function compile()
+	public function compile($humanized = FALSE)
 	{
-		return 'FROM '.implode(', ', Statement::compile_array($this->children()));
+		$children = $this->compile_children($humanized);
+		return $humanized 
+			? "FROM\n".implode(",\n", $children)
+			: 'FROM '.implode(', ', $children);
 	}
 }

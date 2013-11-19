@@ -26,18 +26,18 @@ class Statement_Part_Aliased extends Statement {
 		return $this->name.$this->alias;
 	}
 
-	public function compile_name()
+	public function compile_name($humanized = FALSE)
 	{
 		return $this->name;
 	}
 
-	public function compile_alias()
+	public function compile_alias($humanized = FALSE)
 	{
 		return $this->alias ? ' AS '.$this->alias : '';
 	}
 
-	public function compile()
+	public function compile($humanized = FALSE)
 	{
-		return $this->compile_name().$this->compile_alias();
+		return $this->compile_name($humanized).$this->compile_alias($humanized);
 	}
 }

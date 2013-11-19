@@ -23,6 +23,9 @@ class Statement_Part_Join extends Statement {
 		$this->foreign_column = $foreign_column;
 
 		$this->usign = NULL;
+
+		$this->children []= $column;
+		$this->children []= $foreign_column;
 	}
 
 	public function identifier()
@@ -51,8 +54,8 @@ class Statement_Part_Join extends Statement {
 		}
 	}
 
-	public function compile()
+	public function compile($humanized = FALSE)
 	{
-		return 'JOIN '.$this->table->compile().' '.$this->compile_condition();
+		return "JOIN {$this->table} ".$this->compile_condition();
 	}
 }

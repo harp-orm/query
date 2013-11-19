@@ -17,6 +17,6 @@ class DatabaseTest extends Testcase_Extended {
 	{
 		Database::configure('default', $this->dsn, $this->username, $this->password);
 
-		var_dump(Database::instance()->query('SHOW TABLES')->fetchAll());
+		// var_dump(Database::instance()->query('SHOW TABLES')->fetchAll());
 	}
 }

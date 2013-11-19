@@ -10,8 +10,8 @@ class Statement_Joins extends Statement {
 		return $this;
 	}
 
-	public function compile()
+	public function compile($humanized = FALSE)
 	{
-		return implode(' ', Statement::compile_array($this->children()));
+		return implode(' ', $this->compile_children($humanized));
 	}
 }

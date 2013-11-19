@@ -22,31 +22,24 @@ class Statement_Condition_Group extends Statement {
 		return $this;
 	}
 	
-	public function compile()
+	public function compile($humanized = FALSE)
 	{
-		$compiled_array = array();
-
 		if ($this->children) 
 		{
-			foreach ($this->children as $i => $item)
-			{
+			return implode(' ', array_map(function($item) use ($humanized) {
 				if ($item instanceof Statement_Condition_Group) 
 				{
-					$compiled = "({$item->compile()})";
+					return "({$item->compile($humanized)})";
 				}
-				elseif ($item instanceof Statement_Part_Condition) 
+				elseif ($item instanceof Statement)
 				{
-					$compiled = $item->compile();
+					return $item->compile($humanized);	
 				}
 				else
 				{
-					$compiled = (string) $item;
+					return $item;
 				}
-
-				$compiled_array []= $compiled;
-			}
+			}, $this->children));
 		}
-		
-		return implode(' ', $compiled_array);
 	}
 }

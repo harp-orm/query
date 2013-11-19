@@ -12,6 +12,9 @@ class Statement_Part_Condition extends Statement {
 		$this->column = $column;
 		$this->operator = $operator;
 		$this->value = $value;
+
+		$this->children []= $column;
+		$this->children []= $value;
 	}
 
 	public function parameters()
@@ -19,20 +22,26 @@ class Statement_Part_Condition extends Statement {
 		return (array) $this->value;
 	}
 
-	public function compile()
+	public function compile($humanized = FALSE)
 	{
 		switch ($this->operator) 
 		{
 			case 'IN':
-				$value = '('.join(', ', array_fill(0, count($this->value), '?')).')';
+				$value = $humanized 
+					? '('.join(', ', array_map('Openbuildings\Cherry\Statement::quote', $this->value)).')'
+					: '('.join(', ', array_fill(0, count($this->value), '?')).')';
 			break;
 
 			case 'BETWEEN':
-				$value = '? AND ?';
+				$value = $humanized 
+					? Statement::quote($this->value[0]).' AND '.Statement::quote($this->value[1])
+					: '? AND ?';
 			break;
 			
 			default:
-				$value = '?';
+				$value = $humanized
+					? Statement::quote($this->value)
+					: '?';
 			break;
 		}
 		return $this->column.' '.$this->operator.' '.$value;

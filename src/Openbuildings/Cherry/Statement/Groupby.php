@@ -3,15 +3,15 @@ namespace Openbuildings\Cherry;
 
 class Statement_Groupby extends Statement {
 
-	public function add(Statement_Part_Group $child)
+	public function add(Statement $child)
 	{
 		$this->children []= $child;
 
 		return $this;
 	}
 
-	public function compile()
+	public function compile($humanized = FALSE)
 	{
-		return 'GROUP BY '.implode(', ', Statement::compile_array($this->children()));
+		return 'GROUP BY '.implode(', ', $this->compile_children($humanized));
 	}
 }

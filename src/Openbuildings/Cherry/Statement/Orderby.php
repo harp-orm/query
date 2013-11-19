@@ -3,15 +3,15 @@ namespace Openbuildings\Cherry;
 
 class Statement_Orderby extends Statement {
 
-	public function add(Statement_Part_Order $child)
+	public function add(Statement $child)
 	{
 		$this->children []= $child;
 
 		return $this;
 	}
 
-	public function compile()
+	public function compile($humanized = FALSE)
 	{
-		return 'ORDER BY '.implode(', ', Statement::compile_array($this->children()));
+		return 'ORDER BY '.implode(', ', $this->compile_children($humanized));
 	}
 }

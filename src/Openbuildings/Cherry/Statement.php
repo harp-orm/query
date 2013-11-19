@@ -3,9 +3,20 @@ namespace Openbuildings\Cherry;
 
 abstract class Statement {
 
+	public function indent($content, $indent = 2)
+	{
+		$pad = str_pad('', $indent, ' ');
+		return $pad.str_replace("\n", "\n{$pad}", $content);
+	}
+
+	public function quote($content)
+	{
+		return (is_int($content) OR is_float($content)) ? $content : "\"{$content}\"";
+	}
+
 	protected $children;
 
-	abstract public function compile();
+	abstract public function compile($humanized = FALSE);
 
 	public function __toString()
 	{
@@ -35,38 +46,11 @@ abstract class Statement {
 		return $this->children;
 	}
 
-	public static function compile_array(array $statements)
+	public function compile_children($humanized = FALSE)
 	{
-		return array_map(function($statement) {
-			return ($statement instanceof Statement) ? $statement->compile() : (string) $statement;
-		}, $statements);
-	}
-
-	public static function extract_named(array $names, array $statements)
-	{
-		$extracted = array();
-		foreach ($names as $name) 
-		{
-			if (isset($statements[$name]))
-			{
-				$extracted[$name] = $statements[$name];
-			}
-		}
-		return $extracted;
-	}
-
-	public function compose_children(array $names)
-	{
-		$extracted_children = static::extract_named($names, $this->children());
-		$compiled = static::compile_array($extracted_children);
-		return implode(' ', $compiled);
-	}
-
-	public function humanize_children(array $names)
-	{
-		$extracted_children = static::extract_named($names, $this->children());
-		$compiled = static::compile_array($extracted_children);
-		return implode('', array_map(function($child){ return "  ".$child."\n";}, $compiled));
+		return array_map(function($item) use ($humanized) {
+			return $item->compile($humanized);
+		}, $this->children());
 	}
 
 	public function child($name, $argument1 = NULL)

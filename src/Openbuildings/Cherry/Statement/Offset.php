@@ -20,7 +20,7 @@ class Statement_Offset extends Statement {
 		return $this->value;
 	}
 
-	public function compile()
+	public function compile($humanized = FALSE)
 	{
 		return 'OFFSET '.$this->value;
 	}

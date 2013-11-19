@@ -3,7 +3,7 @@ namespace Openbuildings\Cherry;
 
 class Query_Select extends Query_Where {
 
-	public static $children_types = array(
+	protected static $children_names = array(
 		'Distinct',
 		'Columns',
 		'From',
@@ -176,13 +176,12 @@ class Query_Select extends Query_Where {
 		return $this->and_having_close();
 	}
 
-	public function compile()
+	public function compile($humanized = FALSE)
 	{
-		return 'SELECT '.$this->compose_children(static::$children_types);
-	}
-
-	public function humanize()
-	{
-		return 'SELECT '.$this->humanize_children(static::$children_types);
+		$children = Arr::extract(static::$children_names, $this->compile_children($humanized));
+		
+		return $humanized 
+			? "SELECT\n".implode("\n", $children)
+			: 'SELECT '.implode(' ', $children);
 	}
 }
