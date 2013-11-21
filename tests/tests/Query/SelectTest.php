@@ -1,6 +1,7 @@
 <?php
 
 use Openbuildings\Cherry\Query_Select;
+use Openbuildings\Cherry\Statement_Part_Expression;
 
 /**
  * @group query.select
@@ -23,6 +24,7 @@ class Statement_SelectTest extends Testcase_Extended {
 			->from(array($select2, 'select_alias'))
 			->select('col1', array('col3', 'alias_col'))
 			->and_where('test', '=', 'value')
+			->and_where('test_statement', '=', new Statement_Part_Expression('IF ("test", 1, ?)', array('expression_value')))
 			->join('table2')
 			->on('col1', '=', 'col2')
 			->and_where_open()
@@ -43,7 +45,7 @@ class Statement_SelectTest extends Testcase_Extended {
 			->group_by('type');
 
 		$expected_sql = <<<SQL
-SELECT col1, col3 AS alias_col FROM bigtable, smalltable AS alias, (SELECT DISTINCT * FROM one JOIN table1 USIGN col1, col2 WHERE name = ?) AS select_alias JOIN table2 ON col1 = col2 WHERE test = ? AND (type > ? AND type < ? AND base IN (?, ?, ?)) GROUP BY base ASC, type HAVING test = ? AND (type > ? AND base IN (?, ?, ?)) ORDER BY type ASC, base LIMIT 10 OFFSET 8
+SELECT col1, col3 AS alias_col FROM bigtable, smalltable AS alias, (SELECT DISTINCT * FROM one JOIN table1 USIGN col1, col2 WHERE name = ?) AS select_alias JOIN table2 ON col1 = col2 WHERE test = ? AND test_statement = IF ("test", 1, ?) AND (type > ? AND type < ? AND base IN (?, ?, ?)) GROUP BY base ASC, type HAVING test = ? AND (type > ? AND base IN (?, ?, ?)) ORDER BY type ASC, base LIMIT 10 OFFSET 8
 SQL;
 
 		$this->assertEquals($expected_sql, $select->compile());
@@ -51,6 +53,7 @@ SQL;
 		$expected_parameters = array(
 			'small',
 			'value',
+			'expression_value',
 			'10',
 			'20',
 			'1',
@@ -81,14 +84,14 @@ FROM
     WHERE name = "small"
   ) AS select_alias
 JOIN table2 ON col1 = col2
-WHERE test = "value" AND (type > "10" AND type < "20" AND base IN ("1", "2", "3"))
+WHERE test = "value" AND test_statement = IF ("test", 1, ?) AND (type > "10" AND type < "20" AND base IN ("1", "2", "3"))
 GROUP BY base ASC, type
 HAVING test = "value2" AND (type > "20" AND base IN ("5", "6", "7"))
 ORDER BY type ASC, base
 LIMIT 10
 OFFSET 8
 HUMANIZED;
-
+		
 		$this->assertEquals($humanized, $select->compile(TRUE));
 	}
 }

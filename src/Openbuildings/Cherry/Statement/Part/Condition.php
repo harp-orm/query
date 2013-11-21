@@ -19,11 +19,23 @@ class Statement_Part_Condition extends Statement {
 
 	public function parameters()
 	{
-		return (array) $this->value;
+		if ($this->value instanceof Statement_Part_Expression)
+		{
+			return $this->value->parameters();
+		}
+		else
+		{
+			return (array) $this->value;
+		}
 	}
 
-	public function compile($humanized = FALSE)
+	public function compile_value($humanized = FALSE)
 	{
+		if ($this->value instanceof Statement_Part_Expression)
+		{
+			return $this->value;
+		}
+
 		switch ($this->operator) 
 		{
 			case 'IN':
@@ -44,6 +56,12 @@ class Statement_Part_Condition extends Statement {
 					: '?';
 			break;
 		}
-		return $this->column.' '.$this->operator.' '.$value;
+
+		return $value;
+	}
+
+	public function compile($humanized = FALSE)
+	{
+		return $this->column.' '.$this->operator.' '.$this->compile_value($humanized);
 	}
 }
