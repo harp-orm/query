@@ -4,6 +4,7 @@ use Openbuildings\Cherry\Render_Pretty;
 use Openbuildings\Cherry\Query_Select;
 
 /**
+ * @group render
  * @group render.pretty
  */
 class Render_PrettyTest extends Testcase_Extended {
@@ -27,8 +28,15 @@ class Render_PrettyTest extends Testcase_Extended {
 			->where_close();
 
 		$render = new Render_Pretty();
-		echo "\n=========\n";
-		echo $render->render($select);
-		echo "\n=========\n";
+
+		$expected_sql = <<<SQL
+SELECT
+*
+FROM purchases, store_purchases
+JOIN users ON users.id = purchases.user_id
+WHERE status = 10 OR status = 20 AND (date BETWEEN "1" AND "2" AND user_id IN (5, 6, 7) OR (id = 2 OR id = 10))
+SQL;
+
+		$this->assertEquals($expected_sql, $render->render($select));
 	}
 }
