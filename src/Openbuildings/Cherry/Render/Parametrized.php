@@ -37,4 +37,18 @@ class Render_Parametrized extends Render {
 		return $statement->keyword();
 	}
 
+	public function statement_set(Statement_Set $statement)
+	{
+		if ($statement->value() instanceof Statement) 
+		{
+			$value = $this->render_inner($statement->value());
+		}
+		else
+		{
+			$value = '?';
+		}
+
+		return $this->render($statement->column()).' = '.$value;
+	}
+
 }

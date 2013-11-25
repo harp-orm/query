@@ -2,9 +2,11 @@
 
 use Openbuildings\Cherry\Render_Parametrized;
 use Openbuildings\Cherry\Query_Select;
+use Openbuildings\Cherry\Query_Update;
 use Openbuildings\Cherry\Statement_Expression;
 
 /**
+ * @group render
  * @group render.parametrized
  */
 class Render_ParametrizedTest extends Testcase_Extended {
@@ -70,4 +72,45 @@ SQL;
 
 		$this->assertEquals($expected_parameters, $select->parameters());
 	}
+
+	public function test_update()
+	{
+
+		$update = new Query_Update();
+		$update
+			->table('table1', array('table1', 'alias1'))
+			->set(array('post' => 'new value', 'name' => new Statement_Expression('IF ("test", ?, ?)', array('val3', 'val4'))))
+			->limit(10)
+			->where('test', '=', 'value')
+			->where('test_statement', '=', new Statement_Expression('IF ("test", ?, ?)', array('val1', 'val2')))
+			->where_open()
+				->where('type', '>', '10')
+				->where('type', '<', '20')
+				->or_where('base', 'IN', array('1', '2', '3'))
+			->where_close();
+
+		$render = new Render_Parametrized();
+
+		$expected_sql = <<<SQL
+UPDATE table1, table1 AS alias1 SET post = ?, name = IF ("test", ?, ?) WHERE test = ? AND test_statement = IF ("test", ?, ?) AND (type > ? AND type < ? OR base IN (?, ?, ?)) LIMIT 10
+SQL;
+		$this->assertEquals($expected_sql, $render->render($update));
+
+		$expected_parameters = array(
+			'new value',
+			'val3',
+			'val4',
+			'value',
+			'val1',
+			'val2',
+			'10',
+			'20',
+			'1',
+			'2',
+			'3',
+		);
+
+		$this->assertEquals($expected_parameters, $update->parameters());
+	}
+
 }
