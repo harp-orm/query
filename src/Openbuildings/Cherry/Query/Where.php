@@ -1,42 +1,27 @@
 <?php
 namespace Openbuildings\Cherry;
 
-abstract class Query_Where extends Statement {
+abstract class Query_Where extends Query {
 
 	protected $current_where;
 
-	public function distinct()
-	{
-		$this
-			->child('Distinct');
-
-		return $this;
-	}
-
-
 	public function limit($rows)
 	{
-		$this
-			->child('Limit')
-			->value($rows);
+		$this->children['LIMIT'] = new Statement_Number('LIMIT', $rows);
 
 		return $this;
 	}
 
 	public function offset($rows)
 	{
-		$this
-			->child('Offset')
-			->value($rows);
+		$this->children['OFFSET'] = new Statement_Number('OFFSET', $rows);
 
 		return $this;
 	}
 
 	public function order_by($column, $direction = NULL)
 	{
-		$this
-			->child('Orderby')
-			->add(new Statement_Part_Order($column, $direction));
+		$this->set_list('ORDER BY')->append(Query::new_direction($column, $direction));
 
 		return $this;
 	}
@@ -45,8 +30,8 @@ abstract class Query_Where extends Statement {
 	{
 		if ( ! $this->current_where)
 		{
-			$this->current_where = 
-			$this->children['Where'] = new Statement_Where();
+			$this->current_where =
+			$this->children['WHERE'] = new Statement_Condition_Group('WHERE');
 		}
 
 		return $this->current_where;
@@ -54,7 +39,7 @@ abstract class Query_Where extends Statement {
 
 	public function and_where($column, $operator, $value)
 	{
-		$this->current_where()->add('AND', new Statement_Part_Condition($column, $operator, $value));
+		$this->current_where()->append(Query::new_condition('AND', $column, $operator, $value));
 
 		return $this;
 	}
@@ -66,7 +51,7 @@ abstract class Query_Where extends Statement {
 
 	public function or_where($column, $operator, $value)
 	{
-		$this->current_where()->add('OR', new Statement_Part_Condition($column, $operator, $value));
+		$this->current_where()->append(Query::new_condition('OR', $column, $operator, $value));
 
 		return $this;
 	}
@@ -83,8 +68,8 @@ abstract class Query_Where extends Statement {
 
 	public function and_where_open()
 	{
-		$child = new Statement_Where($this->current_where());
-		$this->current_where()->add('AND', $child);
+		$child = new Statement_Condition_Group('AND', $this->current_where());
+		$this->current_where()->append($child);
 		$this->current_where = $child;
 
 		return $this;
@@ -92,8 +77,8 @@ abstract class Query_Where extends Statement {
 
 	public function or_where_open()
 	{
-		$child = new Statement_Where($this->current_where());
-		$this->current_where()->add('OR', $child);
+		$child = new Statement_Condition_Group('OR', $this->current_where());
+		$this->current_where()->append($child);
 		$this->current_where = $child;
 
 		return $this;
@@ -101,9 +86,9 @@ abstract class Query_Where extends Statement {
 
 	public function and_where_close()
 	{
-		if (isset($this->current_where) AND $this->current_where->parent)
+		if (isset($this->current_where) AND $this->current_where->parent())
 		{
-			$this->current_where = $this->current_where->parent;
+			$this->current_where = $this->current_where->parent();
 		}
 
 		return $this;

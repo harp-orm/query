@@ -4,35 +4,41 @@ namespace Openbuildings\Cherry;
 class Query_Select extends Query_Where {
 
 	protected static $children_names = array(
-		'Distinct',
-		'Columns',
-		'From',
-		'Joins',
-		'Where',
-		'Groupby',
-		'Having',
-		'Orderby',
-		'Limit',
-		'Offset',
+		'DISTINCT',
+		'SELECT',
+		'FROM',
+		'JOIN',
+		'WHERE',
+		'GROUP BY',
+		'HAVING',
+		'ORDER BY',
+		'LIMIT',
+		'OFFSET',
 	);
 
 	protected $current_having;
 
 	public function __construct(array $columns = array())
 	{
+		parent::__construct('SELECT');
+		
 		$this->select_array($columns);
+	}
+
+	public function distinct()
+	{
+		$this->children['DISTINCT'] = new Statement('DISTINCT');
+
+		return $this;
 	}
 
 	public function from($tables)
 	{
-		$from = $this->child('From');
-
 		$tables = func_get_args();
 
-		foreach ($tables AS $table) 
-		{
-			$from->add(new Statement_Part_Table($table));
-		}
+		$table_statements = array_map('Openbuildings\Cherry\Query::new_aliased_table', $tables);
+
+		$this->set_list('FROM', $table_statements);
 
 		return $this;
 	}
@@ -60,45 +66,47 @@ class Query_Select extends Query_Where {
 	 */
 	public function select_array(array $columns)
 	{
-		$select = $this->child('Columns');
+		$column_statements = array_map('Openbuildings\Cherry\Query::new_aliased_column', $columns);
 
-		foreach ($columns AS $column) 
-		{
-			$select->add(new Statement_Part_Column($column));
-		}
+		$this->set_list('SELECT', $column_statements, Query::new_column('*'), FALSE);
 
 		return $this;
 	}
 
 	public function join($table, $type = NULL)
 	{
-		$this->last_join = new Statement_Part_Join(new Statement_Part_Table($table), $type);
+		$this->last_join = Query::new_join($table, $type);
 
-		$this->child('Joins')
-			->add($this->last_join);
+		if ( ! isset($this->children['JOIN'])) 
+		{
+			$this->children['JOIN'] = new Statement();
+		}
+
+		$this->children['JOIN']->append($this->last_join);
 
 		return $this;
 	}
 
 	public function on($column, $operator, $foreign_column)
 	{
-		$this->last_join->on($column, $operator, $foreign_column);
+		$this->last_join->set_on(Query::new_column($column), $operator, Query::new_column($foreign_column));
 
 		return $this;
 	}
 
 	public function using($columns)
 	{
-		$this->last_join->using($columns);
+		$columns = is_array($columns) ? $columns : array($columns);
+		$column_statements = array_map('Openbuildings\Cherry\Query::new_column', $columns);
+
+		$this->last_join->set_using($column_statements);
 
 		return $this;
 	}
 
 	public function group_by($column, $direction = NULL)
 	{
-		$this
-			->child('Groupby')
-			->add(new Statement_Part_Group($column, $direction));
+		$this->set_list('GROUP BY', Query::new_direction($column, $direction));
 
 		return $this;
 	}
@@ -107,8 +115,8 @@ class Query_Select extends Query_Where {
 	{
 		if ( ! $this->current_having)
 		{
-			$this->current_having = 
-			$this->children['Having'] = new Statement_Having();
+			$this->current_having =
+			$this->children['HAVING'] = new Statement_Condition_Group('HAVING');
 		}
 
 		return $this->current_having;
@@ -116,7 +124,9 @@ class Query_Select extends Query_Where {
 
 	public function and_having($column, $operator, $value)
 	{
-		$this->current_having()->add('AND', new Statement_Part_Condition($column, $operator, $value));
+		$this
+			->current_having()
+				->append(Query::new_condition('AND', $column, $operator, $value));
 
 		return $this;
 	}
@@ -128,7 +138,9 @@ class Query_Select extends Query_Where {
 
 	public function or_having($column, $operator, $value)
 	{
-		$this->current_having()->add('OR', new Statement_Part_Condition($column, $operator, $value));
+		$this
+			->current_having()
+				->append(Query::new_condition('OR', $column, $operator, $value));
 
 		return $this;
 	}
@@ -145,8 +157,8 @@ class Query_Select extends Query_Where {
 
 	public function and_having_open()
 	{
-		$child = new Statement_Having($this->current_having());
-		$this->current_having()->add('AND', $child);
+		$child = new Statement_Condition_Group('AND', $this->current_having());
+		$this->current_having()->append($child);
 		$this->current_having = $child;
 
 		return $this;
@@ -154,8 +166,8 @@ class Query_Select extends Query_Where {
 
 	public function or_having_open()
 	{
-		$child = new Statement_Having($this->current_having());
-		$this->current_having()->add('OR', $child);
+		$child = new Statement_Condition_Group('OR', $this->current_having());
+		$this->current_having()->append($child);
 		$this->current_having = $child;
 
 		return $this;
@@ -163,9 +175,9 @@ class Query_Select extends Query_Where {
 
 	public function and_having_close()
 	{
-		if (isset($this->current_having) AND $this->current_having->parent)
+		if (isset($this->current_having) AND $this->current_having->parent())
 		{
-			$this->current_having = $this->current_having->parent;
+			$this->current_having = $this->current_having->parent();
 		}
 
 		return $this;
@@ -174,14 +186,5 @@ class Query_Select extends Query_Where {
 	public function or_having_close()
 	{
 		return $this->and_having_close();
-	}
-
-	public function compile($humanized = FALSE)
-	{
-		$children = Arr::extract(static::$children_names, $this->compile_children($humanized));
-		
-		return $humanized 
-			? "SELECT\n".implode("\n", $children)
-			: 'SELECT '.implode(' ', $children);
 	}
 }

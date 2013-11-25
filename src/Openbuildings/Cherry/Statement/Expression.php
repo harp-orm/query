@@ -1,7 +1,7 @@
 <?php
 namespace Openbuildings\Cherry;
 
-class Statement_Part_Expression extends Statement {
+class Statement_Expression extends Statement {
 
 	protected $parameters;
 	protected $content;
@@ -9,16 +9,12 @@ class Statement_Part_Expression extends Statement {
 	function __construct($content, array $parameters = NULL)
 	{
 		$this->parameters = (array) $parameters;
-		$this->content = $content;
+		
+		parent::__construct($content);
 	}
 
 	public function parameters()
 	{
 		return $this->parameters;
-	}
-
-	public function compile($humanized = FALSE)
-	{
-		return $this->content;
 	}
 }

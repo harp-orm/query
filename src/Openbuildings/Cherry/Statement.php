@@ -1,26 +1,21 @@
 <?php
 namespace Openbuildings\Cherry;
 
-abstract class Statement {
-
-	public function indent($content, $indent = 2)
-	{
-		$pad = str_pad('', $indent, ' ');
-		return $pad.str_replace("\n", "\n{$pad}", $content);
-	}
-
-	public function quote($content)
-	{
-		return (is_int($content) OR is_float($content)) ? $content : "\"{$content}\"";
-	}
+class Statement {
 
 	protected $children;
 
-	abstract public function compile($humanized = FALSE);
+	protected $keyword;
 
-	public function __toString()
+	public function __construct($keyword = NULL, $children = NULL)
 	{
-		return $this->compile();
+		$this->keyword = $keyword;
+		$this->append($children);
+	}
+
+	public function keyword()
+	{
+		return $this->keyword;
 	}
 
 	public function parameters()
@@ -41,26 +36,22 @@ abstract class Statement {
 		return $parameters;
 	}
 
+	public function append($append)
+	{
+		if (is_array($append))
+		{
+			$this->children = $this->children ? array_merge($this->children, $append) : $append;
+		}
+		elseif ($append)
+		{
+			$this->children []= $append;
+		}
+		
+		return $this;
+	}
+
 	public function children()
 	{
 		return $this->children;
-	}
-
-	public function compile_children($humanized = FALSE)
-	{
-		return array_map(function($item) use ($humanized) {
-			return $item->compile($humanized);
-		}, $this->children());
-	}
-
-	public function child($name, $argument1 = NULL)
-	{
-		if ( ! isset($this->children[$name])) 
-		{
-			$class = 'Openbuildings\Cherry\Statement_'.$name;
-			$this->children[$name] = new $class($argument1);
-		}
-
-		return $this->children[$name];
 	}
 }
