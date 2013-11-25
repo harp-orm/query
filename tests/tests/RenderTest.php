@@ -4,6 +4,8 @@ use Openbuildings\Cherry\Render;
 use Openbuildings\Cherry\Query;
 use Openbuildings\Cherry\Statement_Expression;
 use Openbuildings\Cherry\Query_Select;
+use Openbuildings\Cherry\Query_Update;
+use Openbuildings\Cherry\Query_Delete;
 
 /**
  * @group render
@@ -53,5 +55,53 @@ SELECT col1, col3 AS alias_col FROM bigtable, smalltable AS alias, (SELECT DISTI
 SQL;
 
 		$this->assertEquals($expected_sql, $render->render($select));
+	}
+
+	public function test_update()
+	{
+		$update = new Query_Update();
+		$update
+			->table('table1', array('table1', 'alias1'))
+			->set(array('post' => 'new value', 'name' => 'new name'))
+			->limit(10)
+			->where('test', '=', 'value')
+			->where('test_statement', '=', new Statement_Expression('IF ("test", ?, ?)', array('val1', 'val2')))
+			->where_open()
+				->where('type', '>', '10')
+				->where('type', '<', '20')
+				->or_where('base', 'IN', array('1', '2', '3'))
+			->where_close();
+
+		$render = new Render();
+
+		$expected_sql = <<<SQL
+UPDATE table1, table1 AS alias1 SET post = "new value", name = "new name" WHERE test = "value" AND test_statement = IF ("test", "val1", "val2") AND (type > "10" AND type < "20" OR base IN ("1", "2", "3")) LIMIT 10
+SQL;
+
+		$this->assertEquals($expected_sql, $render->render($update));
+	}
+
+	public function test_delete()
+	{
+		$update = new Query_Delete();
+		$update
+			->only('table1', 'alias1')
+			->from('table1', array('table1', 'alias1'), 'table3')
+			->limit(10)
+			->where('test', '=', 'value')
+			->where('test_statement', '=', new Statement_Expression('IF ("test", ?, ?)', array('val1', 'val2')))
+			->where_open()
+				->where('type', '>', '10')
+				->where('type', '<', '20')
+				->or_where('base', 'IN', array('1', '2', '3'))
+			->where_close();
+
+		$render = new Render();
+
+		$expected_sql = <<<SQL
+DELETE table1, alias1 FROM table1, table1 AS alias1, table3 WHERE test = "value" AND test_statement = IF ("test", "val1", "val2") AND (type > "10" AND type < "20" OR base IN ("1", "2", "3")) LIMIT 10
+SQL;
+
+		$this->assertEquals($expected_sql, $render->render($update));
 	}
 }

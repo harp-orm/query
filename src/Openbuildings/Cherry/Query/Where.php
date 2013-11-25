@@ -12,13 +12,6 @@ abstract class Query_Where extends Query {
 		return $this;
 	}
 
-	public function offset($rows)
-	{
-		$this->children['OFFSET'] = new Statement_Number('OFFSET', $rows);
-
-		return $this;
-	}
-
 	public function order_by($column, $direction = NULL)
 	{
 		$this->set_list('ORDER BY')->append(Query::new_direction($column, $direction));

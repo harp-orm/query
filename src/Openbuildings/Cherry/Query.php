@@ -44,6 +44,11 @@ class Query extends Statement {
 		return new Statement_Join(Query::new_aliased_table($table), $type);
 	}
 
+	protected static function new_set($column, $value)
+	{
+		return new Statement_Set(Query::new_column($column), $value);
+	}
+
 	protected static function new_table($column)
 	{
 		return new Statement_Table($column);

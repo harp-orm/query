@@ -169,6 +169,11 @@ class Render {
 		return $statement->keyword().' '.$statement->number();
 	}
 
+	public function statement_set(Statement_Set $statement)
+	{
+		return $this->render($statement->column()).' = '.Render::quote($statement->value());
+	}
+
 	public function statement_table(Statement_Table $statement)
 	{
 		return $statement->name();

@@ -28,17 +28,6 @@ class Statement_WhereTest extends Testcase_Extended {
 		$this->assertStatement($expected, $this->where);
 	}
 
-	public function test_offset()
-	{
-		$this->where->offset(20);
-
-		$expected = array('Query_Where', NULL, array(
-			'OFFSET' => array('Statement_Number', 'OFFSET', NULL, array('number' => 20)),
-		));
-
-		$this->assertStatement($expected, $this->where);
-	}	
-
 	public function test_order_by()
 	{
 		$this->where

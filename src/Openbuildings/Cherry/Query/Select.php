@@ -43,6 +43,13 @@ class Query_Select extends Query_Where {
 		return $this;
 	}
 
+	public function offset($rows)
+	{
+		$this->children['OFFSET'] = new Statement_Number('OFFSET', $rows);
+
+		return $this;
+	}
+
 	/**
 	 * Choose the columns to select from.
 	 *

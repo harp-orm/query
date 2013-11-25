@@ -31,6 +31,17 @@ class Statement_SelectTest extends Testcase_Extended {
 		$this->assertStatement($expected, $this->select);
 	}
 
+	public function test_offset()
+	{
+		$this->select->offset(20);
+
+		$expected = array('Query_Select', 'SELECT', array(
+			'OFFSET' => array('Statement_Number', 'OFFSET', NULL, array('number' => 20)),
+		));
+
+		$this->assertStatement($expected, $this->select);
+	}
+
 	public function test_construct()
 	{
 		$select = $this
