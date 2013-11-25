@@ -3,7 +3,7 @@ namespace Openbuildings\Cherry;
 
 class Render {
 
-	public static function quote($content)
+	public function quote($content)
 	{
 		return (is_int($content) OR is_float($content)) ? $content : "\"{$content}\"";
 	}
@@ -80,15 +80,15 @@ class Render {
 			switch ($statement->operator())
 			{
 				case 'IN':
-					$value = '('.join(', ', array_map('Openbuildings\Cherry\Render::quote', $value)).')';
+					$value = '('.join(', ', array_map(array($this, 'quote'), $value)).')';
 				break;
 
 				case 'BETWEEN':
-					$value = Render::quote($value[0]).' AND '.Render::quote($value[1]);
+					$value = $this->quote($value[0]).' AND '.$this->quote($value[1]);
 				break;
 				
 				default:
-					$value = Render::quote($value);
+					$value = $this->quote($value);
 				break;
 			}
 		}
@@ -112,7 +112,7 @@ class Render {
 	{
 		if ($statement->parameters()) 
 		{
-			$parameters = array_map('Openbuildings\Cherry\Render::quote', $statement->parameters());
+			$parameters = array_map(array($this, 'quote'), $statement->parameters());
 
 			$replace = function($matches) use ( & $parameters) {
 				$current = current($parameters);
@@ -171,7 +171,7 @@ class Render {
 
 	public function statement_set(Statement_Set $statement)
 	{
-		return $this->render($statement->column()).' = '.Render::quote($statement->value());
+		return $this->render($statement->column()).' = '.$this->quote($statement->value());
 	}
 
 	public function statement_table(Statement_Table $statement)
