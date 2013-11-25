@@ -1,6 +1,14 @@
 <?php
 namespace Openbuildings\Cherry;
 
+/**
+ * A statment representing a UPDATE SET
+ * 
+ * @package    Openbuildings\Cherry
+ * @author     Ivan Kerin <ikerin@gmail.com>
+ * @copyright  (c) 2013 OpenBuildings Ltd.
+ * @license    http://spdx.org/licenses/BSD-3-Clause
+ */
 class Statement_Set extends Statement {
 
 	protected $column;

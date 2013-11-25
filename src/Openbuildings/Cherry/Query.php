@@ -1,7 +1,15 @@
 <?php
 namespace Openbuildings\Cherry;
 
-class Query extends Statement {
+/**
+ * Basic query class, extended by Select, Update, Delete.
+ * 
+ * @package    Openbuildings\Cherry
+ * @author     Ivan Kerin <ikerin@gmail.com>
+ * @copyright  (c) 2013 OpenBuildings Ltd.
+ * @license    http://spdx.org/licenses/BSD-3-Clause
+ */
+abstract class Query extends Statement {
 
 	protected static $children_names;
 

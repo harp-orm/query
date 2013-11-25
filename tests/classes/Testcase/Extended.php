@@ -8,28 +8,6 @@ use Openbuildings\EnvironmentBackup as EB;
  */
 abstract class Testcase_Extended extends PHPUnit_Framework_TestCase {
 	
-	public $env;
-
-	public $dsn = 'mysql:host=localhost;dbname=test-cherry';
-	public $username = 'root';
-	public $password = '';
-	
-	public function setUp()
-	{
-		parent::setUp();
-
-		$this->env = new EB\Environment(array(
-			'static' => new EB\Environment_Group_Static(),
-		));
-	}
-
-	public function tearDown()
-	{
-		$this->env->restore();
-
-		parent::tearDown();
-	}
-
 	public function assertStatement($expected, Openbuildings\Cherry\Statement $statement)
 	{
 		$id = "{$expected[0]} ({$expected[1]})";

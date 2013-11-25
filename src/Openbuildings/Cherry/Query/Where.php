@@ -1,6 +1,14 @@
 <?php
 namespace Openbuildings\Cherry;
 
+/**
+ * Abstract query to be extended by SELECT, UPDATE, DELETE
+ * 
+ * @package    Openbuildings\Cherry
+ * @author     Ivan Kerin <ikerin@gmail.com>
+ * @copyright  (c) 2013 OpenBuildings Ltd.
+ * @license    http://spdx.org/licenses/BSD-3-Clause
+ */
 abstract class Query_Where extends Query {
 
 	protected $current_where;

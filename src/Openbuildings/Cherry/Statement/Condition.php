@@ -1,6 +1,14 @@
 <?php
 namespace Openbuildings\Cherry;
 
+/**
+ * Represents a condition statement e.g. column = value
+ * 
+ * @package    Openbuildings\Cherry
+ * @author     Ivan Kerin <ikerin@gmail.com>
+ * @copyright  (c) 2013 OpenBuildings Ltd.
+ * @license    http://spdx.org/licenses/BSD-3-Clause
+ */
 class Statement_Condition extends Statement {
 
 	protected $column;

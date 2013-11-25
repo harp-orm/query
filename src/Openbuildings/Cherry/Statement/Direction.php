@@ -1,6 +1,14 @@
 <?php
 namespace Openbuildings\Cherry;
 
+/**
+ * Represents a column with direction e.g. column DESC / ASC
+ * 
+ * @package    Openbuildings\Cherry
+ * @author     Ivan Kerin <ikerin@gmail.com>
+ * @copyright  (c) 2013 OpenBuildings Ltd.
+ * @license    http://spdx.org/licenses/BSD-3-Clause
+ */
 class Statement_Direction extends Statement {
 
 	public $column;

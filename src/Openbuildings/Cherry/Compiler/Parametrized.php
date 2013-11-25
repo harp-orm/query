@@ -1,7 +1,15 @@
 <?php
 namespace Openbuildings\Cherry;
 
-class Render_Parametrized extends Render {
+/**
+ * Render SQL with "?" parameters
+ * 
+ * @package    Openbuildings\Cherry
+ * @author     Ivan Kerin <ikerin@gmail.com>
+ * @copyright  (c) 2013 OpenBuildings Ltd.
+ * @license    http://spdx.org/licenses/BSD-3-Clause
+ */
+class Compiler_Parametrized extends Compiler {
 
 	public function statement_condition(Statement_Condition $statement)
 	{
@@ -9,7 +17,7 @@ class Render_Parametrized extends Render {
 		
 		if ($value instanceof Statement) 
 		{
-			$value = $this->render_inner($value);
+			$value = $this->compile_inner($value);
 		}
 		else
 		{
@@ -29,7 +37,7 @@ class Render_Parametrized extends Render {
 			}
 		}
 
-		return $this->render($statement->column()).' '.$statement->operator().' '.$value;
+		return $this->compile($statement->column()).' '.$statement->operator().' '.$value;
 	}
 
 	public function statement_expression(Statement_Expression $statement)
@@ -41,14 +49,14 @@ class Render_Parametrized extends Render {
 	{
 		if ($statement->value() instanceof Statement) 
 		{
-			$value = $this->render_inner($statement->value());
+			$value = $this->compile_inner($statement->value());
 		}
 		else
 		{
 			$value = '?';
 		}
 
-		return $this->render($statement->column()).' = '.$value;
+		return $this->compile($statement->column()).' = '.$value;
 	}
 
 }

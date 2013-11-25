@@ -1,6 +1,6 @@
 <?php
 
-use Openbuildings\Cherry\Render;
+use Openbuildings\Cherry\Compiler;
 use Openbuildings\Cherry\Query;
 use Openbuildings\Cherry\Statement_Expression;
 use Openbuildings\Cherry\Query_Select;
@@ -8,9 +8,9 @@ use Openbuildings\Cherry\Query_Update;
 use Openbuildings\Cherry\Query_Delete;
 
 /**
- * @group render
+ * @group compiler
  */
-class RenderTest extends Testcase_Extended {
+class CompilerTest extends Testcase_Extended {
 
 	public function test_compile()
 	{
@@ -48,13 +48,13 @@ class RenderTest extends Testcase_Extended {
 			->group_by('base', 'ASC')
 			->group_by('type');
 
-		$render = new Render();
+		$compiler = new Compiler();
 
 		$expected_sql = <<<SQL
 SELECT col1, col3 AS alias_col FROM bigtable, smalltable AS alias, (SELECT DISTINCT * FROM one JOIN table1 USING (col1, col2) WHERE name = "small") AS select_alias JOIN table2 ON col1 = col2 WHERE test = "value" AND test_statement = IF ("test", "val1", "val2") AND (type > "10" AND type < "20" AND base IN ("1", "2", "3")) GROUP BY base ASC, type HAVING test = "value2" AND (type > "20" AND base IN ("5", "6", "7")) ORDER BY type ASC, base LIMIT 10 OFFSET 8
 SQL;
 
-		$this->assertEquals($expected_sql, $render->render($select));
+		$this->assertEquals($expected_sql, $compiler->compile($select));
 	}
 
 	public function test_update()
@@ -72,13 +72,13 @@ SQL;
 				->or_where('base', 'IN', array('1', '2', '3'))
 			->where_close();
 
-		$render = new Render();
+		$compiler = new Compiler();
 
 		$expected_sql = <<<SQL
 UPDATE table1, table1 AS alias1 SET post = "new value", name = "new name" WHERE test = "value" AND test_statement = IF ("test", "val1", "val2") AND (type > "10" AND type < "20" OR base IN ("1", "2", "3")) LIMIT 10
 SQL;
 
-		$this->assertEquals($expected_sql, $render->render($update));
+		$this->assertEquals($expected_sql, $compiler->compile($update));
 	}
 
 	public function test_delete()
@@ -96,12 +96,12 @@ SQL;
 				->or_where('base', 'IN', array('1', '2', '3'))
 			->where_close();
 
-		$render = new Render();
+		$compiler = new Compiler();
 
 		$expected_sql = <<<SQL
 DELETE table1, alias1 FROM table1, table1 AS alias1, table3 WHERE test = "value" AND test_statement = IF ("test", "val1", "val2") AND (type > "10" AND type < "20" OR base IN ("1", "2", "3")) LIMIT 10
 SQL;
 
-		$this->assertEquals($expected_sql, $render->render($update));
+		$this->assertEquals($expected_sql, $compiler->compile($update));
 	}
 }

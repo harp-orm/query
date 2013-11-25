@@ -1,15 +1,15 @@
 <?php
 
-use Openbuildings\Cherry\Render_Parametrized;
+use Openbuildings\Cherry\Compiler_Parametrized;
 use Openbuildings\Cherry\Query_Select;
 use Openbuildings\Cherry\Query_Update;
 use Openbuildings\Cherry\Statement_Expression;
 
 /**
- * @group render
- * @group render.parametrized
+ * @group compiler
+ * @group compiler.parametrized
  */
-class Render_ParametrizedTest extends Testcase_Extended {
+class Compiler_ParametrizedTest extends Testcase_Extended {
 
 	public function test_compile()
 	{
@@ -50,9 +50,9 @@ class Render_ParametrizedTest extends Testcase_Extended {
 		$expected_sql = <<<SQL
 SELECT col1, col3 AS alias_col FROM bigtable, smalltable AS alias, (SELECT DISTINCT * FROM one JOIN table1 USING (col1, col2) WHERE name = ?) AS select_alias JOIN table2 ON col1 = col2 WHERE test = ? AND test_statement = IF ("test", 1, ?) AND (type > ? AND type < ? AND base IN (?, ?, ?)) GROUP BY base ASC, type HAVING test = ? AND (type > ? AND base IN (?, ?, ?)) ORDER BY type ASC, base LIMIT 10 OFFSET 8
 SQL;
-		$render = new Render_Parametrized();
+		$compiler = new Compiler_Parametrized();
 
-		$this->assertEquals($expected_sql, $render->render($select));
+		$this->assertEquals($expected_sql, $compiler->compile($select));
 
 		$expected_parameters = array(
 			'small',
@@ -89,12 +89,12 @@ SQL;
 				->or_where('base', 'IN', array('1', '2', '3'))
 			->where_close();
 
-		$render = new Render_Parametrized();
+		$compiler = new Compiler_Parametrized();
 
 		$expected_sql = <<<SQL
 UPDATE table1, table1 AS alias1 SET post = ?, name = IF ("test", ?, ?) WHERE test = ? AND test_statement = IF ("test", ?, ?) AND (type > ? AND type < ? OR base IN (?, ?, ?)) LIMIT 10
 SQL;
-		$this->assertEquals($expected_sql, $render->render($update));
+		$this->assertEquals($expected_sql, $compiler->compile($update));
 
 		$expected_parameters = array(
 			'new value',

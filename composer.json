@@ -1,6 +1,6 @@
 {
     "name": "openbuildings/cherry",
-    "description": "SQL Query Builder for Jam",
+    "description": "Stand Alone SQL Builder",
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -11,10 +11,6 @@
     ],
     "requires": {
         "php": ">=5.3.0",
-        "ext-pdo": "*"
-    },
-    "require-dev": {
-        "openbuildings/environment-backup": "0.1.*"
     },
     "autoload": {
         "psr-0": {"Openbuildings\\Cherry\\": "src/"}

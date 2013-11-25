@@ -1,13 +1,13 @@
 <?php
 
-use Openbuildings\Cherry\Render_Pretty;
+use Openbuildings\Cherry\Compiler_Pretty;
 use Openbuildings\Cherry\Query_Select;
 
 /**
- * @group render
- * @group render.pretty
+ * @group compiler
+ * @group compiler.pretty
  */
-class Render_PrettyTest extends Testcase_Extended {
+class Compiler_PrettyTest extends Testcase_Extended {
 
 	public function test_compile()
 	{
@@ -27,7 +27,7 @@ class Render_PrettyTest extends Testcase_Extended {
 				->or_where_close()
 			->where_close();
 
-		$render = new Render_Pretty();
+		$compiler = new Compiler_Pretty();
 
 		$expected_sql = <<<SQL
 SELECT
@@ -37,6 +37,6 @@ JOIN users ON users.id = purchases.user_id
 WHERE status = 10 OR status = 20 AND (date BETWEEN "1" AND "2" AND user_id IN (5, 6, 7) OR (id = 2 OR id = 10))
 SQL;
 
-		$this->assertEquals($expected_sql, $render->render($select));
+		$this->assertEquals($expected_sql, $compiler->compile($select));
 	}
 }

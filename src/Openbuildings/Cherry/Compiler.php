@@ -1,48 +1,49 @@
 <?php
 namespace Openbuildings\Cherry;
 
-class Render {
+/**
+ * Converts Query objects to SQL
+ * 
+ * @package    Openbuildings\Cherry
+ * @author     Ivan Kerin <ikerin@gmail.com>
+ * @copyright  (c) 2013 OpenBuildings Ltd.
+ * @license    http://spdx.org/licenses/BSD-3-Clause
+ */
+class Compiler {
 
 	public function quote($content)
 	{
 		return (is_int($content) OR is_float($content)) ? $content : "\"{$content}\"";
 	}
 
-	public function render($statement)
+	public function compile($statement)
 	{
-		if ($statement instanceof Query) 
-		{
-			return $this->query($statement);
-		}
-		else
-		{
-			$method = strtolower(substr(get_class($statement), 21));
-			
-			return $this->{$method}($statement);
-		}
+		$method = strtolower(substr(get_class($statement), 21));
+		
+		return $this->{$method}($statement);
 	}
 
-	public function render_inner($statement)
+	public function compile_inner($statement)
 	{
-		$render = $this->render($statement);
+		$text = $this->compile($statement);
 
 		if ($statement instanceof Query 
 			OR $statement instanceof Statement_Condition_Group) 
 		{
-			return "($render)";
+			return "($text)";
 		}
 
-		return $render;
+		return $text;
 	}
 
-	public function render_array(array $statement_array)
+	public function compile_array(array $statement_array)
 	{
-		return array_map(array($this, 'render'), $statement_array);
+		return array_map(array($this, 'compile'), $statement_array);
 	}
 
 	public function statement_aliased(Statement_Aliased $statement)
 	{
-		return $this->render_inner($statement->statement()).' AS '.$statement->alias();
+		return $this->compile_inner($statement->statement()).' AS '.$statement->alias();
 	}
 
 	public function statement_column(Statement_Column $statement)
@@ -52,19 +53,19 @@ class Render {
 
 	public function statement_condition_group(Statement_Condition_Group $statement)
 	{
-		$render = array();
+		$text = array();
 
 		if ( ! $statement->parent())
 		{
-			$render []= $statement->keyword();
+			$text []= $statement->keyword();
 		}
 
 		foreach ($statement->children() as $child_index => $child)
 		{
-			$render []= ($child_index > 0 ? $child->keyword().' ' : '').$this->render_inner($child);
+			$text []= ($child_index > 0 ? $child->keyword().' ' : '').$this->compile_inner($child);
 		}
 
-		return implode(' ', $render);
+		return implode(' ', $text);
 	}
 
 	public function statement_condition(Statement_Condition $statement)
@@ -73,7 +74,7 @@ class Render {
 
 		if ($value instanceof Statement) 
 		{
-			$value = $this->render_inner($value);
+			$value = $this->compile_inner($value);
 		}
 		else
 		{
@@ -93,19 +94,19 @@ class Render {
 			}
 		}
 
-		return $this->render($statement->column()).' '.$statement->operator().' '.$value;
+		return $this->compile($statement->column()).' '.$statement->operator().' '.$value;
 	}
 
 	public function statement_direction(Statement_Direction $statement)
 	{
-		$render = array($this->render($statement->column()));
+		$text = array($this->compile($statement->column()));
 
 		if ($statement->direction()) 
 		{
-			$render []= $statement->direction();
+			$text []= $statement->direction();
 		} 
 
-		return implode(' ', $render);
+		return implode(' ', $text);
 	}
 
 	public function statement_expression(Statement_Expression $statement)
@@ -128,40 +129,40 @@ class Render {
 
 	public function statement_join(Statement_Join $statement)
 	{
-		$render = $statement->type() ? array($statement->type()) : array();
+		$text = $statement->type() ? array($statement->type()) : array();
 
-		$render []= $statement->keyword();
-		$render []= $this->render($statement->table());
+		$text []= $statement->keyword();
+		$text []= $this->compile($statement->table());
 
 		if ($statement->using())
 		{
-			$render []= 'USING ('.join(', ', $this->render_array($statement->using())).')';
+			$text []= 'USING ('.join(', ', $this->compile_array($statement->using())).')';
 		}
 		else
 		{
-			$render = array_merge($render, array(
+			$text = array_merge($text, array(
 				'ON',
-				$this->render($statement->column()),
+				$this->compile($statement->column()),
 				$statement->operator(),
-				$this->render($statement->foreign_column()),
+				$this->compile($statement->foreign_column()),
 			));
 		}
 
-		return implode(' ', $render);
+		return implode(' ', $text);
 	}
 
 	public function statement_list(Statement_List $statement)
 	{
-		$render = array();
+		$text = array();
 
 		if ($statement->keyword()) 
 		{
-			$render []= $statement->keyword();
+			$text []= $statement->keyword();
 		}
 
-		$render	[]= implode(', ', $this->render_array($statement->children()));
+		$text	[]= implode(', ', $this->compile_array($statement->children()));
 
-		return implode(' ', $render);
+		return implode(' ', $text);
 	}
 
 	public function statement_number(Statement_Number $statement)
@@ -171,7 +172,7 @@ class Render {
 
 	public function statement_set(Statement_Set $statement)
 	{
-		return $this->render($statement->column()).' = '.$this->quote($statement->value());
+		return $this->compile($statement->column()).' = '.$this->quote($statement->value());
 	}
 
 	public function statement_table(Statement_Table $statement)
@@ -181,22 +182,32 @@ class Render {
 
 	public function statement(Statement $statement)
 	{
-		$render = array();
+		$text = array();
 
 		if ($statement->keyword()) 
 		{
-			$render []= $statement->keyword();
+			$text []= $statement->keyword();
 		}
 
 		if ($statement->children())
 		{
-			$render	= array_merge($render, $this->render_array($statement->children()));
+			$text	= array_merge($text, $this->compile_array($statement->children()));
 		}
 
-		return implode(' ', $render);
+		return implode(' ', $text);
 	}
 
-	public function query(Query $statement)
+	public function query_select(Query $statement)
+	{
+		return $this->statement($statement);
+	}
+
+	public function query_update(Query $statement)
+	{
+		return $this->statement($statement);
+	}
+
+	public function query_delete(Query $statement)
 	{
 		return $this->statement($statement);
 	}
