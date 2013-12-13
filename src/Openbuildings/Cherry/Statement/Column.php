@@ -9,7 +9,7 @@ namespace Openbuildings\Cherry;
  * @copyright  (c) 2013 OpenBuildings Ltd.
  * @license    http://spdx.org/licenses/BSD-3-Clause
  */
-class Statement_Column extends Statement_Aliased {
+class Statement_Column extends Statement {
 
 	protected $name;
 

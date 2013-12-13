@@ -30,11 +30,11 @@ class Statement {
 	{
 		$parameters = array();
 
-		if ($this->children) 
+		if ($this->children)
 		{
-			foreach ($this->children as $child) 
+			foreach ($this->children as $child)
 			{
-				if ($child instanceof Statement) 
+				if ($child instanceof Statement)
 				{
 					$parameters = array_merge($parameters, $child->parameters());
 				}

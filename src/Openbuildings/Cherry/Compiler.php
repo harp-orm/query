@@ -18,9 +18,58 @@ class Compiler {
 
 	public function compile($statement)
 	{
-		$method = strtolower(substr(get_class($statement), 21));
-		
-		return $this->{$method}($statement);
+		if ($statement instanceof Query) 
+		{
+			return $this->query($statement);
+		}
+		elseif ($statement instanceof Statement_Aliased) 
+		{
+			return $this->statement_aliased($statement);
+		}
+		elseif ($statement instanceof Statement_Column) 
+		{
+			return $this->statement_column($statement);
+		}
+		elseif ($statement instanceof Statement_Condition_Group) 
+		{
+			return $this->statement_condition_group($statement);
+		}
+		elseif ($statement instanceof Statement_Condition) 
+		{
+			return $this->statement_condition($statement);
+		}
+		elseif ($statement instanceof Statement_Direction) 
+		{
+			return $this->statement_direction($statement);
+		}
+		elseif ($statement instanceof Statement_Expression) 
+		{
+			return $this->statement_expression($statement);
+		}
+		elseif ($statement instanceof Statement_Join) 
+		{
+			return $this->statement_join($statement);
+		}
+		elseif ($statement instanceof Statement_List) 
+		{
+			return $this->statement_list($statement);
+		}
+		elseif ($statement instanceof Statement_Number) 
+		{
+			return $this->statement_number($statement);
+		}
+		elseif ($statement instanceof Statement_Set) 
+		{
+			return $this->statement_set($statement);
+		}
+		elseif ($statement instanceof Statement_Table) 
+		{
+			return $this->statement_table($statement);
+		}
+		elseif ($statement instanceof Statement) 
+		{
+			return $this->statement($statement);
+		}
 	}
 
 	public function compile_inner($statement)
@@ -197,17 +246,7 @@ class Compiler {
 		return implode(' ', $text);
 	}
 
-	public function query_select(Query $statement)
-	{
-		return $this->statement($statement);
-	}
-
-	public function query_update(Query $statement)
-	{
-		return $this->statement($statement);
-	}
-
-	public function query_delete(Query $statement)
+	public function query(Query $statement)
 	{
 		return $this->statement($statement);
 	}

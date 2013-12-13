@@ -22,19 +22,4 @@ class Compiler_Pretty extends Compiler {
 
 		return implode("\n", $text);
 	}
-
-	public function query_select(Query $statement)
-	{
-		return $this->query($statement);
-	}
-
-	public function query_update(Query $statement)
-	{
-		return $this->query($statement);
-	}
-
-	public function query_delete(Query $statement)
-	{
-		return $this->query($statement);
-	}
 }
