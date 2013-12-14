@@ -32,9 +32,9 @@ class Statement_UpdateTest extends Testcase_Extended {
 		$update
 			->expects($this->once())
 			->method('table')
-			->with($this->equalTo(array('table1', array('table2', 'alias2'))));
+			->with($this->equalTo('table1'), $this->equalTo(array('table2', 'alias2')));
 
-		$update->__construct('table1', array('table2', 'alias2'));
+		$update->__construct(array('table1', array('table2', 'alias2')));
 		$this->assertEquals('UPDATE', $update->keyword());
 	}
 

@@ -20,15 +20,13 @@ class Query_Delete extends Query_Where {
 
 	protected $current_having;
 
-	public function __construct($tables = NULL)
+	public function __construct(array $tables = array())
 	{
 		parent::__construct('DELETE');
 
-		$tables = func_get_args();
-
 		if ($tables) 
 		{
-			call_user_func(array($this, 'from'), $tables);
+			call_user_func_array(array($this, 'from'), $tables);
 		}
 	}
 

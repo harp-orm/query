@@ -20,14 +20,13 @@ class Query_Update extends Query_Where {
 
 	protected $current_having;
 
-	public function __construct($tables = NULL)
+	public function __construct(array $tables = array())
 	{
 		parent::__construct('UPDATE');
 
-		$tables = func_get_args();
 		if ($tables) 
 		{
-			call_user_func(array($this, 'table'), $tables);
+			call_user_func_array(array($this, 'table'), $tables);
 		}
 	}
 
