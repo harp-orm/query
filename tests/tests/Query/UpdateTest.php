@@ -18,7 +18,7 @@ class Statement_UpdateTest extends Testcase_Extended {
 	{
 		parent::setUp();
 
-		$this->update = new Query_Update();
+		$this->update = new Query_Update;
 	}
 
 	public function test_construct()

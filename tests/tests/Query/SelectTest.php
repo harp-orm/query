@@ -17,7 +17,7 @@ class Statement_SelectTest extends Testcase_Extended {
 	{
 		parent::setUp();
 
-		$this->select = new Query_Select();
+		$this->select = new Query_Select;
 	}
 
 	public function test_distinct()
