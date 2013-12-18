@@ -18,17 +18,7 @@ class Query_Update extends Query_Where {
 		'LIMIT',
 	);
 
-	protected $current_having;
-
-	public function __construct(array $tables = array())
-	{
-		parent::__construct('UPDATE');
-
-		if ($tables) 
-		{
-			call_user_func_array(array($this, 'table'), $tables);
-		}
-	}
+	protected $keyword = 'UPDATE';
 
 	public function table($tables)
 	{

@@ -65,6 +65,11 @@ abstract class Query extends Statement {
 	protected static function new_condition($keyword, $column, $operator, $value)
 	{
 		return new Statement_Condition($keyword, new Statement_Column($column), $operator, $value);
+	}	
+
+	protected static function new_insert_values($values)
+	{
+		return new Statement_Insert_Values($values);
 	}
 
 	protected static function new_direction($column, $direction)

@@ -30,6 +30,14 @@ class Compiler {
 		{
 			return $this->statement_column($statement);
 		}
+		elseif ($statement instanceof Statement_Insert_Columns) 
+		{
+			return $this->statement_insert_columns($statement);
+		}
+		elseif ($statement instanceof Statement_Insert_Values) 
+		{
+			return $this->statement_insert_values($statement);
+		}
 		elseif ($statement instanceof Statement_Condition_Group) 
 		{
 			return $this->statement_condition_group($statement);
@@ -98,6 +106,18 @@ class Compiler {
 	public function statement_column(Statement_Column $statement)
 	{
 		return $statement->name();
+	}
+
+	public function statement_insert_columns(Statement_Insert_Columns $statement)
+	{
+		return '('.$this->statement_list($statement).')';
+	}
+
+	public function statement_insert_values(Statement_Insert_Values $statement)
+	{
+		$values = array_map('Openbuildings\Cherry\Compiler::quote', $statement->children());
+
+		return '('.join(',', $values).')';
 	}
 
 	public function statement_condition_group(Statement_Condition_Group $statement)

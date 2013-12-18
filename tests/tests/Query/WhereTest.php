@@ -6,7 +6,7 @@ use Openbuildings\Cherry\Statement_Column;
  * @group query
  * @group query.where
  */
-class Statement_WhereTest extends Testcase_Extended {
+class Query_WhereTest extends Testcase_Extended {
 
 	public $where;
 

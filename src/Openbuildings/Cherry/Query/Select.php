@@ -26,12 +26,13 @@ class Query_Select extends Query_Where {
 
 	protected $current_having;
 	protected $last_join;
+	protected $keyword = 'SELECT';
 
-	public function __construct(array $columns = array())
+	public function __construct($keyword = NULL, $children = NULL)
 	{
-		parent::__construct('SELECT');
-		
-		$this->select_array($columns);
+		parent::__construct($keyword, $children);
+
+		$this->select_array(array());
 	}
 
 	public function distinct()
@@ -95,7 +96,7 @@ class Query_Select extends Query_Where {
 
 		if ( ! isset($this->children['JOIN'])) 
 		{
-			$this->children['JOIN'] = new Statement();
+			$this->children['JOIN'] = new Statement;
 		}
 
 		$this->children['JOIN']->append($this->last_join);

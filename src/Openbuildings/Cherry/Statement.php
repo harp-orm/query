@@ -17,7 +17,11 @@ class Statement {
 
 	public function __construct($keyword = NULL, $children = NULL)
 	{
-		$this->keyword = $keyword;
+		if ($keyword !== NULL)
+		{
+			$this->keyword = $keyword;
+		}
+
 		$this->append($children);
 	}
 

@@ -9,7 +9,7 @@ use Openbuildings\Cherry\Statement_Column;
  * @group query
  * @group query.select
  */
-class Statement_SelectTest extends Testcase_Extended {
+class Query_SelectTest extends Testcase_Extended {
 
 	public $select;
 
@@ -20,6 +20,9 @@ class Statement_SelectTest extends Testcase_Extended {
 		$this->select = new Query_Select;
 	}
 
+	/**
+	 * @covers Openbuildings\Cherry\Query_Select::distinct
+	 */
 	public function test_distinct()
 	{
 		$this->select->distinct();
@@ -31,6 +34,9 @@ class Statement_SelectTest extends Testcase_Extended {
 		$this->assertStatement($expected, $this->select);
 	}
 
+	/**
+	 * @covers Openbuildings\Cherry\Query_Select::offset
+	 */
 	public function test_offset()
 	{
 		$this->select->offset(20);
@@ -42,23 +48,33 @@ class Statement_SelectTest extends Testcase_Extended {
 		$this->assertStatement($expected, $this->select);
 	}
 
-	public function test_construct()
+	/**
+	 * @covers Openbuildings\Cherry\Query_Select::from
+	 */
+	public function test_from()
 	{
-		$select = $this
-			->getMockBuilder('Openbuildings\Cherry\Query_Select')
-				->setMethods(array('select_array'))
-				->disableOriginalConstructor()
-				->getMock();
+		$this->select
+			->from('table1', array('table2', 'alias2'));
 
-		$select
-			->expects($this->once())
-			->method('select_array')
-			->with($this->equalTo(array('column1', array('column2', 'alias2'))));
+		$table1 = new Statement_Table('table1');
+		$table2 = new Statement_Table('table2');
 
-		$select->__construct(array('column1', array('column2', 'alias2')));
-		$this->assertEquals('SELECT', $select->keyword());
+		$expected = array('Query_Select', 'SELECT', array(
+			'FROM' => array('Statement_List', 'FROM', array(
+				$table1,
+				array('Statement_Aliased', NULL, NULL, array(
+					'statement' => $table2,
+					'alias' => 'alias2',
+				)),
+			)),
+		));
+
+		$this->assertStatement($expected, $this->select);
 	}
 
+	/**
+	 * @covers Openbuildings\Cherry\Query_Select::select
+	 */
 	public function test_select()
 	{
 		$select = $this->getMock('Openbuildings\Cherry\Query_Select', array('select_array'));
@@ -71,6 +87,9 @@ class Statement_SelectTest extends Testcase_Extended {
 		$select->select('column1', array('column2', 'alias2'));
 	}
 
+	/**
+	 * @covers Openbuildings\Cherry\Query_Select::select_array
+	 */
 	public function test_select_array()
 	{
 		$this->select
@@ -92,6 +111,11 @@ class Statement_SelectTest extends Testcase_Extended {
 		$this->assertStatement($expected, $this->select);
 	}
 
+	/**
+	 * @covers Openbuildings\Cherry\Query_Select::join
+	 * @covers Openbuildings\Cherry\Query_Select::on
+	 * @covers Openbuildings\Cherry\Query_Select::using
+	 */
 	public function test_join()
 	{
 		$this->select
@@ -135,6 +159,9 @@ class Statement_SelectTest extends Testcase_Extended {
 		$this->assertStatement($expected, $this->select);
 	}
 
+	/**
+	 * @covers Openbuildings\Cherry\Query_Select::group_by
+	 */
 	public function test_group_by()
 	{
 		$this->select
@@ -166,6 +193,10 @@ class Statement_SelectTest extends Testcase_Extended {
 		$this->assertStatement($expected, $this->select);
 	}
 
+	/**
+	 * @covers Openbuildings\Cherry\Query_Select::having
+	 * @covers Openbuildings\Cherry\Query_Select::or_having
+	 */
 	public function test_having()
 	{
 		$this->select
@@ -193,6 +224,15 @@ class Statement_SelectTest extends Testcase_Extended {
 		$this->assertStatement($expected, $this->select);
 	}
 
+	/**
+	 * @covers Openbuildings\Cherry\Query_Select::having
+	 * @covers Openbuildings\Cherry\Query_Select::having_open
+	 * @covers Openbuildings\Cherry\Query_Select::having_close
+	 * @covers Openbuildings\Cherry\Query_Select::or_having_open
+	 * @covers Openbuildings\Cherry\Query_Select::or_having_close
+	 * @covers Openbuildings\Cherry\Query_Select::and_having_open
+	 * @covers Openbuildings\Cherry\Query_Select::and_having_close
+	 */
 	public function test_nested()
 	{
 		$this->select

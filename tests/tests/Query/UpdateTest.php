@@ -10,7 +10,7 @@ use Openbuildings\Cherry\Statement_Column;
  * @group query
  * @group query.update
  */
-class Statement_UpdateTest extends Testcase_Extended {
+class Query_UpdateTest extends Testcase_Extended {
 
 	public $update;
 
@@ -21,23 +21,9 @@ class Statement_UpdateTest extends Testcase_Extended {
 		$this->update = new Query_Update;
 	}
 
-	public function test_construct()
-	{
-		$update = $this
-			->getMockBuilder('Openbuildings\Cherry\Query_Update')
-				->setMethods(array('table'))
-				->disableOriginalConstructor()
-				->getMock();
-
-		$update
-			->expects($this->once())
-			->method('table')
-			->with($this->equalTo('table1'), $this->equalTo(array('table2', 'alias2')));
-
-		$update->__construct(array('table1', array('table2', 'alias2')));
-		$this->assertEquals('UPDATE', $update->keyword());
-	}
-
+	/**
+	 * @covers Openbuildings\Cherry\Query_Update::table
+	 */
 	public function test_table()
 	{
 		$this->update
@@ -59,6 +45,9 @@ class Statement_UpdateTest extends Testcase_Extended {
 		$this->assertStatement($expected, $this->update);
 	}
 
+	/**
+	 * @covers Openbuildings\Cherry\Query_Update::set
+	 */
 	public function test_set()
 	{
 		$expr = new Statement_Expression('TEST');
@@ -87,6 +76,9 @@ class Statement_UpdateTest extends Testcase_Extended {
 		$this->assertStatement($expected, $this->update);
 	}
 
+	/**
+	 * @covers Openbuildings\Cherry\Query_Update::value
+	 */
 	public function test_value()
 	{
 		$expr = new Statement_Expression('TEST');

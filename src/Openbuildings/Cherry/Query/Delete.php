@@ -18,17 +18,7 @@ class Query_Delete extends Query_Where {
 		'LIMIT',
 	);
 
-	protected $current_having;
-
-	public function __construct(array $tables = array())
-	{
-		parent::__construct('DELETE');
-
-		if ($tables) 
-		{
-			call_user_func_array(array($this, 'from'), $tables);
-		}
-	}
+	protected $keyword = 'DELETE';
 
 	public function only($tables)
 	{

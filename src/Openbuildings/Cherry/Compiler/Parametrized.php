@@ -59,4 +59,8 @@ class Compiler_Parametrized extends Compiler {
 		return $this->compile($statement->column()).' = '.$value;
 	}
 
+	public function statement_insert_values(Statement_Insert_Values $statement)
+	{
+		return '('.join(',', array_fill(0, count($statement->children()), '?')).')';
+	}
 }
