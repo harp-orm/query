@@ -7,11 +7,14 @@ use Openbuildings\Cherry\Query_Insert;
 use Openbuildings\Cherry\Statement_Expression;
 
 /**
- * @group compiler
- * @group compiler.parametrized
+ * @group integration
+ * @group integration.compiler_parametrized
  */
-class Compiler_ParametrizedTest extends Testcase_Extended {
+class Integration_Compiler_ParametrizedTest extends Testcase_Extended {
 
+	/**
+	 * @coversNothing
+	 */
 	public function test_compile()
 	{
 		$select2 = new Query_Select;
@@ -74,6 +77,9 @@ SQL;
 		$this->assertEquals($expected_parameters, $select->parameters());
 	}
 
+	/**
+	 * @coversNothing
+	 */
 	public function test_update()
 	{
 
@@ -170,6 +176,7 @@ SQL;
 	}
 
 	/**
+	 * @coversNothing
 	 * @dataProvider data_insert
 	 */
 	public function test_insert($query, $expected_sql)

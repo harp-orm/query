@@ -17,6 +17,9 @@ class Query_WhereTest extends Testcase_Extended {
 		$this->where = $this->getMockForAbstractClass('Openbuildings\Cherry\Query_Where');
 	}
 
+	/**
+	 * @covers Openbuildings\Cherry\Query_Where::limit
+	 */
 	public function test_limit()
 	{
 		$this->where->limit(10);
@@ -28,6 +31,9 @@ class Query_WhereTest extends Testcase_Extended {
 		$this->assertStatement($expected, $this->where);
 	}
 
+	/**
+	 * @covers Openbuildings\Cherry\Query_Where::order_by
+	 */
 	public function test_order_by()
 	{
 		$this->where
@@ -59,6 +65,9 @@ class Query_WhereTest extends Testcase_Extended {
 		$this->assertStatement($expected, $this->where);
 	}
 
+	/**
+	 * @covers Openbuildings\Cherry\Query_Where::where
+	 */
 	public function test_where()
 	{
 		$this->where
@@ -86,6 +95,17 @@ class Query_WhereTest extends Testcase_Extended {
 		$this->assertStatement($expected, $this->where);
 	}
 
+	/**
+	 * @covers Openbuildings\Cherry\Query_Where::where
+	 * @covers Openbuildings\Cherry\Query_Where::and_where
+	 * @covers Openbuildings\Cherry\Query_Where::or_where
+	 * @covers Openbuildings\Cherry\Query_Where::where_open
+	 * @covers Openbuildings\Cherry\Query_Where::where_close
+	 * @covers Openbuildings\Cherry\Query_Where::or_where_open
+	 * @covers Openbuildings\Cherry\Query_Where::or_where_close
+	 * @covers Openbuildings\Cherry\Query_Where::and_where_open
+	 * @covers Openbuildings\Cherry\Query_Where::and_where_close
+	 */
 	public function test_nested()
 	{
 		$this->where
@@ -147,5 +167,4 @@ class Query_WhereTest extends Testcase_Extended {
 
 		$this->assertStatement($expected, $this->where);
 	}
-
 }

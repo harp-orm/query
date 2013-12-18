@@ -4,14 +4,17 @@ use Openbuildings\Cherry\Compiler_Pretty;
 use Openbuildings\Cherry\Query_Select;
 
 /**
- * @group compiler
- * @group compiler.pretty
+ * @group integration
+ * @group integration.compiler_pretty
  */
-class Compiler_PrettyTest extends Testcase_Extended {
+class Integration_Compiler_PrettyTest extends Testcase_Extended {
 
+	/**
+	 * @coversNothing
+	 */
 	public function test_compile()
 	{
-		$select = new Query_Select();
+		$select = new Query_Select;
 		$select
 			->from('purchases', 'store_purchases')
 			->join('users')
@@ -27,7 +30,7 @@ class Compiler_PrettyTest extends Testcase_Extended {
 				->or_where_close()
 			->where_close();
 
-		$compiler = new Compiler_Pretty();
+		$compiler = new Compiler_Pretty;
 
 		$expected_sql = <<<SQL
 SELECT

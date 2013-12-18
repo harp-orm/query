@@ -128,6 +128,9 @@ class Query_Select extends Query_Where {
 		return $this;
 	}
 
+	/**
+	 * @codeCoverageIgnore
+	 */
 	protected function current_having()
 	{
 		if ( ! $this->current_having)

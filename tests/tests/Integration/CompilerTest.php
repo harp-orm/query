@@ -9,10 +9,14 @@ use Openbuildings\Cherry\Query_Insert;
 use Openbuildings\Cherry\Query_Delete;
 
 /**
- * @group compiler
+ * @group integration
+ * @group integration.compiler
  */
-class CompilerTest extends Testcase_Extended {
+class Integration_CompilerTest extends Testcase_Extended {
 
+	/**
+	 * @coversNothing
+	 */
 	public function test_compile()
 	{
 		$select2 = new Query_Select;
@@ -58,6 +62,9 @@ SQL;
 		$this->assertEquals($expected_sql, $compiler->compile($select));
 	}
 
+	/**
+	 * @coversNothing
+	 */
 	public function test_update()
 	{
 		$update = new Query_Update;
@@ -82,6 +89,9 @@ SQL;
 		$this->assertEquals($expected_sql, $compiler->compile($update));
 	}
 
+	/**
+	 * @coversNothing
+	 */
 	public function test_delete()
 	{
 		$update = new Query_Delete;
@@ -159,6 +169,7 @@ SQL;
 	}
 
 	/**
+	 * @coversNothing
 	 * @dataProvider data_insert
 	 */
 	public function test_insert($query, $expected_sql)

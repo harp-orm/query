@@ -27,6 +27,9 @@ abstract class Query_Where extends Query {
 		return $this;
 	}
 
+	/**
+	 * @codeCoverageIgnore
+	 */
 	protected function current_where()
 	{
 		if ( ! $this->current_where)

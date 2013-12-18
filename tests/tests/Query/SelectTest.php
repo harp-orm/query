@@ -21,6 +21,20 @@ class Query_SelectTest extends Testcase_Extended {
 	}
 
 	/**
+	 * @covers Openbuildings\Cherry\Query_Select::__construct
+	 */
+	public function test_construct()
+	{
+		$this->select = new Query_Select;
+
+		$expected = array('Query_Select', 'SELECT', array(
+			'SELECT' => array('Statement_List', NULL),
+		));
+
+		$this->assertStatement($expected, $this->select);
+	}
+
+	/**
 	 * @covers Openbuildings\Cherry\Query_Select::distinct
 	 */
 	public function test_distinct()
@@ -226,6 +240,8 @@ class Query_SelectTest extends Testcase_Extended {
 
 	/**
 	 * @covers Openbuildings\Cherry\Query_Select::having
+	 * @covers Openbuildings\Cherry\Query_Select::and_having
+	 * @covers Openbuildings\Cherry\Query_Select::or_having
 	 * @covers Openbuildings\Cherry\Query_Select::having_open
 	 * @covers Openbuildings\Cherry\Query_Select::having_close
 	 * @covers Openbuildings\Cherry\Query_Select::or_having_open
@@ -247,7 +263,7 @@ class Query_SelectTest extends Testcase_Extended {
 				->having('column1', 'IN', 'value1')
 
 				->and_having_open()
-					->having('column2', '!=', 'value2')
+					->and_having('column2', '!=', 'value2')
 				->and_having_close()
 
 			->or_having_close();
