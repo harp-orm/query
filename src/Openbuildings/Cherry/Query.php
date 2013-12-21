@@ -37,47 +37,47 @@ abstract class Query extends Statement {
 		return $this->children[$name];
 	}
 
-	protected static function new_expression($content, $parameters)
+	public static function new_expression($content, $parameters)
 	{
 		return new Statement_Expression($content, $parameters);
 	}
 
-	protected static function new_column($column)
+	public static function new_column($column)
 	{
 		return new Statement_Column($column);
 	}
 
-	protected static function new_join($table, $type = NULL)
+	public static function new_join($table, $type = NULL)
 	{
 		return new Statement_Join(Query::new_aliased_table($table), $type);
 	}
 
-	protected static function new_set($column, $value)
+	public static function new_set($column, $value)
 	{
 		return new Statement_Set(Query::new_column($column), $value);
 	}
 
-	protected static function new_table($column)
+	public static function new_table($column)
 	{
 		return new Statement_Table($column);
 	}
 
-	protected static function new_condition($keyword, $column, $operator, $value)
+	public static function new_condition($keyword, $column, $operator, $value)
 	{
 		return new Statement_Condition($keyword, new Statement_Column($column), $operator, $value);
 	}	
 
-	protected static function new_insert_values($values)
+	public static function new_insert_values($values)
 	{
 		return new Statement_Insert_Values($values);
 	}
 
-	protected static function new_direction($column, $direction)
+	public static function new_direction($column, $direction)
 	{
 		return new Statement_Direction(new Statement_Column($column), $direction);
 	}
 
-	protected static function new_aliased_table($table)
+	public static function new_aliased_table($table)
 	{
 		if (is_array($table))
 		{

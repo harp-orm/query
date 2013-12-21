@@ -1,5 +1,4 @@
-<?php
-namespace Openbuildings\Cherry;
+<?php namespace Openbuildings\Cherry;
 
 /**
  * Compile SQL query with new lines & identations

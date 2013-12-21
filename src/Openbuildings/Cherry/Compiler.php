@@ -16,68 +16,18 @@ class Compiler {
 		return (is_int($content) OR is_float($content)) ? $content : "\"{$content}\"";
 	}
 
+	public function method_name_from(Statement $statement)
+	{
+		$class = get_class($statement);
+
+		return strtolower(substr($class, strrpos($class, '\\') + 1));
+	}
+
 	public function compile($statement)
 	{
-		if ($statement instanceof Query) 
-		{
-			return $this->query($statement);
-		}
-		elseif ($statement instanceof Statement_Aliased) 
-		{
-			return $this->statement_aliased($statement);
-		}
-		elseif ($statement instanceof Statement_Column) 
-		{
-			return $this->statement_column($statement);
-		}
-		elseif ($statement instanceof Statement_Insert_Columns) 
-		{
-			return $this->statement_insert_columns($statement);
-		}
-		elseif ($statement instanceof Statement_Insert_Values) 
-		{
-			return $this->statement_insert_values($statement);
-		}
-		elseif ($statement instanceof Statement_Condition_Group) 
-		{
-			return $this->statement_condition_group($statement);
-		}
-		elseif ($statement instanceof Statement_Condition) 
-		{
-			return $this->statement_condition($statement);
-		}
-		elseif ($statement instanceof Statement_Direction) 
-		{
-			return $this->statement_direction($statement);
-		}
-		elseif ($statement instanceof Statement_Expression) 
-		{
-			return $this->statement_expression($statement);
-		}
-		elseif ($statement instanceof Statement_Join) 
-		{
-			return $this->statement_join($statement);
-		}
-		elseif ($statement instanceof Statement_List) 
-		{
-			return $this->statement_list($statement);
-		}
-		elseif ($statement instanceof Statement_Number) 
-		{
-			return $this->statement_number($statement);
-		}
-		elseif ($statement instanceof Statement_Set) 
-		{
-			return $this->statement_set($statement);
-		}
-		elseif ($statement instanceof Statement_Table) 
-		{
-			return $this->statement_table($statement);
-		}
-		elseif ($statement instanceof Statement) 
-		{
-			return $this->statement($statement);
-		}
+		$method = $this->method_name_from($statement);
+
+		return $this->$method($statement);
 	}
 
 	public function compile_inner($statement)
@@ -269,5 +219,25 @@ class Compiler {
 	public function query(Query $statement)
 	{
 		return $this->statement($statement);
+	}
+
+	public function query_select(Query_Select $statement)
+	{
+		return $this->query($statement);
+	}
+
+	public function query_update(Query_Update $statement)
+	{
+		return $this->query($statement);
+	}
+
+	public function query_insert(Query_Insert $statement)
+	{
+		return $this->query($statement);
+	}	
+
+	public function query_delete(Query_Delete $statement)
+	{
+		return $this->query($statement);
 	}
 }

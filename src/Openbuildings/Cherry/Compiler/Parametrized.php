@@ -1,5 +1,4 @@
-<?php
-namespace Openbuildings\Cherry;
+<?php namespace Openbuildings\Cherry;
 
 /**
  * Render SQL with "?" parameters

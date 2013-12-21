@@ -11,6 +11,8 @@ namespace Openbuildings\Cherry;
  */
 class Statement_Number extends Statement {
 
+	const NAME = 'statement_number';
+
 	protected $number = NULL;
 
 	public function __construct($keyword = NULL, $number = NULL)

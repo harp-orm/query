@@ -1,5 +1,4 @@
-<?php
-namespace Openbuildings\Cherry;
+<?php namespace Openbuildings\Cherry;
 
 /**
  * Represents a column
@@ -11,14 +10,26 @@ namespace Openbuildings\Cherry;
  */
 class Statement_Column extends Statement {
 
+	/**
+	 * A string name of the column (can contain dots)
+	 * @var string
+	 */
 	protected $name;
 
+	/**
+	 * Name can be a string or an expression, add it to children
+	 * @param mixed $name 
+	 */
 	public function __construct($name)
 	{
 		$this->name = $name;
 		$this->children []= $name;
 	}
 
+	/**
+	 * Getter. A string name of the column (can contain dots)
+	 * @return string
+	 */
 	public function name()
 	{
 		return $this->name;

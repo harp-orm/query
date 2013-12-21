@@ -11,9 +11,17 @@ namespace Openbuildings\Cherry;
  */
 class Statement_Expression extends Statement {
 
+	/**
+	 * Parameters for this expression
+	 * @var array
+	 */
 	protected $parameters;
-	protected $content;
 
+	/**
+	 * Store the content SQL string inside keyword attribute
+	 * @param string
+	 * @param array $parameters
+	 */
 	function __construct($content, array $parameters = NULL)
 	{
 		$this->parameters = (array) $parameters;
@@ -21,6 +29,10 @@ class Statement_Expression extends Statement {
 		parent::__construct($content);
 	}
 
+	/**
+	 * Getter. Parameters for this expression
+	 * @return string
+	 */
 	public function parameters()
 	{
 		return $this->parameters;
