@@ -11,13 +11,4 @@ namespace Openbuildings\Cherry;
  */
 class Exception extends \Exception
 {
-	public function __construct($message, array $variables = array(), \Exception $previous = NULL)
-	{
-		if ($variables)
-		{
-			$message = strtr($message, $variables);
-		}
-
-		parent::__construct($message, 0, $previous);
-	}
 }

@@ -1,243 +1,39 @@
-<?php
-namespace Openbuildings\Cherry;
+<?php namespace Openbuildings\Cherry;
 
 /**
- * Converts Query objects to SQL
- * 
- * @package    Openbuildings\Cherry
- * @author     Ivan Kerin <ikerin@gmail.com>
- * @copyright  (c) 2013 OpenBuildings Ltd.
- * @license    http://spdx.org/licenses/BSD-3-Clause
+ * @author     Ivan Kerin
+ * @copyright  (c) 2011-2013 Despark Ltd.
+ * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class Compiler {
+class Compiler
+{
+	protected $children;
 
-	public function quote($content)
+	public static function select()
 	{
-		return (is_int($content) OR is_float($content)) ? $content : "\"{$content}\"";
+		return new Query_Select;
 	}
 
-	public function method_name_from(Statement $statement)
+	public function children()
 	{
-		$class = get_class($statement);
-
-		return strtolower(substr($class, strrpos($class, '\\') + 1));
+		return $this->children;
 	}
 
-	public function compile($statement)
+	public function parameters()
 	{
-		$method = $this->method_name_from($statement);
+		$parameters = array();
 
-		return $this->$method($statement);
-	}
-
-	public function compile_inner($statement)
-	{
-		$text = $this->compile($statement);
-
-		if ($statement instanceof Query 
-			OR $statement instanceof Statement_Condition_Group) 
+		if ($this->children)
 		{
-			return "($text)";
-		}
-
-		return $text;
-	}
-
-	public function compile_array(array $statement_array)
-	{
-		return array_map(array($this, 'compile'), $statement_array);
-	}
-
-	public function statement_aliased(Statement_Aliased $statement)
-	{
-		return $this->compile_inner($statement->statement()).' AS '.$statement->alias();
-	}
-
-	public function statement_column(Statement_Column $statement)
-	{
-		return $statement->name();
-	}
-
-	public function statement_insert_columns(Statement_Insert_Columns $statement)
-	{
-		return '('.$this->statement_list($statement).')';
-	}
-
-	public function statement_insert_values(Statement_Insert_Values $statement)
-	{
-		$values = array_map('Openbuildings\Cherry\Compiler::quote', $statement->children());
-
-		return '('.join(',', $values).')';
-	}
-
-	public function statement_condition_group(Statement_Condition_Group $statement)
-	{
-		$text = array();
-
-		if ( ! $statement->parent())
-		{
-			$text []= $statement->keyword();
-		}
-
-		foreach ($statement->children() as $child_index => $child)
-		{
-			$text []= ($child_index > 0 ? $child->keyword().' ' : '').$this->compile_inner($child);
-		}
-
-		return implode(' ', $text);
-	}
-
-	public function statement_condition(Statement_Condition $statement)
-	{
-		$value = $statement->value();
-
-		if ($value instanceof Statement) 
-		{
-			$value = $this->compile_inner($value);
-		}
-		else
-		{
-			switch ($statement->operator())
+			foreach ($this->children as $child) 
 			{
-				case 'IN':
-					$value = '('.join(', ', array_map(array($this, 'quote'), $value)).')';
-				break;
-
-				case 'BETWEEN':
-					$value = $this->quote($value[0]).' AND '.$this->quote($value[1]);
-				break;
-				
-				default:
-					$value = $this->quote($value);
-				break;
+				if (($child_parameters = $child->parameters()))
+				{
+					$parameters = array_merge($parameters, $child_parameters);
+				}
 			}
 		}
 
-		return $this->compile($statement->column()).' '.$statement->operator().' '.$value;
-	}
-
-	public function statement_direction(Statement_Direction $statement)
-	{
-		$text = array($this->compile($statement->column()));
-
-		if ($statement->direction()) 
-		{
-			$text []= $statement->direction();
-		} 
-
-		return implode(' ', $text);
-	}
-
-	public function statement_expression(Statement_Expression $statement)
-	{
-		if ($statement->parameters()) 
-		{
-			$parameters = array_map(array($this, 'quote'), $statement->parameters());
-
-			$replace = function($matches) use ( & $parameters) {
-				$current = current($parameters);
-				next($parameters);
-				return $current;
-			};
-
-			return preg_replace_callback('/\?/', $replace, $statement->keyword());
-		}
-
-		return $statement->keyword();
-	}
-
-	public function statement_join(Statement_Join $statement)
-	{
-		$text = $statement->type() ? array($statement->type()) : array();
-
-		$text []= $statement->keyword();
-		$text []= $this->compile($statement->table());
-
-		if ($statement->using())
-		{
-			$text []= 'USING ('.join(', ', $this->compile_array($statement->using())).')';
-		}
-		else
-		{
-			$text = array_merge($text, array(
-				'ON',
-				$this->compile($statement->column()),
-				$statement->operator(),
-				$this->compile($statement->foreign_column()),
-			));
-		}
-
-		return implode(' ', $text);
-	}
-
-	public function statement_list(Statement_List $statement)
-	{
-		$text = array();
-
-		if ($statement->keyword()) 
-		{
-			$text []= $statement->keyword();
-		}
-
-		$text	[]= implode(', ', $this->compile_array($statement->children()));
-
-		return implode(' ', $text);
-	}
-
-	public function statement_number(Statement_Number $statement)
-	{
-		return $statement->keyword().' '.$statement->number();
-	}
-
-	public function statement_set(Statement_Set $statement)
-	{
-		return $this->compile($statement->column()).' = '.$this->quote($statement->value());
-	}
-
-	public function statement_table(Statement_Table $statement)
-	{
-		return $statement->name();
-	}
-
-	public function statement(Statement $statement)
-	{
-		$text = array();
-
-		if ($statement->keyword()) 
-		{
-			$text []= $statement->keyword();
-		}
-
-		if ($statement->children())
-		{
-			$text	= array_merge($text, $this->compile_array($statement->children()));
-		}
-
-		return implode(' ', $text);
-	}
-
-	public function query(Query $statement)
-	{
-		return $this->statement($statement);
-	}
-
-	public function query_select(Query_Select $statement)
-	{
-		return $this->query($statement);
-	}
-
-	public function query_update(Query_Update $statement)
-	{
-		return $this->query($statement);
-	}
-
-	public function query_insert(Query_Insert $statement)
-	{
-		return $this->query($statement);
-	}	
-
-	public function query_delete(Query_Delete $statement)
-	{
-		return $this->query($statement);
+		return $parameters;
 	}
 }

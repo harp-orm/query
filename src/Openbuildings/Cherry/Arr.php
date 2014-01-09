@@ -3,32 +3,30 @@
 namespace Openbuildings\Cherry;
 
 /**
- * A helper class for array functions
+ * Extend exception to allow variables 
  *
- * @package    Openbuildings\Cherry
- * @author     Ivan Kerin <ikerin@gmail.com>
- * @copyright  (c) 2013 OpenBuildings Ltd.
- * @license    http://spdx.org/licenses/BSD-3-Clause
+ * @author     Ivan Kerin
+ * @copyright  (c) 2011-2013 Despark Ltd.
+ * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class Arr {
-
-	/**
-	 * Retrieves multiple keys from an array, if the keys exist in it
-	 *
-	 * @param   array  $keys    array of keys to extract
-	 * @param   array  $array   array to extract keys from
-	 * @return  array
-	 */
-	public static function extract(array $keys, array $array)
+class Arr
+{
+	public static function to_assoc(array $array)
 	{
-		$extracted = array();
-		foreach ($keys as $key) 
+		$converted = array();
+
+		foreach ($array as $key => $value)
 		{
-			if (isset($array[$key]))
+			if (is_numeric($key)) 
 			{
-				$extracted[$key] = $array[$key];
+				$converted[$key] = $value;
+			}
+			else
+			{
+				$converted[$value] = NULL;
 			}
 		}
-		return $extracted;
+
+		return $converted;
 	}
 }
