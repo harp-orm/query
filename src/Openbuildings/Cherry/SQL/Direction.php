@@ -7,28 +7,8 @@
  */
 class SQL_Direction extends SQL
 {
-	protected $statement;
-	protected $direction;
-
-	public static function from_array(array $array)
-	{
-		$array = Arr::to_assoc($array);
-
-		$statements = array();
-
-		foreach ($array as $key => $value)
-		{
-			$statements []= new SQL_Direction($key, $value);
-		}
-
-		return $statements;
-	}
-
 	function __construct($statement, $direction = NULL)
 	{
-		$this->statement = $statement;
-		$this->alias = $alias;
-
 		if ($direction) 
 		{
 			$statement = "$statement $direction";
@@ -36,15 +16,4 @@ class SQL_Direction extends SQL
 
 		parent::__construct($statement);
 	}
-
-	public function statement()
-	{
-		return $this->statement;
-	}
-
-	public function direction()
-	{
-		return $this->direction;
-	}
-
 }

@@ -23,42 +23,33 @@ class Integration_CompilerTest extends Testcase_Extended {
 		$select2
 			->from('one')
 			->distinct()
-			->join('table1')
-			->using(array('col1', 'col2'))
-			->where('name', '=', 'small');
+			->join('table1', new SQL('USING (col1, col2)'))
+			->where(['name' => 'small']);
 
 		$select = new Query_Select;
 		$select
-			->from('bigtable', array('smalltable', 'alias'))
-			->from(array($select2, 'select_alias'))
-			->select('col1', array('col3', 'alias_col'))
-			->and_where('test', '=', 'value')
-			->and_where('test_statement', '=', new Statement_Expression('IF ("test", ?, ?)', array('val1', 'val2')))
-			->join('table2')
-			->on('col1', '=', 'col2')
-			->and_where_open()
-				->and_where('type', '>', '10')
-				->and_where('type', '<', '20')
-				->and_where('base', 'IN', array('1', '2', '3'))
-			->and_where_close()
-			->and_having('test', '=', 'value2')
-			->and_having_open()
-				->and_having('type', '>', '20')
-				->and_having('base', 'IN', array('5', '6', '7'))
-			->and_where_close()
+			->from(['bigtable', 'smalltable' => 'alias'])
+			->from(new SQL("(:query) AS select_alias", $select2))
+			->columns(['col1', 'col3' => 'alias_col'])
+			->where(['test' => 'value'])
+			->where('test_statement = IF ("test", ?, ?)', 'val1', 'val2')
+			->join('table2', ['col1' => 'col2'])
+			->where('type > ? AND type < ? AND base IN ?', 10, 20, array('1', '2', '3'))
+			->having(['test' => 'value2'])
+			->where('type > ? AND base IN ?', 20, array('5', '6', '7'))
 			->limit(10)
 			->offset(8)
-			->order_by('type', 'ASC')
-			->order_by('base')
-			->group_by('base', 'ASC')
-			->group_by('type');
+			->order('type', 'ASC')
+			->order('base')
+			->group('base', 'ASC')
+			->group('type');
 
 		$compiler = new Compiler;
 
 		$expected_sql = <<<SQL
 SELECT col1, col3 AS alias_col FROM bigtable, smalltable AS alias, (SELECT DISTINCT * FROM one JOIN table1 USING (col1, col2) WHERE name = "small") AS select_alias JOIN table2 ON col1 = col2 WHERE test = "value" AND test_statement = IF ("test", "val1", "val2") AND (type > "10" AND type < "20" AND base IN ("1", "2", "3")) GROUP BY base ASC, type HAVING test = "value2" AND (type > "20" AND base IN ("5", "6", "7")) ORDER BY type ASC, base LIMIT 10 OFFSET 8
 SQL;
-
+		
 		$this->assertEquals($expected_sql, $compiler->compile($select));
 	}
 

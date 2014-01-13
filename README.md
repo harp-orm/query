@@ -19,10 +19,10 @@
 	* last optional parameter is "LEFT", "RIGHT" ... etc
 	* first parameter is either string for table of associative array with table => alias
 
-
+```php
 Query::select()
 	->from(['table' => 'alias', 'table2' => 'name'])
-	->from([SQL('(SELECT id from table) AS name'), 'table2' => 'name'])
+	->from([new SQL('(SELECT id from table) AS name'), 'table2' => 'name'])
 	->where(['name' => 2])
 	->where(SQL('adsasd ? adsasd jasda', $param1, $param2))
 	->where(['new sql', $param1, $param2])
@@ -38,7 +38,7 @@ Query::select()
 	->select(['name', 'param'])
 	->select(['name' => 'pasta', 'param'])
 	->select([['IF (name = ?) AS name', $name], 'param']);
-
+```
 ## License
 
 Copyright (c) 2012-2013, OpenBuildings Ltd. Developed by Ivan Kerin as part of [clippings.com](http://clippings.com)

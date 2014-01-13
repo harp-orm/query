@@ -10,13 +10,6 @@ class SQL
 	protected $parameters;
 	protected $content;
 
-	public function __invoke($content)
-	{
-		$params = array_slice(func_get_args(), 1);
-
-		return new SQL($content, $params);
-	}
-
 	function __construct($content, array $parameters = NULL)
 	{
 		$this->content = (string) $content;
@@ -27,6 +20,11 @@ class SQL
 		}
 	}
 
+	public function __toString()
+	{
+		return $this->content();
+	}
+
 	public function content()
 	{
 		return $this->content;
@@ -34,6 +32,6 @@ class SQL
 
 	public function parameters()
 	{
-		return $parameters;
+		return $this->parameters;
 	}
 }

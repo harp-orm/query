@@ -5,49 +5,51 @@
  * @copyright  (c) 2011-2013 Despark Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class Compiler_Select
+class Compiler_Select extends Compiler
 {
-	public function conditions(array $where)
-	{
-		$sql_fragments = array_map(array($this, 'sql'), $where);
-
-		if (count($sql_fragments) > 1) 
-		{
-			return join(' AND ', array_map(array($this, 'braces'), $sql_fragments));
-		}
-		else
-		{
-			return reset($sql_fragments);
-		}
-	}
-
-	public function braces($sql)
-	{
-		return '('.$sql.')';
-	}
-
-	public function sql(SQL $sql)
-	{
-		return $sql->content();
-	}
-
-	public function statement($statement, $content, $join = ', ')
-	{
-		if ($content) 
-		{
-			$content = is_array($content) ? join($join, $content) : $content;
-
-			return $statement.' '.
-		}
-	}
-
 	public function render(Query_Select $select)
 	{
-		return array(
+		return static::expression(array(
 			'SELECT',
-			join(', ', $select->children('COLUMNS')),
-			$this->statement('FROM', join(', ', $select->children('FROM'))),
-			$this->conditions($select->children('WHERE')),
-			$this->statement('WHERE', join(', ', $select->children('FROM'))),
+			$select->children(Query_Select::DISTINCT) ? 'DISTINCT' : NULL,
+			$this->aliased_set(
+				$select->children(Query_Select::COLUMNS),
+				'*'
+			),
+			$this->word('FROM', 
+				$this->aliased_set(
+					$select->children(Query_Select::FROM)
+				)
+			),
+			$this->joins(
+				$select->children(Query_Select::JOIN)
+			),
+			$this->word('WHERE', 
+				$this->conditions_set(
+					$select->children(Query_Select::WHERE)
+				)
+			),
+			$this->word('GROUP BY', 
+				$this->set(
+					$select->children(Query_Select::GROUP_BY)
+				)
+			),
+			$this->word('HAVING', 
+				$this->conditions_set(
+					$select->children(Query_Select::HAVING)
+				)
+			),
+			$this->word('ORDER BY', 
+				$this->set(
+					$select->children(Query_Select::ORDER_BY)
+				)
+			),
+			$this->word('LIMIT', 
+				$select->children(Query_Select::LIMIT)
+			),
+			$this->word('OFFSET', 
+				$select->children(Query_Select::OFFSET)
+			)
+		));
 	}
 }

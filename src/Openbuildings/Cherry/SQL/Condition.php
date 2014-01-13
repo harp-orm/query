@@ -7,15 +7,33 @@
  */
 class SQL_Condition extends SQL
 {
-	function __construct(array $array)
+	function __construct($content, array $parameters = NULL)
 	{
-		$content = array();
-		
-		foreach ($array as $column => $value)
+		if (is_array($content)) 
 		{
-			$content [] = "$column = ?";
+			$statements = array();
+
+			foreach ($content as $column => $value)
+			{
+				if (is_array($value))
+				{
+					$statements []= "$column IN ?";
+				}
+				elseif (is_null($value))
+				{
+					$statements []= "$column IS ?";
+				}
+				else
+				{
+					$statements []= "$column = ?";
+				}
+
+				$parameters []= $value;
+			}
+
+			$content = implode(' AND ', $statements);
 		}
 
-		parent::__construct(join(' AND ', $content), array_values($array));
+		parent::__construct($content, Arr::flatten($parameters));
 	}
 }

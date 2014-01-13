@@ -32,9 +32,9 @@ class Query
 
 		if ($this->children)
 		{
-			foreach ($this->children as $child) 
+			foreach (Arr::flatten($this->children) as $child)
 			{
-				if (($child_parameters = $child->parameters()))
+				if (is_object($child) AND ($child_parameters = $child->parameters()))
 				{
 					$parameters = array_merge($parameters, $child_parameters);
 				}

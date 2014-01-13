@@ -7,7 +7,6 @@
  */
 class SQL_Aliased extends SQL
 {
-	protected $statement;
 	protected $alias;
 
 	public static function from_array(array $array)
@@ -18,28 +17,24 @@ class SQL_Aliased extends SQL
 
 		foreach ($array as $key => $value)
 		{
-			$statements []= new SQL_Aliased($key, $value);
+			$statements []= ($value instanceof SQL) ? $value : new SQL_Aliased($key, $value);
 		}
 
 		return $statements;
 	}
 
-	function __construct($statement, $alias = NULL)
+	function __construct($content, $alias = NULL)
 	{
-		$this->statement = $statement;
+		$this->content = $content;
 		$this->alias = $alias;
-
-		if ($alias) 
-		{
-			$statement = "$statement AS $alias";
-		}
-
-		parent::__construct($statement);
 	}
 
-	public function statement()
+	public function parameters()
 	{
-		return $this->statement;
+		if ($this->content instanceof Query)
+		{
+			return $this->content->parameters();
+		}
 	}
 
 	public function alias()

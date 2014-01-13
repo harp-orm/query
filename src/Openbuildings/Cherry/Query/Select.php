@@ -7,69 +7,95 @@
  */
 class Query_Select extends Query
 {
+	const DISTINCT = 1;
+	const COLUMNS = 2;
+	const FROM = 3;
+	const JOIN = 4;
+	const WHERE = 5;
+	const GROUP_BY = 6;
+	const HAVING = 7;
+	const ORDER_BY = 8;
+	const LIMIT = 10;
+	const OFFSET = 11;
+
 	public function where($where)
 	{
-		$this->children['WHERE'] []= ($where instanceof SQL) ? $where : new SQL_Condition($where);
+		$this->children[self::WHERE] []= new SQL_Condition($where, array_slice(func_get_args(), 1));
+
+		return $this;
 	}
 
 	public function join($table, $condition, $type = NULL)
 	{
-		$this->children['JOIN'] []= new SQL_Join($type, $table, $condition);
+		$this->children[self::JOIN] []= new SQL_Join($table, $condition, $type);
+		return $this;
 	}
 
-	protected function add($name, array $children)
+	protected function add($name, $children)
 	{
-		foreach ($children as $child) 
+		if ($children instanceof SQL)
 		{
-			$this->children[$name] []= $child;
+			$this->children[$name] []= $children;
+		}
+		else
+		{
+			$children = SQL_Aliased::from_array( (array) $children);
+			
+			foreach ($children as $child)
+			{
+				$this->children[$name] []= $child;
+			}
 		}
 	}
 
 	public function from($table)
 	{
-		$tables = SQL_Aliased::from_array( (array) $table);
-		foreach ($tables as $table) 
-		{
-			$this->children['FROM'] []= $table;
-		}
+		$this->add(self::FROM, $table);
+
+		return $this;
 	}
 
 	public function columns($column)
 	{
-		$columns = SQL_Aliased::from_array( (array) $column);
-		foreach ($columns as $column) 
-		{
-			$this->children['COLUMNS'] []= $column;
-		}
+		$this->add(self::COLUMNS, $column);
+
+		return $this;
 	}
 
 	public function order($column, $direction = NULL)
 	{
-		$this->children['ORDER'] []= new SQL_Direction($column, $direction);
+		$this->children[self::ORDER_BY] []= new SQL_Direction($column, $direction);
+		return $this;
 	}
 
-	public function group($group)
+	public function group($column, $direction = NULL)
 	{
-		$this->children['GROUP'] []= new SQL_Direction($column, $direction);
+		$this->children[self::GROUP_BY] []= new SQL_Direction($column, $direction);
+		return $this;
 	}
 
 	public function having($having)
 	{
-		$this->children['HAVING'] []= ($having instanceof SQL) ? $having : new SQL_Condition($having);
+		$this->children[self::HAVING] []= new SQL_Condition($having, array_slice(func_get_args(), 1));
+
+		return $this;
 	}
 
 	public function limit($limit)
 	{
-		$this->children['LIMIT'] = (int) $limit;
+		$this->children[self::LIMIT] = (int) $limit;
+		return $this;
 	}
 
 	public function offset($offset)
 	{
-		$this->children['offset'] = (int) $limit;
+		$this->children[self::OFFSET] = (int) $offset;
+		return $this;
 	}
 
 	public function distinct($distinct = TRUE)
 	{
-		$this->children['distinct'] = (bool) $distinct;
+		$this->children[self::DISTINCT] = (bool) $distinct;
+		return $this;
 	}
 }
