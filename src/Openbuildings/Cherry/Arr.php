@@ -3,7 +3,7 @@
 namespace Openbuildings\Cherry;
 
 /**
- * Extend exception to allow variables 
+ * Extend exception to allow variables
  *
  * @author     Ivan Kerin
  * @copyright  (c) 2011-2013 Despark Ltd.
@@ -30,6 +30,9 @@ class Arr
 		return $converted;
 	}
 
+	/**
+	 * convert to an array - if not an array, make one with a single item - the source object
+	 */
 	public static function toArray($array)
 	{
 		if ( ! is_array($array))
@@ -74,8 +77,8 @@ class Arr
 	{
 		$result = array();
 
-		array_walk_recursive($array, function($value, $key) use ( & $result) { 
-			if (is_numeric($key) OR is_object($value)) 
+		array_walk_recursive($array, function($value, $key) use ( & $result) {
+			if (is_numeric($key) OR is_object($value))
 			{
 				$result[] = $value; 
 			}

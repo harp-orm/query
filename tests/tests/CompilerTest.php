@@ -77,4 +77,22 @@ class CompilerTest extends Testcase_Extended {
 		$this->assertEquals($expected, Compiler::braced($statement));
 	}
 
+	public function data_humanize()
+	{
+		return array(
+			array('SELECT test', array(), 'SELECT test'),
+			array('SELECT test FROM table1 WHERE name = ?', array('param'), 'SELECT test FROM table1 WHERE name = "param"'),
+			array('SELECT test FROM table1 WHERE name = ? AND id IS ?', array('param', NULL), 'SELECT test FROM table1 WHERE name = "param" AND id IS NULL'),
+			array('SELECT test FROM table1 WHERE name = ? AND id IS NOT ?', array(10, NULL), 'SELECT test FROM table1 WHERE name = 10 AND id IS NOT NULL'),
+		);
+	}
+
+	/**
+	 * @dataProvider data_humanize
+	 * @covers Openbuildings\Cherry\Compiler::humanize
+	 */
+	public function test_humanize($statement, $parameters, $expected)
+	{
+		$this->assertEquals($expected, Compiler::humanize($statement, $parameters));
+	}
 }
