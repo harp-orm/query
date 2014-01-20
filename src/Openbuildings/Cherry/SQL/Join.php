@@ -7,12 +7,13 @@
  */
 class SQL_Join extends SQL
 {
+	protected $table;
 	protected $condition;
 	protected $type;
 
 	function __construct($table, $condition, $type = NULL)
 	{
-		if (is_array($condition)) 
+		if (is_array($condition))
 		{
 			$statements = array();
 
@@ -30,12 +31,23 @@ class SQL_Join extends SQL
 
 		$this->type = $type;
 
-		parent::__construct($table);
+		if (is_array($table))
+		{
+			$this->table = new SQL_Aliased(key($table), reset($table));
+		}
+		elseif ($table instanceof SQL)
+		{
+			$this->table = $table;
+		}
+		else
+		{
+			$this->table = new SQL_Aliased($table);
+		}
 	}
 
 	public function table()
 	{
-		return $this->content;
+		return $this->table;
 	}
 
 	public function condition()
@@ -45,7 +57,7 @@ class SQL_Join extends SQL
 
 	public function parameters()
 	{
-		if ($this->condition instanceof SQL) 
+		if ($this->condition instanceof SQL)
 		{
 			return $this->condition->parameters();
 		}

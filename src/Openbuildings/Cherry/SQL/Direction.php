@@ -7,13 +7,22 @@
  */
 class SQL_Direction extends SQL
 {
-	function __construct($statement, $direction = NULL)
-	{
-		if ($direction) 
-		{
-			$statement = "$statement $direction";
-		}
+	protected $direction;
 
-		parent::__construct($statement);
+	public static function factory($column, $direction = NULL)
+	{
+		return new SQL_Direction($column, $direction);
+	}
+
+	function __construct($column, $direction = NULL)
+	{
+		$this->direction = $direction;
+
+		parent::__construct($column);
+	}
+
+	public function direction()
+	{
+		return $this->direction;
 	}
 }

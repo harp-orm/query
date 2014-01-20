@@ -5,8 +5,8 @@
  * @copyright  (c) 2011-2013 Despark Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class SQL
-{
+class SQL implements Parametrised {
+
 	protected $parameters;
 	protected $content;
 

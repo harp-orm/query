@@ -9,18 +9,9 @@ class SQL_Aliased extends SQL
 {
 	protected $alias;
 
-	public static function from_array(array $array)
+	public static function factory($content, $alias = NULL)
 	{
-		$array = Arr::to_assoc($array);
-
-		$statements = array();
-
-		foreach ($array as $key => $value)
-		{
-			$statements []= ($value instanceof SQL) ? $value : new SQL_Aliased($key, $value);
-		}
-
-		return $statements;
+		return new SQL_Aliased($content, $alias);
 	}
 
 	function __construct($content, $alias = NULL)
@@ -41,5 +32,4 @@ class SQL_Aliased extends SQL
 	{
 		return $this->alias;
 	}
-
 }

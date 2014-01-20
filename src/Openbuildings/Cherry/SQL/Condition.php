@@ -7,9 +7,10 @@
  */
 class SQL_Condition extends SQL
 {
+
 	function __construct($content, array $parameters = NULL)
 	{
-		if (is_array($content)) 
+		if (is_array($content))
 		{
 			$statements = array();
 
@@ -34,6 +35,6 @@ class SQL_Condition extends SQL
 			$content = implode(' AND ', $statements);
 		}
 
-		parent::__construct($content, Arr::flatten($parameters));
+		parent::__construct($content, $parameters);
 	}
 }

@@ -11,13 +11,13 @@ namespace Openbuildings\Cherry;
  */
 class Arr
 {
-	public static function to_assoc(array $array)
+	public static function toAssoc(array $array)
 	{
 		$converted = array();
 
 		foreach ($array as $key => $value)
 		{
-			if (is_numeric($key)) 
+			if (is_numeric($key) AND ! is_object($value))
 			{
 				$converted[$value] = NULL;
 			}
@@ -30,22 +30,47 @@ class Arr
 		return $converted;
 	}
 
-	public function has_array(array $array)
+	public static function toArray($array)
 	{
-		return (bool) array_filter($array, function($param){ 
-			return is_array($param);
-		});
+		if ( ! is_array($array))
+		{
+			return array($array);
+		}
+		return $array;
 	}
 
-	public function replace_placeholders($content, array $array)
+	public static function toObjects($array, $argument, $callback)
 	{
-		$i=0;
-		return preg_replace_callback('/\?/', function($matches) use ($array, & $i) {
-			return $array[$i++];
-		}, $content);
+		$objects = array();
+
+		if ($argument !== NULL)
+		{
+			$objects []= call_user_func($callback, $array, $argument);
+		}
+		else
+		{
+			$array = Arr::toAssoc(Arr::toArray($array));
+
+			foreach ($array as $param => $argument)
+			{
+				$objects []= is_object($argument) ? $argument : call_user_func($callback, $param, $argument);
+			}
+		}
+
+		return $objects;
 	}
 
-	public function flatten(array $array)
+	public static function map($callback, $array)
+	{
+		return $array ? array_map($callback, $array) : NULL;
+	}
+
+	public static function join($separator, $array)
+	{
+		return $array ? join($separator, $array) : NULL;
+	}
+
+	public static function flatten(array $array)
 	{
 		$result = array();
 

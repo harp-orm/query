@@ -5,7 +5,7 @@
  * @copyright  (c) 2011-2013 Despark Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class Query_Select extends Query
+class Query_Delete extends Query
 {
 	public function type($type)
 	{
@@ -13,9 +13,9 @@ class Query_Select extends Query
 		return $this;
 	}
 
-	public function columns($column, $alias = NULL)
+	public function table($table)
 	{
-		$this->addChildrenObjects(Query::COLUMNS, $column, $alias, __NAMESPACE__.'\SQL_Aliased::factory');
+		$this->addChildren(Query::TABLE, Arr::toArray($table));
 
 		return $this;
 	}
@@ -40,20 +40,6 @@ class Query_Select extends Query
 		return $this;
 	}
 
-	public function group($column, $direction = NULL)
-	{
-		$this->addChildrenObjects(Query::GROUP_BY, $column, $direction, __NAMESPACE__.'\SQL_Direction::factory');
-
-		return $this;
-	}
-
-	public function having($having)
-	{
-		$this->children[Query::HAVING] []= new SQL_Condition($having, array_slice(func_get_args(), 1));
-
-		return $this;
-	}
-
 	public function order($column, $direction = NULL)
 	{
 		$this->addChildrenObjects(Query::ORDER_BY, $column, $direction, __NAMESPACE__.'\SQL_Direction::factory');
@@ -64,12 +50,6 @@ class Query_Select extends Query
 	public function limit($limit)
 	{
 		$this->children[Query::LIMIT] = (int) $limit;
-		return $this;
-	}
-
-	public function offset($offset)
-	{
-		$this->children[Query::OFFSET] = (int) $offset;
 		return $this;
 	}
 }
