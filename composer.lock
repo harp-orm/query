@@ -1,0 +1,63 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "5c0f3c98b963e966033cc504a17d271a",
+    "packages": [
+
+    ],
+    "packages-dev": [
+        {
+            "name": "openbuildings/environment-backup",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OpenBuildings/environment-backup.git",
+                "reference": "ae8437a61fcd39d332ae9a8ae11ab4db3d8103d7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OpenBuildings/environment-backup/zipball/ae8437a61fcd39d332ae9a8ae11ab4db3d8103d7",
+                "reference": "ae8437a61fcd39d332ae9a8ae11ab4db3d8103d7",
+                "shasum": ""
+            },
+            "require-dev": {
+                "openbuildings/kohana-test-bootsrap": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Openbuildings\\EnvironmentBackup\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Ivan Kerin",
+                    "email": "ivan@openbuildings.com",
+                    "homepage": "https://github.com/OpenBuildings/jam",
+                    "role": "Author"
+                }
+            ],
+            "description": "Backup/restore environment variables: globals, static vars, configs",
+            "time": "2013-07-23 16:39:47"
+        }
+    ],
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": [
+
+    ],
+    "platform": {
+        "php": ">=5.3.0"
+    },
+    "platform-dev": [
+
+    ]
+}
