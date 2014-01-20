@@ -10,7 +10,7 @@ class Compiler_Condition extends Compiler
 	public static function combine($conditions)
 	{
 		return Arr::join(' AND ', Arr::map(function($condition) {
-			return "(".self::render($condition).")";
+			return "(".Compiler_Condition::render($condition).")";
 		}, $conditions));
 	}
 
