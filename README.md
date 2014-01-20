@@ -1,8 +1,8 @@
-# Cherry 
+# Cherry
 
 [![Build Status](https://travis-ci.org/OpenBuildings/cherry.png?branch=master)](https://travis-ci.org/OpenBuildings/cherry)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/OpenBuildings/cherry/badges/quality-score.png?s=e9d8fb56ba6287ac409e35a485445071ad52eebe)](https://scrutinizer-ci.com/g/OpenBuildings/cherry/)
-[![Code Coverage](https://scrutinizer-ci.com/g/OpenBuildings/cherry/badges/coverage.png?s=80b3817f7aa1d6b14e56a45ba054f44cb4df695b)](https://scrutinizer-ci.com/g/OpenBuildings/cherry/)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/OpenBuildings/cherry/badges/quality-score.png?s=57a2e2c70f39e76cd55d7d6d7938a56404deb468)](https://scrutinizer-ci.com/g/OpenBuildings/cherry/)
+[![Code Coverage](https://scrutinizer-ci.com/g/OpenBuildings/cherry/badges/coverage.png?s=ffc98c29ef43ccddf14b2df890f230a9c1d99e18)](https://scrutinizer-ci.com/g/OpenBuildings/cherry/)
 [![Latest Stable Version](https://poser.pugx.org/openbuildings/cherry/v/stable.png)](https://packagist.org/packages/openbuildings/cherry)
 
 * In table and column selects:
