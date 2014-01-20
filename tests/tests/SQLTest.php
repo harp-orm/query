@@ -20,5 +20,4 @@ class SQLTest extends Testcase_Extended {
 		$this->assertEquals('SQL STRING', $sql->__toString());
 
 	}
-
 }

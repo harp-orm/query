@@ -75,5 +75,4 @@ SQL;
 	{
 		$this->assertEquals($expected_sql, Compiler_Insert::render($query));
 	}
-
 }

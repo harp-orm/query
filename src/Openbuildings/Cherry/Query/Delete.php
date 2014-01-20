@@ -52,4 +52,9 @@ class Query_Delete extends Query
 		$this->children[Query::LIMIT] = (int) $limit;
 		return $this;
 	}
+
+	public function sql()
+	{
+		return Compiler_Delete::render($this);
+	}
 }

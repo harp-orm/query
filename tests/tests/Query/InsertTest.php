@@ -107,4 +107,17 @@ class Query_InsertTest extends Testcase_Extended {
 		$this->assertSame($select, $query->children(Query::SELECT));
 	}
 
+	/**
+	 * @covers Openbuildings\Cherry\Query_Insert::sql
+	 */
+	public function testSql()
+	{
+		$query = new Query_Insert;
+
+		$query
+			->into('table1')
+			->set(array('name' => 10));
+
+		$this->assertEquals('INSERT INTO table1 SET name = ?', $query->sql());
+	}
 }

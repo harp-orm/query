@@ -49,5 +49,4 @@ class SQL_JoinTest extends Testcase_Extended {
 
 		$this->assertNull($join->parameters());
 	}
-
 }

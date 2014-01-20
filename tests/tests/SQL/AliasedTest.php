@@ -42,6 +42,5 @@ class SQL_AliasedTest extends Testcase_Extended {
 		$this->assertSame($query, $aliased_query->content());
 		$this->assertEquals('query_alias', $aliased_query->alias());
 		$this->assertEquals(array('val'), $aliased_query->parameters());
-
 	}
 }

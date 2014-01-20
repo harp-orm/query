@@ -55,4 +55,9 @@ class Query_Update extends Query
 		$this->children[Query::LIMIT] = (int) $limit;
 		return $this;
 	}
+
+	public function sql()
+	{
+		return Compiler_Update::render($this);
+	}
 }

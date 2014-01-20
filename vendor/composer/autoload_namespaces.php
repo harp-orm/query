@@ -6,5 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Openbuildings\\EnvironmentBackup\\' => array($vendorDir . '/openbuildings/environment-backup/src'),
     'Openbuildings\\Cherry\\' => array($baseDir . '/src'),
 );

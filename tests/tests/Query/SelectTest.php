@@ -178,4 +178,18 @@ class Query_SelectTest extends Testcase_Extended {
 
 		$this->assertEquals(20, $query->children(Query::OFFSET));
 	}
+
+	/**
+	 * @covers Openbuildings\Cherry\Query_Select::sql
+	 */
+	public function testSql()
+	{
+		$query = new Query_Select;
+
+		$query
+			->from('table1')
+			->where(array('name' => 10));
+
+		$this->assertEquals('SELECT * FROM table1 WHERE (name = ?)', $query->sql());
+	}
 }

@@ -2,7 +2,7 @@
 
 use Openbuildings\Cherry\Arr;
 use Openbuildings\Cherry\SQL_Aliased;
-use Openbuildings\Cherry\Query;
+use Openbuildings\Cherry\Query_Select;
 
 /**
  * @group arr
@@ -52,12 +52,12 @@ class ArrTest extends Testcase_Extended {
 		$test2 = array('test2', NULL);
 		$alias1 = array('test1', 'alias1');
 		$alias2 = array('test2', 'alias2');
-		$alias3 = array(new Query, 'alias3');
+		$alias3 = array(new Query_Select, 'alias3');
 		$sql_alias = new SQL_Aliased('test3', 'alias3');
 
 		return array(
 			array('test1', 'alias1', array($alias1)),
-			array(new Query, 'alias3', array($alias3)),
+			array(new Query_Select, 'alias3', array($alias3)),
 			array('test1', NULL, array($test1)),
 			array(array('test1'), NULL, array($test1)),
 			array(array('test1', 'test2'), NULL, array($test1, $test2)),

@@ -19,5 +19,3 @@ class Compiler_Values extends Compiler
 		return '('.join(', ', $placeholders).')';
 	}
 }
-
-

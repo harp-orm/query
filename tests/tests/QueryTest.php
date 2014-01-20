@@ -2,6 +2,7 @@
 
 use Openbuildings\Cherry\Query;
 use Openbuildings\Cherry\SQL;
+use Openbuildings\Cherry\DB;
 
 /**
  * @group str
@@ -37,7 +38,7 @@ class QueryTest extends Testcase_Extended {
 	{
 		$children = array(Query::TYPE => 'ignore', Query::LIMIT => 10);
 
-		$query = new Query($children);
+		$query = $this->getMock('Openbuildings\Cherry\Query', array('sql'), array($children));
 
 		$this->assertEquals($children, $query->children());
 
@@ -63,11 +64,11 @@ class QueryTest extends Testcase_Extended {
 			->method('parameters')
 			->will($this->returnValue(array('test5')));
 
-		$query = new Query(array('test', array($object1), $object2));
+		$query = $this->getMock('Openbuildings\Cherry\Query', array('sql'), array(array('test', array($object1), $object2)));
 
 		$this->assertEquals(array('test1', 'test2', 'test3', 'test4', 'test5'), $query->parameters());
 
-		$query = new Query();
+		$query = $this->getMock('Openbuildings\Cherry\Query', array('sql'));
 
 		$this->assertEquals(array(), $query->parameters());
 	}
@@ -82,7 +83,7 @@ class QueryTest extends Testcase_Extended {
 		$child2 = new stdClass;
 		$child3 = new stdClass;
 
-		$query = new Query(array(Query::TABLE => array($child1)));
+		$query = $this->getMock('Openbuildings\Cherry\Query', array('sql'), array(array(Query::TABLE => array($child1))));
 
 		$query->addChildren(Query::TABLE, array($child2));
 		$query->addChildren(Query::COLUMNS, array($child3));
@@ -160,10 +161,71 @@ class QueryTest extends Testcase_Extended {
 			$expected []= $call[2];
 		}
 
-		$query = new Query();
+		$query = $this->getMock('Openbuildings\Cherry\Query', array('sql'));
+
 
 		$query->addChildrenObjects(Query::TABLE, $array, $argument, array($class, 'testMethod'));
 
 		$this->assertEquals($query->children(Query::TABLE), $expected);
+	}
+
+	/**
+	 * @covers Openbuildings\Cherry\Query::db
+	 */
+	public function testDb()
+	{
+		$db = new DB(array());
+
+		$query = $this->getMock('Openbuildings\Cherry\Query', array('sql'), array(NULL, $db));
+
+		$this->assertSame($db, $query->db());
+
+		$query = $this->getMock('Openbuildings\Cherry\Query', array('sql'));
+
+		$this->assertSame(DB::instance(), $query->db());
+	}
+
+	/**
+	 * @covers Openbuildings\Cherry\Query::execute
+	 */
+	public function testExecute()
+	{
+		$query = $this->getMock('Openbuildings\Cherry\Query', array('sql', 'parameters'));
+
+		$query
+			->expects($this->once())
+			->method('sql')
+			->will($this->returnValue('SELECT * FROM users WHERE name = ?'));
+
+		$query
+			->expects($this->once())
+			->method('parameters')
+			->will($this->returnValue(array('User 1')));
+
+		$expected = array(
+			array('id' => 1, 'name' => 'User 1'),
+		);
+
+		$this->assertEquals($expected, $query->execute()->fetchAll());
+	}
+
+	/**
+	 * @covers Openbuildings\Cherry\Query::humanize
+	 */
+	public function testHumanize()
+	{
+		$query = $this->getMock('Openbuildings\Cherry\Query', array('sql', 'parameters'));
+
+		$query
+			->expects($this->once())
+			->method('sql')
+			->will($this->returnValue('SELECT * FROM users WHERE name = ?'));
+
+		$query
+			->expects($this->once())
+			->method('parameters')
+			->will($this->returnValue(array('User 1')));
+
+		$this->assertEquals('SELECT * FROM users WHERE name = "User 1"', $query->humanize());
 	}
 }

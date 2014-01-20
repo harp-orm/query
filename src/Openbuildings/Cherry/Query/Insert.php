@@ -49,4 +49,9 @@ class Query_Insert extends Query
 		$this->children[Query::SELECT] = $select;
 		return $this;
 	}
+
+	public function sql()
+	{
+		return Compiler_Insert::render($this);
+	}
 }

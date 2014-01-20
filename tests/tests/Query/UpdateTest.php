@@ -134,4 +134,17 @@ class Query_UpdateTest extends Testcase_Extended {
 		$this->assertEquals(20, $query->children(Query::LIMIT));
 	}
 
+	/**
+	 * @covers Openbuildings\Cherry\Query_Update::sql
+	 */
+	public function testSql()
+	{
+		$query = new Query_Update;
+
+		$query
+			->table('table1')
+			->set(array('name' => 10));
+
+		$this->assertEquals('UPDATE table1 SET name = ?', $query->sql());
+	}
 }

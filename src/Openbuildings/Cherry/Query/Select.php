@@ -72,4 +72,9 @@ class Query_Select extends Query
 		$this->children[Query::OFFSET] = (int) $offset;
 		return $this;
 	}
+
+	public function sql()
+	{
+		return Compiler_Select::render($this);
+	}
 }

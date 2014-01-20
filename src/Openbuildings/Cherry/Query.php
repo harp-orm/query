@@ -5,7 +5,7 @@
  * @copyright  (c) 2011-2013 Despark Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class Query implements Parametrised {
+abstract class Query implements Parametrised {
 
 	const TYPE     = 1;
 	const TABLE    = 2;
@@ -23,10 +23,12 @@ class Query implements Parametrised {
 	const OFFSET   = 14;
 
 	protected $children;
+	protected $db;
 
-	public function __construct(array $children = NULL)
+	public function __construct($children = NULL, DB $db = NULL)
 	{
 		$this->children = $children;
+		$this->db = $db;
 	}
 
 	public function children($index = NULL)
@@ -73,4 +75,26 @@ class Query implements Parametrised {
 
 		$this->addChildren($name, $objects);
 	}
+
+	public function db()
+	{
+		if ( ! $this->db)
+		{
+			$this->db = DB::instance();
+		}
+
+		return $this->db;
+	}
+
+	public function execute()
+	{
+		return $this->db()->execute($this->sql(), $this->parameters());
+	}
+
+	public function humanize()
+	{
+		return Compiler::humanize($this->sql(), $this->parameters());
+	}
+
+	abstract public function sql();
 }

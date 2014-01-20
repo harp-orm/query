@@ -24,5 +24,4 @@ class StrTest extends Testcase_Extended {
 	{
 		$this->assertEquals($expected, Str::replace($pattern, $replacements, $subject));
 	}
-
 }

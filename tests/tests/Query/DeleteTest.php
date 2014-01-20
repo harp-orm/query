@@ -137,4 +137,17 @@ class Query_DeleteTest extends Testcase_Extended {
 		$this->assertEquals(20, $query->children(Query::LIMIT));
 	}
 
+	/**
+	 * @covers Openbuildings\Cherry\Query_Delete::sql
+	 */
+	public function testSql()
+	{
+		$query = new Query_Delete;
+
+		$query
+			->from('table1')
+			->limit(10);
+
+		$this->assertEquals('DELETE FROM table1 LIMIT 10', $query->sql());
+	}
 }
