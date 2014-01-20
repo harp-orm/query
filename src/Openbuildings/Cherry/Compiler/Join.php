@@ -16,8 +16,8 @@ class Compiler_Join extends Compiler
 	{
 		return self::expression(array(
 			$join->type(),
-			'JOIN', 
-			Compiler_Aliased::render($join->table()),
+			'JOIN',
+			$join->table() instanceof SQL_Aliased ? Compiler_Aliased::render($join->table()) : $join->table(),
 			$join->condition(),
 		));
 	}

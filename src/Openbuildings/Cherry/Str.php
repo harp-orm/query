@@ -3,7 +3,7 @@
 namespace Openbuildings\Cherry;
 
 /**
- * Extend exception to allow variables 
+ * Extend exception to allow variables
  *
  * @author     Ivan Kerin
  * @copyright  (c) 2011-2013 Despark Ltd.
@@ -15,7 +15,7 @@ class Str
 	{
 		$current = 0;
 
-		return preg_replace_callback($pattern, function($matches) use ($replacements, & $current) {
+		return preg_replace_callback($pattern, function() use ($replacements, & $current) {
 			return $replacements[$current++];
 		}, $subject);
 	}

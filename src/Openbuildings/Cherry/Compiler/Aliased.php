@@ -16,7 +16,7 @@ class Compiler_Aliased extends Compiler
 	{
 		$content = $aliased->content();
 
-		if ($content instanceof Query_Select) 
+		if ($content instanceof Query_Select)
 		{
 			$content = "(".Compiler_Select::render($content).")";
 		}

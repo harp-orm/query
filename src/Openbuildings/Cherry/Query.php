@@ -47,13 +47,13 @@ class Query implements Parametrised {
 
 		if ($this->children)
 		{
-			foreach (Arr::flatten($this->children) as $child)
-			{
-				if (is_object($child) AND ($child_parameters = $child->parameters()))
-				{
-					$parameters = array_merge($parameters, Arr::flatten($child_parameters));
-				}
-			}
+			$children = Arr::flatten($this->children);
+
+			$parameters = array_map(function($child) {
+				return is_object($child) ? $child->parameters() : NULL;
+			}, $children);
+
+			$parameters = array_values(array_filter(Arr::flatten($parameters)));
 		}
 
 		return $parameters;
