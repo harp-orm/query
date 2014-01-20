@@ -7,12 +7,12 @@
  */
 class Compiler_Aliased extends Compiler
 {
-	public function combine($items)
+	public static function combine($items)
 	{
 		return Arr::join(', ', Arr::map(__NAMESPACE__."\Compiler_Aliased::render", $items));
 	}
 
-	public function render(SQL_Aliased $aliased)
+	public static function render(SQL_Aliased $aliased)
 	{
 		$content = $aliased->content();
 

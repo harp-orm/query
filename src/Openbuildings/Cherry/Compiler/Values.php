@@ -7,12 +7,12 @@
  */
 class Compiler_Values extends Compiler
 {
-	public function combine($items)
+	public static function combine($items)
 	{
 		return Arr::join(', ', Arr::map(__NAMESPACE__."\Compiler_Values::render", $items));
 	}
 
-	public function render(SQL_Values $item)
+	public static function render(SQL_Values $item)
 	{
 		$placeholders = array_fill(0, count($item->parameters()), '?');
 

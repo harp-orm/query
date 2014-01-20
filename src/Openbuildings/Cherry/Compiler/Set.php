@@ -7,12 +7,12 @@
  */
 class Compiler_Set extends Compiler
 {
-	public function combine($items)
+	public static function combine($items)
 	{
 		return Arr::join(', ', Arr::map(__NAMESPACE__."\Compiler_Set::render", $items));
 	}
 
-	public function render(SQL_Set $item)
+	public static function render(SQL_Set $item)
 	{
 		if ($item->value() instanceof SQL)
 		{

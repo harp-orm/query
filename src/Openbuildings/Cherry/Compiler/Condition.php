@@ -7,14 +7,14 @@
  */
 class Compiler_Condition extends Compiler
 {
-	public function combine($conditions)
+	public static function combine($conditions)
 	{
 		return Arr::join(' AND ', Arr::map(function($condition) {
 			return "(".self::render($condition).")";
 		}, $conditions));
 	}
 
-	public function render(SQL_Condition $condition)
+	public static function render(SQL_Condition $condition)
 	{
 		$content = $condition->content();
 

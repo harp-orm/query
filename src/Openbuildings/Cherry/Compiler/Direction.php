@@ -7,12 +7,12 @@
  */
 class Compiler_Direction extends Compiler
 {
-	public function combine($items)
+	public static function combine($items)
 	{
 		return Arr::join(', ', Arr::map(__NAMESPACE__."\Compiler_Direction::render", $items));
 	}
 
-	public function render(SQL_Direction $item)
+	public static function render(SQL_Direction $item)
 	{
 		return Compiler::expression(array(
 			$item->content(),

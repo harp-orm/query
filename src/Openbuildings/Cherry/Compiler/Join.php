@@ -7,12 +7,12 @@
  */
 class Compiler_Join extends Compiler
 {
-	public function combine($items)
+	public static function combine($items)
 	{
 		return Arr::join(' ', Arr::map(__NAMESPACE__."\Compiler_Join::render", $items));
 	}
 
-	public function render(SQL_Join $join)
+	public static function render(SQL_Join $join)
 	{
 		return self::expression(array(
 			$join->type(),
