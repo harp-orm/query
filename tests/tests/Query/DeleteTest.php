@@ -1,68 +1,140 @@
 <?php
 
 use Openbuildings\Cherry\Query_Delete;
-use Openbuildings\Cherry\Statement_Table;
-use Openbuildings\Cherry\Statement_Expression;
-use Openbuildings\Cherry\Statement_Aliased;
-use Openbuildings\Cherry\Statement_Column;
+use Openbuildings\Cherry\Query;
+use Openbuildings\Cherry\SQL_Aliased;
+use Openbuildings\Cherry\SQL_Join;
+use Openbuildings\Cherry\SQL_Condition;
+use Openbuildings\Cherry\SQL_Direction;
 
 /**
- * @group query
- * @group query.delete
+ * @group sql.delete
  */
 class Query_DeleteTest extends Testcase_Extended {
 
-	public $delete;
-
-	public function setUp()
+	/**
+	 * @covers Openbuildings\Cherry\Query_Delete::type
+	 */
+	public function testType()
 	{
-		parent::setUp();
+		$query = new Query_Delete;
 
-		$this->delete = new Query_Delete;
+		$query->type('IGNORE');
+
+		$this->assertEquals('IGNORE', $query->children(Query::TYPE));
+
+		$query->type('IGNORE QUICK');
+
+		$this->assertEquals('IGNORE QUICK', $query->children(Query::TYPE));
 	}
 
 	/**
-	 * @covers Openbuildings\Cherry\Query_Delete::only
+	 * @covers Openbuildings\Cherry\Query_Delete::table
 	 */
-	public function test_only()
+	public function testTable()
 	{
-		$this->delete
-			->only('table1', 'table2');
+		$query = $this->getMock('Openbuildings\Cherry\Query_Delete', array('addChildren'));
+		$query
+			->expects($this->at(0))
+			->method('addChildren')
+			->with($this->equalTo(Query::TABLE), $this->equalTo(array('table1')));
 
-		$table1 = new Statement_Table('table1');
-		$table2 = new Statement_Table('table2');
+		$query
+			->expects($this->at(1))
+			->method('addChildren')
+			->with($this->equalTo(Query::TABLE), $this->equalTo(array('table1', 'table2')));
 
-		$expected = array('Query_Delete', 'DELETE', array(
-			'ONLY' => array('Statement_List', NULL, array(
-				$table1,
-				$table2,
-			)),
-		));
-
-		$this->assertStatement($expected, $this->delete);
+		$query->table('table1');
+		$query->table(array('table1', 'table2'));
 	}
 
 	/**
 	 * @covers Openbuildings\Cherry\Query_Delete::from
 	 */
-	public function test_from()
+	public function testFrom()
 	{
-		$this->delete
-			->from('table1', array('table2', 'alias2'));
+		$query = $this->getMock('Openbuildings\Cherry\Query_Delete', array('addChildrenObjects'));
+		$query
+			->expects($this->once())
+			->method('addChildrenObjects')
+			->with(
+				$this->equalTo(Query::FROM),
+				$this->equalTo(array('table1', 'table2' => 'alias2')),
+				$this->equalTo('alias'),
+				'Openbuildings\Cherry\SQL_Aliased::factory'
+			);
 
-		$table1 = new Statement_Table('table1');
-		$table2 = new Statement_Table('table2');
-
-		$expected = array('Query_Delete', 'DELETE', array(
-			'FROM' => array('Statement_List', 'FROM', array(
-				$table1,
-				array('Statement_Aliased', NULL, NULL, array(
-					'statement' => $table2,
-					'alias' => 'alias2',
-				)),
-			)),
-		));
-
-		$this->assertStatement($expected, $this->delete);
+		$query->from(array('table1', 'table2' => 'alias2'), 'alias');
 	}
+
+	/**
+	 * @covers Openbuildings\Cherry\Query_Delete::join
+	 */
+	public function testJoin()
+	{
+		$query = new Query_Delete;
+
+		$query
+			->join('table1', array('col' => 'col2'))
+			->join(array('table2', 'alias2'), 'USING (col1)', 'LEFT');
+
+		$expected = array(
+			new SQL_Join('table1', array('col' => 'col2')),
+			new SQL_Join(array('table2', 'alias2'), 'USING (col1)', 'LEFT'),
+		);
+
+		$this->assertEquals($expected, $query->children(Query::JOIN));
+	}
+
+	/**
+	 * @covers Openbuildings\Cherry\Query_Delete::where
+	 */
+	public function testWhere()
+	{
+		$query = new Query_Delete;
+
+		$query
+			->where(array('test' => 20))
+			->where('column = ? OR column = ?', 10, 20);
+
+		$expected = array(
+			new SQL_Condition(array('test' => 20)),
+			new SQL_Condition('column = ? OR column = ?', array(10, 20)),
+		);
+
+		$this->assertEquals($expected, $query->children(Query::WHERE));
+	}
+
+	/**
+	 * @covers Openbuildings\Cherry\Query_Delete::order
+	 */
+	public function testOrder()
+	{
+		$query = $this->getMock('Openbuildings\Cherry\Query_Delete', array('addChildrenObjects'));
+		$query
+			->expects($this->once())
+			->method('addChildrenObjects')
+			->with(
+				$this->equalTo(Query::ORDER_BY),
+				$this->equalTo(array('column1', 'column2' => 'alias2')),
+				$this->equalTo('direction'),
+				'Openbuildings\Cherry\SQL_Direction::factory'
+			);
+
+		$query->order(array('column1', 'column2' => 'alias2'), 'direction');
+	}
+
+
+	/**
+	 * @covers Openbuildings\Cherry\Query_Delete::limit
+	 */
+	public function testLimit()
+	{
+		$query = new Query_Delete;
+
+		$query->limit(20);
+
+		$this->assertEquals(20, $query->children(Query::LIMIT));
+	}
+
 }

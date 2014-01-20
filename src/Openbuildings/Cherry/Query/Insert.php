@@ -1,90 +1,52 @@
-<?php
-namespace Openbuildings\Cherry;
+<?php namespace Openbuildings\Cherry;
 
 /**
- * INSERT Query
- * 
- * @package    Openbuildings\Cherry
- * @author     Ivan Kerin <ikerin@gmail.com>
- * @copyright  (c) 2013 OpenBuildings Ltd.
- * @license    http://spdx.org/licenses/BSD-3-Clause
+ * @author     Ivan Kerin
+ * @copyright  (c) 2011-2013 Despark Ltd.
+ * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class Query_Insert extends Query {
-
-	protected static $children_names = array(
-		'PREFIX',
-		'INTO',
-		'COLUMNS',
-		'SET',
-		'SELECT',
-		'VALUES',
-	);
-
-	protected $keyword = 'INSERT';
-
-	public function prefix($prefix)
+class Query_Insert extends Query
+{
+	public function type($type)
 	{
-		$this->children['PREFIX'] = new Statement($prefix);
-
+		$this->children[Query::TYPE] = $type;
 		return $this;
 	}
 
 	public function into($table)
 	{
-		$this->children['INTO'] = new Statement('INTO', array(Query::new_table($table)));
+		$this->children[Query::TABLE] = $table;
 
 		return $this;
 	}
 
 	public function columns($columns)
 	{
-		$columns = func_get_args();
-
-		$column_statements = array_map('Openbuildings\Cherry\Query::new_column', $columns);
-
-		if ( ! isset($this->children['COLUMNS'])) 
-		{
-			$this->children['COLUMNS'] = new Statement_Insert_Columns(NULL);
-		}
-
-		$this->children['COLUMNS']->append($column_statements);
+		$this->addChildren(Query::COLUMNS, Arr::toArray($columns));
 
 		return $this;
-	}
-
-	/**
-	 * Choose the columns to select from.
-	 *
-	 * @param   mixed  $columns  column name or array($column, $alias) or object
-	 * @return  $this
-	 */
-	public function set(array $pairs)
-	{
-		$sets = array();
-
-		foreach ($pairs as $column => $value) 
-		{
-			$sets []= Query::new_set($column, $value);
-		}
-
-		$this->set_list('SET', $sets);
-
-		return $this;
-	}
-
-	public function select(Query $select)
-	{
-		$this->children['SELECT'] = $select;
 	}
 
 	public function values(array $values)
 	{
-		$value_sets = func_get_args();
+		$this->children[Query::VALUES] []= new SQL_Values($values);
 
-		$value_statements = array_map('Openbuildings\Cherry\Query::new_insert_values', $value_sets);
+		return $this;
+	}
 
-		$this->set_list('VALUES', $value_statements);
+	public function set(array $values)
+	{
+		foreach ($values as $column => $value)
+		{
+			$this->children[Query::SET] []= new SQL_Set($column, $value);
+		}
 
+		return $this;
+	}
+
+	public function select(Query_Select $select)
+	{
+		$this->children[Query::SELECT] = $select;
 		return $this;
 	}
 }

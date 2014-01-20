@@ -1,46 +1,55 @@
-<?php
-namespace Openbuildings\Cherry;
+<?php namespace Openbuildings\Cherry;
 
 /**
- * DELETE Query
- * 
- * @package    Openbuildings\Cherry
- * @author     Ivan Kerin <ikerin@gmail.com>
- * @copyright  (c) 2013 OpenBuildings Ltd.
- * @license    http://spdx.org/licenses/BSD-3-Clause
+ * @author     Ivan Kerin
+ * @copyright  (c) 2011-2013 Despark Ltd.
+ * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class Query_Delete extends Query_Where {
-
-	protected static $children_names = array(
-		'ONLY',
-		'FROM',
-		'WHERE',
-		'LIMIT',
-	);
-
-	protected $keyword = 'DELETE';
-
-	public function only($tables)
+class Query_Delete extends Query
+{
+	public function type($type)
 	{
-		$tables = func_get_args();
+		$this->children[Query::TYPE] = $type;
+		return $this;
+	}
 
-		$table_statements = array_map('Openbuildings\Cherry\Query::new_table', $tables);
-
-		$this->set_list('ONLY', $table_statements, NULL, FALSE);
+	public function table($table)
+	{
+		$this->addChildren(Query::TABLE, Arr::toArray($table));
 
 		return $this;
 	}
 
-	public function from($tables)
+	public function from($table, $alias = NULL)
 	{
-		$tables = func_get_args();
-
-		$table_statements = array_map('Openbuildings\Cherry\Query::new_aliased_table', $tables);
-
-		$this->set_list('FROM', $table_statements);
+		$this->addChildrenObjects(Query::FROM, $table, $alias, __NAMESPACE__.'\SQL_Aliased::factory');
 
 		return $this;
 	}
 
+	public function join($table, $condition, $type = NULL)
+	{
+		$this->children[Query::JOIN] []= new SQL_Join($table, $condition, $type);
+		return $this;
+	}
 
+	public function where($where)
+	{
+		$this->children[Query::WHERE] []= new SQL_Condition($where, array_slice(func_get_args(), 1));
+
+		return $this;
+	}
+
+	public function order($column, $direction = NULL)
+	{
+		$this->addChildrenObjects(Query::ORDER_BY, $column, $direction, __NAMESPACE__.'\SQL_Direction::factory');
+
+		return $this;
+	}
+
+	public function limit($limit)
+	{
+		$this->children[Query::LIMIT] = (int) $limit;
+		return $this;
+	}
 }

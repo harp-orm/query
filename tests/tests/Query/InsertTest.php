@@ -2,175 +2,109 @@
 
 use Openbuildings\Cherry\Query_Insert;
 use Openbuildings\Cherry\Query_Select;
-use Openbuildings\Cherry\Statement_Table;
-use Openbuildings\Cherry\Statement_Expression;
-use Openbuildings\Cherry\Statement_Column;
+use Openbuildings\Cherry\Query;
+use Openbuildings\Cherry\SQL_Aliased;
+use Openbuildings\Cherry\SQL_Join;
+use Openbuildings\Cherry\SQL_Condition;
+use Openbuildings\Cherry\SQL_Direction;
+use Openbuildings\Cherry\SQL_Values;
+use Openbuildings\Cherry\SQL_Set;
 
 /**
- * @group query
- * @group query.insert
+ * @group sql.insert
  */
 class Query_InsertTest extends Testcase_Extended {
 
-	public $insert;
-
-	public function setUp()
-	{
-		parent::setUp();
-
-		$this->insert = new Query_Insert;
-	}
-
 	/**
-	 * @covers Openbuildings\Cherry\Query_Insert::prefix
+	 * @covers Openbuildings\Cherry\Query_Insert::type
 	 */
-	public function test_prefix()
+	public function testType()
 	{
-		$this->insert
-			->prefix('IGNORE');
+		$query = new Query_Insert;
 
-		$expected = array('Query_Insert', 'INSERT', array(
-			'PREFIX' => array('Statement', 'IGNORE'),
-		));
+		$query->type('IGNORE');
 
-		$this->assertStatement($expected, $this->insert);
+		$this->assertEquals('IGNORE', $query->children(Query::TYPE));
 	}
 
 	/**
 	 * @covers Openbuildings\Cherry\Query_Insert::into
 	 */
-	public function test_into()
+	public function testInto()
 	{
-		$this->insert
-			->into('table1');
+		$query = new Query_Insert;
 
-		$expected = array('Query_Insert', 'INSERT', array(
-			'INTO' => array('Statement', 'INTO', array(
-				array('Statement_Table', NULL, NULL, array(
-					'name' => 'table1',
-				))
-			)),
-		));
+		$query->into('posts');
 
-		$this->assertStatement($expected, $this->insert);
+		$this->assertEquals('posts', $query->children(Query::TABLE));
 	}
 
 	/**
 	 * @covers Openbuildings\Cherry\Query_Insert::columns
 	 */
-	public function test_columns()
+	public function testColumns()
 	{
-		$this->insert
-			->columns('column1', 'column2');
+		$query = new Query_Insert;
 
-		$expected = array('Query_Insert', 'INSERT', array(
-			'COLUMNS' => array('Statement_Insert_Columns', NULL, array(
-				array('Statement_Column', NULL, NULL, array('name' => 'column1')),
-				array('Statement_Column', NULL, NULL, array('name' => 'column2')),
-			)),
-		));
+		$query->columns('posts');
 
-		$this->insert
-			->columns('column3');
+		$this->assertEquals(array('posts'), $query->children(Query::COLUMNS));
 
-		$expected = array('Query_Insert', 'INSERT', array(
-			'COLUMNS' => array('Statement_Insert_Columns', NULL, array(
-				array('Statement_Column', NULL, NULL, array('name' => 'column1')),
-				array('Statement_Column', NULL, NULL, array('name' => 'column2')),
-				array('Statement_Column', NULL, NULL, array('name' => 'column3')),
-			)),
-		));
+		$query->columns(array('col1', 'col2'));
 
-		$this->assertStatement($expected, $this->insert);
-	}
-
-	/**
-	 * @covers Openbuildings\Cherry\Query_Insert::set
-	 */
-	public function test_set()
-	{
-		$this->insert
-			->set(array('name' => 'new_name', 'id' => 'new_id'));
-
-		$expected = array('Query_Insert', 'INSERT', array(
-			'SET' => array('Statement_List', 'SET', array(
-				array('Statement_Set', NULL,
-					array(array('Statement_Column', NULL, NULL, array('name' => 'name'))), 
-					array('value' => 'new_name')
-				),
-				array('Statement_Set', NULL,
-					array(array('Statement_Column', NULL, NULL, array('name' => 'id'))), 
-					array('value' => 'new_id')
-				),
-			)),
-		));
-
-		$this->insert
-			->set(array('email' => NULL));
-
-			$expected = array('Query_Insert', 'INSERT', array(
-				'SET' => array('Statement_List', 'SET', array(
-					array('Statement_Set', NULL,
-						array(array('Statement_Column', NULL, NULL, array('name' => 'name'))), 
-						array('value' => 'new_name')
-					),
-					array('Statement_Set', NULL,
-						array(array('Statement_Column', NULL, NULL, array('name' => 'id'))), 
-						array('value' => 'new_id')
-					),
-					array('Statement_Set', NULL,
-						array(array('Statement_Column', NULL, NULL, array('name' => 'email'))), 
-						array('value' => NULL)
-					),
-				)),
-			));
-
-		$this->assertStatement($expected, $this->insert);
-	}
-
-	/**
-	 * @covers Openbuildings\Cherry\Query_Insert::select
-	 */
-	public function test_select()
-	{
-		$select = new Query_Select;
-
-		$this->insert
-			->select($select);
-
-		$expected = array('Query_Insert', 'INSERT', array(
-			'SELECT' => $select,
-		));
-
-		$this->assertStatement($expected, $this->insert);
+		$this->assertEquals(array('posts', 'col1', 'col2'), $query->children(Query::COLUMNS));
 	}
 
 	/**
 	 * @covers Openbuildings\Cherry\Query_Insert::values
 	 */
-	public function test_values()
+	public function testValues()
 	{
-		$this->insert
-			->values(array(1, 'name1'), array(2, 'name2'));
+		$query = new Query_Insert;
 
-		$expected = array('Query_Insert', 'INSERT', array(
-			'VALUES' => array('Statement_List', 'VALUES', array(
-				array('Statement_Insert_Values', NULL, array(1, 'name1')),
-				array('Statement_Insert_Values', NULL, array(2, 'name2')),
-			)),
-		));
+		$query
+			->values(array(10, 20))
+			->values(array(16, 26));
 
-		$this->insert
-			->values(array(3, 'name3'));
+		$expected = array(
+			new SQL_Values(array(10, 20)),
+			new SQL_Values(array(16, 26)),
+		);
 
-		$expected = array('Query_Insert', 'INSERT', array(
-			'VALUES' => array('Statement_List', 'VALUES', array(
-				array('Statement_Insert_Values', NULL, array(1, 'name1')),
-				array('Statement_Insert_Values', NULL, array(2, 'name2')),
-				array('Statement_Insert_Values', NULL, array(3, 'name3')),
-			)),
-		));
-
-		$this->assertStatement($expected, $this->insert);
+		$this->assertEquals($expected, $query->children(Query::VALUES));
 	}
+
+	/**
+	 * @covers Openbuildings\Cherry\Query_Insert::set
+	 */
+	public function testSet()
+	{
+		$query = new Query_Insert;
+
+		$query
+			->set(array('test' => 20, 'value' => 10))
+			->set(array('name' => 'test'));
+
+		$expected = array(
+			new SQL_Set('test', 20),
+			new SQL_Set('value', 10),
+			new SQL_Set('name', 'test'),
+		);
+
+		$this->assertEquals($expected, $query->children(Query::SET));
+	}
+
+	/**
+	 * @covers Openbuildings\Cherry\Query_Insert::select
+	 */
+	public function testSelect()
+	{
+		$select = new Query_Select;
+		$query = new Query_Insert;
+
+		$query->select($select);
+
+		$this->assertSame($select, $query->children(Query::SELECT));
+	}
+
 }

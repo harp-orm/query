@@ -1,210 +1,75 @@
-<?php
-namespace Openbuildings\Cherry;
+<?php namespace Openbuildings\Cherry;
 
 /**
- * SELECT Query
- * 
- * @package    Openbuildings\Cherry
- * @author     Ivan Kerin <ikerin@gmail.com>
- * @copyright  (c) 2013 OpenBuildings Ltd.
- * @license    http://spdx.org/licenses/BSD-3-Clause
+ * @author     Ivan Kerin
+ * @copyright  (c) 2011-2013 Despark Ltd.
+ * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class Query_Select extends Query_Where {
-
-	protected static $children_names = array(
-		'DISTINCT',
-		'SELECT',
-		'FROM',
-		'JOIN',
-		'WHERE',
-		'GROUP BY',
-		'HAVING',
-		'ORDER BY',
-		'LIMIT',
-		'OFFSET',
-	);
-
-	protected $current_having;
-	protected $last_join;
-	protected $keyword = 'SELECT';
-
-	public function __construct($keyword = NULL, $children = NULL)
+class Query_Select extends Query
+{
+	public function type($type)
 	{
-		parent::__construct($keyword, $children);
-
-		$this->select_array(array());
+		$this->children[Query::TYPE] = $type;
+		return $this;
 	}
 
-	public function distinct()
+	public function columns($column, $alias = NULL)
 	{
-		$this->children['DISTINCT'] = new Statement('DISTINCT');
+		$this->addChildrenObjects(Query::COLUMNS, $column, $alias, __NAMESPACE__.'\SQL_Aliased::factory');
 
 		return $this;
 	}
 
-	public function from($tables)
+	public function from($table, $alias = NULL)
 	{
-		$tables = func_get_args();
-
-		$table_statements = array_map('Openbuildings\Cherry\Query::new_aliased_table', $tables);
-
-		$this->set_list('FROM', $table_statements);
+		$this->addChildrenObjects(Query::FROM, $table, $alias, __NAMESPACE__.'\SQL_Aliased::factory');
 
 		return $this;
 	}
 
-	public function offset($rows)
+	public function join($table, $condition, $type = NULL)
 	{
-		$this->children['OFFSET'] = new Statement_Number('OFFSET', $rows);
+		$this->children[Query::JOIN] []= new SQL_Join($table, $condition, $type);
+		return $this;
+	}
+
+	public function where($where)
+	{
+		$this->children[Query::WHERE] []= new SQL_Condition($where, array_slice(func_get_args(), 1));
 
 		return $this;
 	}
 
-	/**
-	 * Choose the columns to select from.
-	 *
-	 * @param   mixed  $columns  column name or array($column, $alias) or object
-	 * @return  $this
-	 */
-	public function select($columns = NULL)
+	public function group($column, $direction = NULL)
 	{
-		$columns = func_get_args();
-
-		$this->select_array($columns);
+		$this->addChildrenObjects(Query::GROUP_BY, $column, $direction, __NAMESPACE__.'\SQL_Direction::factory');
 
 		return $this;
 	}
 
-	/**
-	 * Choose the columns to select from, using an array.
-	 *
-	 * @param   array  $columns  list of column names or aliases
-	 * @return  $this
-	 */
-	public function select_array(array $columns)
+	public function having($having)
 	{
-		$column_statements = array_map('Openbuildings\Cherry\Query::new_aliased_column', $columns);
-
-		$this->set_list('SELECT', $column_statements, Query::new_column('*'), FALSE);
+		$this->children[Query::HAVING] []= new SQL_Condition($having, array_slice(func_get_args(), 1));
 
 		return $this;
 	}
 
-	public function join($table, $type = NULL)
+	public function order($column, $direction = NULL)
 	{
-		$this->last_join = Query::new_join($table, $type);
-
-		if ( ! isset($this->children['JOIN'])) 
-		{
-			$this->children['JOIN'] = new Statement;
-		}
-
-		$this->children['JOIN']->append($this->last_join);
+		$this->addChildrenObjects(Query::ORDER_BY, $column, $direction, __NAMESPACE__.'\SQL_Direction::factory');
 
 		return $this;
 	}
 
-	public function on($column, $operator, $foreign_column)
+	public function limit($limit)
 	{
-		$this->last_join->set_on(Query::new_column($column), $operator, Query::new_column($foreign_column));
-
+		$this->children[Query::LIMIT] = (int) $limit;
 		return $this;
 	}
 
-	public function using($columns)
+	public function offset($offset)
 	{
-		$columns = is_array($columns) ? $columns : array($columns);
-		$column_statements = array_map('Openbuildings\Cherry\Query::new_column', $columns);
-
-		$this->last_join->set_using($column_statements);
-
+		$this->children[Query::OFFSET] = (int) $offset;
 		return $this;
-	}
-
-	public function group_by($column, $direction = NULL)
-	{
-		$this->set_list('GROUP BY', Query::new_direction($column, $direction));
-
-		return $this;
-	}
-
-	/**
-	 * @codeCoverageIgnore
-	 */
-	protected function current_having()
-	{
-		if ( ! $this->current_having)
-		{
-			$this->current_having =
-			$this->children['HAVING'] = new Statement_Condition_Group('HAVING');
-		}
-
-		return $this->current_having;
-	}
-
-	public function and_having($column, $operator, $value)
-	{
-		$this
-			->current_having()
-				->append(Query::new_condition('AND', $column, $operator, $value));
-
-		return $this;
-	}
-
-	public function having($column, $operator, $value)
-	{
-		return $this->and_having($column, $operator, $value);
-	}
-
-	public function or_having($column, $operator, $value)
-	{
-		$this
-			->current_having()
-				->append(Query::new_condition('OR', $column, $operator, $value));
-
-		return $this;
-	}
-
-	public function having_open()
-	{
-		return $this->and_having_open();
-	}
-
-	public function having_close()
-	{
-		return $this->and_having_close();
-	}
-
-	public function and_having_open()
-	{
-		$child = new Statement_Condition_Group('AND', $this->current_having());
-		$this->current_having()->append($child);
-		$this->current_having = $child;
-
-		return $this;
-	}
-
-	public function or_having_open()
-	{
-		$child = new Statement_Condition_Group('OR', $this->current_having());
-		$this->current_having()->append($child);
-		$this->current_having = $child;
-
-		return $this;
-	}
-
-	public function and_having_close()
-	{
-		if (isset($this->current_having) AND $this->current_having->parent())
-		{
-			$this->current_having = $this->current_having->parent();
-		}
-
-		return $this;
-	}
-
-	public function or_having_close()
-	{
-		return $this->and_having_close();
 	}
 }
