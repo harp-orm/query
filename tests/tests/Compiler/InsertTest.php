@@ -12,7 +12,7 @@ use Openbuildings\Cherry\SQL;
 class Integration_Compiler_InsertTest extends Testcase_Extended {
 
 
-	public function data_insert()
+	public function dataInsert()
 	{
 		$rows = array();
 		$args = array();
@@ -69,9 +69,9 @@ SQL;
 
 	/**
 	 * @covers Openbuildings\Cherry\Compiler_Insert::render
-	 * @dataProvider data_insert
+	 * @dataProvider dataInsert
 	 */
-	public function test_insert($query, $expected_sql)
+	public function testInsert($query, $expected_sql)
 	{
 		$this->assertEquals($expected_sql, Compiler_Insert::render($query));
 	}

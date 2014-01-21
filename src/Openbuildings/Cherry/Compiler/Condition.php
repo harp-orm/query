@@ -24,7 +24,7 @@ class Compiler_Condition extends Compiler
 
 			foreach ($condition->parameters() as $index => $value)
 			{
-				$rendered_parameters[$index] = is_array($value) ? Compiler::to_placeholders($value) : '?';
+				$rendered_parameters[$index] = is_array($value) ? Compiler::toPlaceholders($value) : '?';
 			}
 
 			$content = Str::replace('/\?/', $rendered_parameters, $content);

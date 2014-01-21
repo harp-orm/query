@@ -13,7 +13,7 @@ class Compiler_UpdateTest extends Testcase_Extended {
 	/**
 	 * @covers Openbuildings\Cherry\Compiler_Update::render
 	 */
-	public function test_update()
+	public function testUpdate()
 	{
 
 		$update = new Query_Update;

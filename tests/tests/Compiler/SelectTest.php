@@ -13,7 +13,7 @@ class Compiler_SelectTest extends Testcase_Extended {
 	/**
 	 * @covers Openbuildings\Cherry\Compiler_Select::render
 	 */
-	public function test_compile()
+	public function testCompile()
 	{
 		$select2 = new Query_Select;
 		$select2
