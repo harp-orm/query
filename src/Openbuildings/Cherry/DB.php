@@ -1,5 +1,10 @@
 <?php namespace Openbuildings\Cherry;
 
+use Openbuildings\Cherry\Query\SelectQuery;
+use Openbuildings\Cherry\Query\UpdateQuery;
+use Openbuildings\Cherry\Query\InsertQuery;
+use Openbuildings\Cherry\Query\DeleteQuery;
+
 /**
  * @author     Ivan Kerin
  * @copyright  (c) 2011-2013 Despark Ltd.
@@ -70,21 +75,21 @@ class DB extends \PDO
 
 	public function select()
 	{
-		return new Query_Select(NULL, $this);
+		return new SelectQuery(NULL, $this);
 	}
 
 	public function update()
 	{
-		return new Query_Update(NULL, $this);
+		return new UpdateQuery(NULL, $this);
 	}
 
 	public function delete()
 	{
-		return new Query_Delete(NULL, $this);
+		return new DeleteQuery(NULL, $this);
 	}
 
 	public function insert()
 	{
-		return new Query_Insert(NULL, $this);
+		return new InsertQuery(NULL, $this);
 	}
 }

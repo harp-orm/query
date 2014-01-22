@@ -1,7 +1,7 @@
 <phpunit colors="true" bootstrap="tests/bootstrap.php">
 	<testsuites>
 		<testsuite>
-			<directory>tests/tests</directory>
+			<directory>tests/Openbuildings/Cherry</directory>
 		</testsuite>
 	</testsuites>
 	<filter>
