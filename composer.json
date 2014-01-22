@@ -16,6 +16,6 @@
         "openbuildings/environment-backup": "0.1"
     },
     "autoload": {
-        "psr-4": {"Openbuildings\\Cherry\\": "src/"}
+        "psr-4": {"CL\\Cherry\\": "src/"}
     }
 }

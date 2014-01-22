@@ -1,6 +1,6 @@
-<?php namespace Openbuildings\Cherry\Compiler;
+<?php namespace CL\Cherry\Compiler;
 
-use Openbuildings\Cherry\Str;
+use CL\Cherry\Str;
 
 /**
  * @author     Ivan Kerin

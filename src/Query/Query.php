@@ -1,9 +1,9 @@
-<?php namespace Openbuildings\Cherry\Query;
+<?php namespace CL\Cherry\Query;
 
-use Openbuildings\Cherry\Parametrised;
-use Openbuildings\Cherry\Arr;
-use Openbuildings\Cherry\DB;
-use Openbuildings\Cherry\Compiler\Compiler;
+use CL\Cherry\Parametrised;
+use CL\Cherry\Arr;
+use CL\Cherry\DB;
+use CL\Cherry\Compiler\Compiler;
 
 /**
  * @author     Ivan Kerin

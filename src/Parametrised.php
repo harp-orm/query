@@ -1,4 +1,4 @@
-<?php namespace Openbuildings\Cherry;
+<?php namespace CL\Cherry;
 
 /**
  * @author     Ivan Kerin

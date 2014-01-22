@@ -1,9 +1,9 @@
-<?php namespace Openbuildings\Cherry\Compiler;
+<?php namespace CL\Cherry\Compiler;
 
-use Openbuildings\Cherry\Arr;
-use Openbuildings\Cherry\SQL\SQL;
-use Openbuildings\Cherry\SQL\SetSQL;
-use Openbuildings\Cherry\Query\SelectQuery;
+use CL\Cherry\Arr;
+use CL\Cherry\SQL\SQL;
+use CL\Cherry\SQL\SetSQL;
+use CL\Cherry\Query\SelectQuery;
 
 /**
  * @author     Ivan Kerin

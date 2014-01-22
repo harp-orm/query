@@ -1,8 +1,8 @@
-<?php namespace Openbuildings\Cherry\Compiler;
+<?php namespace CL\Cherry\Compiler;
 
-use Openbuildings\Cherry\Arr;
-use Openbuildings\Cherry\Str;
-use Openbuildings\Cherry\SQL\ConditionSQL;
+use CL\Cherry\Arr;
+use CL\Cherry\Str;
+use CL\Cherry\SQL\ConditionSQL;
 
 /**
  * @author     Ivan Kerin

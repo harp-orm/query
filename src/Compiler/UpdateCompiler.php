@@ -1,7 +1,7 @@
-<?php namespace Openbuildings\Cherry\Compiler;
+<?php namespace CL\Cherry\Compiler;
 
-use Openbuildings\Cherry\Query\Query;
-use Openbuildings\Cherry\Query\UpdateQuery;
+use CL\Cherry\Query\Query;
+use CL\Cherry\Query\UpdateQuery;
 
 /**
  * @author     Ivan Kerin

@@ -1,6 +1,6 @@
 <?php
 
-namespace Openbuildings\Cherry;
+namespace CL\Cherry;
 
 /**
  * Extend exception to allow variables 

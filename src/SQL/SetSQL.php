@@ -1,6 +1,6 @@
-<?php namespace Openbuildings\Cherry\SQL;
+<?php namespace CL\Cherry\SQL;
 
-use Openbuildings\Cherry\Parametrised;
+use CL\Cherry\Parametrised;
 
 /**
  * @author     Ivan Kerin

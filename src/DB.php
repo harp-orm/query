@@ -1,9 +1,9 @@
-<?php namespace Openbuildings\Cherry;
+<?php namespace CL\Cherry;
 
-use Openbuildings\Cherry\Query\SelectQuery;
-use Openbuildings\Cherry\Query\UpdateQuery;
-use Openbuildings\Cherry\Query\InsertQuery;
-use Openbuildings\Cherry\Query\DeleteQuery;
+use CL\Cherry\Query\SelectQuery;
+use CL\Cherry\Query\UpdateQuery;
+use CL\Cherry\Query\InsertQuery;
+use CL\Cherry\Query\DeleteQuery;
 
 /**
  * @author     Ivan Kerin

@@ -1,8 +1,8 @@
-<?php namespace Openbuildings\Cherry\Compiler;
+<?php namespace CL\Cherry\Compiler;
 
-use Openbuildings\Cherry\Arr;
-use Openbuildings\Cherry\Query\Query;
-use Openbuildings\Cherry\Query\DeleteQuery;
+use CL\Cherry\Arr;
+use CL\Cherry\Query\Query;
+use CL\Cherry\Query\DeleteQuery;
 
 /**
  * @author     Ivan Kerin

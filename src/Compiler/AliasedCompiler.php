@@ -1,10 +1,10 @@
-<?php namespace Openbuildings\Cherry\Compiler;
+<?php namespace CL\Cherry\Compiler;
 
-use Openbuildings\Cherry\Arr;
-use Openbuildings\Cherry\SQL\AliasedSQL;
-use Openbuildings\Cherry\Query\SelectQuery;
-use Openbuildings\Cherry\Compiler\Compiler;
-use Openbuildings\Cherry\Compiler\SelectCompiler;
+use CL\Cherry\Arr;
+use CL\Cherry\SQL\AliasedSQL;
+use CL\Cherry\Query\SelectQuery;
+use CL\Cherry\Compiler\Compiler;
+use CL\Cherry\Compiler\SelectCompiler;
 
 /**
  * @author     Ivan Kerin
@@ -15,7 +15,7 @@ class AliasedCompiler extends Compiler
 {
 	public static function combine($items)
 	{
-		return Arr::join(', ', Arr::map('Openbuildings\Cherry\Compiler\AliasedCompiler::render', $items));
+		return Arr::join(', ', Arr::map('CL\Cherry\Compiler\AliasedCompiler::render', $items));
 	}
 
 	public static function render(AliasedSQL $aliased)

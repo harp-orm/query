@@ -1,7 +1,7 @@
-<?php namespace Openbuildings\Cherry\Compiler;
+<?php namespace CL\Cherry\Compiler;
 
-use Openbuildings\Cherry\Arr;
-use Openbuildings\Cherry\SQL\DirectionSQL;
+use CL\Cherry\Arr;
+use CL\Cherry\SQL\DirectionSQL;
 
 /**
  * @author     Ivan Kerin
