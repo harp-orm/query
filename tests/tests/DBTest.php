@@ -10,7 +10,7 @@ class DBTest extends Testcase_Extended {
 	/**
 	 * @covers Openbuildings\Cherry\DB::configuration
 	 */
-	public function test_configuration()
+	public function testConfiguration()
 	{
 		$this->env->backup_and_set(array(
 			'Openbuildings\Cherry\DB::$configurations' => array(),
@@ -24,26 +24,26 @@ class DBTest extends Testcase_Extended {
 	}
 
 	/**
-	 * @covers Openbuildings\Cherry\DB::default_name
+	 * @covers Openbuildings\Cherry\DB::defaultName
 	 */
-	public function test_default_name()
+	public function testDefaultName()
 	{
-		$this->assertEquals('default', DB::default_name());
+		$this->assertEquals('default', DB::defaultName());
 
 		$this->env->backup_and_set(array(
 			'Openbuildings\Cherry\DB::$default_name' => 'test',
 		));
 
-		$this->assertEquals('test', DB::default_name());
-		DB::default_name('default_test');
-		$this->assertEquals('default_test', DB::default_name());
+		$this->assertEquals('test', DB::defaultName());
+		DB::defaultName('default_test');
+		$this->assertEquals('default_test', DB::defaultName());
 	}
 
 	/**
 	 * @covers Openbuildings\Cherry\DB::instance
 	 * @covers Openbuildings\Cherry\DB::__construct
 	 */
-	public function test_instance()
+	public function testInstance()
 	{
 		DB::configuration('default', array(
 			'dsn' => 'mysql:dbname=test-db;host=127.0.0.1',
@@ -82,7 +82,7 @@ class DBTest extends Testcase_Extended {
 	/**
 	 * @covers Openbuildings\Cherry\DB::select
 	 */
-	public function test_select()
+	public function testSelect()
 	{
 		$select = DB::instance()->select()->columns(array('test', 'test2'));
 
@@ -96,7 +96,7 @@ class DBTest extends Testcase_Extended {
 	/**
 	 * @covers Openbuildings\Cherry\DB::update
 	 */
-	public function test_update()
+	public function testUpdate()
 	{
 		$update = DB::instance()->update()->table(array('test', 'test2'));
 
@@ -110,7 +110,7 @@ class DBTest extends Testcase_Extended {
 	/**
 	 * @covers Openbuildings\Cherry\DB::delete
 	 */
-	public function test_delete()
+	public function testDelete()
 	{
 		$delete = DB::instance()->delete()->from(array('test', 'test2'));
 
@@ -124,7 +124,7 @@ class DBTest extends Testcase_Extended {
 	/**
 	 * @covers Openbuildings\Cherry\DB::insert
 	 */
-	public function test_insert()
+	public function testInsert()
 	{
 		$query = DB::instance()->insert()->into('table1')->set(array('name' => 'test2'));
 

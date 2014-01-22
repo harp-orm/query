@@ -7,7 +7,7 @@ use Openbuildings\Cherry\Str;
  */
 class StrTest extends Testcase_Extended {
 
-	public function data_replace()
+	public function dataReplace()
 	{
 		return array(
 			array("/\?/", array('1', '2'), "this is ? a test ? here", "this is 1 a test 2 here"),
@@ -17,10 +17,10 @@ class StrTest extends Testcase_Extended {
 	}
 
 	/**
-	 * @dataProvider data_replace
+	 * @dataProvider dataReplace
 	 * @covers Openbuildings\Cherry\Str::replace
 	 */
-	public function test_replace($pattern, $replacements, $subject, $expected)
+	public function testReplace($pattern, $replacements, $subject, $expected)
 	{
 		$this->assertEquals($expected, Str::replace($pattern, $replacements, $subject));
 	}

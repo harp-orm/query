@@ -14,7 +14,7 @@ class Compiler_DeleteTest extends Testcase_Extended {
 	/**
 	 * @covers Openbuildings\Cherry\Compiler_Delete::render
 	 */
-	public function test_render()
+	public function testRender()
 	{
 		$delete = new Query_Delete;
 		$delete

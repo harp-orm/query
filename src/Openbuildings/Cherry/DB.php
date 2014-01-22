@@ -30,7 +30,7 @@ class DB extends \PDO
 		static::$configurations[$name] = $parameters;
 	}
 
-	public static function default_name($default_name = NULL)
+	public static function defaultName($default_name = NULL)
 	{
 		if ($default_name !== NULL)
 		{
@@ -41,7 +41,7 @@ class DB extends \PDO
 
 	public static function instance($name = NULL)
 	{
-		$name = $name ?: static::default_name();
+		$name = $name ?: static::defaultName();
 
 		if ( ! isset(static::$instances[$name]))
 		{

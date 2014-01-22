@@ -7,7 +7,7 @@
  */
 class Compiler
 {
-	public static function to_placeholders(array $array)
+	public static function toPlaceholders(array $array)
 	{
 		$placeholders = $array ? join(', ', array_fill(0, count($array), '?')) : '';
 
