@@ -1,13 +1,8 @@
 <?php
 
-spl_autoload_register(function($class)
-{
-	$file = __DIR__.DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR.str_replace('_', DIRECTORY_SEPARATOR, $class).'.php';
+error_reporting(E_ALL);
 
-	if (is_file($file))
-	{
-		require_once $file;
-	}
-});
+$loader = require __DIR__.'/../vendor/autoload.php';
+$loader->add('Openbuildings\Cherry\Test', __DIR__);
 
-include __DIR__."/../vendor/autoload.php";
+require __DIR__.'/Openbuildings/Cherry/TestCase.php';
