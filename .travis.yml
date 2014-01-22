@@ -5,15 +5,15 @@ php:
   - 5.4
   - 5.5
 
-script:
-  - phpunit --coverage-clover build/logs/clover.xml
-
 before_script:
   - mkdir -p build/logs
   - composer selfupdate
   - composer install
   - mysql -e 'create database `test-db`;'
   - mysql --default-character-set=utf8 test-db < tests/structure.sql
+
+script:
+  - phpunit --coverage-clover build/logs/clover.xml
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
