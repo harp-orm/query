@@ -8,7 +8,7 @@ use CL\Cherry\Compiler\SelectCompiler;
 
 /**
  * @author     Ivan Kerin
- * @copyright  (c) 2011-2013 Despark Ltd.
+ * @copyright  (c) 2014 Clippings Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
 class AliasedCompiler extends Compiler
