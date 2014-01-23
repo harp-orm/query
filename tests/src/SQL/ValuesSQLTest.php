@@ -1,7 +1,7 @@
-<?php namespace CL\Cherry\Test\SQL;
+<?php namespace CL\Atlas\Test\SQL;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\SQL\ValuesSQL;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\SQL\ValuesSQL;
 
 /**
  * @group sql.values
@@ -10,7 +10,7 @@ class ValuesSQLTest extends TestCase {
 
 
 	/**
-	 * @covers CL\Cherry\SQL\ValuesSQL::__construct
+	 * @covers CL\Atlas\SQL\ValuesSQL::__construct
 	 */
 	public function testConstruct()
 	{

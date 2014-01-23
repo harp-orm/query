@@ -1,8 +1,8 @@
-<?php namespace CL\Cherry\Test\Compiler;
+<?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Compiler\DirectionCompiler;
-use CL\Cherry\SQL\DirectionSQL;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Compiler\DirectionCompiler;
+use CL\Atlas\SQL\DirectionSQL;
 
 /**
  * @group compiler
@@ -11,7 +11,7 @@ use CL\Cherry\SQL\DirectionSQL;
 class DirectionCompilerTest extends TestCase {
 
 	/**
-	 * @covers CL\Cherry\Compiler\DirectionCompiler::combine
+	 * @covers CL\Atlas\Compiler\DirectionCompiler::combine
 	 */
 	public function testCombine()
 	{
@@ -30,7 +30,7 @@ class DirectionCompilerTest extends TestCase {
 	}
 	/**
 	 * @dataProvider dataRender
-	 * @covers CL\Cherry\Compiler\DirectionCompiler::render
+	 * @covers CL\Atlas\Compiler\DirectionCompiler::render
 	 */
 	public function testRender($content, $parameters, $expected)
 	{

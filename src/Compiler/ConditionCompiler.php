@@ -1,8 +1,8 @@
-<?php namespace CL\Cherry\Compiler;
+<?php namespace CL\Atlas\Compiler;
 
-use CL\Cherry\Arr;
-use CL\Cherry\Str;
-use CL\Cherry\SQL\ConditionSQL;
+use CL\Atlas\Arr;
+use CL\Atlas\Str;
+use CL\Atlas\SQL\ConditionSQL;
 
 /**
  * @author     Ivan Kerin

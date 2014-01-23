@@ -1,6 +1,6 @@
-<?php namespace CL\Cherry\Test;
+<?php namespace CL\Atlas\Test;
 
-use CL\Cherry\Parametrised;
+use CL\Atlas\Parametrised;
 
 class ParametrisedStub implements Parametrised
 {

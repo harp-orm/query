@@ -1,4 +1,4 @@
-<?php namespace CL\Cherry\SQL;
+<?php namespace CL\Atlas\SQL;
 
 /**
  * @author     Ivan Kerin

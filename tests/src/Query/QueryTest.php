@@ -1,11 +1,11 @@
-<?php namespace CL\Cherry\Test\Query;
+<?php namespace CL\Atlas\Test\Query;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Query\Query;
-use CL\Cherry\SQL\SQL;
-use CL\Cherry\DB;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Query\Query;
+use CL\Atlas\SQL\SQL;
+use CL\Atlas\DB;
 use stdClass;
-use CL\Cherry\Test\ParametrisedStub;
+use CL\Atlas\Test\ParametrisedStub;
 
 /**
  * @group str
@@ -35,13 +35,13 @@ class QueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\Query::children
+	 * @covers CL\Atlas\Query\Query::children
 	 */
 	public function testChildren()
 	{
 		$children = array(Query::TYPE => 'ignore', Query::LIMIT => 10);
 
-		$query = $this->getMock('CL\Cherry\Query\Query', array('sql'), array($children));
+		$query = $this->getMock('CL\Atlas\Query\Query', array('sql'), array($children));
 
 		$this->assertEquals($children, $query->children());
 
@@ -51,34 +51,34 @@ class QueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\Query::parameters
+	 * @covers CL\Atlas\Query\Query::parameters
 	 */
 	public function testParameters()
 	{
-		$object1 = $this->getMock('CL\Cherry\Test\ParametrisedStub', array('parameters'));
+		$object1 = $this->getMock('CL\Atlas\Test\ParametrisedStub', array('parameters'));
 		$object1
 			->expects($this->once())
 			->method('parameters')
 			->will($this->returnValue(array('test1', 'test2', array('test3', 'test4'))));
 
-		$object2 = $this->getMock('CL\Cherry\Test\ParametrisedStub', array('parameters'));
+		$object2 = $this->getMock('CL\Atlas\Test\ParametrisedStub', array('parameters'));
 		$object2
 			->expects($this->once())
 			->method('parameters')
 			->will($this->returnValue(array('test5')));
 
-		$query = $this->getMock('CL\Cherry\Query\Query', array('sql'), array(array('test', array($object1), $object2)));
+		$query = $this->getMock('CL\Atlas\Query\Query', array('sql'), array(array('test', array($object1), $object2)));
 
 		$this->assertEquals(array('test1', 'test2', 'test3', 'test4', 'test5'), $query->parameters());
 
-		$query = $this->getMock('CL\Cherry\Query\Query', array('sql'));
+		$query = $this->getMock('CL\Atlas\Query\Query', array('sql'));
 
 		$this->assertEquals(array(), $query->parameters());
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\Query::addChildren
-	 * @covers CL\Cherry\Query\Query::__construct
+	 * @covers CL\Atlas\Query\Query::addChildren
+	 * @covers CL\Atlas\Query\Query::__construct
 	 */
 	public function testAddChildren()
 	{
@@ -86,7 +86,7 @@ class QueryTest extends TestCase {
 		$child2 = new stdClass;
 		$child3 = new stdClass;
 
-		$query = $this->getMock('CL\Cherry\Query\Query', array('sql'), array(array(Query::TABLE => array($child1))));
+		$query = $this->getMock('CL\Atlas\Query\Query', array('sql'), array(array(Query::TABLE => array($child1))));
 
 		$query->addChildren(Query::TABLE, array($child2));
 		$query->addChildren(Query::COLUMNS, array($child3));
@@ -145,7 +145,7 @@ class QueryTest extends TestCase {
 
 	/**
 	 * @dataProvider dataAddChildrenObjects
-	 * @covers CL\Cherry\Query\Query::addChildrenObjects
+	 * @covers CL\Atlas\Query\Query::addChildrenObjects
 	 */
 	public function testAddChildrenObjects($array, $argument, $calls)
 	{
@@ -164,7 +164,7 @@ class QueryTest extends TestCase {
 			$expected []= $call[2];
 		}
 
-		$query = $this->getMock('CL\Cherry\Query\Query', array('sql'));
+		$query = $this->getMock('CL\Atlas\Query\Query', array('sql'));
 
 
 		$query->addChildrenObjects(Query::TABLE, $array, $argument, array($class, 'testMethod'));
@@ -173,27 +173,27 @@ class QueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\Query::db
+	 * @covers CL\Atlas\Query\Query::db
 	 */
 	public function testDb()
 	{
 		$db = new DB(array());
 
-		$query = $this->getMock('CL\Cherry\Query\Query', array('sql'), array(NULL, $db));
+		$query = $this->getMock('CL\Atlas\Query\Query', array('sql'), array(NULL, $db));
 
 		$this->assertSame($db, $query->db());
 
-		$query = $this->getMock('CL\Cherry\Query\Query', array('sql'));
+		$query = $this->getMock('CL\Atlas\Query\Query', array('sql'));
 
 		$this->assertSame(DB::instance(), $query->db());
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\Query::execute
+	 * @covers CL\Atlas\Query\Query::execute
 	 */
 	public function testExecute()
 	{
-		$query = $this->getMock('CL\Cherry\Query\Query', array('sql', 'parameters'));
+		$query = $this->getMock('CL\Atlas\Query\Query', array('sql', 'parameters'));
 
 		$query
 			->expects($this->once())
@@ -213,11 +213,11 @@ class QueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\Query::humanize
+	 * @covers CL\Atlas\Query\Query::humanize
 	 */
 	public function testHumanize()
 	{
-		$query = $this->getMock('CL\Cherry\Query\Query', array('sql', 'parameters'));
+		$query = $this->getMock('CL\Atlas\Query\Query', array('sql', 'parameters'));
 
 		$query
 			->expects($this->once())

@@ -1,6 +1,6 @@
 <?php
 
-namespace CL\Cherry;
+namespace CL\Atlas;
 
 /**
  * Extend exception to allow variables
@@ -80,7 +80,7 @@ class Arr
 		array_walk_recursive($array, function($value, $key) use ( & $result) {
 			if (is_numeric($key) OR is_object($value))
 			{
-				$result[] = $value; 
+				$result[] = $value;
 			}
 			else
 			{

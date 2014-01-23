@@ -1,9 +1,9 @@
-<?php namespace CL\Cherry\Compiler;
+<?php namespace CL\Atlas\Compiler;
 
-use CL\Cherry\Arr;
-use CL\Cherry\SQL\SQL;
-use CL\Cherry\SQL\SetSQL;
-use CL\Cherry\Query\SelectQuery;
+use CL\Atlas\Arr;
+use CL\Atlas\SQL\SQL;
+use CL\Atlas\SQL\SetSQL;
+use CL\Atlas\Query\SelectQuery;
 
 /**
  * @author     Ivan Kerin

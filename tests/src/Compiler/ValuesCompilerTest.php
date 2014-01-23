@@ -1,8 +1,8 @@
-<?php namespace CL\Cherry\Test\Compiler;
+<?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Compiler\ValuesCompiler;
-use CL\Cherry\SQL\ValuesSQL;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Compiler\ValuesCompiler;
+use CL\Atlas\SQL\ValuesSQL;
 
 /**
  * @group compiler
@@ -11,7 +11,7 @@ use CL\Cherry\SQL\ValuesSQL;
 class ValuesCompilerTest extends TestCase {
 
 	/**
-	 * @covers CL\Cherry\Compiler\ValuesCompiler::combine
+	 * @covers CL\Atlas\Compiler\ValuesCompiler::combine
 	 */
 	public function testCombine()
 	{
@@ -32,7 +32,7 @@ class ValuesCompilerTest extends TestCase {
 
 	/**
 	 * @dataProvider dataRender
-	 * @covers CL\Cherry\Compiler\ValuesCompiler::render
+	 * @covers CL\Atlas\Compiler\ValuesCompiler::render
 	 */
 	public function testRender($values, $expected)
 	{

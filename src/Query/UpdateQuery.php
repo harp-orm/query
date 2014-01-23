@@ -1,10 +1,10 @@
-<?php namespace CL\Cherry\Query;
+<?php namespace CL\Atlas\Query;
 
-use CL\Cherry\Compiler\UpdateCompiler;
-use CL\Cherry\Query\Query;
-use CL\Cherry\SQL\ConditionSQL;
-use CL\Cherry\SQL\JoinSQL;
-use CL\Cherry\SQL\SetSQL;
+use CL\Atlas\Compiler\UpdateCompiler;
+use CL\Atlas\Query\Query;
+use CL\Atlas\SQL\ConditionSQL;
+use CL\Atlas\SQL\JoinSQL;
+use CL\Atlas\SQL\SetSQL;
 
 /**
  * @author     Ivan Kerin
@@ -21,7 +21,7 @@ class UpdateQuery extends Query
 
 	public function table($table, $alias = NULL)
 	{
-		$this->addChildrenObjects(Query::TABLE, $table, $alias, 'CL\Cherry\SQL\AliasedSQL::factory');
+		$this->addChildrenObjects(Query::TABLE, $table, $alias, 'CL\Atlas\SQL\AliasedSQL::factory');
 
 		return $this;
 	}
@@ -51,7 +51,7 @@ class UpdateQuery extends Query
 
 	public function order($column, $direction = NULL)
 	{
-		$this->addChildrenObjects(Query::ORDER_BY, $column, $direction, 'CL\Cherry\SQL\DirectionSQL::factory');
+		$this->addChildrenObjects(Query::ORDER_BY, $column, $direction, 'CL\Atlas\SQL\DirectionSQL::factory');
 
 		return $this;
 	}

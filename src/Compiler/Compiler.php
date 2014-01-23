@@ -1,6 +1,6 @@
-<?php namespace CL\Cherry\Compiler;
+<?php namespace CL\Atlas\Compiler;
 
-use CL\Cherry\Str;
+use CL\Atlas\Str;
 
 /**
  * @author     Ivan Kerin

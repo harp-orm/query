@@ -1,8 +1,8 @@
-<?php namespace CL\Cherry\Test\Compiler;
+<?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Compiler\JoinCompiler;
-use CL\Cherry\SQL\JoinSQL;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Compiler\JoinCompiler;
+use CL\Atlas\SQL\JoinSQL;
 
 /**
  * @group compiler
@@ -11,7 +11,7 @@ use CL\Cherry\SQL\JoinSQL;
 class JoinCompilerTest extends TestCase {
 
 	/**
-	 * @covers CL\Cherry\Compiler\JoinCompiler::combine
+	 * @covers CL\Atlas\Compiler\JoinCompiler::combine
 	 */
 	public function testCombine()
 	{
@@ -31,7 +31,7 @@ class JoinCompilerTest extends TestCase {
 	}
 	/**
 	 * @dataProvider dataRender
-	 * @covers CL\Cherry\Compiler\JoinCompiler::render
+	 * @covers CL\Atlas\Compiler\JoinCompiler::render
 	 */
 	public function testRender($table, $condition, $type, $expected)
 	{

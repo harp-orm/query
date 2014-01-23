@@ -1,7 +1,7 @@
-<?php namespace CL\Cherry\Test\SQL;
+<?php namespace CL\Atlas\Test\SQL;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\SQL\DirectionSQL;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\SQL\DirectionSQL;
 
 /**
  * @group sql.direction
@@ -9,7 +9,7 @@ use CL\Cherry\SQL\DirectionSQL;
 class DirectionSQLTest extends TestCase {
 
 	/**
-	 * @covers CL\Cherry\SQL\DirectionSQL::factory
+	 * @covers CL\Atlas\SQL\DirectionSQL::factory
 	 */
 	public function testFactory()
 	{
@@ -20,8 +20,8 @@ class DirectionSQLTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\SQL\DirectionSQL::__construct
-	 * @covers CL\Cherry\SQL\DirectionSQL::direction
+	 * @covers CL\Atlas\SQL\DirectionSQL::__construct
+	 * @covers CL\Atlas\SQL\DirectionSQL::direction
 	 */
 	public function testConstruct()
 	{

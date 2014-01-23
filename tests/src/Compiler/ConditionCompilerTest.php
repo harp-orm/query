@@ -1,8 +1,8 @@
-<?php namespace CL\Cherry\Test\Compiler;
+<?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Compiler\ConditionCompiler;
-use CL\Cherry\SQL\ConditionSQL;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Compiler\ConditionCompiler;
+use CL\Atlas\SQL\ConditionSQL;
 
 /**
  * @group compiler
@@ -11,7 +11,7 @@ use CL\Cherry\SQL\ConditionSQL;
 class ConditionCompilerTest extends TestCase {
 
 	/**
-	 * @covers CL\Cherry\Compiler\ConditionCompiler::combine
+	 * @covers CL\Atlas\Compiler\ConditionCompiler::combine
 	 */
 	public function testCombine()
 	{
@@ -30,7 +30,7 @@ class ConditionCompilerTest extends TestCase {
 	}
 	/**
 	 * @dataProvider dataRender
-	 * @covers CL\Cherry\Compiler\ConditionCompiler::render
+	 * @covers CL\Atlas\Compiler\ConditionCompiler::render
 	 */
 	public function testRender($content, $parameters, $expected)
 	{

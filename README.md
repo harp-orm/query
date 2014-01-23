@@ -1,9 +1,9 @@
-# Cherry
+# Atlas
 
-[![Build Status](https://travis-ci.org/clippings/cherry.png?branch=master)](https://travis-ci.org/clippings/cherry)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/clippings/cherry/badges/quality-score.png?s=e77125ba3a3e183fc8e697dc45fb8a7b5e6e9334)](https://scrutinizer-ci.com/g/clippings/cherry/)
-[![Code Coverage](https://scrutinizer-ci.com/g/clippings/cherry/badges/coverage.png?s=9a58da3bc0c9e16ab2dcf8019ca265149a5b15e1)](https://scrutinizer-ci.com/g/clippings/cherry/)
-[![Latest Stable Version](https://poser.pugx.org/clippings/cherry/v/stable.png)](https://packagist.org/packages/clippings/cherry)
+[![Build Status](https://travis-ci.org/clippings/atlas.png?branch=master)](https://travis-ci.org/clippings/atlas)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/clippings/atlas/badges/quality-score.png?s=e77125ba3a3e183fc8e697dc45fb8a7b5e6e9334)](https://scrutinizer-ci.com/g/clippings/atlas/)
+[![Code Coverage](https://scrutinizer-ci.com/g/clippings/atlas/badges/coverage.png?s=9a58da3bc0c9e16ab2dcf8019ca265149a5b15e1)](https://scrutinizer-ci.com/g/clippings/atlas/)
+[![Latest Stable Version](https://poser.pugx.org/clippings/atlas/v/stable.png)](https://packagist.org/packages/clippings/atlas)
 
 * In table and column selects:
 	* an associated array means "reference" => "alias"

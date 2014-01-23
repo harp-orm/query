@@ -1,9 +1,9 @@
-<?php namespace CL\Cherry\Test;
+<?php namespace CL\Atlas\Test;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Arr;
-use CL\Cherry\SQL\AliasedSQL;
-use CL\Cherry\Query\SelectQuery;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Arr;
+use CL\Atlas\SQL\AliasedSQL;
+use CL\Atlas\Query\SelectQuery;
 use stdClass;
 
 /**
@@ -22,7 +22,7 @@ class ArrTest extends TestCase {
 
 	/**
 	 * @dataProvider dataToAssoc
-	 * @covers CL\Cherry\Arr::toAssoc
+	 * @covers CL\Atlas\Arr::toAssoc
 	 */
 	public function testToAssoc($array, $expected)
 	{
@@ -41,7 +41,7 @@ class ArrTest extends TestCase {
 
 	/**
 	 * @dataProvider dataToArray
-	 * @covers CL\Cherry\Arr::toArray
+	 * @covers CL\Atlas\Arr::toArray
 	 */
 	public function testToArray($array, $expected)
 	{
@@ -70,7 +70,7 @@ class ArrTest extends TestCase {
 
 	/**
 	 * @dataProvider dataToObjects
-	 * @covers CL\Cherry\Arr::toObjects
+	 * @covers CL\Atlas\Arr::toObjects
 	 */
 	public function testToObjects($array, $argument, array $expected)
 	{
@@ -103,7 +103,7 @@ class ArrTest extends TestCase {
 
 	/**
 	 * @dataProvider dataMap
-	 * @covers CL\Cherry\Arr::map
+	 * @covers CL\Atlas\Arr::map
 	 */
 	public function testMap($array, $collection, $expected)
 	{
@@ -120,7 +120,7 @@ class ArrTest extends TestCase {
 
 	/**
 	 * @dataProvider dataJoin
-	 * @covers CL\Cherry\Arr::join
+	 * @covers CL\Atlas\Arr::join
 	 */
 	public function testJoin($separator, $array, $expected)
 	{
@@ -137,7 +137,7 @@ class ArrTest extends TestCase {
 
 	/**
 	 * @dataProvider dataFlatten
-	 * @covers CL\Cherry\Arr::flatten
+	 * @covers CL\Atlas\Arr::flatten
 	 */
 	public function testFlatten($array, $expected)
 	{

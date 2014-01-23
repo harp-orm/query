@@ -1,7 +1,7 @@
-<?php namespace CL\Cherry\Compiler;
+<?php namespace CL\Atlas\Compiler;
 
-use CL\Cherry\Arr;
-use CL\Cherry\SQL\DirectionSQL;
+use CL\Atlas\Arr;
+use CL\Atlas\SQL\DirectionSQL;
 
 /**
  * @author     Ivan Kerin

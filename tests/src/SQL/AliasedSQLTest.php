@@ -1,8 +1,8 @@
-<?php namespace CL\Cherry\Test\SQL;
+<?php namespace CL\Atlas\Test\SQL;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Query\Query;
-use CL\Cherry\SQL\AliasedSQL;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Query\Query;
+use CL\Atlas\SQL\AliasedSQL;
 
 /**
  * @group sql.aliased
@@ -10,7 +10,7 @@ use CL\Cherry\SQL\AliasedSQL;
 class AliasedSQLTest extends TestCase {
 
 	/**
-	 * @covers CL\Cherry\SQL\AliasedSQL::factory
+	 * @covers CL\Atlas\SQL\AliasedSQL::factory
 	 */
 	public function testFactory()
 	{
@@ -20,9 +20,9 @@ class AliasedSQLTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\SQL\AliasedSQL::__construct
-	 * @covers CL\Cherry\SQL\AliasedSQL::parameters
-	 * @covers CL\Cherry\SQL\AliasedSQL::alias
+	 * @covers CL\Atlas\SQL\AliasedSQL::__construct
+	 * @covers CL\Atlas\SQL\AliasedSQL::parameters
+	 * @covers CL\Atlas\SQL\AliasedSQL::alias
 	 */
 	public function testConstruct()
 	{
@@ -32,7 +32,7 @@ class AliasedSQLTest extends TestCase {
 		$this->assertEquals('ALIAS', $aliased->alias());
 		$this->assertNull($aliased->parameters());
 
-		$query = $this->getMock('CL\Cherry\Query\Query');
+		$query = $this->getMock('CL\Atlas\Query\Query');
 		$query
 			->expects($this->once())
 			->method('parameters')

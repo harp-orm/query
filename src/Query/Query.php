@@ -1,9 +1,9 @@
-<?php namespace CL\Cherry\Query;
+<?php namespace CL\Atlas\Query;
 
-use CL\Cherry\Parametrised;
-use CL\Cherry\Arr;
-use CL\Cherry\DB;
-use CL\Cherry\Compiler\Compiler;
+use CL\Atlas\Parametrised;
+use CL\Atlas\Arr;
+use CL\Atlas\DB;
+use CL\Atlas\Compiler\Compiler;
 
 /**
  * @author     Ivan Kerin

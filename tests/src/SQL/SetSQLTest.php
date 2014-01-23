@@ -1,9 +1,9 @@
-<?php namespace CL\Cherry\Test\SQL;
+<?php namespace CL\Atlas\Test\SQL;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Query\SelectQuery;
-use CL\Cherry\SQL\SetSQL;
-use CL\Cherry\SQL\SQL;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Query\SelectQuery;
+use CL\Atlas\SQL\SetSQL;
+use CL\Atlas\SQL\SQL;
 
 /**
  * @group sql.direction
@@ -28,9 +28,9 @@ class SetSQLTest extends TestCase {
 
 	/**
 	 * @dataProvider dataConstruct
-	 * @covers CL\Cherry\SQL\SetSQL::__construct
-	 * @covers CL\Cherry\SQL\SetSQL::value
-	 * @covers CL\Cherry\SQL\SetSQL::parameters
+	 * @covers CL\Atlas\SQL\SetSQL::__construct
+	 * @covers CL\Atlas\SQL\SetSQL::value
+	 * @covers CL\Atlas\SQL\SetSQL::parameters
 	 */
 	public function testConstruct($column, $value, $expected_column, $expected_value, $expected_params)
 	{

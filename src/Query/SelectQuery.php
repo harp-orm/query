@@ -1,9 +1,9 @@
-<?php namespace CL\Cherry\Query;
+<?php namespace CL\Atlas\Query;
 
-use CL\Cherry\Compiler\SelectCompiler;
-use CL\Cherry\Query\Query;
-use CL\Cherry\SQL\ConditionSQL;
-use CL\Cherry\SQL\JoinSQL;
+use CL\Atlas\Compiler\SelectCompiler;
+use CL\Atlas\Query\Query;
+use CL\Atlas\SQL\ConditionSQL;
+use CL\Atlas\SQL\JoinSQL;
 
 /**
  * @author     Ivan Kerin
@@ -20,14 +20,14 @@ class SelectQuery extends Query
 
 	public function columns($column, $alias = NULL)
 	{
-		$this->addChildrenObjects(Query::COLUMNS, $column, $alias, 'CL\Cherry\SQL\AliasedSQL::factory');
+		$this->addChildrenObjects(Query::COLUMNS, $column, $alias, 'CL\Atlas\SQL\AliasedSQL::factory');
 
 		return $this;
 	}
 
 	public function from($table, $alias = NULL)
 	{
-		$this->addChildrenObjects(Query::FROM, $table, $alias, 'CL\Cherry\SQL\AliasedSQL::factory');
+		$this->addChildrenObjects(Query::FROM, $table, $alias, 'CL\Atlas\SQL\AliasedSQL::factory');
 
 		return $this;
 	}
@@ -47,7 +47,7 @@ class SelectQuery extends Query
 
 	public function group($column, $direction = NULL)
 	{
-		$this->addChildrenObjects(Query::GROUP_BY, $column, $direction, 'CL\Cherry\SQL\DirectionSQL::factory');
+		$this->addChildrenObjects(Query::GROUP_BY, $column, $direction, 'CL\Atlas\SQL\DirectionSQL::factory');
 
 		return $this;
 	}
@@ -61,7 +61,7 @@ class SelectQuery extends Query
 
 	public function order($column, $direction = NULL)
 	{
-		$this->addChildrenObjects(Query::ORDER_BY, $column, $direction, 'CL\Cherry\SQL\DirectionSQL::factory');
+		$this->addChildrenObjects(Query::ORDER_BY, $column, $direction, 'CL\Atlas\SQL\DirectionSQL::factory');
 
 		return $this;
 	}

@@ -1,6 +1,6 @@
-<?php namespace CL\Cherry\SQL;
+<?php namespace CL\Atlas\SQL;
 
-use CL\Cherry\Parametrised;
+use CL\Atlas\Parametrised;
 
 /**
  * @author     Ivan Kerin

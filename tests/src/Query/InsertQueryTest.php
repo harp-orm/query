@@ -1,15 +1,15 @@
-<?php namespace CL\Cherry\Test\Query;
+<?php namespace CL\Atlas\Test\Query;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Query\Query;
-use CL\Cherry\Query\InsertQuery;
-use CL\Cherry\Query\SelectQuery;
-use CL\Cherry\SQL\AliasedSQL;
-use CL\Cherry\SQL\JoinSQL;
-use CL\Cherry\SQL\ConditionSQL;
-use CL\Cherry\SQL\DirectionSQL;
-use CL\Cherry\SQL\ValuesSQL;
-use CL\Cherry\SQL\SetSQL;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Query\Query;
+use CL\Atlas\Query\InsertQuery;
+use CL\Atlas\Query\SelectQuery;
+use CL\Atlas\SQL\AliasedSQL;
+use CL\Atlas\SQL\JoinSQL;
+use CL\Atlas\SQL\ConditionSQL;
+use CL\Atlas\SQL\DirectionSQL;
+use CL\Atlas\SQL\ValuesSQL;
+use CL\Atlas\SQL\SetSQL;
 
 /**
  * @group sql.insert
@@ -17,7 +17,7 @@ use CL\Cherry\SQL\SetSQL;
 class InsertQueryTest extends TestCase {
 
 	/**
-	 * @covers CL\Cherry\Query\InsertQuery::type
+	 * @covers CL\Atlas\Query\InsertQuery::type
 	 */
 	public function testType()
 	{
@@ -29,7 +29,7 @@ class InsertQueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\InsertQuery::into
+	 * @covers CL\Atlas\Query\InsertQuery::into
 	 */
 	public function testInto()
 	{
@@ -41,7 +41,7 @@ class InsertQueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\InsertQuery::columns
+	 * @covers CL\Atlas\Query\InsertQuery::columns
 	 */
 	public function testColumns()
 	{
@@ -57,7 +57,7 @@ class InsertQueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\InsertQuery::values
+	 * @covers CL\Atlas\Query\InsertQuery::values
 	 */
 	public function testValues()
 	{
@@ -76,7 +76,7 @@ class InsertQueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\InsertQuery::set
+	 * @covers CL\Atlas\Query\InsertQuery::set
 	 */
 	public function testSet()
 	{
@@ -96,7 +96,7 @@ class InsertQueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\InsertQuery::select
+	 * @covers CL\Atlas\Query\InsertQuery::select
 	 */
 	public function testSelect()
 	{
@@ -109,7 +109,7 @@ class InsertQueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\InsertQuery::sql
+	 * @covers CL\Atlas\Query\InsertQuery::sql
 	 */
 	public function testSql()
 	{

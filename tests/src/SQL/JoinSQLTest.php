@@ -1,9 +1,9 @@
-<?php namespace CL\Cherry\Test\SQL;
+<?php namespace CL\Atlas\Test\SQL;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\SQL\SQL;
-use CL\Cherry\SQL\JoinSQL;
-use CL\Cherry\SQL\AliasedSQL;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\SQL\SQL;
+use CL\Atlas\SQL\JoinSQL;
+use CL\Atlas\SQL\AliasedSQL;
 
 /**
  * @group sql.join
@@ -21,10 +21,10 @@ class JoinSQLTest extends TestCase {
 
 	/**
 	 * @dataProvider dataConstruct
-	 * @covers CL\Cherry\SQL\JoinSQL::__construct
-	 * @covers CL\Cherry\SQL\JoinSQL::table
-	 * @covers CL\Cherry\SQL\JoinSQL::condition
-	 * @covers CL\Cherry\SQL\JoinSQL::type
+	 * @covers CL\Atlas\SQL\JoinSQL::__construct
+	 * @covers CL\Atlas\SQL\JoinSQL::table
+	 * @covers CL\Atlas\SQL\JoinSQL::condition
+	 * @covers CL\Atlas\SQL\JoinSQL::type
 	 */
 	public function testConstruct($table, $condition, $type, $expected_table, $expected_condition, $expected_type)
 	{
@@ -36,7 +36,7 @@ class JoinSQLTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\SQL\JoinSQL::parameters
+	 * @covers CL\Atlas\SQL\JoinSQL::parameters
 	 */
 	public function testFactory()
 	{

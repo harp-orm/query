@@ -1,7 +1,7 @@
-<?php namespace CL\Cherry\Test\SQL;
+<?php namespace CL\Atlas\Test\SQL;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\SQL\SQL;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\SQL\SQL;
 
 /**
  * @group sql
@@ -9,10 +9,10 @@ use CL\Cherry\SQL\SQL;
 class SQLTest extends TestCase {
 
 	/**
-	 * @covers CL\Cherry\SQL\SQL::__construct
-	 * @covers CL\Cherry\SQL\SQL::content
-	 * @covers CL\Cherry\SQL\SQL::parameters
-	 * @covers CL\Cherry\SQL\SQL::__toString
+	 * @covers CL\Atlas\SQL\SQL::__construct
+	 * @covers CL\Atlas\SQL\SQL::content
+	 * @covers CL\Atlas\SQL\SQL::parameters
+	 * @covers CL\Atlas\SQL\SQL::__toString
 	 */
 	public function testConstructAndGetters()
 	{

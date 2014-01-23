@@ -1,10 +1,10 @@
-<?php namespace CL\Cherry\Test\Compiler;
+<?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Compiler\InsertCompiler;
-use CL\Cherry\Query\InsertQuery;
-use CL\Cherry\Query\SelectQuery;
-use CL\Cherry\SQL\SQL;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Compiler\InsertCompiler;
+use CL\Atlas\Query\InsertQuery;
+use CL\Atlas\Query\SelectQuery;
+use CL\Atlas\SQL\SQL;
 
 /**
  * @group compiler
@@ -69,7 +69,7 @@ SQL;
 	}
 
 	/**
-	 * @covers CL\Cherry\Compiler\InsertCompiler::render
+	 * @covers CL\Atlas\Compiler\InsertCompiler::render
 	 * @dataProvider dataInsert
 	 */
 	public function testInsert($query, $expected_sql)

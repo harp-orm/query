@@ -1,6 +1,6 @@
 <?php
 
-namespace CL\Cherry;
+namespace CL\Atlas;
 
 /**
  * Extend exception to allow variables 

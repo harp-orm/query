@@ -1,10 +1,10 @@
-<?php namespace CL\Cherry\Test\Compiler;
+<?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Compiler\SetCompiler;
-use CL\Cherry\Query\SelectQuery;
-use CL\Cherry\SQL\SetSQL;
-use CL\Cherry\SQL\SQL;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Compiler\SetCompiler;
+use CL\Atlas\Query\SelectQuery;
+use CL\Atlas\SQL\SetSQL;
+use CL\Atlas\SQL\SQL;
 
 /**
  * @group compiler
@@ -13,7 +13,7 @@ use CL\Cherry\SQL\SQL;
 class SetCompilerTest extends TestCase {
 
 	/**
-	 * @covers CL\Cherry\Compiler\SetCompiler::combine
+	 * @covers CL\Atlas\Compiler\SetCompiler::combine
 	 */
 	public function testCombine()
 	{
@@ -39,7 +39,7 @@ class SetCompilerTest extends TestCase {
 
 	/**
 	 * @dataProvider dataRender
-	 * @covers CL\Cherry\Compiler\SetCompiler::render
+	 * @covers CL\Atlas\Compiler\SetCompiler::render
 	 */
 	public function testRender($name, $value, $expected)
 	{

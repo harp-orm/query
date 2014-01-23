@@ -1,9 +1,9 @@
-<?php namespace CL\Cherry\Test\Compiler;
+<?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Compiler\AliasedCompiler;
-use CL\Cherry\SQL\AliasedSQL;
-use CL\Cherry\Query\SelectQuery;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Compiler\AliasedCompiler;
+use CL\Atlas\SQL\AliasedSQL;
+use CL\Atlas\Query\SelectQuery;
 
 /**
  * @group compiler
@@ -12,7 +12,7 @@ use CL\Cherry\Query\SelectQuery;
 class AliasedCompilerTest extends TestCase {
 
 	/**
-	 * @covers CL\Cherry\Compiler\AliasedCompiler::combine
+	 * @covers CL\Atlas\Compiler\AliasedCompiler::combine
 	 */
 	public function testCombine()
 	{
@@ -38,7 +38,7 @@ class AliasedCompilerTest extends TestCase {
 	}
 	/**
 	 * @dataProvider dataRender
-	 * @covers CL\Cherry\Compiler\AliasedCompiler::render
+	 * @covers CL\Atlas\Compiler\AliasedCompiler::render
 	 */
 	public function testRender($content, $alias, $expected)
 	{

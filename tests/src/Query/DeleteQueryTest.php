@@ -1,12 +1,12 @@
-<?php namespace CL\Cherry\Test\Query;
+<?php namespace CL\Atlas\Test\Query;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Query\Query;
-use CL\Cherry\Query\DeleteQuery;
-use CL\Cherry\SQL\AliasedSQL;
-use CL\Cherry\SQL\JoinSQL;
-use CL\Cherry\SQL\ConditionSQL;
-use CL\Cherry\SQL\DirectionSQL;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Query\Query;
+use CL\Atlas\Query\DeleteQuery;
+use CL\Atlas\SQL\AliasedSQL;
+use CL\Atlas\SQL\JoinSQL;
+use CL\Atlas\SQL\ConditionSQL;
+use CL\Atlas\SQL\DirectionSQL;
 
 /**
  * @group sql.delete
@@ -14,7 +14,7 @@ use CL\Cherry\SQL\DirectionSQL;
 class DeleteQueryTest extends TestCase {
 
 	/**
-	 * @covers CL\Cherry\Query\DeleteQuery::type
+	 * @covers CL\Atlas\Query\DeleteQuery::type
 	 */
 	public function testType()
 	{
@@ -30,11 +30,11 @@ class DeleteQueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\DeleteQuery::table
+	 * @covers CL\Atlas\Query\DeleteQuery::table
 	 */
 	public function testTable()
 	{
-		$query = $this->getMock('CL\Cherry\Query\DeleteQuery', array('addChildren'));
+		$query = $this->getMock('CL\Atlas\Query\DeleteQuery', array('addChildren'));
 		$query
 			->expects($this->at(0))
 			->method('addChildren')
@@ -50,11 +50,11 @@ class DeleteQueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\DeleteQuery::from
+	 * @covers CL\Atlas\Query\DeleteQuery::from
 	 */
 	public function testFrom()
 	{
-		$query = $this->getMock('CL\Cherry\Query\DeleteQuery', array('addChildrenObjects'));
+		$query = $this->getMock('CL\Atlas\Query\DeleteQuery', array('addChildrenObjects'));
 		$query
 			->expects($this->once())
 			->method('addChildrenObjects')
@@ -62,14 +62,14 @@ class DeleteQueryTest extends TestCase {
 				$this->equalTo(Query::FROM),
 				$this->equalTo(array('table1', 'table2' => 'alias2')),
 				$this->equalTo('alias'),
-				'CL\Cherry\SQL\AliasedSQL::factory'
+				'CL\Atlas\SQL\AliasedSQL::factory'
 			);
 
 		$query->from(array('table1', 'table2' => 'alias2'), 'alias');
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\DeleteQuery::join
+	 * @covers CL\Atlas\Query\DeleteQuery::join
 	 */
 	public function testJoin()
 	{
@@ -88,7 +88,7 @@ class DeleteQueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\DeleteQuery::where
+	 * @covers CL\Atlas\Query\DeleteQuery::where
 	 */
 	public function testWhere()
 	{
@@ -107,11 +107,11 @@ class DeleteQueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\DeleteQuery::order
+	 * @covers CL\Atlas\Query\DeleteQuery::order
 	 */
 	public function testOrder()
 	{
-		$query = $this->getMock('CL\Cherry\Query\DeleteQuery', array('addChildrenObjects'));
+		$query = $this->getMock('CL\Atlas\Query\DeleteQuery', array('addChildrenObjects'));
 		$query
 			->expects($this->once())
 			->method('addChildrenObjects')
@@ -119,7 +119,7 @@ class DeleteQueryTest extends TestCase {
 				$this->equalTo(Query::ORDER_BY),
 				$this->equalTo(array('column1', 'column2' => 'alias2')),
 				$this->equalTo('direction'),
-				'CL\Cherry\SQL\DirectionSQL::factory'
+				'CL\Atlas\SQL\DirectionSQL::factory'
 			);
 
 		$query->order(array('column1', 'column2' => 'alias2'), 'direction');
@@ -127,7 +127,7 @@ class DeleteQueryTest extends TestCase {
 
 
 	/**
-	 * @covers CL\Cherry\Query\DeleteQuery::limit
+	 * @covers CL\Atlas\Query\DeleteQuery::limit
 	 */
 	public function testLimit()
 	{
@@ -139,7 +139,7 @@ class DeleteQueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\DeleteQuery::sql
+	 * @covers CL\Atlas\Query\DeleteQuery::sql
 	 */
 	public function testSql()
 	{

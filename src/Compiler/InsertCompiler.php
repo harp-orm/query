@@ -1,8 +1,8 @@
-<?php namespace CL\Cherry\Compiler;
+<?php namespace CL\Atlas\Compiler;
 
-use CL\Cherry\Arr;
-use CL\Cherry\Query\Query;
-use CL\Cherry\Query\InsertQuery;
+use CL\Atlas\Arr;
+use CL\Atlas\Query\Query;
+use CL\Atlas\Query\InsertQuery;
 
 /**
  * @author     Ivan Kerin

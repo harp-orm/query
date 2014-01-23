@@ -1,9 +1,9 @@
-<?php namespace CL\Cherry;
+<?php namespace CL\Atlas;
 
-use CL\Cherry\Query\SelectQuery;
-use CL\Cherry\Query\UpdateQuery;
-use CL\Cherry\Query\InsertQuery;
-use CL\Cherry\Query\DeleteQuery;
+use CL\Atlas\Query\SelectQuery;
+use CL\Atlas\Query\UpdateQuery;
+use CL\Atlas\Query\InsertQuery;
+use CL\Atlas\Query\DeleteQuery;
 
 /**
  * @author     Ivan Kerin

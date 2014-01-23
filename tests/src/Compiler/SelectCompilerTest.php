@@ -1,9 +1,9 @@
-<?php namespace CL\Cherry\Test\Compiler;
+<?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Compiler\SelectCompiler;
-use CL\Cherry\Query\SelectQuery;
-use CL\Cherry\SQL\SQL;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Compiler\SelectCompiler;
+use CL\Atlas\Query\SelectQuery;
+use CL\Atlas\SQL\SQL;
 
 /**
  * @group compiler
@@ -12,7 +12,7 @@ use CL\Cherry\SQL\SQL;
 class SelectCompilerTest extends TestCase {
 
 	/**
-	 * @covers CL\Cherry\Compiler\SelectCompiler::render
+	 * @covers CL\Atlas\Compiler\SelectCompiler::render
 	 */
 	public function testCompile()
 	{

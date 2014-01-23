@@ -1,7 +1,7 @@
-<?php namespace CL\Cherry\Test;
+<?php namespace CL\Atlas\Test;
 
 use Openbuildings\EnvironmentBackup as EB;
-use CL\Cherry\DB;
+use CL\Atlas\DB;
 
 /**
  * @package Jam
@@ -26,7 +26,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase {
 		));
 
 		$this->env->backup_and_set(array(
-			'CL\Cherry\DB::$instances' => array(),
+			'CL\Atlas\DB::$instances' => array(),
 		));
 	}
 

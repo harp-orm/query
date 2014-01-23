@@ -1,10 +1,10 @@
-<?php namespace CL\Cherry\Query;
+<?php namespace CL\Atlas\Query;
 
-use CL\Cherry\Arr;
-use CL\Cherry\Compiler\DeleteCompiler;
-use CL\Cherry\Query\Query;
-use CL\Cherry\SQL\JoinSQL;
-use CL\Cherry\SQL\ConditionSQL;
+use CL\Atlas\Arr;
+use CL\Atlas\Compiler\DeleteCompiler;
+use CL\Atlas\Query\Query;
+use CL\Atlas\SQL\JoinSQL;
+use CL\Atlas\SQL\ConditionSQL;
 
 /**
  * @author     Ivan Kerin
@@ -28,7 +28,7 @@ class DeleteQuery extends Query
 
 	public function from($table, $alias = NULL)
 	{
-		$this->addChildrenObjects(Query::FROM, $table, $alias, 'CL\Cherry\SQL\AliasedSQL::factory');
+		$this->addChildrenObjects(Query::FROM, $table, $alias, 'CL\Atlas\SQL\AliasedSQL::factory');
 
 		return $this;
 	}
@@ -48,7 +48,7 @@ class DeleteQuery extends Query
 
 	public function order($column, $direction = NULL)
 	{
-		$this->addChildrenObjects(Query::ORDER_BY, $column, $direction, 'CL\Cherry\SQL\DirectionSQL::factory');
+		$this->addChildrenObjects(Query::ORDER_BY, $column, $direction, 'CL\Atlas\SQL\DirectionSQL::factory');
 
 		return $this;
 	}

@@ -1,13 +1,13 @@
-<?php namespace CL\Cherry\Test\Query;
+<?php namespace CL\Atlas\Test\Query;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Query\Query;
-use CL\Cherry\Query\UpdateQuery;
-use CL\Cherry\SQL\AliasedSQL;
-use CL\Cherry\SQL\ConditionSQL;
-use CL\Cherry\SQL\DirectionSQL;
-use CL\Cherry\SQL\JoinSQL;
-use CL\Cherry\SQL\SetSQL;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Query\Query;
+use CL\Atlas\Query\UpdateQuery;
+use CL\Atlas\SQL\AliasedSQL;
+use CL\Atlas\SQL\ConditionSQL;
+use CL\Atlas\SQL\DirectionSQL;
+use CL\Atlas\SQL\JoinSQL;
+use CL\Atlas\SQL\SetSQL;
 
 /**
  * @group sql.update
@@ -15,7 +15,7 @@ use CL\Cherry\SQL\SetSQL;
 class UpdateQueryTest extends TestCase {
 
 	/**
-	 * @covers CL\Cherry\Query\UpdateQuery::type
+	 * @covers CL\Atlas\Query\UpdateQuery::type
 	 */
 	public function testType()
 	{
@@ -27,11 +27,11 @@ class UpdateQueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\UpdateQuery::table
+	 * @covers CL\Atlas\Query\UpdateQuery::table
 	 */
 	public function testTable()
 	{
-		$query = $this->getMock('CL\Cherry\Query\UpdateQuery', array('addChildrenObjects'));
+		$query = $this->getMock('CL\Atlas\Query\UpdateQuery', array('addChildrenObjects'));
 		$query
 			->expects($this->once())
 			->method('addChildrenObjects')
@@ -39,14 +39,14 @@ class UpdateQueryTest extends TestCase {
 				$this->equalTo(Query::TABLE),
 				$this->equalTo(array('table1', 'table2' => 'alias2')),
 				$this->equalTo('alias'),
-				'CL\Cherry\SQL\AliasedSQL::factory'
+				'CL\Atlas\SQL\AliasedSQL::factory'
 			);
 
 		$query->table(array('table1', 'table2' => 'alias2'), 'alias');
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\UpdateQuery::join
+	 * @covers CL\Atlas\Query\UpdateQuery::join
 	 */
 	public function testJoin()
 	{
@@ -65,7 +65,7 @@ class UpdateQueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\UpdateQuery::set
+	 * @covers CL\Atlas\Query\UpdateQuery::set
 	 */
 	public function testSet()
 	{
@@ -85,7 +85,7 @@ class UpdateQueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\UpdateQuery::where
+	 * @covers CL\Atlas\Query\UpdateQuery::where
 	 */
 	public function testWhere()
 	{
@@ -104,11 +104,11 @@ class UpdateQueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\UpdateQuery::order
+	 * @covers CL\Atlas\Query\UpdateQuery::order
 	 */
 	public function testOrder()
 	{
-		$query = $this->getMock('CL\Cherry\Query\UpdateQuery', array('addChildrenObjects'));
+		$query = $this->getMock('CL\Atlas\Query\UpdateQuery', array('addChildrenObjects'));
 		$query
 			->expects($this->once())
 			->method('addChildrenObjects')
@@ -116,7 +116,7 @@ class UpdateQueryTest extends TestCase {
 				$this->equalTo(Query::ORDER_BY),
 				$this->equalTo(array('column1', 'column2' => 'alias2')),
 				$this->equalTo('direction'),
-				'CL\Cherry\SQL\DirectionSQL::factory'
+				'CL\Atlas\SQL\DirectionSQL::factory'
 			);
 
 		$query->order(array('column1', 'column2' => 'alias2'), 'direction');
@@ -124,7 +124,7 @@ class UpdateQueryTest extends TestCase {
 
 
 	/**
-	 * @covers CL\Cherry\Query\UpdateQuery::limit
+	 * @covers CL\Atlas\Query\UpdateQuery::limit
 	 */
 	public function testLimit()
 	{
@@ -136,7 +136,7 @@ class UpdateQueryTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\Query\UpdateQuery::sql
+	 * @covers CL\Atlas\Query\UpdateQuery::sql
 	 */
 	public function testSql()
 	{

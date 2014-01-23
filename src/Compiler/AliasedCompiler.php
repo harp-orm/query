@@ -1,10 +1,10 @@
-<?php namespace CL\Cherry\Compiler;
+<?php namespace CL\Atlas\Compiler;
 
-use CL\Cherry\Arr;
-use CL\Cherry\SQL\AliasedSQL;
-use CL\Cherry\Query\SelectQuery;
-use CL\Cherry\Compiler\Compiler;
-use CL\Cherry\Compiler\SelectCompiler;
+use CL\Atlas\Arr;
+use CL\Atlas\SQL\AliasedSQL;
+use CL\Atlas\Query\SelectQuery;
+use CL\Atlas\Compiler\Compiler;
+use CL\Atlas\Compiler\SelectCompiler;
 
 /**
  * @author     Ivan Kerin
@@ -15,7 +15,7 @@ class AliasedCompiler extends Compiler
 {
 	public static function combine($items)
 	{
-		return Arr::join(', ', Arr::map('CL\Cherry\Compiler\AliasedCompiler::render', $items));
+		return Arr::join(', ', Arr::map('CL\Atlas\Compiler\AliasedCompiler::render', $items));
 	}
 
 	public static function render(AliasedSQL $aliased)

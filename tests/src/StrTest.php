@@ -1,7 +1,7 @@
-<?php namespace CL\Cherry\Test;
+<?php namespace CL\Atlas\Test;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Str;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Str;
 
 /**
  * @group str
@@ -19,7 +19,7 @@ class StrTest extends TestCase {
 
 	/**
 	 * @dataProvider dataReplace
-	 * @covers CL\Cherry\Str::replace
+	 * @covers CL\Atlas\Str::replace
 	 */
 	public function testReplace($pattern, $replacements, $subject, $expected)
 	{

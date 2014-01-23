@@ -1,9 +1,9 @@
-<?php namespace CL\Cherry\Test\Compiler;
+<?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Compiler\UpdateCompiler;
-use CL\Cherry\Query\UpdateQuery;
-use CL\Cherry\SQL\SQL;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Compiler\UpdateCompiler;
+use CL\Atlas\Query\UpdateQuery;
+use CL\Atlas\SQL\SQL;
 
 /**
  * @group compiler
@@ -12,7 +12,7 @@ use CL\Cherry\SQL\SQL;
 class UpdateCompilerTest extends TestCase {
 
 	/**
-	 * @covers CL\Cherry\Compiler\UpdateCompiler::render
+	 * @covers CL\Atlas\Compiler\UpdateCompiler::render
 	 */
 	public function testUpdate()
 	{

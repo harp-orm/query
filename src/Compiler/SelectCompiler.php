@@ -1,7 +1,7 @@
-<?php namespace CL\Cherry\Compiler;
+<?php namespace CL\Atlas\Compiler;
 
-use CL\Cherry\Query\Query;
-use CL\Cherry\Query\SelectQuery;
+use CL\Atlas\Query\Query;
+use CL\Atlas\Query\SelectQuery;
 
 /**
  * @author     Ivan Kerin

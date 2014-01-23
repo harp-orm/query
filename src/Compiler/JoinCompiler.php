@@ -1,8 +1,8 @@
-<?php namespace CL\Cherry\Compiler;
+<?php namespace CL\Atlas\Compiler;
 
-use CL\Cherry\Arr;
-use CL\Cherry\SQL\AliasedSQL;
-use CL\Cherry\SQL\JoinSQL;
+use CL\Atlas\Arr;
+use CL\Atlas\SQL\AliasedSQL;
+use CL\Atlas\SQL\JoinSQL;
 
 /**
  * @author     Ivan Kerin

@@ -1,6 +1,6 @@
 {
-    "name": "clippings/cherry",
-    "description": "PDO SQL Builder",
+    "name": "clippings/atlas",
+    "description": "SQL Builder for PDO",
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -16,6 +16,6 @@
         "openbuildings/environment-backup": "0.1"
     },
     "autoload": {
-        "psr-4": {"CL\\Cherry\\": "src/"}
+        "psr-4": {"CL\\Atlas\\": "src/"}
     }
 }

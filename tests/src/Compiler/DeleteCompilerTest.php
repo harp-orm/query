@@ -1,9 +1,9 @@
-<?php namespace CL\Cherry\Test\Compiler;
+<?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Compiler\DeleteCompiler;
-use CL\Cherry\Query\DeleteQuery;
-use CL\Cherry\SQL\SQL;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Compiler\DeleteCompiler;
+use CL\Atlas\Query\DeleteQuery;
+use CL\Atlas\SQL\SQL;
 
 /**
  * @group compiler
@@ -13,7 +13,7 @@ class DeleteCompilerTest extends TestCase {
 
 
 	/**
-	 * @covers CL\Cherry\Compiler\DeleteCompiler::render
+	 * @covers CL\Atlas\Compiler\DeleteCompiler::render
 	 */
 	public function testRender()
 	{

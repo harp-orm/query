@@ -1,7 +1,7 @@
-<?php namespace CL\Cherry\Test;
+<?php namespace CL\Atlas\Test;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\DB;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\DB;
 
 /**
  * @group compiler
@@ -9,12 +9,12 @@ use CL\Cherry\DB;
 class DBTest extends TestCase {
 
 	/**
-	 * @covers CL\Cherry\DB::configuration
+	 * @covers CL\Atlas\DB::configuration
 	 */
 	public function testConfiguration()
 	{
 		$this->env->backup_and_set(array(
-			'CL\Cherry\DB::$configurations' => array(),
+			'CL\Atlas\DB::$configurations' => array(),
 		));
 
 		$config = array('some', 'test');
@@ -25,14 +25,14 @@ class DBTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\DB::defaultName
+	 * @covers CL\Atlas\DB::defaultName
 	 */
 	public function testDefaultName()
 	{
 		$this->assertEquals('default', DB::defaultName());
 
 		$this->env->backup_and_set(array(
-			'CL\Cherry\DB::$default_name' => 'test',
+			'CL\Atlas\DB::$default_name' => 'test',
 		));
 
 		$this->assertEquals('test', DB::defaultName());
@@ -41,8 +41,8 @@ class DBTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\DB::instance
-	 * @covers CL\Cherry\DB::__construct
+	 * @covers CL\Atlas\DB::instance
+	 * @covers CL\Atlas\DB::__construct
 	 */
 	public function testInstance()
 	{
@@ -66,7 +66,7 @@ class DBTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\DB::execute
+	 * @covers CL\Atlas\DB::execute
 	 */
 	public function testExecute()
 	{
@@ -81,13 +81,13 @@ class DBTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\DB::select
+	 * @covers CL\Atlas\DB::select
 	 */
 	public function testSelect()
 	{
 		$select = DB::instance()->select()->columns(array('test', 'test2'));
 
-		$this->assertInstanceOf('CL\Cherry\Query\SelectQuery', $select);
+		$this->assertInstanceOf('CL\Atlas\Query\SelectQuery', $select);
 
 		$this->assertSame(DB::instance(), $select->db());
 
@@ -95,13 +95,13 @@ class DBTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\DB::update
+	 * @covers CL\Atlas\DB::update
 	 */
 	public function testUpdate()
 	{
 		$update = DB::instance()->update()->table(array('test', 'test2'));
 
-		$this->assertInstanceOf('CL\Cherry\Query\UpdateQuery', $update);
+		$this->assertInstanceOf('CL\Atlas\Query\UpdateQuery', $update);
 
 		$this->assertSame(DB::instance(), $update->db());
 
@@ -109,13 +109,13 @@ class DBTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\DB::delete
+	 * @covers CL\Atlas\DB::delete
 	 */
 	public function testDelete()
 	{
 		$delete = DB::instance()->delete()->from(array('test', 'test2'));
 
-		$this->assertInstanceOf('CL\Cherry\Query\DeleteQuery', $delete);
+		$this->assertInstanceOf('CL\Atlas\Query\DeleteQuery', $delete);
 
 		$this->assertSame(DB::instance(), $delete->db());
 
@@ -123,13 +123,13 @@ class DBTest extends TestCase {
 	}
 
 	/**
-	 * @covers CL\Cherry\DB::insert
+	 * @covers CL\Atlas\DB::insert
 	 */
 	public function testInsert()
 	{
 		$query = DB::instance()->insert()->into('table1')->set(array('name' => 'test2'));
 
-		$this->assertInstanceOf('CL\Cherry\Query\InsertQuery', $query);
+		$this->assertInstanceOf('CL\Atlas\Query\InsertQuery', $query);
 
 		$this->assertSame(DB::instance(), $query->db());
 

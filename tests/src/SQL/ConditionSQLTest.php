@@ -1,8 +1,8 @@
-<?php namespace CL\Cherry\Test\SQL;
+<?php namespace CL\Atlas\Test\SQL;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Query\Query;
-use CL\Cherry\SQL\ConditionSQL;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Query\Query;
+use CL\Atlas\SQL\ConditionSQL;
 
 /**
  * @group sql.condition
@@ -22,7 +22,7 @@ class ConditionSQLTest extends TestCase {
 
 	/**
 	 * @dataProvider dataConstruct
-	 * @covers CL\Cherry\SQL\ConditionSQL::__construct
+	 * @covers CL\Atlas\SQL\ConditionSQL::__construct
 	 */
 	public function testConstruct($argument, $params, $expected_condition, $expected_params)
 	{

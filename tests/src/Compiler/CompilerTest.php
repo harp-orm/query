@@ -1,7 +1,7 @@
-<?php namespace CL\Cherry\Test\Compiler;
+<?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Cherry\Test\TestCase;
-use CL\Cherry\Compiler\Compiler;
+use CL\Atlas\Test\TestCase;
+use CL\Atlas\Compiler\Compiler;
 
 /**
  * @group compiler
@@ -19,7 +19,7 @@ class CompilerTest extends TestCase {
 
 	/**
 	 * @dataProvider dataToPlaceholders
-	 * @covers CL\Cherry\Compiler\Compiler::toPlaceholders
+	 * @covers CL\Atlas\Compiler\Compiler::toPlaceholders
 	 */
 	public function testToPlaceholders($array, $expected)
 	{
@@ -37,7 +37,7 @@ class CompilerTest extends TestCase {
 
 	/**
 	 * @dataProvider dataExpression
-	 * @covers CL\Cherry\Compiler\Compiler::expression
+	 * @covers CL\Atlas\Compiler\Compiler::expression
 	 */
 	public function testExpression($array, $expected)
 	{
@@ -54,7 +54,7 @@ class CompilerTest extends TestCase {
 
 	/**
 	 * @dataProvider dataWord
-	 * @covers CL\Cherry\Compiler\Compiler::word
+	 * @covers CL\Atlas\Compiler\Compiler::word
 	 */
 	public function testWord($word, $statement, $expected)
 	{
@@ -71,7 +71,7 @@ class CompilerTest extends TestCase {
 
 	/**
 	 * @dataProvider dataBraced
-	 * @covers CL\Cherry\Compiler\Compiler::braced
+	 * @covers CL\Atlas\Compiler\Compiler::braced
 	 */
 	public function testBraced($statement, $expected)
 	{
@@ -90,7 +90,7 @@ class CompilerTest extends TestCase {
 
 	/**
 	 * @dataProvider dataHumanize
-	 * @covers CL\Cherry\Compiler\Compiler::humanize
+	 * @covers CL\Atlas\Compiler\Compiler::humanize
 	 */
 	public function testHumanize($statement, $parameters, $expected)
 	{
