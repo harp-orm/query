@@ -7,6 +7,11 @@
             "name": "Ivan Kerin",
             "email": "ikerin@gmail.com",
             "role": "Author"
+        },
+        {
+            "name": "Haraln Dobrev",
+            "email": "hkdobrev@gmail.com",
+            "role": "Developer"
         }
     ],
     "require": {
