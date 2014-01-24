@@ -1,6 +1,6 @@
 <?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Compiler\DeleteCompiler;
 use CL\Atlas\Query\DeleteQuery;
 use CL\Atlas\SQL\SQL;
@@ -9,7 +9,7 @@ use CL\Atlas\SQL\SQL;
  * @group compiler
  * @group compiler.delete
  */
-class DeleteCompilerTest extends TestCase {
+class DeleteCompilerTest extends AbstractTestCase {
 
 
 	/**

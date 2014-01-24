@@ -1,6 +1,6 @@
 <?php namespace CL\Atlas\Test;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Arr;
 use CL\Atlas\SQL\AliasedSQL;
 use CL\Atlas\Query\SelectQuery;
@@ -9,7 +9,7 @@ use stdClass;
 /**
  * @group arr
  */
-class ArrTest extends TestCase {
+class ArrTest extends AbstractTestCase {
 
 	public function dataToAssoc()
 	{

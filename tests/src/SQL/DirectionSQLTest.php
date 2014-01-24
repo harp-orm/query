@@ -1,12 +1,12 @@
 <?php namespace CL\Atlas\Test\SQL;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\SQL\DirectionSQL;
 
 /**
  * @group sql.direction
  */
-class DirectionSQLTest extends TestCase {
+class DirectionSQLTest extends AbstractTestCase {
 
 	/**
 	 * @covers CL\Atlas\SQL\DirectionSQL::factory

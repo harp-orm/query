@@ -1,13 +1,13 @@
 <?php namespace CL\Atlas\Test\SQL;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Query\Query;
 use CL\Atlas\SQL\AliasedSQL;
 
 /**
  * @group sql.aliased
  */
-class AliasedSQLTest extends TestCase {
+class AliasedSQLTest extends AbstractTestCase {
 
 	/**
 	 * @covers CL\Atlas\SQL\AliasedSQL::factory

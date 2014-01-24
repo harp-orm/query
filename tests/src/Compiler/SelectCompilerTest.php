@@ -1,6 +1,6 @@
 <?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Compiler\SelectCompiler;
 use CL\Atlas\Query\SelectQuery;
 use CL\Atlas\SQL\SQL;
@@ -9,7 +9,7 @@ use CL\Atlas\SQL\SQL;
  * @group compiler
  * @group compiler.select
  */
-class SelectCompilerTest extends TestCase {
+class SelectCompilerTest extends AbstractTestCase {
 
 	/**
 	 * @covers CL\Atlas\Compiler\SelectCompiler::render

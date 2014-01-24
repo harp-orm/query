@@ -1,6 +1,6 @@
 <?php namespace CL\Atlas\Test\SQL;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Query\SelectQuery;
 use CL\Atlas\SQL\SetSQL;
 use CL\Atlas\SQL\SQL;
@@ -8,7 +8,7 @@ use CL\Atlas\SQL\SQL;
 /**
  * @group sql.direction
  */
-class SetSQLTest extends TestCase {
+class SetSQLTest extends AbstractTestCase {
 
 	public function dataConstruct()
 	{

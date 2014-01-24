@@ -1,6 +1,6 @@
 <?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Compiler\AliasedCompiler;
 use CL\Atlas\SQL\AliasedSQL;
 use CL\Atlas\Query\SelectQuery;
@@ -9,7 +9,7 @@ use CL\Atlas\Query\SelectQuery;
  * @group compiler
  * @group compiler.aliased
  */
-class AliasedCompilerTest extends TestCase {
+class AliasedCompilerTest extends AbstractTestCase {
 
 	/**
 	 * @covers CL\Atlas\Compiler\AliasedCompiler::combine

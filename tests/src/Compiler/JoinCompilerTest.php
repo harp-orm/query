@@ -1,6 +1,6 @@
 <?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Compiler\JoinCompiler;
 use CL\Atlas\SQL\JoinSQL;
 
@@ -8,7 +8,7 @@ use CL\Atlas\SQL\JoinSQL;
  * @group compiler
  * @group compiler.join
  */
-class JoinCompilerTest extends TestCase {
+class JoinCompilerTest extends AbstractTestCase {
 
 	/**
 	 * @covers CL\Atlas\Compiler\JoinCompiler::combine

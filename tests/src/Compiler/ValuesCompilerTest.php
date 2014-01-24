@@ -1,6 +1,6 @@
 <?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Compiler\ValuesCompiler;
 use CL\Atlas\SQL\ValuesSQL;
 
@@ -8,7 +8,7 @@ use CL\Atlas\SQL\ValuesSQL;
  * @group compiler
  * @group compiler.values
  */
-class ValuesCompilerTest extends TestCase {
+class ValuesCompilerTest extends AbstractTestCase {
 
 	/**
 	 * @covers CL\Atlas\Compiler\ValuesCompiler::combine

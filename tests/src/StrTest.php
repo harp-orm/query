@@ -1,12 +1,12 @@
 <?php namespace CL\Atlas\Test;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Str;
 
 /**
  * @group str
  */
-class StrTest extends TestCase {
+class StrTest extends AbstractTestCase {
 
 	public function dataReplace()
 	{

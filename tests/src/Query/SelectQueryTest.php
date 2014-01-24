@@ -1,6 +1,6 @@
 <?php namespace CL\Atlas\Test\Query;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Query\Query;
 use CL\Atlas\Query\SelectQuery;
 use CL\Atlas\SQL\ConditionSQL;
@@ -9,7 +9,7 @@ use CL\Atlas\SQL\JoinSQL;
 /**
  * @group sql.select
  */
-class SelectQueryTest extends TestCase {
+class SelectQueryTest extends AbstractTestCase {
 
 	/**
 	 * @covers CL\Atlas\Query\SelectQuery::type

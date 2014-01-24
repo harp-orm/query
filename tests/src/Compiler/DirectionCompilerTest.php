@@ -1,6 +1,6 @@
 <?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Compiler\DirectionCompiler;
 use CL\Atlas\SQL\DirectionSQL;
 
@@ -8,7 +8,7 @@ use CL\Atlas\SQL\DirectionSQL;
  * @group compiler
  * @group compiler.direction
  */
-class DirectionCompilerTest extends TestCase {
+class DirectionCompilerTest extends AbstractTestCase {
 
 	/**
 	 * @covers CL\Atlas\Compiler\DirectionCompiler::combine

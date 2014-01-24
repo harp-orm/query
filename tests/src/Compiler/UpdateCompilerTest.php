@@ -1,6 +1,6 @@
 <?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Compiler\UpdateCompiler;
 use CL\Atlas\Query\UpdateQuery;
 use CL\Atlas\SQL\SQL;
@@ -9,7 +9,7 @@ use CL\Atlas\SQL\SQL;
  * @group compiler
  * @group compiler.update
  */
-class UpdateCompilerTest extends TestCase {
+class UpdateCompilerTest extends AbstractTestCase {
 
 	/**
 	 * @covers CL\Atlas\Compiler\UpdateCompiler::render

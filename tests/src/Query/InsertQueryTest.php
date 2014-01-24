@@ -1,6 +1,6 @@
 <?php namespace CL\Atlas\Test\Query;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Query\Query;
 use CL\Atlas\Query\InsertQuery;
 use CL\Atlas\Query\SelectQuery;
@@ -14,7 +14,7 @@ use CL\Atlas\SQL\SetSQL;
 /**
  * @group sql.insert
  */
-class InsertQueryTest extends TestCase {
+class InsertQueryTest extends AbstractTestCase {
 
 	/**
 	 * @covers CL\Atlas\Query\InsertQuery::type

@@ -1,6 +1,6 @@
 <?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Compiler\ConditionCompiler;
 use CL\Atlas\SQL\ConditionSQL;
 
@@ -8,7 +8,7 @@ use CL\Atlas\SQL\ConditionSQL;
  * @group compiler
  * @group compiler.condition
  */
-class ConditionCompilerTest extends TestCase {
+class ConditionCompilerTest extends AbstractTestCase {
 
 	/**
 	 * @covers CL\Atlas\Compiler\ConditionCompiler::combine

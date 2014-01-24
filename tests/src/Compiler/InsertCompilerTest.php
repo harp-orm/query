@@ -1,6 +1,6 @@
 <?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Compiler\InsertCompiler;
 use CL\Atlas\Query\InsertQuery;
 use CL\Atlas\Query\SelectQuery;
@@ -10,7 +10,7 @@ use CL\Atlas\SQL\SQL;
  * @group compiler
  * @group compiler.insert
  */
-class InsertCompilerTest extends TestCase {
+class InsertCompilerTest extends AbstractTestCase {
 
 
 	public function dataInsert()

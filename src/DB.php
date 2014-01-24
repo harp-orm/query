@@ -52,7 +52,9 @@ class DB extends \PDO
 		{
 			$config = static::configuration($name);
 
-			static::$instances[$name] = new DB($config);
+			$class = get_called_class();
+
+			static::$instances[$name] = new $class($config);
 		}
 
 		return static::$instances[$name];

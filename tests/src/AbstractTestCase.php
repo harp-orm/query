@@ -7,7 +7,7 @@ use CL\Atlas\DB;
  * @package Jam
  * @author Ivan Kerin
  */
-abstract class TestCase extends \PHPUnit_Framework_TestCase {
+abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase {
 
 	public $env;
 

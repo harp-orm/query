@@ -1,12 +1,12 @@
 <?php namespace CL\Atlas\Test;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\DB;
 
 /**
  * @group compiler
  */
-class DBTest extends TestCase {
+class DBTest extends AbstractTestCase {
 
 	/**
 	 * @covers CL\Atlas\DB::configuration

@@ -1,6 +1,6 @@
 <?php namespace CL\Atlas\Test\Query;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Query\Query;
 use CL\Atlas\Query\DeleteQuery;
 use CL\Atlas\SQL\AliasedSQL;
@@ -11,7 +11,7 @@ use CL\Atlas\SQL\DirectionSQL;
 /**
  * @group sql.delete
  */
-class DeleteQueryTest extends TestCase {
+class DeleteQueryTest extends AbstractTestCase {
 
 	/**
 	 * @covers CL\Atlas\Query\DeleteQuery::type

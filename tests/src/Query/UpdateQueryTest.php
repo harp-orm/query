@@ -1,6 +1,6 @@
 <?php namespace CL\Atlas\Test\Query;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Query\Query;
 use CL\Atlas\Query\UpdateQuery;
 use CL\Atlas\SQL\AliasedSQL;
@@ -12,7 +12,7 @@ use CL\Atlas\SQL\SetSQL;
 /**
  * @group sql.update
  */
-class UpdateQueryTest extends TestCase {
+class UpdateQueryTest extends AbstractTestCase {
 
 	/**
 	 * @covers CL\Atlas\Query\UpdateQuery::type

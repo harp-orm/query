@@ -1,12 +1,12 @@
 <?php namespace CL\Atlas\Test\Compiler;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Compiler\Compiler;
 
 /**
  * @group compiler
  */
-class CompilerTest extends TestCase {
+class CompilerTest extends AbstractTestCase {
 
 	public function dataToPlaceholders()
 	{

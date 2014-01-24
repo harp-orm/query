@@ -1,6 +1,6 @@
 <?php namespace CL\Atlas\Test\Query;
 
-use CL\Atlas\Test\TestCase;
+use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Query\Query;
 use CL\Atlas\SQL\SQL;
 use CL\Atlas\DB;
@@ -10,7 +10,7 @@ use CL\Atlas\Test\ParametrisedStub;
 /**
  * @group str
  */
-class QueryTest extends TestCase {
+class QueryTest extends AbstractTestCase {
 
 	public function testConstants()
 	{
