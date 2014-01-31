@@ -8,7 +8,7 @@
 class ConditionSQL extends SQL
 {
 
-    function __construct($content, array $parameters = null)
+    public function __construct($content, array $parameters = null)
     {
         if (is_array($content)) {
             $statements = array();

@@ -11,7 +11,7 @@ class JoinSQL extends SQL
     protected $condition;
     protected $type;
 
-    function __construct($table, $condition, $type = null)
+    public function __construct($table, $condition, $type = null)
     {
         if (is_array($condition)) {
             $statements = array();

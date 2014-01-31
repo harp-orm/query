@@ -16,7 +16,7 @@ class AliasedSQL extends SQL
         return new AliasedSQL($content, $alias);
     }
 
-    function __construct($content, $alias = null)
+    public function __construct($content, $alias = null)
     {
         $this->content = $content;
         $this->alias = $alias;

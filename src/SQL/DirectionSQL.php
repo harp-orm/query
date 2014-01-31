@@ -14,7 +14,7 @@ class DirectionSQL extends SQL
         return new DirectionSQL($column, $direction);
     }
 
-    function __construct($column, $direction = null)
+    public function __construct($column, $direction = null)
     {
         $this->direction = $direction;
 

@@ -11,7 +11,7 @@ class SetSQL extends SQL
 {
     protected $value;
 
-    function __construct($column, $value)
+    public function __construct($column, $value)
     {
         $this->value = $value;
         parent::__construct($column);
