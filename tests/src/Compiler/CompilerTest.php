@@ -82,10 +82,26 @@ class CompilerTest extends AbstractTestCase
     public function dataHumanize()
     {
         return array(
-            array('SELECT test', array(), 'SELECT test'),
-            array('SELECT test FROM table1 WHERE name = ?', array('param'), 'SELECT test FROM table1 WHERE name = "param"'),
-            array('SELECT test FROM table1 WHERE name = ? AND id IS ?', array('param', null), 'SELECT test FROM table1 WHERE name = "param" AND id IS NULL'),
-            array('SELECT test FROM table1 WHERE name = ? AND id IS NOT ?', array(10, null), 'SELECT test FROM table1 WHERE name = 10 AND id IS NOT NULL'),
+            array(
+                'SELECT test',
+                array(),
+                'SELECT test'
+            ),
+            array(
+                'SELECT test FROM table1 WHERE name = ?',
+                array('param'),
+                'SELECT test FROM table1 WHERE name = "param"'
+            ),
+            array(
+                'SELECT test FROM table1 WHERE name = ? AND id IS ?',
+                array('param', null),
+                'SELECT test FROM table1 WHERE name = "param" AND id IS NULL'
+            ),
+            array(
+                'SELECT test FROM table1 WHERE name = ? AND id IS NOT ?',
+                array(10, null),
+                'SELECT test FROM table1 WHERE name = 10 AND id IS NOT NULL'
+            ),
         );
     }
 

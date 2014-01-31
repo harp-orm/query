@@ -14,9 +14,30 @@ class JoinSQLTest extends AbstractTestCase
     public function dataConstruct()
     {
         return array(
-            array('table', array('col' => 'col2'), 'LEFT', 'table', 'ON col = col2', 'LEFT'),
-            array(array('table' => 'alias1'), 'USING (col1)', null, new AliasedSQL('table', 'alias1'), 'USING (col1)', null),
-            array(new SQL('CUSTOM SQL'), array('col' => 'col2'), null, new SQL('CUSTOM SQL'), 'ON col = col2', null),
+            array(
+                'table',
+                array('col' => 'col2'),
+                'LEFT',
+                'table',
+                'ON col = col2',
+                'LEFT'
+            ),
+            array(
+                array('table' => 'alias1'),
+                'USING (col1)',
+                null,
+                new AliasedSQL('table', 'alias1'),
+                'USING (col1)',
+                null
+            ),
+            array(
+                new SQL('CUSTOM SQL'),
+                array('col' => 'col2'),
+                null,
+                new SQL('CUSTOM SQL'),
+                'ON col = col2',
+                null
+            ),
         );
     }
 

@@ -128,9 +128,22 @@ class ArrTest extends AbstractTestCase
     public function dataFlatten()
     {
         return array(
-            array(array('name1' => 'test1', 'name2' => 'test2'), array('name1' => 'test1', 'name2' => 'test2')),
-            array(array('name1', 'name2'), array('name1', 'name2')),
-            array(array('name1', 'name2', array('test1', 'test2', array('part1'), 'test3')), array('name1', 'name2', 'test1', 'test2', 'part1', 'test3')),
+            array(
+                array('name1' => 'test1', 'name2' => 'test2'),
+                array('name1' => 'test1', 'name2' => 'test2')
+            ),
+            array(
+                array('name1', 'name2'),
+                array('name1', 'name2')
+            ),
+            array(
+                array(
+                    'name1',
+                    'name2',
+                    array('test1', 'test2', array('part1'), 'test3')
+                ),
+                array('name1', 'name2', 'test1', 'test2', 'part1', 'test3')
+            ),
         );
     }
 
