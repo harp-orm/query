@@ -4,7 +4,8 @@ use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Str;
 
 /**
- * @group str
+ * @group util
+ * @group util.str
  */
 class StrTest extends AbstractTestCase {
 

@@ -7,7 +7,7 @@ use CL\Atlas\SQL\ConditionSQL;
 use CL\Atlas\SQL\JoinSQL;
 
 /**
- * @group sql.select
+ * @group query.select
  */
 class SelectQueryTest extends AbstractTestCase {
 

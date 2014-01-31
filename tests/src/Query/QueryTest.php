@@ -8,7 +8,7 @@ use stdClass;
 use CL\Atlas\Test\ParametrisedStub;
 
 /**
- * @group str
+ * @group query
  */
 class QueryTest extends AbstractTestCase {
 

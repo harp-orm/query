@@ -9,7 +9,7 @@ use CL\Atlas\SQL\ConditionSQL;
 use CL\Atlas\SQL\DirectionSQL;
 
 /**
- * @group sql.delete
+ * @group query.delete
  */
 class DeleteQueryTest extends AbstractTestCase {
 

@@ -4,7 +4,7 @@ use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\DB;
 
 /**
- * @group compiler
+ * @group db
  */
 class DBTest extends AbstractTestCase {
 

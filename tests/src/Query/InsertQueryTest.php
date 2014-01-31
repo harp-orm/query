@@ -12,7 +12,7 @@ use CL\Atlas\SQL\ValuesSQL;
 use CL\Atlas\SQL\SetSQL;
 
 /**
- * @group sql.insert
+ * @group query.insert
  */
 class InsertQueryTest extends AbstractTestCase {
 
