@@ -94,8 +94,8 @@ class ArrTest extends AbstractTestCase {
     public function dataMap()
     {
         return array(
-            array(array('name1', 'name2'), function($item){ return $item.'2';}, array('name12', 'name22')),
-            array(null, function($item){ return $item.'2';}, null),
+            array(array('name1', 'name2'), function ($item){ return $item.'2';}, array('name12', 'name22')),
+            array(null, function ($item){ return $item.'2';}, null),
         );
     }
 

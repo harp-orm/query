@@ -52,7 +52,7 @@ abstract class Query implements Parametrised {
         if ($this->children) {
             $children = Arr::flatten($this->children);
 
-            $parameters = array_map(function($child) {
+            $parameters = array_map(function ($child) {
                 return ($child instanceof Parametrised) ? $child->parameters() : null;
             }, $children);
 

@@ -15,7 +15,7 @@ class Str
     {
         $current = 0;
 
-        return preg_replace_callback($pattern, function() use ($replacements, & $current) {
+        return preg_replace_callback($pattern, function () use ($replacements, & $current) {
             return $replacements[$current++];
         }, $subject);
     }
