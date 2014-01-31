@@ -18,19 +18,20 @@ class InsertCompiler extends Compiler
             $query->children(Query::TYPE),
             Compiler::word('INTO', $query->children(Query::TABLE)),
             Compiler::braced(
-                Arr::join(', ',
-                    $query->children(Query::COLUMNS)
-                )
+                Arr::join(', ', $query->children(Query::COLUMNS))
             ),
-            Compiler::word('VALUES',
+            Compiler::word(
+                'VALUES',
                 ValuesCompiler::combine($query->children(Query::VALUES))
             ),
-            Compiler::word('SET',
+            Compiler::word(
+                'SET',
                 SetCompiler::combine(
                     $query->children(Query::SET)
                 )
             ),
-            Compiler::word('SELECT',
+            Compiler::word(
+                'SELECT',
                 ConditionCompiler::combine(
                     $query->children(Query::WHERE)
                 )

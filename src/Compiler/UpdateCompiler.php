@@ -19,22 +19,26 @@ class UpdateCompiler extends Compiler
             JoinCompiler::combine(
                 $query->children(Query::JOIN)
             ),
-            Compiler::word('SET',
+            Compiler::word(
+                'SET',
                 SetCompiler::combine(
                     $query->children(Query::SET)
                 )
             ),
-            Compiler::word('WHERE',
+            Compiler::word(
+                'WHERE',
                 ConditionCompiler::combine(
                     $query->children(Query::WHERE)
                 )
             ),
-            Compiler::word('ORDER BY',
+            Compiler::word(
+                'ORDER BY',
                 DirectionCompiler::combine(
                     $query->children(Query::ORDER_BY)
                 )
             ),
-            Compiler::word('LIMIT',
+            Compiler::word(
+                'LIMIT',
                 $query->children(Query::LIMIT)
             ),
         ));
