@@ -10,33 +10,33 @@ use CL\Atlas\Query\UpdateQuery;
  */
 class UpdateCompiler extends Compiler
 {
-	public static function render(UpdateQuery $query)
-	{
-		return Compiler::expression(array(
-			'UPDATE',
-			$query->children(Query::TYPE),
-			AliasedCompiler::combine($query->children(Query::TABLE)),
-			JoinCompiler::combine(
-				$query->children(Query::JOIN)
-			),
-			Compiler::word('SET',
-				SetCompiler::combine(
-					$query->children(Query::SET)
-				)
-			),
-			Compiler::word('WHERE',
-				ConditionCompiler::combine(
-					$query->children(Query::WHERE)
-				)
-			),
-			Compiler::word('ORDER BY',
-				DirectionCompiler::combine(
-					$query->children(Query::ORDER_BY)
-				)
-			),
-			Compiler::word('LIMIT',
-				$query->children(Query::LIMIT)
-			),
-		));
-	}
+    public static function render(UpdateQuery $query)
+    {
+        return Compiler::expression(array(
+            'UPDATE',
+            $query->children(Query::TYPE),
+            AliasedCompiler::combine($query->children(Query::TABLE)),
+            JoinCompiler::combine(
+                $query->children(Query::JOIN)
+            ),
+            Compiler::word('SET',
+                SetCompiler::combine(
+                    $query->children(Query::SET)
+                )
+            ),
+            Compiler::word('WHERE',
+                ConditionCompiler::combine(
+                    $query->children(Query::WHERE)
+                )
+            ),
+            Compiler::word('ORDER BY',
+                DirectionCompiler::combine(
+                    $query->children(Query::ORDER_BY)
+                )
+            ),
+            Compiler::word('LIMIT',
+                $query->children(Query::LIMIT)
+            ),
+        ));
+    }
 }

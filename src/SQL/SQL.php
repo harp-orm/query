@@ -9,31 +9,31 @@ use CL\Atlas\Parametrised;
  */
 class SQL implements Parametrised {
 
-	protected $parameters;
-	protected $content;
+    protected $parameters;
+    protected $content;
 
-	function __construct($content, array $parameters = NULL)
-	{
-		$this->content = (string) $content;
+    function __construct($content, array $parameters = NULL)
+    {
+        $this->content = (string) $content;
 
-		if ($parameters)
-		{
-			$this->parameters = $parameters;
-		}
-	}
+        if ($parameters)
+        {
+            $this->parameters = $parameters;
+        }
+    }
 
-	public function __toString()
-	{
-		return $this->content();
-	}
+    public function __toString()
+    {
+        return $this->content();
+    }
 
-	public function content()
-	{
-		return $this->content;
-	}
+    public function content()
+    {
+        return $this->content;
+    }
 
-	public function parameters()
-	{
-		return $this->parameters;
-	}
+    public function parameters()
+    {
+        return $this->parameters;
+    }
 }

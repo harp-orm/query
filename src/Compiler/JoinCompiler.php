@@ -11,18 +11,18 @@ use CL\Atlas\SQL\JoinSQL;
  */
 class JoinCompiler extends Compiler
 {
-	public static function combine($items)
-	{
-		return Arr::join(' ', Arr::map(__NAMESPACE__."\JoinCompiler::render", $items));
-	}
+    public static function combine($items)
+    {
+        return Arr::join(' ', Arr::map(__NAMESPACE__."\JoinCompiler::render", $items));
+    }
 
-	public static function render(JoinSQL $join)
-	{
-		return self::expression(array(
-			$join->type(),
-			'JOIN',
-			$join->table() instanceof AliasedSQL ? AliasedCompiler::render($join->table()) : $join->table(),
-			$join->condition(),
-		));
-	}
+    public static function render(JoinSQL $join)
+    {
+        return self::expression(array(
+            $join->type(),
+            'JOIN',
+            $join->table() instanceof AliasedSQL ? AliasedCompiler::render($join->table()) : $join->table(),
+            $join->condition(),
+        ));
+    }
 }

@@ -7,8 +7,8 @@
  */
 class ValuesSQL extends SQL
 {
-	function __construct(array $values)
-	{
-		parent::__construct(NULL, $values);
-	}
+    function __construct(array $values)
+    {
+        parent::__construct(NULL, $values);
+    }
 }

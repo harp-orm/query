@@ -12,51 +12,51 @@ use CL\Atlas\SQL\ValuesSQL;
  */
 class InsertQuery extends Query
 {
-	public function type($type)
-	{
-		$this->children[Query::TYPE] = $type;
-		return $this;
-	}
+    public function type($type)
+    {
+        $this->children[Query::TYPE] = $type;
+        return $this;
+    }
 
-	public function into($table)
-	{
-		$this->children[Query::TABLE] = $table;
+    public function into($table)
+    {
+        $this->children[Query::TABLE] = $table;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function columns($columns)
-	{
-		$this->addChildren(Query::COLUMNS, Arr::toArray($columns));
+    public function columns($columns)
+    {
+        $this->addChildren(Query::COLUMNS, Arr::toArray($columns));
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function values(array $values)
-	{
-		$this->children[Query::VALUES] []= new ValuesSQL($values);
+    public function values(array $values)
+    {
+        $this->children[Query::VALUES] []= new ValuesSQL($values);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function set(array $values)
-	{
-		foreach ($values as $column => $value)
-		{
-			$this->children[Query::SET] []= new SetSQL($column, $value);
-		}
+    public function set(array $values)
+    {
+        foreach ($values as $column => $value)
+        {
+            $this->children[Query::SET] []= new SetSQL($column, $value);
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function select(SelectQuery $select)
-	{
-		$this->children[Query::SELECT] = $select;
-		return $this;
-	}
+    public function select(SelectQuery $select)
+    {
+        $this->children[Query::SELECT] = $select;
+        return $this;
+    }
 
-	public function sql()
-	{
-		return InsertCompiler::render($this);
-	}
+    public function sql()
+    {
+        return InsertCompiler::render($this);
+    }
 }

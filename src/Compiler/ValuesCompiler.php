@@ -10,15 +10,15 @@ use CL\Atlas\SQL\ValuesSQL;
  */
 class ValuesCompiler extends Compiler
 {
-	public static function combine($items)
-	{
-		return Arr::join(', ', Arr::map(__NAMESPACE__."\ValuesCompiler::render", $items));
-	}
+    public static function combine($items)
+    {
+        return Arr::join(', ', Arr::map(__NAMESPACE__."\ValuesCompiler::render", $items));
+    }
 
-	public static function render(ValuesSQL $item)
-	{
-		$placeholders = array_fill(0, count($item->parameters()), '?');
+    public static function render(ValuesSQL $item)
+    {
+        $placeholders = array_fill(0, count($item->parameters()), '?');
 
-		return '('.join(', ', $placeholders).')';
-	}
+        return '('.join(', ', $placeholders).')';
+    }
 }

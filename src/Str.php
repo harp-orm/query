@@ -11,12 +11,12 @@ namespace CL\Atlas;
  */
 class Str
 {
-	public static function replace($pattern, array $replacements, $subject)
-	{
-		$current = 0;
+    public static function replace($pattern, array $replacements, $subject)
+    {
+        $current = 0;
 
-		return preg_replace_callback($pattern, function() use ($replacements, & $current) {
-			return $replacements[$current++];
-		}, $subject);
-	}
+        return preg_replace_callback($pattern, function() use ($replacements, & $current) {
+            return $replacements[$current++];
+        }, $subject);
+    }
 }

@@ -7,6 +7,6 @@
  */
 interface Parametrised {
 
-	public function parameters();
+    public function parameters();
 
 }

@@ -9,15 +9,15 @@ use CL\Atlas\SQL\ValuesSQL;
 class ValuesSQLTest extends AbstractTestCase {
 
 
-	/**
-	 * @covers CL\Atlas\SQL\ValuesSQL::__construct
-	 */
-	public function testConstruct()
-	{
-		$values = array(10, 20);
-		$sql = new ValuesSQL($values);
+    /**
+     * @covers CL\Atlas\SQL\ValuesSQL::__construct
+     */
+    public function testConstruct()
+    {
+        $values = array(10, 20);
+        $sql = new ValuesSQL($values);
 
-		$this->assertEquals(NULL, $sql->content());
-		$this->assertEquals($values, $sql->parameters());
-	}
+        $this->assertEquals(NULL, $sql->content());
+        $this->assertEquals($values, $sql->parameters());
+    }
 }
