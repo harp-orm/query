@@ -91,7 +91,6 @@ class ArrTest extends AbstractTestCase
         $this->assertEquals($expected, Arr::toObjects($array, $argument, array($object, 'callback')));
     }
 
-
     public function dataMap()
     {
         return array(
