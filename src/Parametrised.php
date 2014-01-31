@@ -9,5 +9,4 @@ interface Parametrised
 {
 
     public function parameters();
-
 }
