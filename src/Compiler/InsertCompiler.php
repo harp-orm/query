@@ -35,7 +35,7 @@ class InsertCompiler extends Compiler
                     $query->children(Query::WHERE)
                 )
             ),
-            $query->children(Query::SELECT) ? SelectCompiler::render($query->children(Query::SELECT)) : NULL,
+            $query->children(Query::SELECT) ? SelectCompiler::render($query->children(Query::SELECT)) : null,
         ));
     }
 }

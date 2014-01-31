@@ -11,12 +11,12 @@ class AliasedSQL extends SQL
 {
     protected $alias;
 
-    public static function factory($content, $alias = NULL)
+    public static function factory($content, $alias = null)
     {
         return new AliasedSQL($content, $alias);
     }
 
-    function __construct($content, $alias = NULL)
+    function __construct($content, $alias = null)
     {
         $this->content = $content;
         $this->alias = $alias;

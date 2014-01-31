@@ -29,8 +29,8 @@ class CompilerTest extends AbstractTestCase {
     public function dataExpression()
     {
         return array(
-            array(array('SELECT', '*', NULL, 'WHERE i = 1'), 'SELECT * WHERE i = 1'),
-            array(array(NULL, NULL, NULL), NULL),
+            array(array('SELECT', '*', null, 'WHERE i = 1'), 'SELECT * WHERE i = 1'),
+            array(array(null, null, null), null),
             array(array('DELETE', 'FROM test'), 'DELETE FROM test'),
         );
     }
@@ -47,7 +47,7 @@ class CompilerTest extends AbstractTestCase {
     public function dataWord()
     {
         return array(
-            array('SELECT', NULL, NULL),
+            array('SELECT', null, null),
             array('FROM', 'table', 'FROM table'),
         );
     }
@@ -65,7 +65,7 @@ class CompilerTest extends AbstractTestCase {
     {
         return array(
             array('SELECT test', '(SELECT test)'),
-            array(NULL, NULL),
+            array(null, null),
         );
     }
 
@@ -83,8 +83,8 @@ class CompilerTest extends AbstractTestCase {
         return array(
             array('SELECT test', array(), 'SELECT test'),
             array('SELECT test FROM table1 WHERE name = ?', array('param'), 'SELECT test FROM table1 WHERE name = "param"'),
-            array('SELECT test FROM table1 WHERE name = ? AND id IS ?', array('param', NULL), 'SELECT test FROM table1 WHERE name = "param" AND id IS NULL'),
-            array('SELECT test FROM table1 WHERE name = ? AND id IS NOT ?', array(10, NULL), 'SELECT test FROM table1 WHERE name = 10 AND id IS NOT NULL'),
+            array('SELECT test FROM table1 WHERE name = ? AND id IS ?', array('param', null), 'SELECT test FROM table1 WHERE name = "param" AND id IS NULL'),
+            array('SELECT test FROM table1 WHERE name = ? AND id IS NOT ?', array(10, null), 'SELECT test FROM table1 WHERE name = 10 AND id IS NOT NULL'),
         );
     }
 

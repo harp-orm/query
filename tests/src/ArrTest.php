@@ -14,9 +14,9 @@ class ArrTest extends AbstractTestCase {
     public function dataToAssoc()
     {
         return array(
-            array(array('name1', 'name2'), array('name1' => NULL, 'name2' => NULL)),
-            array(array('name1', 'name2' => 'val2'), array('name1' => NULL, 'name2' => 'val2')),
-            array(array('name1', 'name2' => new stdClass), array('name1' => NULL, 'name2' => new stdClass)),
+            array(array('name1', 'name2'), array('name1' => null, 'name2' => null)),
+            array(array('name1', 'name2' => 'val2'), array('name1' => null, 'name2' => 'val2')),
+            array(array('name1', 'name2' => new stdClass), array('name1' => null, 'name2' => new stdClass)),
         );
     }
 
@@ -50,8 +50,8 @@ class ArrTest extends AbstractTestCase {
 
     public function dataToObjects()
     {
-        $test1 = array('test1', NULL);
-        $test2 = array('test2', NULL);
+        $test1 = array('test1', null);
+        $test2 = array('test2', null);
         $alias1 = array('test1', 'alias1');
         $alias2 = array('test2', 'alias2');
         $alias3 = array(new SelectQuery, 'alias3');
@@ -60,11 +60,11 @@ class ArrTest extends AbstractTestCase {
         return array(
             array('test1', 'alias1', array($alias1)),
             array(new SelectQuery, 'alias3', array($alias3)),
-            array('test1', NULL, array($test1)),
-            array(array('test1'), NULL, array($test1)),
-            array(array('test1', 'test2'), NULL, array($test1, $test2)),
-            array(array('test1', 'test2' => 'alias2'), NULL, array($test1, $alias2)),
-            array(array('test1', 'test2' => 'alias2', $sql_alias), NULL, array($test1, $alias2, $sql_alias)),
+            array('test1', null, array($test1)),
+            array(array('test1'), null, array($test1)),
+            array(array('test1', 'test2'), null, array($test1, $test2)),
+            array(array('test1', 'test2' => 'alias2'), null, array($test1, $alias2)),
+            array(array('test1', 'test2' => 'alias2', $sql_alias), null, array($test1, $alias2, $sql_alias)),
         );
     }
 
@@ -95,7 +95,7 @@ class ArrTest extends AbstractTestCase {
     {
         return array(
             array(array('name1', 'name2'), function($item){ return $item.'2';}, array('name12', 'name22')),
-            array(NULL, function($item){ return $item.'2';}, NULL),
+            array(null, function($item){ return $item.'2';}, null),
         );
     }
 
@@ -112,7 +112,7 @@ class ArrTest extends AbstractTestCase {
     {
         return array(
             array('|', array('name1', 'name2', 'name3'), 'name1|name2|name3'),
-            array('|', NULL, NULL),
+            array('|', null, null),
         );
     }
 

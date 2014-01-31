@@ -47,7 +47,7 @@ class QueryTest extends AbstractTestCase {
 
         $this->assertEquals('ignore', $query->children(Query::TYPE));
         $this->assertEquals(10, $query->children(Query::LIMIT));
-        $this->assertEquals(NULL, $query->children('non existant'));
+        $this->assertEquals(null, $query->children('non existant'));
     }
 
     /**
@@ -109,8 +109,8 @@ class QueryTest extends AbstractTestCase {
         return array(
             array(
                 'test',
-                NULL,
-                array(array('test', NULL, 'result')),
+                null,
+                array(array('test', null, 'result')),
                 array('result')
             ),
             array(
@@ -121,22 +121,22 @@ class QueryTest extends AbstractTestCase {
             ),
             array(
                 array('test'),
-                NULL,
-                array(array('test', NULL, 'result')),
+                null,
+                array(array('test', null, 'result')),
                 array('result')
             ),
             array(
                 array('test' => 'arg'),
-                NULL,
+                null,
                 array(array('test', 'arg', 'result')),
                 array('result')
             ),
             array(
                 array('test1' => 'arg1', 'test2', 'test3' => 'arg3'),
-                NULL,
+                null,
                 array(
                     array('test1', 'arg1', 'result1'),
-                    array('test2', NULL, 'result2'),
+                    array('test2', null, 'result2'),
                     array('test3', 'arg3', 'result3'),
                 ),
                 array('result1', 'result2', 'result3')),
@@ -178,7 +178,7 @@ class QueryTest extends AbstractTestCase {
     {
         $db = new DB(array());
 
-        $query = $this->getMock('CL\Atlas\Query\Query', array('sql'), array(NULL, $db));
+        $query = $this->getMock('CL\Atlas\Query\Query', array('sql'), array(null, $db));
 
         $this->assertSame($db, $query->db());
 

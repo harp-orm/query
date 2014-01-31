@@ -26,14 +26,14 @@ class DeleteQuery extends Query
         return $this;
     }
 
-    public function from($table, $alias = NULL)
+    public function from($table, $alias = null)
     {
         $this->addChildrenObjects(Query::FROM, $table, $alias, 'CL\Atlas\SQL\AliasedSQL::factory');
 
         return $this;
     }
 
-    public function join($table, $condition, $type = NULL)
+    public function join($table, $condition, $type = null)
     {
         $this->children[Query::JOIN] []= new JoinSQL($table, $condition, $type);
         return $this;
@@ -46,7 +46,7 @@ class DeleteQuery extends Query
         return $this;
     }
 
-    public function order($column, $direction = NULL)
+    public function order($column, $direction = null)
     {
         $this->addChildrenObjects(Query::ORDER_BY, $column, $direction, 'CL\Atlas\SQL\DirectionSQL::factory');
 

@@ -19,14 +19,14 @@ class UpdateQuery extends Query
         return $this;
     }
 
-    public function table($table, $alias = NULL)
+    public function table($table, $alias = null)
     {
         $this->addChildrenObjects(Query::TABLE, $table, $alias, 'CL\Atlas\SQL\AliasedSQL::factory');
 
         return $this;
     }
 
-    public function join($table, $condition, $type = NULL)
+    public function join($table, $condition, $type = null)
     {
         $this->children[Query::JOIN] []= new JoinSQL($table, $condition, $type);
         return $this;
@@ -48,7 +48,7 @@ class UpdateQuery extends Query
         return $this;
     }
 
-    public function order($column, $direction = NULL)
+    public function order($column, $direction = null)
     {
         $this->addChildrenObjects(Query::ORDER_BY, $column, $direction, 'CL\Atlas\SQL\DirectionSQL::factory');
 

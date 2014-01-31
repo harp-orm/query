@@ -12,7 +12,7 @@ class SQL implements Parametrised {
     protected $parameters;
     protected $content;
 
-    function __construct($content, array $parameters = NULL)
+    function __construct($content, array $parameters = null)
     {
         $this->content = (string) $content;
 

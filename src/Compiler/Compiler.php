@@ -23,12 +23,12 @@ class Compiler
 
     public static function word($statement, $content)
     {
-        return $content ? $statement.' '.$content : NULL;
+        return $content ? $statement.' '.$content : null;
     }
 
     public static function braced($content)
     {
-        return $content ? "($content)" : NULL;
+        return $content ? "($content)" : null;
     }
 
     public static function humanize($sql, $parameters)
@@ -36,7 +36,7 @@ class Compiler
         foreach ($parameters as & $param) {
             if (is_null($param)) {
                 $param = 'NULL';
-            } elseif ( ! (is_int($param) OR is_bool($param))) {
+            } elseif ( ! (is_int($param) or is_bool($param))) {
                 $param = "\"{$param}\"";
             }
         }

@@ -22,7 +22,7 @@ class ConditionCompiler extends Compiler
     {
         $content = $condition->content();
 
-        if ($condition->parameters() AND array_filter($condition->parameters(), 'is_array')) {
+        if ($condition->parameters() and array_filter($condition->parameters(), 'is_array')) {
             $rendered_parameters = array();
 
             foreach ($condition->parameters() as $index => $value) {

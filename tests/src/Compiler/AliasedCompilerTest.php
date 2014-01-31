@@ -31,9 +31,9 @@ class AliasedCompilerTest extends AbstractTestCase {
 
         return array(
             array('table1', 'alias1', 'table1 AS alias1'),
-            array('table1', NULL, 'table1'),
+            array('table1', null, 'table1'),
             array($query, 'alias1', '(SELECT * FROM table2 LIMIT 1) AS alias1'),
-            array($query, NULL, '(SELECT * FROM table2 LIMIT 1)'),
+            array($query, null, '(SELECT * FROM table2 LIMIT 1)'),
         );
     }
     /**

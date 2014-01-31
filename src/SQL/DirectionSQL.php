@@ -9,12 +9,12 @@ class DirectionSQL extends SQL
 {
     protected $direction;
 
-    public static function factory($column, $direction = NULL)
+    public static function factory($column, $direction = null)
     {
         return new DirectionSQL($column, $direction);
     }
 
-    function __construct($column, $direction = NULL)
+    function __construct($column, $direction = null)
     {
         $this->direction = $direction;
 

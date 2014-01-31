@@ -24,8 +24,8 @@ class JoinCompilerTest extends AbstractTestCase {
     public function dataRender()
     {
         return array(
-            array('table', array('col' => 'col_foreign'), NULL, 'JOIN table ON col = col_foreign'),
-            array('table', array('col' => 'col_foreign', 'is_deleted' => TRUE), NULL, 'JOIN table ON col = col_foreign AND is_deleted = 1'),
+            array('table', array('col' => 'col_foreign'), null, 'JOIN table ON col = col_foreign'),
+            array('table', array('col' => 'col_foreign', 'is_deleted' => true), null, 'JOIN table ON col = col_foreign AND is_deleted = 1'),
             array(array('table' => 'alias1'), 'USING (col)', 'INNER', 'INNER JOIN table AS alias1 USING (col)'),
         );
     }

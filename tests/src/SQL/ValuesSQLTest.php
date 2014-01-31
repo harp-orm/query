@@ -17,7 +17,7 @@ class ValuesSQLTest extends AbstractTestCase {
         $values = array(10, 20);
         $sql = new ValuesSQL($values);
 
-        $this->assertEquals(NULL, $sql->content());
+        $this->assertEquals(null, $sql->content());
         $this->assertEquals($values, $sql->parameters());
     }
 }

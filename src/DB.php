@@ -25,24 +25,24 @@ class DB extends \PDO
         ),
     );
 
-    public static function configuration($name, array $parameters = NULL)
+    public static function configuration($name, array $parameters = null)
     {
-        if ($parameters === NULL) {
+        if ($parameters === null) {
             return isset(static::$configurations[$name]) ? static::$configurations[$name] : array();
         }
 
         static::$configurations[$name] = $parameters;
     }
 
-    public static function defaultName($default_name = NULL)
+    public static function defaultName($default_name = null)
     {
-        if ($default_name !== NULL) {
+        if ($default_name !== null) {
             static::$default_name = $default_name;
         }
         return static::$default_name;
     }
 
-    public static function instance($name = NULL)
+    public static function instance($name = null)
     {
         $name = $name ?: static::defaultName();
 
@@ -74,21 +74,21 @@ class DB extends \PDO
 
     public function select()
     {
-        return new SelectQuery(NULL, $this);
+        return new SelectQuery(null, $this);
     }
 
     public function update()
     {
-        return new UpdateQuery(NULL, $this);
+        return new UpdateQuery(null, $this);
     }
 
     public function delete()
     {
-        return new DeleteQuery(NULL, $this);
+        return new DeleteQuery(null, $this);
     }
 
     public function insert()
     {
-        return new InsertQuery(NULL, $this);
+        return new InsertQuery(null, $this);
     }
 }

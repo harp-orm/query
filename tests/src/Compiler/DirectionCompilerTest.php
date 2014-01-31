@@ -25,7 +25,7 @@ class DirectionCompilerTest extends AbstractTestCase {
     {
         return array(
             array('name', 'ASC', 'name ASC'),
-            array('name', NULL, 'name'),
+            array('name', null, 'name'),
         );
     }
     /**

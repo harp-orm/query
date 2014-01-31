@@ -16,7 +16,7 @@ class ConditionSQLTest extends AbstractTestCase {
             array('name = ? AND port = ?', array('name', 'val2'), 'name = ? AND port = ?', array('name', 'val2')),
             array(array('name' => 10), array(), 'name = ?', array(10)),
             array(array('name' => 10, 'id' => array(10, 20)), array(), 'name = ? AND id IN ?', array(10, array(10, 20))),
-            array(array('name' => NULL), array(), 'name IS ?', array(NULL)),
+            array(array('name' => null), array(), 'name IS ?', array(null)),
         );
     }
 

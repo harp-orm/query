@@ -9,6 +9,6 @@ class ValuesSQL extends SQL
 {
     function __construct(array $values)
     {
-        parent::__construct(NULL, $values);
+        parent::__construct(null, $values);
     }
 }
