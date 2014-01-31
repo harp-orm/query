@@ -15,6 +15,7 @@ class InsertQuery extends Query
     public function type($type)
     {
         $this->children[Query::TYPE] = $type;
+
         return $this;
     }
 
@@ -51,6 +52,7 @@ class InsertQuery extends Query
     public function select(SelectQuery $select)
     {
         $this->children[Query::SELECT] = $select;
+
         return $this;
     }
 

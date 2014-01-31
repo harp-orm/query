@@ -40,6 +40,7 @@ class Compiler
                 $param = "\"{$param}\"";
             }
         }
+
         return Str::replace('/\?/', $parameters, $sql);
     }
 }

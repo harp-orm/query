@@ -16,6 +16,7 @@ class UpdateQuery extends Query
     public function type($type)
     {
         $this->children[Query::TYPE] = $type;
+
         return $this;
     }
 
@@ -29,6 +30,7 @@ class UpdateQuery extends Query
     public function join($table, $condition, $type = null)
     {
         $this->children[Query::JOIN] []= new JoinSQL($table, $condition, $type);
+
         return $this;
     }
 
@@ -58,6 +60,7 @@ class UpdateQuery extends Query
     public function limit($limit)
     {
         $this->children[Query::LIMIT] = (int) $limit;
+
         return $this;
     }
 

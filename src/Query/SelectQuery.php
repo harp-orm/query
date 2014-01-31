@@ -15,6 +15,7 @@ class SelectQuery extends Query
     public function type($type)
     {
         $this->children[Query::TYPE] = $type;
+
         return $this;
     }
 
@@ -35,6 +36,7 @@ class SelectQuery extends Query
     public function join($table, $condition, $type = null)
     {
         $this->children[Query::JOIN] []= new JoinSQL($table, $condition, $type);
+
         return $this;
     }
 
@@ -69,12 +71,14 @@ class SelectQuery extends Query
     public function limit($limit)
     {
         $this->children[Query::LIMIT] = (int) $limit;
+
         return $this;
     }
 
     public function offset($offset)
     {
         $this->children[Query::OFFSET] = (int) $offset;
+
         return $this;
     }
 

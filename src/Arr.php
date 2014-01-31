@@ -34,6 +34,7 @@ class Arr
         if ( ! is_array($array)) {
             return array($array);
         }
+
         return $array;
     }
 

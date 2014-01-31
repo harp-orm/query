@@ -39,6 +39,7 @@ class DB extends \PDO
         if ($default_name !== null) {
             static::$default_name = $default_name;
         }
+
         return static::$default_name;
     }
 
