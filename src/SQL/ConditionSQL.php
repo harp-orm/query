@@ -10,22 +10,15 @@ class ConditionSQL extends SQL
 
     function __construct($content, array $parameters = NULL)
     {
-        if (is_array($content))
-        {
+        if (is_array($content)) {
             $statements = array();
 
-            foreach ($content as $column => $value)
-            {
-                if (is_array($value))
-                {
+            foreach ($content as $column => $value) {
+                if (is_array($value)) {
                     $statements []= "$column IN ?";
-                }
-                elseif (is_null($value))
-                {
+                } elseif (is_null($value)) {
                     $statements []= "$column IS ?";
-                }
-                else
-                {
+                } else {
                     $statements []= "$column = ?";
                 }
 

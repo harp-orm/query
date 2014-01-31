@@ -27,8 +27,7 @@ class DB extends \PDO
 
     public static function configuration($name, array $parameters = NULL)
     {
-        if ($parameters === NULL)
-        {
+        if ($parameters === NULL) {
             return isset(static::$configurations[$name]) ? static::$configurations[$name] : array();
         }
 
@@ -37,8 +36,7 @@ class DB extends \PDO
 
     public static function defaultName($default_name = NULL)
     {
-        if ($default_name !== NULL)
-        {
+        if ($default_name !== NULL) {
             static::$default_name = $default_name;
         }
         return static::$default_name;
@@ -48,8 +46,7 @@ class DB extends \PDO
     {
         $name = $name ?: static::defaultName();
 
-        if ( ! isset(static::$instances[$name]))
-        {
+        if ( ! isset(static::$instances[$name])) {
             $config = static::configuration($name);
 
             $class = get_called_class();

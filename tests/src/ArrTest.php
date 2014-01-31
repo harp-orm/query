@@ -77,10 +77,8 @@ class ArrTest extends AbstractTestCase {
         $object = $this->getMock('stdClass', array('callback'));
 
         $index = 0;
-        foreach ($expected as $value)
-        {
-            if ( ! is_object($value))
-            {
+        foreach ($expected as $value) {
+            if ( ! is_object($value)) {
                 $object
                     ->expects($this->at($index++))
                     ->method('callback')

@@ -15,14 +15,10 @@ class Arr
     {
         $converted = array();
 
-        foreach ($array as $key => $value)
-        {
-            if (is_numeric($key) AND ! is_object($value))
-            {
+        foreach ($array as $key => $value) {
+            if (is_numeric($key) AND ! is_object($value)) {
                 $converted[$value] = NULL;
-            }
-            else
-            {
+            } else {
                 $converted[$key] = $value;
             }
         }
@@ -35,8 +31,7 @@ class Arr
      */
     public static function toArray($array)
     {
-        if ( ! is_array($array))
-        {
+        if ( ! is_array($array)) {
             return array($array);
         }
         return $array;
@@ -46,16 +41,12 @@ class Arr
     {
         $objects = array();
 
-        if ($argument !== NULL)
-        {
+        if ($argument !== NULL) {
             $objects []= call_user_func($callback, $array, $argument);
-        }
-        else
-        {
+        } else {
             $array = Arr::toAssoc(Arr::toArray($array));
 
-            foreach ($array as $param => $argument)
-            {
+            foreach ($array as $param => $argument) {
                 $objects []= is_object($argument) ? $argument : call_user_func($callback, $param, $argument);
             }
         }
@@ -78,12 +69,9 @@ class Arr
         $result = array();
 
         array_walk_recursive($array, function($value, $key) use ( & $result) {
-            if (is_numeric($key) OR is_object($value))
-            {
+            if (is_numeric($key) OR is_object($value)) {
                 $result[] = $value;
-            }
-            else
-            {
+            } else {
                 $result[$key] = $value;
             }
         });

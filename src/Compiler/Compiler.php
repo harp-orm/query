@@ -33,14 +33,10 @@ class Compiler
 
     public static function humanize($sql, $parameters)
     {
-        foreach ($parameters as & $param)
-        {
-            if (is_null($param))
-            {
+        foreach ($parameters as & $param) {
+            if (is_null($param)) {
                 $param = 'NULL';
-            }
-            elseif ( ! (is_int($param) OR is_bool($param)))
-            {
+            } elseif ( ! (is_int($param) OR is_bool($param))) {
                 $param = "\"{$param}\"";
             }
         }

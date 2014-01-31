@@ -22,12 +22,10 @@ class ConditionCompiler extends Compiler
     {
         $content = $condition->content();
 
-        if ($condition->parameters() AND array_filter($condition->parameters(), 'is_array')) 
-        {
+        if ($condition->parameters() AND array_filter($condition->parameters(), 'is_array')) {
             $rendered_parameters = array();
 
-            foreach ($condition->parameters() as $index => $value)
-            {
+            foreach ($condition->parameters() as $index => $value) {
                 $rendered_parameters[$index] = is_array($value) ? Compiler::toPlaceholders($value) : '?';
             }
 

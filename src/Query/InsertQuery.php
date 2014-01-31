@@ -41,8 +41,7 @@ class InsertQuery extends Query
 
     public function set(array $values)
     {
-        foreach ($values as $column => $value)
-        {
+        foreach ($values as $column => $value) {
             $this->children[Query::SET] []= new SetSQL($column, $value);
         }
 

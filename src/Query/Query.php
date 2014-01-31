@@ -38,12 +38,9 @@ abstract class Query implements Parametrised {
 
     public function children($index = NULL)
     {
-        if ($index === NULL)
-        {
+        if ($index === NULL) {
             return $this->children;
-        }
-        else
-        {
+        } else {
             return isset($this->children[$index]) ? $this->children[$index] : NULL;
         }
     }
@@ -52,8 +49,7 @@ abstract class Query implements Parametrised {
     {
         $parameters = array();
 
-        if ($this->children)
-        {
+        if ($this->children) {
             $children = Arr::flatten($this->children);
 
             $parameters = array_map(function($child) {
@@ -68,8 +64,7 @@ abstract class Query implements Parametrised {
 
     public function addChildren($name, $array)
     {
-        if ($array)
-        {
+        if ($array) {
             $this->children[$name] = isset($this->children[$name]) ? array_merge($this->children[$name], $array) : $array;
         }
     }
@@ -83,8 +78,7 @@ abstract class Query implements Parametrised {
 
     public function db()
     {
-        if ( ! $this->db)
-        {
+        if ( ! $this->db) {
             $this->db = DB::instance();
         }
 

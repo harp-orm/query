@@ -153,8 +153,7 @@ class QueryTest extends AbstractTestCase {
 
         $expected = array();
 
-        foreach ($calls as $index => $call)
-        {
+        foreach ($calls as $index => $call) {
             $class
                 ->expects($this->at($index))
                 ->method('testMethod')

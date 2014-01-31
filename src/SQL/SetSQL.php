@@ -19,8 +19,7 @@ class SetSQL extends SQL
 
     public function parameters()
     {
-        if ($this->value() instanceof Parametrised)
-        {
+        if ($this->value() instanceof Parametrised) {
             return $this->value()->parameters();
         }
 

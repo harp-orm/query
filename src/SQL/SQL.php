@@ -16,8 +16,7 @@ class SQL implements Parametrised {
     {
         $this->content = (string) $content;
 
-        if ($parameters)
-        {
+        if ($parameters) {
             $this->parameters = $parameters;
         }
     }

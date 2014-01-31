@@ -19,16 +19,11 @@ class SetCompiler extends Compiler
 
     public static function render(SetSQL $item)
     {
-        if ($item->value() instanceof SQL)
-        {
+        if ($item->value() instanceof SQL) {
             $value = $item->value()->content();
-        }
-        elseif ($item->value() instanceof SelectQuery)
-        {
+        } elseif ($item->value() instanceof SelectQuery) {
             $value = Compiler::braced(SelectCompiler::render($item->value()));
-        }
-        else
-        {
+        } else {
             $value = '?';
         }
 

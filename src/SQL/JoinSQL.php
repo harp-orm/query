@@ -13,34 +13,25 @@ class JoinSQL extends SQL
 
     function __construct($table, $condition, $type = NULL)
     {
-        if (is_array($condition))
-        {
+        if (is_array($condition)) {
             $statements = array();
 
-            foreach ($condition as $column => $foreign_column)
-            {
+            foreach ($condition as $column => $foreign_column) {
                 $statements [] = "$column = $foreign_column";
             }
 
             $this->condition = 'ON '.join(' AND ', $statements);
-        }
-        else
-        {
+        } else {
             $this->condition = $condition;
         }
 
         $this->type = $type;
 
-        if (is_array($table))
-        {
+        if (is_array($table)) {
             $this->table = new AliasedSQL(key($table), reset($table));
-        }
-        elseif ($table instanceof SQL)
-        {
+        } elseif ($table instanceof SQL) {
             $this->table = $table;
-        }
-        else
-        {
+        } else {
             $this->table = new AliasedSQL($table);
         }
     }
@@ -57,8 +48,7 @@ class JoinSQL extends SQL
 
     public function parameters()
     {
-        if ($this->condition instanceof SQL)
-        {
+        if ($this->condition instanceof SQL) {
             return $this->condition->parameters();
         }
 

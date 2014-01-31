@@ -24,8 +24,7 @@ class AliasedSQL extends SQL
 
     public function parameters()
     {
-        if ($this->content() instanceof Parametrised)
-        {
+        if ($this->content() instanceof Parametrised) {
             return $this->content()->parameters();
         }
     }
