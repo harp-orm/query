@@ -10,7 +10,8 @@ use CL\Atlas\Test\ParametrisedStub;
 /**
  * @group str
  */
-class QueryTest extends AbstractTestCase {
+class QueryTest extends AbstractTestCase
+{
 
     public function testConstants()
     {

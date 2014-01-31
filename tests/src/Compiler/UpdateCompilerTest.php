@@ -9,7 +9,8 @@ use CL\Atlas\SQL\SQL;
  * @group compiler
  * @group compiler.update
  */
-class UpdateCompilerTest extends AbstractTestCase {
+class UpdateCompilerTest extends AbstractTestCase
+{
 
     /**
      * @covers CL\Atlas\Compiler\UpdateCompiler::render

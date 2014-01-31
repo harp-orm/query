@@ -9,7 +9,8 @@ use stdClass;
 /**
  * @group arr
  */
-class ArrTest extends AbstractTestCase {
+class ArrTest extends AbstractTestCase
+{
 
     public function dataToAssoc()
     {

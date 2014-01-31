@@ -10,7 +10,8 @@ use CL\Atlas\SQL\SQL;
  * @group compiler
  * @group compiler.set
  */
-class SetCompilerTest extends AbstractTestCase {
+class SetCompilerTest extends AbstractTestCase
+{
 
     /**
      * @covers CL\Atlas\Compiler\SetCompiler::combine

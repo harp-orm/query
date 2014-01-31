@@ -6,7 +6,8 @@ use CL\Atlas\Compiler\Compiler;
 /**
  * @group compiler
  */
-class CompilerTest extends AbstractTestCase {
+class CompilerTest extends AbstractTestCase
+{
 
     public function dataToPlaceholders()
     {

@@ -6,7 +6,8 @@ use CL\Atlas\Str;
 /**
  * @group str
  */
-class StrTest extends AbstractTestCase {
+class StrTest extends AbstractTestCase
+{
 
     public function dataReplace()
     {

@@ -9,7 +9,8 @@ use CL\Atlas\SQL\JoinSQL;
 /**
  * @group sql.select
  */
-class SelectQueryTest extends AbstractTestCase {
+class SelectQueryTest extends AbstractTestCase
+{
 
     /**
      * @covers CL\Atlas\Query\SelectQuery::type

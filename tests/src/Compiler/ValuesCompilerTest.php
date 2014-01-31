@@ -8,7 +8,8 @@ use CL\Atlas\SQL\ValuesSQL;
  * @group compiler
  * @group compiler.values
  */
-class ValuesCompilerTest extends AbstractTestCase {
+class ValuesCompilerTest extends AbstractTestCase
+{
 
     /**
      * @covers CL\Atlas\Compiler\ValuesCompiler::combine

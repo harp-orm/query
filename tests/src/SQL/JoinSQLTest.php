@@ -8,7 +8,8 @@ use CL\Atlas\SQL\AliasedSQL;
 /**
  * @group sql.join
  */
-class JoinSQLTest extends AbstractTestCase {
+class JoinSQLTest extends AbstractTestCase
+{
 
     public function dataConstruct()
     {

@@ -7,7 +7,8 @@ use CL\Atlas\Parametrised;
  * @copyright  (c) 2014 Clippings Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class SQL implements Parametrised {
+class SQL implements Parametrised
+{
 
     protected $parameters;
     protected $content;

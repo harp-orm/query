@@ -6,7 +6,8 @@ use CL\Atlas\SQL\SQL;
 /**
  * @group sql
  */
-class SQLTest extends AbstractTestCase {
+class SQLTest extends AbstractTestCase
+{
 
     /**
      * @covers CL\Atlas\SQL\SQL::__construct

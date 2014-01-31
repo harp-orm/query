@@ -9,7 +9,8 @@ use CL\Atlas\SQL\SQL;
  * @group compiler
  * @group compiler.delete
  */
-class DeleteCompilerTest extends AbstractTestCase {
+class DeleteCompilerTest extends AbstractTestCase
+{
 
 
     /**

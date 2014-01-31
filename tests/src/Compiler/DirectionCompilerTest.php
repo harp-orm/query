@@ -8,7 +8,8 @@ use CL\Atlas\SQL\DirectionSQL;
  * @group compiler
  * @group compiler.direction
  */
-class DirectionCompilerTest extends AbstractTestCase {
+class DirectionCompilerTest extends AbstractTestCase
+{
 
     /**
      * @covers CL\Atlas\Compiler\DirectionCompiler::combine

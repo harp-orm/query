@@ -7,7 +7,8 @@ use CL\Atlas\SQL\AliasedSQL;
 /**
  * @group sql.aliased
  */
-class AliasedSQLTest extends AbstractTestCase {
+class AliasedSQLTest extends AbstractTestCase
+{
 
     /**
      * @covers CL\Atlas\SQL\AliasedSQL::factory

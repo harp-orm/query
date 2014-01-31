@@ -11,7 +11,8 @@ use CL\Atlas\SQL\DirectionSQL;
 /**
  * @group sql.delete
  */
-class DeleteQueryTest extends AbstractTestCase {
+class DeleteQueryTest extends AbstractTestCase
+{
 
     /**
      * @covers CL\Atlas\Query\DeleteQuery::type

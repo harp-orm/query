@@ -8,7 +8,8 @@ use CL\Atlas\SQL\JoinSQL;
  * @group compiler
  * @group compiler.join
  */
-class JoinCompilerTest extends AbstractTestCase {
+class JoinCompilerTest extends AbstractTestCase
+{
 
     /**
      * @covers CL\Atlas\Compiler\JoinCompiler::combine

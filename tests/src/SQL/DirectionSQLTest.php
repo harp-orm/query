@@ -6,7 +6,8 @@ use CL\Atlas\SQL\DirectionSQL;
 /**
  * @group sql.direction
  */
-class DirectionSQLTest extends AbstractTestCase {
+class DirectionSQLTest extends AbstractTestCase
+{
 
     /**
      * @covers CL\Atlas\SQL\DirectionSQL::factory

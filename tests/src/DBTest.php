@@ -6,7 +6,8 @@ use CL\Atlas\DB;
 /**
  * @group compiler
  */
-class DBTest extends AbstractTestCase {
+class DBTest extends AbstractTestCase
+{
 
     /**
      * @covers CL\Atlas\DB::configuration

@@ -10,7 +10,8 @@ use CL\Atlas\Compiler\Compiler;
  * @copyright  (c) 2014 Clippings Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-abstract class Query implements Parametrised {
+abstract class Query implements Parametrised
+{
 
     const TYPE     = 1;
     const TABLE    = 2;

@@ -8,7 +8,8 @@ use CL\Atlas\SQL\ConditionSQL;
  * @group compiler
  * @group compiler.condition
  */
-class ConditionCompilerTest extends AbstractTestCase {
+class ConditionCompilerTest extends AbstractTestCase
+{
 
     /**
      * @covers CL\Atlas\Compiler\ConditionCompiler::combine

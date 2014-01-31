@@ -8,7 +8,8 @@ use CL\Atlas\SQL\SQL;
 /**
  * @group sql.direction
  */
-class SetSQLTest extends AbstractTestCase {
+class SetSQLTest extends AbstractTestCase
+{
 
     public function dataConstruct()
     {

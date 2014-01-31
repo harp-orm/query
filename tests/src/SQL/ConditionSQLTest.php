@@ -7,7 +7,8 @@ use CL\Atlas\SQL\ConditionSQL;
 /**
  * @group sql.condition
  */
-class ConditionSQLTest extends AbstractTestCase {
+class ConditionSQLTest extends AbstractTestCase
+{
 
     public function dataConstruct()
     {

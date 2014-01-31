@@ -12,7 +12,8 @@ use CL\Atlas\SQL\SetSQL;
 /**
  * @group sql.update
  */
-class UpdateQueryTest extends AbstractTestCase {
+class UpdateQueryTest extends AbstractTestCase
+{
 
     /**
      * @covers CL\Atlas\Query\UpdateQuery::type

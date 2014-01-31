@@ -6,7 +6,8 @@ use CL\Atlas\SQL\ValuesSQL;
 /**
  * @group sql.values
  */
-class ValuesSQLTest extends AbstractTestCase {
+class ValuesSQLTest extends AbstractTestCase
+{
 
 
     /**

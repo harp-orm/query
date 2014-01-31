@@ -14,7 +14,8 @@ use CL\Atlas\SQL\SetSQL;
 /**
  * @group sql.insert
  */
-class InsertQueryTest extends AbstractTestCase {
+class InsertQueryTest extends AbstractTestCase
+{
 
     /**
      * @covers CL\Atlas\Query\InsertQuery::type

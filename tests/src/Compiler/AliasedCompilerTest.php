@@ -9,7 +9,8 @@ use CL\Atlas\Query\SelectQuery;
  * @group compiler
  * @group compiler.aliased
  */
-class AliasedCompilerTest extends AbstractTestCase {
+class AliasedCompilerTest extends AbstractTestCase
+{
 
     /**
      * @covers CL\Atlas\Compiler\AliasedCompiler::combine

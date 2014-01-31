@@ -10,7 +10,8 @@ use CL\Atlas\SQL\SQL;
  * @group compiler
  * @group compiler.insert
  */
-class InsertCompilerTest extends AbstractTestCase {
+class InsertCompilerTest extends AbstractTestCase
+{
 
 
     public function dataInsert()
