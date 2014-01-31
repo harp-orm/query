@@ -36,7 +36,7 @@ class Compiler
         foreach ($parameters as & $param) {
             if (is_null($param)) {
                 $param = 'NULL';
-            } elseif ( ! (is_int($param) or is_bool($param))) {
+            } elseif (! (is_int($param) or is_bool($param))) {
                 $param = "\"{$param}\"";
             }
         }

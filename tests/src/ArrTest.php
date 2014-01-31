@@ -78,7 +78,7 @@ class ArrTest extends AbstractTestCase {
 
         $index = 0;
         foreach ($expected as $value) {
-            if ( ! is_object($value)) {
+            if (! is_object($value)) {
                 $object
                     ->expects($this->at($index++))
                     ->method('callback')

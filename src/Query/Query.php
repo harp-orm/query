@@ -78,7 +78,7 @@ abstract class Query implements Parametrised {
 
     public function db()
     {
-        if ( ! $this->db) {
+        if (! $this->db) {
             $this->db = DB::instance();
         }
 

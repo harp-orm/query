@@ -47,7 +47,7 @@ class DB extends \PDO
     {
         $name = $name ?: static::defaultName();
 
-        if ( ! isset(static::$instances[$name])) {
+        if (! isset(static::$instances[$name])) {
             $config = static::configuration($name);
 
             $class = get_called_class();

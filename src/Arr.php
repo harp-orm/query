@@ -31,7 +31,7 @@ class Arr
      */
     public static function toArray($array)
     {
-        if ( ! is_array($array)) {
+        if (! is_array($array)) {
             return array($array);
         }
 
