@@ -4,7 +4,7 @@ use Openbuildings\EnvironmentBackup as EB;
 use CL\Atlas\DB;
 
 /**
- * @package Jam
+ * @package Atlas
  * @author Ivan Kerin
  */
 abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase {
