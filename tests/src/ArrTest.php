@@ -7,7 +7,8 @@ use CL\Atlas\Query\SelectQuery;
 use stdClass;
 
 /**
- * @group arr
+ * @group util
+ * @group util.arr
  */
 class ArrTest extends AbstractTestCase
 {

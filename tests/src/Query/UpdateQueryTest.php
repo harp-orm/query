@@ -10,7 +10,7 @@ use CL\Atlas\SQL\JoinSQL;
 use CL\Atlas\SQL\SetSQL;
 
 /**
- * @group sql.update
+ * @group query.update
  */
 class UpdateQueryTest extends AbstractTestCase
 {
