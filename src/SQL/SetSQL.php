@@ -9,26 +9,25 @@ use CL\Atlas\Parametrised;
  */
 class SetSQL extends SQL
 {
-	protected $value;
+    protected $value;
 
-	function __construct($column, $value)
-	{
-		$this->value = $value;
-		parent::__construct($column);
-	}
+    public function __construct($column, $value)
+    {
+        $this->value = $value;
+        parent::__construct($column);
+    }
 
-	public function parameters()
-	{
-		if ($this->value() instanceof Parametrised)
-		{
-			return $this->value()->parameters();
-		}
+    public function parameters()
+    {
+        if ($this->value() instanceof Parametrised) {
+            return $this->value()->parameters();
+        }
 
-		return array($this->value);
-	}
+        return array($this->value);
+    }
 
-	public function value()
-	{
-		return $this->value;
-	}
+    public function value()
+    {
+        return $this->value;
+    }
 }

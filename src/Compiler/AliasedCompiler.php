@@ -13,23 +13,22 @@ use CL\Atlas\Compiler\SelectCompiler;
  */
 class AliasedCompiler extends Compiler
 {
-	public static function combine($items)
-	{
-		return Arr::join(', ', Arr::map('CL\Atlas\Compiler\AliasedCompiler::render', $items));
-	}
+    public static function combine($items)
+    {
+        return Arr::join(', ', Arr::map('CL\Atlas\Compiler\AliasedCompiler::render', $items));
+    }
 
-	public static function render(AliasedSQL $aliased)
-	{
-		$content = $aliased->content();
+    public static function render(AliasedSQL $aliased)
+    {
+        $content = $aliased->content();
 
-		if ($content instanceof SelectQuery)
-		{
-			$content = "(".SelectCompiler::render($content).")";
-		}
+        if ($content instanceof SelectQuery) {
+            $content = "(".SelectCompiler::render($content).")";
+        }
 
-		return Compiler::expression(array(
-			$content,
-			Compiler::word('AS', $aliased->alias())
-		));
-	}
+        return Compiler::expression(array(
+            $content,
+            Compiler::word('AS', $aliased->alias())
+        ));
+    }
 }

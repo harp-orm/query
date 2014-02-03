@@ -10,16 +10,16 @@ use CL\Atlas\SQL\DirectionSQL;
  */
 class DirectionCompiler extends Compiler
 {
-	public static function combine($items)
-	{
-		return Arr::join(', ', Arr::map(__NAMESPACE__."\DirectionCompiler::render", $items));
-	}
+    public static function combine($items)
+    {
+        return Arr::join(', ', Arr::map(__NAMESPACE__."\DirectionCompiler::render", $items));
+    }
 
-	public static function render(DirectionSQL $item)
-	{
-		return Compiler::expression(array(
-			$item->content(),
-			$item->direction(),
-		));
-	}
+    public static function render(DirectionSQL $item)
+    {
+        return Compiler::expression(array(
+            $item->content(),
+            $item->direction(),
+        ));
+    }
 }

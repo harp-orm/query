@@ -7,22 +7,22 @@
  */
 class DirectionSQL extends SQL
 {
-	protected $direction;
+    protected $direction;
 
-	public static function factory($column, $direction = NULL)
-	{
-		return new DirectionSQL($column, $direction);
-	}
+    public static function factory($column, $direction = null)
+    {
+        return new DirectionSQL($column, $direction);
+    }
 
-	function __construct($column, $direction = NULL)
-	{
-		$this->direction = $direction;
+    public function __construct($column, $direction = null)
+    {
+        $this->direction = $direction;
 
-		parent::__construct($column);
-	}
+        parent::__construct($column);
+    }
 
-	public function direction()
-	{
-		return $this->direction;
-	}
+    public function direction()
+    {
+        return $this->direction;
+    }
 }

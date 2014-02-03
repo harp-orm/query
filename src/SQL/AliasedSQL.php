@@ -9,29 +9,28 @@ use CL\Atlas\Parametrised;
  */
 class AliasedSQL extends SQL
 {
-	protected $alias;
+    protected $alias;
 
-	public static function factory($content, $alias = NULL)
-	{
-		return new AliasedSQL($content, $alias);
-	}
+    public static function factory($content, $alias = null)
+    {
+        return new AliasedSQL($content, $alias);
+    }
 
-	function __construct($content, $alias = NULL)
-	{
-		$this->content = $content;
-		$this->alias = $alias;
-	}
+    public function __construct($content, $alias = null)
+    {
+        $this->content = $content;
+        $this->alias = $alias;
+    }
 
-	public function parameters()
-	{
-		if ($this->content() instanceof Parametrised)
-		{
-			return $this->content()->parameters();
-		}
-	}
+    public function parameters()
+    {
+        if ($this->content() instanceof Parametrised) {
+            return $this->content()->parameters();
+        }
+    }
 
-	public function alias()
-	{
-		return $this->alias;
-	}
+    public function alias()
+    {
+        return $this->alias;
+    }
 }

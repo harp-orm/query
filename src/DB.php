@@ -12,86 +12,84 @@ use CL\Atlas\Query\DeleteQuery;
  */
 class DB extends \PDO
 {
-	protected static $default_name = 'default';
-	protected static $configurations;
-	protected static $instances;
+    protected static $default_name = 'default';
+    protected static $configurations;
+    protected static $instances;
 
-	public static $defaults = array(
-		'dsn' => 'mysql:dbname=test;host=127.0.0.1',
-		'username' => '',
-		'password' => '',
-		'driver_options' => array(
-			\PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
-		),
-	);
+    public static $defaults = array(
+        'dsn' => 'mysql:dbname=test;host=127.0.0.1',
+        'username' => '',
+        'password' => '',
+        'driver_options' => array(
+            \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+        ),
+    );
 
-	public static function configuration($name, array $parameters = NULL)
-	{
-		if ($parameters === NULL)
-		{
-			return isset(static::$configurations[$name]) ? static::$configurations[$name] : array();
-		}
+    public static function configuration($name, array $parameters = null)
+    {
+        if ($parameters === null) {
+            return isset(static::$configurations[$name]) ? static::$configurations[$name] : array();
+        }
 
-		static::$configurations[$name] = $parameters;
-	}
+        static::$configurations[$name] = $parameters;
+    }
 
-	public static function defaultName($default_name = NULL)
-	{
-		if ($default_name !== NULL)
-		{
-			static::$default_name = $default_name;
-		}
-		return static::$default_name;
-	}
+    public static function defaultName($default_name = null)
+    {
+        if ($default_name !== null) {
+            static::$default_name = $default_name;
+        }
 
-	public static function instance($name = NULL)
-	{
-		$name = $name ?: static::defaultName();
+        return static::$default_name;
+    }
 
-		if ( ! isset(static::$instances[$name]))
-		{
-			$config = static::configuration($name);
+    public static function instance($name = null)
+    {
+        $name = $name ?: static::defaultName();
 
-			$class = get_called_class();
+        if (! isset(static::$instances[$name])) {
+            $config = static::configuration($name);
 
-			static::$instances[$name] = new $class($config);
-		}
+            $class = get_called_class();
 
-		return static::$instances[$name];
-	}
+            static::$instances[$name] = new $class($config);
+        }
 
-	public function __construct($options)
-	{
-		$options = array_replace_recursive(static::$defaults, $options);
+        return static::$instances[$name];
+    }
 
-		parent::__construct($options['dsn'], $options['username'], $options['password'], $options['driver_options']);
-	}
+    public function __construct($options)
+    {
+        $options = array_replace_recursive(static::$defaults, $options);
 
-	public function execute($sql, $parameters)
-	{
-		$statement = $this->prepare($sql);
-		$statement->execute($parameters);
+        parent::__construct($options['dsn'], $options['username'], $options['password'], $options['driver_options']);
+    }
 
-		return $statement;
-	}
+    public function execute($sql, $parameters)
+    {
+        $statement = $this->prepare($sql);
+        $statement->execute($parameters);
 
-	public function select()
-	{
-		return new SelectQuery(NULL, $this);
-	}
+        return $statement;
+    }
 
-	public function update()
-	{
-		return new UpdateQuery(NULL, $this);
-	}
+    public function select()
+    {
+        return new SelectQuery(null, $this);
+    }
 
-	public function delete()
-	{
-		return new DeleteQuery(NULL, $this);
-	}
+    public function update()
+    {
+        return new UpdateQuery(null, $this);
+    }
 
-	public function insert()
-	{
-		return new InsertQuery(NULL, $this);
-	}
+    public function delete()
+    {
+        return new DeleteQuery(null, $this);
+    }
+
+    public function insert()
+    {
+        return new InsertQuery(null, $this);
+    }
 }

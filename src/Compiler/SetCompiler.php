@@ -12,26 +12,21 @@ use CL\Atlas\Query\SelectQuery;
  */
 class SetCompiler extends Compiler
 {
-	public static function combine($items)
-	{
-		return Arr::join(', ', Arr::map(__NAMESPACE__."\SetCompiler::render", $items));
-	}
+    public static function combine($items)
+    {
+        return Arr::join(', ', Arr::map(__NAMESPACE__."\SetCompiler::render", $items));
+    }
 
-	public static function render(SetSQL $item)
-	{
-		if ($item->value() instanceof SQL)
-		{
-			$value = $item->value()->content();
-		}
-		elseif ($item->value() instanceof SelectQuery)
-		{
-			$value = Compiler::braced(SelectCompiler::render($item->value()));
-		}
-		else
-		{
-			$value = '?';
-		}
+    public static function render(SetSQL $item)
+    {
+        if ($item->value() instanceof SQL) {
+            $value = $item->value()->content();
+        } elseif ($item->value() instanceof SelectQuery) {
+            $value = Compiler::braced(SelectCompiler::render($item->value()));
+        } else {
+            $value = '?';
+        }
 
-		return $item->content().' = '.$value;
-	}
+        return $item->content().' = '.$value;
+    }
 }

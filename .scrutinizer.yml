@@ -2,6 +2,8 @@ filter:
   paths: [src/*]
 
 tools:
+  php_cs_fixer:
+    config: { level: psr2 }
   external_code_coverage: true
   php_cpd: true
   php_hhvm: true

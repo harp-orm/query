@@ -11,83 +11,72 @@ namespace CL\Atlas;
  */
 class Arr
 {
-	public static function toAssoc(array $array)
-	{
-		$converted = array();
+    public static function toAssoc(array $array)
+    {
+        $converted = array();
 
-		foreach ($array as $key => $value)
-		{
-			if (is_numeric($key) AND ! is_object($value))
-			{
-				$converted[$value] = NULL;
-			}
-			else
-			{
-				$converted[$key] = $value;
-			}
-		}
+        foreach ($array as $key => $value) {
+            if (is_numeric($key) and ! is_object($value)) {
+                $converted[$value] = null;
+            } else {
+                $converted[$key] = $value;
+            }
+        }
 
-		return $converted;
-	}
+        return $converted;
+    }
 
-	/**
-	 * convert to an array - if not an array, make one with a single item - the source object
-	 */
-	public static function toArray($array)
-	{
-		if ( ! is_array($array))
-		{
-			return array($array);
-		}
-		return $array;
-	}
+    /**
+     * convert to an array - if not an array, make one with a single item - the source object
+     */
+    public static function toArray($array)
+    {
+        if (! is_array($array)) {
+            return array($array);
+        }
 
-	public static function toObjects($array, $argument, $callback)
-	{
-		$objects = array();
+        return $array;
+    }
 
-		if ($argument !== NULL)
-		{
-			$objects []= call_user_func($callback, $array, $argument);
-		}
-		else
-		{
-			$array = Arr::toAssoc(Arr::toArray($array));
+    public static function toObjects($array, $argument, $callback)
+    {
+        $objects = array();
 
-			foreach ($array as $param => $argument)
-			{
-				$objects []= is_object($argument) ? $argument : call_user_func($callback, $param, $argument);
-			}
-		}
+        if ($argument !== null) {
+            $objects []= call_user_func($callback, $array, $argument);
+        } else {
+            $array = Arr::toAssoc(Arr::toArray($array));
 
-		return $objects;
-	}
+            foreach ($array as $param => $argument) {
+                $objects []= is_object($argument) ? $argument : call_user_func($callback, $param, $argument);
+            }
+        }
 
-	public static function map($callback, $array)
-	{
-		return $array ? array_map($callback, $array) : NULL;
-	}
+        return $objects;
+    }
 
-	public static function join($separator, $array)
-	{
-		return $array ? join($separator, $array) : NULL;
-	}
+    public static function map($callback, $array)
+    {
+        return $array ? array_map($callback, $array) : null;
+    }
 
-	public static function flatten(array $array)
-	{
-		$result = array();
+    public static function join($separator, $array)
+    {
+        return $array ? join($separator, $array) : null;
+    }
 
-		array_walk_recursive($array, function($value, $key) use ( & $result) {
-			if (is_numeric($key) OR is_object($value))
-			{
-				$result[] = $value;
-			}
-			else
-			{
-				$result[$key] = $value;
-			}
-		});
+    public static function flatten(array $array)
+    {
+        $result = array();
 
-		return $result;
-	}
+        array_walk_recursive($array, function ($value, $key) use (& $result) {
+            if (is_numeric($key) or is_object($value)) {
+                $result[] = $value;
+            } else {
+                $result[$key] = $value;
+            }
+        });
+
+        return $result;
+    }
 }

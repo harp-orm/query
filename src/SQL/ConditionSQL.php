@@ -8,33 +8,26 @@
 class ConditionSQL extends SQL
 {
 
-	function __construct($content, array $parameters = NULL)
-	{
-		if (is_array($content))
-		{
-			$statements = array();
+    public function __construct($content, array $parameters = null)
+    {
+        if (is_array($content)) {
+            $statements = array();
 
-			foreach ($content as $column => $value)
-			{
-				if (is_array($value))
-				{
-					$statements []= "$column IN ?";
-				}
-				elseif (is_null($value))
-				{
-					$statements []= "$column IS ?";
-				}
-				else
-				{
-					$statements []= "$column = ?";
-				}
+            foreach ($content as $column => $value) {
+                if (is_array($value)) {
+                    $statements []= "$column IN ?";
+                } elseif (is_null($value)) {
+                    $statements []= "$column IS ?";
+                } else {
+                    $statements []= "$column = ?";
+                }
 
-				$parameters []= $value;
-			}
+                $parameters []= $value;
+            }
 
-			$content = implode(' AND ', $statements);
-		}
+            $content = implode(' AND ', $statements);
+        }
 
-		parent::__construct($content, $parameters);
-	}
+        parent::__construct($content, $parameters);
+    }
 }

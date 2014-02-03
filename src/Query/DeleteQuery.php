@@ -13,54 +13,57 @@ use CL\Atlas\SQL\ConditionSQL;
  */
 class DeleteQuery extends Query
 {
-	public function type($type)
-	{
-		$this->children[Query::TYPE] = $type;
-		return $this;
-	}
+    public function type($type)
+    {
+        $this->children[Query::TYPE] = $type;
 
-	public function table($table)
-	{
-		$this->addChildren(Query::TABLE, Arr::toArray($table));
+        return $this;
+    }
 
-		return $this;
-	}
+    public function table($table)
+    {
+        $this->addChildren(Query::TABLE, Arr::toArray($table));
 
-	public function from($table, $alias = NULL)
-	{
-		$this->addChildrenObjects(Query::FROM, $table, $alias, 'CL\Atlas\SQL\AliasedSQL::factory');
+        return $this;
+    }
 
-		return $this;
-	}
+    public function from($table, $alias = null)
+    {
+        $this->addChildrenObjects(Query::FROM, $table, $alias, 'CL\Atlas\SQL\AliasedSQL::factory');
 
-	public function join($table, $condition, $type = NULL)
-	{
-		$this->children[Query::JOIN] []= new JoinSQL($table, $condition, $type);
-		return $this;
-	}
+        return $this;
+    }
 
-	public function where($where)
-	{
-		$this->children[Query::WHERE] []= new ConditionSQL($where, array_slice(func_get_args(), 1));
+    public function join($table, $condition, $type = null)
+    {
+        $this->children[Query::JOIN] []= new JoinSQL($table, $condition, $type);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function order($column, $direction = NULL)
-	{
-		$this->addChildrenObjects(Query::ORDER_BY, $column, $direction, 'CL\Atlas\SQL\DirectionSQL::factory');
+    public function where($where)
+    {
+        $this->children[Query::WHERE] []= new ConditionSQL($where, array_slice(func_get_args(), 1));
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function limit($limit)
-	{
-		$this->children[Query::LIMIT] = (int) $limit;
-		return $this;
-	}
+    public function order($column, $direction = null)
+    {
+        $this->addChildrenObjects(Query::ORDER_BY, $column, $direction, 'CL\Atlas\SQL\DirectionSQL::factory');
 
-	public function sql()
-	{
-		return DeleteCompiler::render($this);
-	}
+        return $this;
+    }
+
+    public function limit($limit)
+    {
+        $this->children[Query::LIMIT] = (int) $limit;
+
+        return $this;
+    }
+
+    public function sql()
+    {
+        return DeleteCompiler::render($this);
+    }
 }
