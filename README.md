@@ -1,8 +1,8 @@
 # Atlas
 
 [![Build Status](https://travis-ci.org/clippings/atlas.png?branch=master)](https://travis-ci.org/clippings/atlas)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/clippings/atlas/badges/quality-score.png?s=e77125ba3a3e183fc8e697dc45fb8a7b5e6e9334)](https://scrutinizer-ci.com/g/clippings/atlas/)
-[![Code Coverage](https://scrutinizer-ci.com/g/clippings/atlas/badges/coverage.png?s=9a58da3bc0c9e16ab2dcf8019ca265149a5b15e1)](https://scrutinizer-ci.com/g/clippings/atlas/)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/clippings/atlas/badges/quality-score.png?s=429880c25663a4c0c4768fbb4158abe048726e82)](https://scrutinizer-ci.com/g/clippings/atlas/)
+[![Code Coverage](https://scrutinizer-ci.com/g/clippings/atlas/badges/coverage.png?s=e32088c682e67d1c7eec28b58f9c6a34a2123ed7)](https://scrutinizer-ci.com/g/clippings/atlas/)
 [![Latest Stable Version](https://poser.pugx.org/clippings/atlas/v/stable.png)](https://packagist.org/packages/clippings/atlas)
 
 * In table and column selects:
