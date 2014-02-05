@@ -2,21 +2,13 @@ filter:
   paths: [src/*]
 
 tools:
+  php_code_sniffer:
+    config:
+      standard: PSR2
   php_cs_fixer:
     config: { level: psr2 }
   external_code_coverage: true
   php_cpd: true
   php_hhvm: true
-  php_analyzer:
-    config:
-      metrics_coupling:
-        enabled: true
-      metrics_lack_of_cohesion_methods:
-        enabled: true
-      use_statement_fixes:
-        enabled: true
-      doc_comment_fixes:
-        enabled: true
-      reflection_fixes:
-        enabled: true
+  php_analyzer: true
   php_pdepend: true
