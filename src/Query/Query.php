@@ -53,6 +53,8 @@ abstract class Query implements Parametrised
         $parameters = array();
 
         if ($this->children) {
+            ksort($this->children);
+
             $children = Arr::flatten($this->children);
 
             $parameters = array_map(function ($child) {

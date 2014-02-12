@@ -23,10 +23,10 @@ class UpdateCompilerTest extends AbstractTestCase
             ->type('IGNORE')
             ->table(array('table1', 'table2' => 'alias1'))
             ->join(array('join1' => 'alias_join1'), array('col' => 'col2'))
-            ->set(array('post' => 'new value', 'name' => new SQL('IF ("test", ?, ?)', array('val3', 'val4'))))
             ->limit(10)
             ->where(array('test' => 'value'))
             ->where('test_statement = IF ("test", ?, ?)', 'val1', 'val2')
+            ->set(array('post' => 'new value', 'name' => new SQL('IF ("test", ?, ?)', array('val3', 'val4'))))
             ->where('type > ? AND type < ? OR base IN ?', 10, 20, array('1', '2', '3'));
 
         $expected_sql = <<<SQL
