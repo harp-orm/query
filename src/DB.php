@@ -4,6 +4,7 @@ use CL\Atlas\Query\SelectQuery;
 use CL\Atlas\Query\UpdateQuery;
 use CL\Atlas\Query\InsertQuery;
 use CL\Atlas\Query\DeleteQuery;
+use PDO;
 
 /**
  * @author     Ivan Kerin
@@ -21,7 +22,8 @@ class DB extends \PDO
         'username' => '',
         'password' => '',
         'driver_options' => array(
-            \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         ),
     );
 
