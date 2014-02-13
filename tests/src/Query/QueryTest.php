@@ -60,7 +60,7 @@ class QueryTest extends AbstractTestCase
         $object1
             ->expects($this->once())
             ->method('parameters')
-            ->will($this->returnValue(array('test1', 'test2', array('test3', 'test4'))));
+            ->will($this->returnValue(array('test1', 'test2', array('test3', 'test4', null))));
 
         $object2 = $this->getMock('CL\Atlas\Test\ParametrisedStub', array('parameters'));
         $object2
@@ -70,7 +70,7 @@ class QueryTest extends AbstractTestCase
 
         $query = $this->getMock('CL\Atlas\Query\Query', array('sql'), array(array('test', array($object1), $object2)));
 
-        $this->assertEquals(array('test1', 'test2', 'test3', 'test4', 'test5'), $query->parameters());
+        $this->assertEquals(array('test1', 'test2', 'test3', 'test4', null, 'test5'), $query->parameters());
 
         $query = $this->getMock('CL\Atlas\Query\Query', array('sql'));
 

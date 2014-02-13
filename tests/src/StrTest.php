@@ -31,6 +31,12 @@ class StrTest extends AbstractTestCase
                 "SELECT time FROM test WHERE id = ? AND num IN ?",
                 "SELECT time FROM test WHERE id = 7342 AND num IN (1, 2)"
             ),
+            array(
+                "/\?/",
+                array('7342', 'NULL'),
+                "SELECT time FROM test WHERE id = ? AND num IS ?",
+                "SELECT time FROM test WHERE id = 7342 AND num IS NULL"
+            ),
         );
     }
 

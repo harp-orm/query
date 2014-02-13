@@ -57,13 +57,15 @@ abstract class Query implements Parametrised
 
             $children = Arr::flatten($this->children);
 
-            $parameters = array_map(function ($child) {
-                return ($child instanceof Parametrised)
-                    ? $child->parameters()
-                    : null;
-            }, $children);
+            foreach ($children as $child)
+            {
+                if ($child instanceof Parametrised AND (($child_params = $child->parameters()) !== null))
+                {
+                    $parameters []= $child_params;
+                }
+            }
 
-            $parameters = array_values(array_filter(Arr::flatten($parameters)));
+            $parameters = array_values(Arr::flatten($parameters));
         }
 
         return $parameters;

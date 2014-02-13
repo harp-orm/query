@@ -66,18 +66,20 @@ class DBTest extends AbstractTestCase
         $this->assertSame($test, DB::instance('test'));
     }
 
+    public function dataExecute()
+    {
+        return array(
+            array('SELECT * FROM users WHERE name = ?', array('User 1'), array(array('id' => 1, 'name' => 'User 1'))),
+            array('SELECT * FROM users WHERE name IS NOT ? AND id = ?', array(NULL, 4), array(array('id' => 4, 'name' => 'User 4'))),
+        );
+    }
+
     /**
      * @covers CL\Atlas\DB::execute
+     * @dataProvider dataExecute
      */
-    public function testExecute()
+    public function testExecute($sql, $parameters, $expected)
     {
-        $sql = 'SELECT * FROM users WHERE name = ?';
-        $parameters = array('User 1');
-
-        $expected = array(
-            array('id' => 1, 'name' => 'User 1'),
-        );
-
         $this->assertEquals($expected, DB::instance()->execute($sql, $parameters)->fetchAll());
     }
 
