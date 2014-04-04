@@ -48,12 +48,12 @@ class DBTest extends AbstractTestCase
     public function testInstance()
     {
         DB::configuration('default', array(
-            'dsn' => 'mysql:dbname=test-db;host=127.0.0.1',
+            'dsn' => 'mysql:dbname=test-atlas;host=127.0.0.1',
             'username' => 'root',
         ));
 
         DB::configuration('test', array(
-            'dsn' => 'mysql:dbname=test-db;host=127.0.0.1',
+            'dsn' => 'mysql:dbname=test-atlas;host=127.0.0.1',
             'username' => 'root',
         ));
 
