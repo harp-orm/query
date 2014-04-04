@@ -31,19 +31,18 @@ class DeleteTest extends AbstractTestCase
      */
     public function testTable()
     {
-        $query = $this->getMock('CL\Atlas\Query\Delete', array('addChildren'));
-        $query
-            ->expects($this->at(0))
-            ->method('addChildren')
-            ->with($this->equalTo(Query\AbstractQuery::TABLE), $this->equalTo(array('table1')));
+        $query = new Query\Delete;
 
         $query
-            ->expects($this->at(1))
-            ->method('addChildren')
-            ->with($this->equalTo(Query\AbstractQuery::TABLE), $this->equalTo(array('table1', 'table2')));
+            ->table('table1')
+            ->table('table2');
 
-        $query->table('table1');
-        $query->table(array('table1', 'table2'));
+        $expected = array(
+            'table1',
+            'table2',
+        );
+
+        $this->assertEquals($expected, $query->getChild(Query\AbstractQuery::TABLE));
     }
 
     /**
@@ -51,18 +50,18 @@ class DeleteTest extends AbstractTestCase
      */
     public function testFrom()
     {
-        $query = $this->getMock('CL\Atlas\Query\Delete', array('addChildrenObjects'));
-        $query
-            ->expects($this->once())
-            ->method('addChildrenObjects')
-            ->with(
-                $this->equalTo(Query\AbstractQuery::FROM),
-                $this->equalTo(array('table1', 'table2' => 'alias2')),
-                $this->equalTo('alias'),
-                'CL\Atlas\SQL\Aliased::factory'
-            );
+        $query = new Query\Delete;
 
-        $query->from(array('table1', 'table2' => 'alias2'), 'alias');
+        $query
+            ->from('table1')
+            ->from('table2', 'alias2');
+
+        $expected = array(
+            new SQL\Aliased('table1'),
+            new SQL\Aliased('table2', 'alias2'),
+        );
+
+        $this->assertEquals($expected, $query->getChild(Query\AbstractQuery::FROM));
     }
 
     /**
@@ -86,18 +85,21 @@ class DeleteTest extends AbstractTestCase
 
     /**
      * @covers CL\Atlas\Query\Delete::where
+     * @covers CL\Atlas\Query\Delete::whereRaw
      */
     public function testWhere()
     {
         $query = new Query\Delete;
 
         $query
-            ->where(array('test' => 20))
-            ->where('column = ? OR column = ?', 10, 20);
+            ->where(array('test1' => 1, 'test2' => 2))
+            ->whereRaw('column = ? OR column = ?', 10, 20)
+            ->where(array('test3' => 3));
 
         $expected = array(
-            new SQL\Condition(array('test' => 20)),
+            new SQL\ConditionArray(array('test1' => 1, 'test2' => 2)),
             new SQL\Condition('column = ? OR column = ?', array(10, 20)),
+            new SQL\ConditionArray(array('test3' => 3)),
         );
 
         $this->assertEquals($expected, $query->getChild(Query\AbstractQuery::WHERE));
@@ -108,18 +110,18 @@ class DeleteTest extends AbstractTestCase
      */
     public function testOrder()
     {
-        $query = $this->getMock('CL\Atlas\Query\Delete', array('addChildrenObjects'));
-        $query
-            ->expects($this->once())
-            ->method('addChildrenObjects')
-            ->with(
-                $this->equalTo(Query\AbstractQuery::ORDER_BY),
-                $this->equalTo(array('column1', 'column2' => 'alias2')),
-                $this->equalTo('direction'),
-                'CL\Atlas\SQL\Direction::factory'
-            );
+        $query = new Query\Delete;
 
-        $query->order(array('column1', 'column2' => 'alias2'), 'direction');
+        $query
+            ->order('col1')
+            ->order('col2', 'dir2');
+
+        $expected = array(
+            new SQL\Direction('col1'),
+            new SQL\Direction('col2', 'dir2'),
+        );
+
+        $this->assertEquals($expected, $query->getChild(Query\AbstractQuery::ORDER_BY));
     }
 
 

@@ -13,21 +13,21 @@ class Delete extends AbstractQuery
 {
     public function type($type)
     {
-        $this->children[AbstractQuery::TYPE] = $type;
+        $this->children[AbstractQuery::TYPE] = (string) $type;
 
         return $this;
     }
 
     public function table($table)
     {
-        $this->addChildren(AbstractQuery::TABLE, Arr::toArray($table));
+        $this->children[AbstractQuery::TABLE] []= (string) $table;
 
         return $this;
     }
 
     public function from($table, $alias = null)
     {
-        $this->addChildrenObjects(AbstractQuery::FROM, $table, $alias, 'CL\Atlas\SQL\Aliased::factory');
+        $this->children[AbstractQuery::FROM] []= new SQL\Aliased($table, $alias);
 
         return $this;
     }
@@ -39,16 +39,23 @@ class Delete extends AbstractQuery
         return $this;
     }
 
-    public function where($where)
+    public function where(array $condition)
     {
-        $this->children[AbstractQuery::WHERE] []= new SQL\Condition($where, array_slice(func_get_args(), 1));
+        $this->children[AbstractQuery::WHERE] []= new SQL\ConditionArray($condition);
+
+        return $this;
+    }
+
+    public function whereRaw($condition)
+    {
+        $this->children[AbstractQuery::WHERE] []= new SQL\Condition($condition, array_slice(func_get_args(), 1));
 
         return $this;
     }
 
     public function order($column, $direction = null)
     {
-        $this->addChildrenObjects(AbstractQuery::ORDER_BY, $column, $direction, 'CL\Atlas\SQL\Direction::factory');
+        $this->children[AbstractQuery::ORDER_BY] []= new SQL\Direction($column, $direction);
 
         return $this;
     }

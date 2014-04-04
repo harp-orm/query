@@ -41,7 +41,7 @@ class InsertTest extends AbstractTestCase
     {
         $query = new Query\Insert;
 
-        $query->columns('posts');
+        $query->columns(array('posts'));
 
         $this->assertEquals(array('posts'), $query->getChild(Query\AbstractQuery::COLUMNS));
 

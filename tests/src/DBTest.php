@@ -88,7 +88,7 @@ class DBTest extends AbstractTestCase
      */
     public function testSelect()
     {
-        $select = DB::instance()->select()->columns(array('test', 'test2'));
+        $select = DB::instance()->select()->column('test')->column('test2');
 
         $this->assertInstanceOf('CL\Atlas\Query\Select', $select);
 
@@ -102,7 +102,7 @@ class DBTest extends AbstractTestCase
      */
     public function testUpdate()
     {
-        $update = DB::instance()->update()->table(array('test', 'test2'));
+        $update = DB::instance()->update()->table('test')->table('test2');
 
         $this->assertInstanceOf('CL\Atlas\Query\Update', $update);
 
@@ -116,7 +116,7 @@ class DBTest extends AbstractTestCase
      */
     public function testDelete()
     {
-        $delete = DB::instance()->delete()->from(array('test', 'test2'));
+        $delete = DB::instance()->delete()->from('test')->from('test2');
 
         $this->assertInstanceOf('CL\Atlas\Query\Delete', $delete);
 

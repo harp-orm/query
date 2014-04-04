@@ -5,7 +5,7 @@
  * @copyright  (c) 2014 Clippings Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class Condition extends SQL
+class ConditionArray extends Condition
 {
     public static function guessOperator($value)
     {
@@ -18,21 +18,19 @@ class Condition extends SQL
         }
     }
 
-    public function __construct($content, array $parameters = null)
+    public function __construct(array $content, array $parameters = null)
     {
-        if (is_array($content)) {
-            $statements = array();
+        $statements = array();
 
-            foreach ($content as $column => $value) {
-                $operator = self::guessOperator($value);
+        foreach ($content as $column => $value) {
+            $operator = self::guessOperator($value);
 
-                $statements []= "$column $operator ?";
+            $statements []= "$column $operator ?";
 
-                $parameters []= $value;
-            }
-
-            $content = implode(' AND ', $statements);
+            $parameters []= $value;
         }
+
+        $content = implode(' AND ', $statements);
 
         parent::__construct($content, $parameters);
     }

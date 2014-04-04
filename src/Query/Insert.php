@@ -25,9 +25,9 @@ class Insert extends AbstractQuery
         return $this;
     }
 
-    public function columns($columns)
+    public function columns(array $columns)
     {
-        $this->addChildren(AbstractQuery::COLUMNS, Arr::toArray($columns));
+        $this->addChildren(AbstractQuery::COLUMNS, $columns);
 
         return $this;
     }

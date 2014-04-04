@@ -7,24 +7,12 @@ use CL\Atlas\SQL;
 /**
  * @group sql.condition
  */
-class ConditionTest extends AbstractTestCase
+class ConditionArrayTest extends AbstractTestCase
 {
 
     public function dataConstruct()
     {
         return array(
-            array(
-                'name = ?',
-                array('name'),
-                'name = ?',
-                array('name')
-            ),
-            array(
-                'name = ? AND port = ?',
-                array('name', 'val2'),
-                'name = ? AND port = ?',
-                array('name', 'val2')
-            ),
             array(
                 array('name' => 10),
                 array(),
@@ -48,11 +36,11 @@ class ConditionTest extends AbstractTestCase
 
     /**
      * @dataProvider dataConstruct
-     * @covers CL\Atlas\SQL\Condition::__construct
+     * @covers CL\Atlas\SQL\ConditionArray::__construct
      */
     public function testConstruct($argument, $params, $expected_condition, $expected_params)
     {
-        $sqlCondition = new SQL\Condition($argument, $params);
+        $sqlCondition = new SQL\ConditionArray($argument, $params);
         $this->assertEquals($expected_condition, $sqlCondition->getContent());
         $this->assertEquals($expected_params, $sqlCondition->getParameters());
     }
@@ -70,10 +58,10 @@ class ConditionTest extends AbstractTestCase
     }
     /**
      * @dataProvider dataGuessOperator
-     * @covers CL\Atlas\SQL\Condition::guessOperator
+     * @covers CL\Atlas\SQL\ConditionArray::guessOperator
      */
     public function testGuessOperator($value, $expected)
     {
-        $this->assertEquals($expected, SQL\Condition::guessOperator($value));
+        $this->assertEquals($expected, SQL\ConditionArray::guessOperator($value));
     }
 }

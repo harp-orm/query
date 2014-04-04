@@ -25,15 +25,17 @@ class SelectTest extends AbstractTestCase
 
         $select = new Query\Select;
         $select
-            ->from(array('bigtable', 'smalltable' => 'alias'))
+            ->from('bigtable')
+            ->from('smalltable', 'alias')
             ->from($select2, 'select_alias')
-            ->columns(array('col1', 'col3' => 'alias_col'))
+            ->column('col1')
+            ->column('col3', 'alias_col')
             ->where(array('test' => 'value'))
-            ->where('test_statement = IF ("test", ?, ?)', 'val1', 'val2')
+            ->whereRaw('test_statement = IF ("test", ?, ?)', 'val1', 'val2')
             ->join('table2', array('col1' => 'col2'))
-            ->where('type > ? AND type < ? AND base IN ?', 10, 20, array('1', '2', '3'))
+            ->whereRaw('type > ? AND type < ? AND base IN ?', 10, 20, array('1', '2', '3'))
             ->having(array('test' => 'value2'))
-            ->having('type > ? AND base IN ?', 20, array('5', '6', '7'))
+            ->havingRaw('type > ? AND base IN ?', 20, array('5', '6', '7'))
             ->limit(10)
             ->offset(8)
             ->order('type', 'ASC')

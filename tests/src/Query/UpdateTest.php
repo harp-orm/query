@@ -27,18 +27,18 @@ class UpdateTest extends AbstractTestCase
      */
     public function testTable()
     {
-        $query = $this->getMock('CL\Atlas\Query\Update', array('addChildrenObjects'));
-        $query
-            ->expects($this->once())
-            ->method('addChildrenObjects')
-            ->with(
-                $this->equalTo(Query\AbstractQuery::TABLE),
-                $this->equalTo(array('table1', 'table2' => 'alias2')),
-                $this->equalTo('alias'),
-                'CL\Atlas\SQL\Aliased::factory'
-            );
+        $query = new Query\Update;
 
-        $query->table(array('table1', 'table2' => 'alias2'), 'alias');
+        $query
+            ->table('table1')
+            ->table('table2', 'alias2');
+
+        $expected = array(
+            new SQL\Aliased('table1'),
+            new SQL\Aliased('table2', 'alias2'),
+        );
+
+        $this->assertEquals($expected, $query->getChild(Query\AbstractQuery::TABLE));
     }
 
     /**
@@ -82,18 +82,21 @@ class UpdateTest extends AbstractTestCase
 
     /**
      * @covers CL\Atlas\Query\Update::where
+     * @covers CL\Atlas\Query\Update::whereRaw
      */
     public function testWhere()
     {
         $query = new Query\Update;
 
         $query
-            ->where(array('test' => 20))
-            ->where('column = ? OR column = ?', 10, 20);
+            ->where(array('test1' => 1, 'test2' => 2))
+            ->whereRaw('column = ? OR column = ?', 10, 20)
+            ->where(array('test3' => 3));
 
         $expected = array(
-            new SQL\Condition(array('test' => 20)),
+            new SQL\ConditionArray(array('test1' => 1, 'test2' => 2)),
             new SQL\Condition('column = ? OR column = ?', array(10, 20)),
+            new SQL\ConditionArray(array('test3' => 3)),
         );
 
         $this->assertEquals($expected, $query->getChild(Query\AbstractQuery::WHERE));
@@ -104,20 +107,19 @@ class UpdateTest extends AbstractTestCase
      */
     public function testOrder()
     {
-        $query = $this->getMock('CL\Atlas\Query\Update', array('addChildrenObjects'));
+        $query = new Query\Update;
+
         $query
-            ->expects($this->once())
-            ->method('addChildrenObjects')
-            ->with(
-                $this->equalTo(Query\AbstractQuery::ORDER_BY),
-                $this->equalTo(array('column1', 'column2' => 'alias2')),
-                $this->equalTo('direction'),
-                'CL\Atlas\SQL\Direction::factory'
-            );
+            ->order('col1')
+            ->order('col2', 'dir2');
 
-        $query->order(array('column1', 'column2' => 'alias2'), 'direction');
+        $expected = array(
+            new SQL\Direction('col1'),
+            new SQL\Direction('col2', 'dir2'),
+        );
+
+        $this->assertEquals($expected, $query->getChild(Query\AbstractQuery::ORDER_BY));
     }
-
 
     /**
      * @covers CL\Atlas\Query\Update::limit

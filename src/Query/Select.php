@@ -17,16 +17,16 @@ class Select extends AbstractQuery
         return $this;
     }
 
-    public function columns($column, $alias = null)
+    public function column($column, $alias = null)
     {
-        $this->addChildrenObjects(AbstractQuery::COLUMNS, $column, $alias, 'CL\Atlas\SQL\Aliased::factory');
+        $this->children[AbstractQuery::COLUMNS] []= new SQL\Aliased($column, $alias);
 
         return $this;
     }
 
     public function from($table, $alias = null)
     {
-        $this->addChildrenObjects(AbstractQuery::FROM, $table, $alias, 'CL\Atlas\SQL\Aliased::factory');
+        $this->children[AbstractQuery::FROM] []= new SQL\Aliased($table, $alias);
 
         return $this;
     }
@@ -38,30 +38,45 @@ class Select extends AbstractQuery
         return $this;
     }
 
-    public function where($where)
+    public function where(array $conditions)
     {
-        $this->children[AbstractQuery::WHERE] []= new SQL\Condition($where, array_slice(func_get_args(), 1));
+        $this->children[AbstractQuery::WHERE] []= new SQL\ConditionArray($conditions);
+
+        return $this;
+    }
+
+    public function whereRaw($conditions)
+    {
+        $this->children[AbstractQuery::WHERE] []= new SQL\Condition($conditions, array_slice(func_get_args(), 1));
 
         return $this;
     }
 
     public function group($column, $direction = null)
     {
-        $this->addChildrenObjects(AbstractQuery::GROUP_BY, $column, $direction, 'CL\Atlas\SQL\Direction::factory');
+        $this->children[AbstractQuery::GROUP_BY] []= new SQL\Direction($column, $direction);
 
         return $this;
     }
 
-    public function having($having)
+    public function having(array $conditions)
     {
-        $this->children[AbstractQuery::HAVING] []= new SQL\Condition($having, array_slice(func_get_args(), 1));
+        $this->children[AbstractQuery::HAVING] []= new SQL\ConditionArray($conditions);
 
         return $this;
     }
+
+    public function havingRaw($conditions)
+    {
+        $this->children[AbstractQuery::HAVING] []= new SQL\Condition($conditions, array_slice(func_get_args(), 1));
+
+        return $this;
+    }
+
 
     public function order($column, $direction = null)
     {
-        $this->addChildrenObjects(AbstractQuery::ORDER_BY, $column, $direction, 'CL\Atlas\SQL\Direction::factory');
+        $this->children[AbstractQuery::ORDER_BY] []= new SQL\Direction($column, $direction);
 
         return $this;
     }

@@ -19,7 +19,7 @@ class Update extends AbstractQuery
 
     public function table($table, $alias = null)
     {
-        $this->addChildrenObjects(AbstractQuery::TABLE, $table, $alias, 'CL\Atlas\SQL\Aliased::factory');
+        $this->children[AbstractQuery::TABLE] []= new SQL\Aliased($table, $alias);
 
         return $this;
     }
@@ -40,16 +40,23 @@ class Update extends AbstractQuery
         return $this;
     }
 
-    public function where($where)
+    public function where(array $conditions)
     {
-        $this->children[AbstractQuery::WHERE] []= new SQL\Condition($where, array_slice(func_get_args(), 1));
+        $this->children[AbstractQuery::WHERE] []= new SQL\ConditionArray($conditions);
+
+        return $this;
+    }
+
+    public function whereRaw($conditions)
+    {
+        $this->children[AbstractQuery::WHERE] []= new SQL\Condition($conditions, array_slice(func_get_args(), 1));
 
         return $this;
     }
 
     public function order($column, $direction = null)
     {
-        $this->addChildrenObjects(AbstractQuery::ORDER_BY, $column, $direction, 'CL\Atlas\SQL\Direction::factory');
+        $this->children[AbstractQuery::ORDER_BY] []= new SQL\Direction($column, $direction);
 
         return $this;
     }

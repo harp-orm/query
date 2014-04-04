@@ -107,13 +107,6 @@ abstract class AbstractQuery implements Parametrised
         }
     }
 
-    public function addChildrenObjects($name, $array, $argument, $callback)
-    {
-        $objects = Arr::toObjects($array, $argument, $callback);
-
-        $this->addChildren($name, $objects);
-    }
-
     public function db()
     {
         if (! $this->db) {

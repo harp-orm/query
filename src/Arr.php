@@ -38,23 +38,6 @@ class Arr
         return $array;
     }
 
-    public static function toObjects($array, $argument, $callback)
-    {
-        $objects = array();
-
-        if ($argument !== null) {
-            $objects []= call_user_func($callback, $array, $argument);
-        } else {
-            $array = Arr::toAssoc(Arr::toArray($array));
-
-            foreach ($array as $param => $argument) {
-                $objects []= is_object($argument) ? $argument : call_user_func($callback, $param, $argument);
-            }
-        }
-
-        return $objects;
-    }
-
     public static function map($callback, $array)
     {
         return $array ? array_map($callback, $array) : null;

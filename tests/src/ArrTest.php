@@ -50,48 +50,6 @@ class ArrTest extends AbstractTestCase
         $this->assertEquals($expected, Arr::toArray($array));
     }
 
-    public function dataToObjects()
-    {
-        $test1 = array('test1', null);
-        $test2 = array('test2', null);
-        $alias1 = array('test1', 'alias1');
-        $alias2 = array('test2', 'alias2');
-        $alias3 = array(new Query\Select, 'alias3');
-        $sql_alias = new SQL\Aliased('test3', 'alias3');
-
-        return array(
-            array('test1', 'alias1', array($alias1)),
-            array(new Query\Select, 'alias3', array($alias3)),
-            array('test1', null, array($test1)),
-            array(array('test1'), null, array($test1)),
-            array(array('test1', 'test2'), null, array($test1, $test2)),
-            array(array('test1', 'test2' => 'alias2'), null, array($test1, $alias2)),
-            array(array('test1', 'test2' => 'alias2', $sql_alias), null, array($test1, $alias2, $sql_alias)),
-        );
-    }
-
-    /**
-     * @dataProvider dataToObjects
-     * @covers CL\Atlas\Arr::toObjects
-     */
-    public function testToObjects($array, $argument, array $expected)
-    {
-        $object = $this->getMock('stdClass', array('callback'));
-
-        $index = 0;
-        foreach ($expected as $value) {
-            if (! is_object($value)) {
-                $object
-                    ->expects($this->at($index++))
-                    ->method('callback')
-                    ->with($this->equalTo($value[0]), $this->equalTo($value[1]))
-                    ->will($this->returnValue($value));
-            }
-        }
-
-        $this->assertEquals($expected, Arr::toObjects($array, $argument, array($object, 'callback')));
-    }
-
     public function dataMap()
     {
         return array(
