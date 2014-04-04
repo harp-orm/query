@@ -2,8 +2,8 @@
 
 use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Arr;
-use CL\Atlas\SQL\AliasedSQL;
-use CL\Atlas\Query\SelectQuery;
+use CL\Atlas\SQL;
+use CL\Atlas\Query;
 use stdClass;
 
 /**
@@ -56,12 +56,12 @@ class ArrTest extends AbstractTestCase
         $test2 = array('test2', null);
         $alias1 = array('test1', 'alias1');
         $alias2 = array('test2', 'alias2');
-        $alias3 = array(new SelectQuery, 'alias3');
-        $sql_alias = new AliasedSQL('test3', 'alias3');
+        $alias3 = array(new Query\Select, 'alias3');
+        $sql_alias = new SQL\Aliased('test3', 'alias3');
 
         return array(
             array('test1', 'alias1', array($alias1)),
-            array(new SelectQuery, 'alias3', array($alias3)),
+            array(new Query\Select, 'alias3', array($alias3)),
             array('test1', null, array($test1)),
             array(array('test1'), null, array($test1)),
             array(array('test1', 'test2'), null, array($test1, $test2)),

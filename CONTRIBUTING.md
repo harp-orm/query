@@ -10,10 +10,6 @@ __Pull Requests__
  * Before writing significant amount of code, open an issue and discuss it.
  * Run existing unit tests and write your own. Travis would take care of PRs automatically, but you could run the tests locally before that. Run `composer install` and then `/vendor/bin/phpunit`.
 
-We would love pull requests about new exchange rates sources like Yahoo or Open Exchange Rates.
-
-__Ignored Files__
-
 Do not commit system files, but don't clutter [.gitignore](.gitignore). Use a [useful global .gitignore](https://help.github.com/articles/ignoring-files#global-gitignore).
 
 __Coding style__

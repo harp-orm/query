@@ -90,7 +90,7 @@ class DBTest extends AbstractTestCase
     {
         $select = DB::instance()->select()->columns(array('test', 'test2'));
 
-        $this->assertInstanceOf('CL\Atlas\Query\SelectQuery', $select);
+        $this->assertInstanceOf('CL\Atlas\Query\Select', $select);
 
         $this->assertSame(DB::instance(), $select->db());
 
@@ -104,7 +104,7 @@ class DBTest extends AbstractTestCase
     {
         $update = DB::instance()->update()->table(array('test', 'test2'));
 
-        $this->assertInstanceOf('CL\Atlas\Query\UpdateQuery', $update);
+        $this->assertInstanceOf('CL\Atlas\Query\Update', $update);
 
         $this->assertSame(DB::instance(), $update->db());
 
@@ -118,7 +118,7 @@ class DBTest extends AbstractTestCase
     {
         $delete = DB::instance()->delete()->from(array('test', 'test2'));
 
-        $this->assertInstanceOf('CL\Atlas\Query\DeleteQuery', $delete);
+        $this->assertInstanceOf('CL\Atlas\Query\Delete', $delete);
 
         $this->assertSame(DB::instance(), $delete->db());
 
@@ -132,11 +132,11 @@ class DBTest extends AbstractTestCase
     {
         $query = DB::instance()->insert()->into('table1')->set(array('name' => 'test2'));
 
-        $this->assertInstanceOf('CL\Atlas\Query\InsertQuery', $query);
+        $this->assertInstanceOf('CL\Atlas\Query\Insert', $query);
 
         $this->assertSame(DB::instance(), $query->db());
 
         $this->assertEquals('INSERT INTO table1 SET name = ?', $query->sql());
-        $this->assertEquals(array('test2'), $query->parameters());
+        $this->assertEquals(array('test2'), $query->getParameters());
     }
 }

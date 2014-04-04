@@ -22,7 +22,7 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
 
         DB::configuration('default', array(
             'class' => 'DB_Test',
-            'dsn' => 'mysql:dbname=test-db;host=127.0.0.1',
+            'dsn' => 'mysql:dbname=test-atlas;host=127.0.0.1',
             'username' => 'root',
         ));
 

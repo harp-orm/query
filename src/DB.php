@@ -1,9 +1,6 @@
 <?php namespace CL\Atlas;
 
-use CL\Atlas\Query\SelectQuery;
-use CL\Atlas\Query\UpdateQuery;
-use CL\Atlas\Query\InsertQuery;
-use CL\Atlas\Query\DeleteQuery;
+use CL\Atlas\Query;
 use PDO;
 
 /**
@@ -77,21 +74,21 @@ class DB extends \PDO
 
     public function select()
     {
-        return new SelectQuery(null, $this);
+        return new Query\Select(null, $this);
     }
 
     public function update()
     {
-        return new UpdateQuery(null, $this);
+        return new Query\Update(null, $this);
     }
 
     public function delete()
     {
-        return new DeleteQuery(null, $this);
+        return new Query\Delete(null, $this);
     }
 
     public function insert()
     {
-        return new InsertQuery(null, $this);
+        return new Query\Insert(null, $this);
     }
 }

@@ -15,7 +15,7 @@ class SQL implements Parametrised
 
     public function __construct($content, array $parameters = null)
     {
-        $this->content = (string) $content;
+        $this->content = $content;
 
         if ($parameters) {
             $this->parameters = $parameters;
@@ -24,15 +24,15 @@ class SQL implements Parametrised
 
     public function __toString()
     {
-        return $this->content();
+        return $this->content;
     }
 
-    public function content()
+    public function getContent()
     {
         return $this->content;
     }
 
-    public function parameters()
+    public function getParameters()
     {
         return $this->parameters;
     }

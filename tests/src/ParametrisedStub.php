@@ -4,7 +4,7 @@ use CL\Atlas\Parametrised;
 
 class ParametrisedStub implements Parametrised
 {
-    public function parameters()
+    public function getParameters()
     {
 
     }
