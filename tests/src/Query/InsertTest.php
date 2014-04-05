@@ -12,21 +12,6 @@ use CL\Atlas\SQL;
 class InsertTest extends AbstractTestCase
 {
     /**
-     * @covers CL\Atlas\Query\Insert::type
-     * @covers CL\Atlas\Query\Insert::getType
-     */
-    public function testType()
-    {
-        $query = new Query\Insert;
-
-        $query->type('IGNORE');
-
-        $expected = new SQL\SQL('IGNORE');
-
-        $this->assertEquals($expected, $query->getType());
-    }
-
-    /**
      * @covers CL\Atlas\Query\Insert::into
      * @covers CL\Atlas\Query\Insert::getTable
      */
