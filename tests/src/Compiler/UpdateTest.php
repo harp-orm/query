@@ -25,7 +25,7 @@ class UpdateTest extends AbstractTestCase
             ->table('table1')
             ->table('table2', 'alias1')
             ->order('col1', 'ASC')
-            ->join(array('join1' => 'alias_join1'), array('col' => 'col2'))
+            ->joinAliased('join1', 'alias_join1', array('col' => 'col2'))
             ->limit(10)
             ->where(array('test' => 'value'))
             ->whereRaw('test_statement = IF ("test", ?, ?)', 'val1', 'val2')

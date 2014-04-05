@@ -1,5 +1,7 @@
 <?php namespace CL\Atlas\SQL;
 
+use CL\Atlas\Parametrised;
+
 /**
  * @author     Ivan Kerin
  * @copyright  (c) 2014 Clippings Ltd.
@@ -22,18 +24,7 @@ class Join extends SQL
         return 'ON '.join(' AND ', $statements);
     }
 
-    public static function tableAsSQL($table)
-    {
-        if (is_array($table)) {
-            return new Aliased(key($table), reset($table));
-        } elseif ($table instanceof SQL) {
-            return $table;
-        } else {
-            return new Aliased($table);
-        }
-    }
-
-    public function __construct($table, $condition, $type = null)
+    public function __construct(SQL $table, $condition, $type = null)
     {
         $this->condition = is_array($condition)
             ? self::arrayToCondition($condition)
@@ -41,7 +32,7 @@ class Join extends SQL
 
         $this->type = $type;
 
-        $this->table = self::tableAsSQL($table);
+        $this->table = $table;
     }
 
     public function getTable()
@@ -56,7 +47,7 @@ class Join extends SQL
 
     public function getParameters()
     {
-        if ($this->condition instanceof SQL) {
+        if ($this->condition instanceof Parametrised) {
             return $this->condition->getParameters();
         }
 

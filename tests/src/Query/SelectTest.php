@@ -11,22 +11,6 @@ use CL\Atlas\SQL;
  */
 class SelectTest extends AbstractTestCase
 {
-
-    /**
-     * @covers CL\Atlas\Query\Select::type
-     * @covers CL\Atlas\Query\Select::getType
-     */
-    public function testType()
-    {
-        $query = new Query\Select;
-
-        $query->type('IGNORE');
-
-        $expected = new SQL\SQL('IGNORE');
-
-        $this->assertEquals($expected, $query->getType());
-    }
-
     /**
      * @covers CL\Atlas\Query\Select::column
      * @covers CL\Atlas\Query\Select::getColumns
@@ -65,48 +49,6 @@ class SelectTest extends AbstractTestCase
         );
 
         $this->assertEquals($expected, $query->getFrom());
-    }
-    /**
-     * @covers CL\Atlas\Query\Select::join
-     * @covers CL\Atlas\Query\Select::getJoin
-     */
-    public function testJoin()
-    {
-        $query = new Query\Select;
-
-        $query
-            ->join('table1', array('col' => 'col2'))
-            ->join(array('table2', 'alias2'), 'USING (col1)', 'LEFT');
-
-        $expected = array(
-            new SQL\Join('table1', array('col' => 'col2')),
-            new SQL\Join(array('table2', 'alias2'), 'USING (col1)', 'LEFT'),
-        );
-
-        $this->assertEquals($expected, $query->getJoin());
-    }
-
-    /**
-     * @covers CL\Atlas\Query\Select::where
-     * @covers CL\Atlas\Query\Select::getWhere
-     * @covers CL\Atlas\Query\Select::whereRaw
-     */
-    public function testWhere()
-    {
-        $query = new Query\Select;
-
-        $query
-            ->where(array('test1' => 1, 'test2' => 2))
-            ->whereRaw('column = ? OR column = ?', 10, 20)
-            ->where(array('test3' => 3));
-
-        $expected = array(
-            new SQL\ConditionArray(array('test1' => 1, 'test2' => 2)),
-            new SQL\Condition('column = ? OR column = ?', array(10, 20)),
-            new SQL\ConditionArray(array('test3' => 3)),
-        );
-
-        $this->assertEquals($expected, $query->getWhere());
     }
 
     /**
@@ -150,40 +92,6 @@ class SelectTest extends AbstractTestCase
         );
 
         $this->assertEquals($expected, $query->getHaving());
-    }
-    /**
-     * @covers CL\Atlas\Query\Select::order
-     * @covers CL\Atlas\Query\Select::getOrder
-     */
-    public function testOrder()
-    {
-        $query = new Query\Select;
-
-        $query
-            ->order('col1')
-            ->order('col2', 'dir2');
-
-        $expected = array(
-            new SQL\Direction('col1'),
-            new SQL\Direction('col2', 'dir2'),
-        );
-
-        $this->assertEquals($expected, $query->getOrder());
-    }
-
-    /**
-     * @covers CL\Atlas\Query\Select::limit
-     * @covers CL\Atlas\Query\Select::getLimit
-     */
-    public function testLimit()
-    {
-        $query = new Query\Select;
-
-        $query->limit(20);
-
-        $expected = new SQL\IntValue(20);
-
-        $this->assertEquals($expected, $query->getLimit());
     }
 
     /**

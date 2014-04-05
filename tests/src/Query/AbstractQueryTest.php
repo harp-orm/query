@@ -3,13 +3,35 @@
 namespace CL\Atlas\Test\Query;
 
 use CL\Atlas\Test\AbstractTestCase;
+use CL\Atlas\SQL;
 use CL\Atlas\DB;
 
 /**
  * @group query
  */
-class QueryTest extends AbstractTestCase
+class AbstractQueryTest extends AbstractTestCase
 {
+    /**
+     * @covers CL\Atlas\Query\AbstractQuery::type
+     * @covers CL\Atlas\Query\AbstractQuery::getType
+     */
+    public function testType()
+    {
+        $query = $this->getMock('CL\Atlas\Query\AbstractQuery', array('sql', 'getParameters'));
+
+        $query->type('IGNORE');
+
+        $expected = new SQL\SQL('IGNORE');
+
+        $this->assertEquals($expected, $query->getType());
+
+        $query->type('IGNORE QUICK');
+
+        $expected = new SQL\SQL('IGNORE QUICK');
+
+        $this->assertEquals($expected, $query->getType());
+    }
+
     /**
      * @covers CL\Atlas\Query\AbstractQuery::db
      * @covers CL\Atlas\Query\AbstractQuery::__construct

@@ -4,6 +4,7 @@ namespace CL\Atlas\Query;
 
 use CL\Atlas\Parametrised;
 use CL\Atlas\DB;
+use CL\Atlas\SQL;
 use CL\Atlas\Compiler\Compiler;
 
 /**
@@ -19,9 +20,22 @@ abstract class AbstractQuery implements Parametrised
      */
     protected $db;
 
+    /**
+     * @var SQL\SQL|null
+     */
+    protected $type;
+
     public function __construct(DB $db = null)
     {
         $this->db = $db;
+    }
+
+    /**
+     * @return SQL\SQL
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     public function db()
@@ -31,6 +45,13 @@ abstract class AbstractQuery implements Parametrised
         }
 
         return $this->db;
+    }
+
+    public function type($type)
+    {
+        $this->type = new SQL\SQL($type);
+
+        return $this;
     }
 
     public function execute()

@@ -1,6 +1,5 @@
 <?php namespace CL\Atlas\Query;
 
-use CL\Atlas\Compiler;
 use CL\Atlas\SQL;
 
 /**
@@ -8,23 +7,8 @@ use CL\Atlas\SQL;
  * @copyright  (c) 2014 Clippings Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class Delete extends AbstractQuery
+abstract class AbstractWhere extends AbstractQuery
 {
-    /**
-     * @var SQL\SQL|null
-     */
-    protected $type;
-
-    /**
-     * @var SQL\Aliased[]|null
-     */
-    protected $table;
-
-    /**
-     * @var SQL\Aliased[]|null
-     */
-    protected $from;
-
     /**
      * @var SQL\Join[]|null
      */
@@ -44,31 +28,6 @@ class Delete extends AbstractQuery
      * @var SQL\IntValue|null
      */
     protected $limit;
-
-
-    /**
-     * @return SQL\SQL|null
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @return SQL\Aliased[]|null
-     */
-    public function getTable()
-    {
-        return $this->table;
-    }
-
-    /**
-     * @return SQL\Aliased[]|null
-     */
-    public function getFrom()
-    {
-        return $this->from;
-    }
 
     /**
      * @return SQL\Join[]|null
@@ -102,29 +61,17 @@ class Delete extends AbstractQuery
         return $this->limit;
     }
 
-    public function type($type)
-    {
-        $this->type = new SQL\SQL($type);
-
-        return $this;
-    }
-
-    public function table($table)
-    {
-        $this->table []= new SQL\Aliased($table);
-
-        return $this;
-    }
-
-    public function from($table, $alias = null)
-    {
-        $this->from []= new SQL\Aliased($table, $alias);
-
-        return $this;
-    }
-
     public function join($table, $condition, $type = null)
     {
+        $table = new SQL\Aliased($table);
+        $this->join []= new SQL\Join($table, $condition, $type);
+
+        return $this;
+    }
+
+    public function joinAliased($table, $alias, $condition, $type = null)
+    {
+        $table = new SQL\Aliased($table, $alias);
         $this->join []= new SQL\Join($table, $condition, $type);
 
         return $this;
@@ -157,21 +104,5 @@ class Delete extends AbstractQuery
         $this->limit = new SQL\IntValue($limit);
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function sql()
-    {
-        return Compiler\Delete::render($this);
-    }
-
-    /**
-     * @return array
-     */
-    public function getParameters()
-    {
-        return Compiler\Delete::parameters($this);
     }
 }

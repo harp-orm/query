@@ -9,11 +9,6 @@ class Direction extends SQL
 {
     protected $direction;
 
-    public static function factory($column, $direction = null)
-    {
-        return new Direction($column, $direction);
-    }
-
     public function __construct($column, $direction = null)
     {
         parent::__construct($column);

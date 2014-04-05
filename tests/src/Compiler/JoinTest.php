@@ -16,8 +16,8 @@ class JoinTest extends AbstractTestCase
      */
     public function testCombine()
     {
-        $join1 = new SQL\Join('table', 'USING (col1)');
-        $join2 = new SQL\Join('table2', array('col1' => 'col2'));
+        $join1 = new SQL\Join(new SQL\Aliased('table'), 'USING (col1)');
+        $join2 = new SQL\Join(new SQL\Aliased('table2'), array('col1' => 'col2'));
 
         $this->assertEquals(
             'JOIN table USING (col1) JOIN table2 ON col1 = col2',
@@ -29,19 +29,19 @@ class JoinTest extends AbstractTestCase
     {
         return array(
             array(
-                'table',
+                new SQL\Aliased('table'),
                 array('col' => 'col_foreign'),
                 null,
                 'JOIN table ON col = col_foreign'
             ),
             array(
-                'table',
+                new SQL\Aliased('table'),
                 array('col' => 'col_foreign', 'is_deleted' => true),
                 null,
                 'JOIN table ON col = col_foreign AND is_deleted = 1'
             ),
             array(
-                array('table' => 'alias1'),
+                new SQL\Aliased('table', 'alias1'),
                 'USING (col)',
                 'INNER',
                 'INNER JOIN table AS alias1 USING (col)'

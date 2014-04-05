@@ -8,17 +8,6 @@ use CL\Atlas\SQL;
  */
 class AliasedTest extends AbstractTestCase
 {
-
-    /**
-     * @covers CL\Atlas\SQL\Aliased::factory
-     */
-    public function testFactory()
-    {
-        $expected = new SQL\Aliased('test', 'alias');
-
-        $this->assertEquals($expected, SQL\Aliased::factory('test', 'alias'));
-    }
-
     /**
      * @covers CL\Atlas\SQL\Aliased::__construct
      * @covers CL\Atlas\SQL\Aliased::getParameters

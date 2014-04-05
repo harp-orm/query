@@ -13,15 +13,15 @@ class JoinTest extends AbstractTestCase
     {
         return array(
             array(
-                'table',
+                new SQL\Aliased('table'),
                 array('col' => 'col2'),
                 'LEFT',
-                'table',
+                new SQL\Aliased('table'),
                 'ON col = col2',
                 'LEFT'
             ),
             array(
-                array('table' => 'alias1'),
+                new SQL\Aliased('table', 'alias1'),
                 'USING (col1)',
                 null,
                 new SQL\Aliased('table', 'alias1'),
@@ -58,34 +58,17 @@ class JoinTest extends AbstractTestCase
     /**
      * @covers CL\Atlas\SQL\Join::getParameters
      */
-    public function testFactory()
+    public function testGetParameters()
     {
         $condition = new SQL\SQL('ON col = ?', array('param'));
 
-        $join = new SQL\Join('table', $condition);
+        $join = new SQL\Join(new SQL\Aliased('table'), $condition);
 
         $this->assertEquals(array('param'), $join->getParameters());
 
-        $join = new SQL\Join('table', array('col1' => 'col2'));
+        $join = new SQL\Join(new SQL\Aliased('table'), array('col1' => 'col2'));
 
         $this->assertNull($join->getParameters());
-    }
-
-    public function dataTableAsSQL()
-    {
-        return array(
-            array(array('test' => 'alias'), new SQL\Aliased('test', 'alias')),
-            array('test', new SQL\Aliased('test')),
-            array(new SQL\SQL('test'), new SQL\SQL('test')),
-        );
-    }
-    /**
-     * @dataProvider dataTableAsSQL
-     * @covers CL\Atlas\SQL\Join::tableAsSQL
-     */
-    public function testTableAsSQL($table, $expected)
-    {
-        $this->assertEquals($expected, SQL\Join::tableAsSQL($table));
     }
 
     public function dataArrayToCondition()

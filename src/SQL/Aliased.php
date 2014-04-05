@@ -11,11 +11,6 @@ class Aliased extends SQL
 {
     protected $alias;
 
-    public static function factory($content, $alias = null)
-    {
-        return new Aliased($content, $alias);
-    }
-
     public function __construct($content, $alias = null)
     {
         parent::__construct($content);

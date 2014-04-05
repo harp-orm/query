@@ -8,18 +8,6 @@ use CL\Atlas\SQL;
  */
 class DirectionTest extends AbstractTestCase
 {
-
-    /**
-     * @covers CL\Atlas\SQL\Direction::factory
-     */
-    public function testFactory()
-    {
-        $direction = SQL\Direction::factory('name', 'DESC');
-        $expected = new SQL\Direction('name', 'DESC');
-
-        $this->assertEquals($expected, $direction);
-    }
-
     /**
      * @covers CL\Atlas\SQL\Direction::__construct
      * @covers CL\Atlas\SQL\Direction::getDirection

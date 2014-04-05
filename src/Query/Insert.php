@@ -13,11 +13,6 @@ use CL\Atlas\SQL;
 class Insert extends AbstractQuery
 {
     /**
-     * @var SQL\SQL|null
-     */
-    protected $type;
-
-    /**
      * @var SQL\Aliased|null
      */
     protected $table;
@@ -41,14 +36,6 @@ class Insert extends AbstractQuery
      * @var Select|null
      */
     protected $select;
-
-    /**
-     * @return SQL\SQL|null
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
 
     /**
      * @return SQL\Aliased|null
@@ -88,13 +75,6 @@ class Insert extends AbstractQuery
     public function getSelect()
     {
         return $this->select;
-    }
-
-    public function type($type)
-    {
-        $this->type = new SQL\SQL($type);
-
-        return $this;
     }
 
     public function into($table)
