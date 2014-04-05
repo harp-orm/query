@@ -43,7 +43,7 @@ class Compiler
      * If no content - dont render anything
      *
      * @param  string $statement
-     * @param  string|\CL\Atlas\SQL\SQL|null $content
+     * @param  mixed $content
      * @return string|null
      */
     public static function word($statement, $content)
