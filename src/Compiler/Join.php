@@ -10,7 +10,7 @@ use CL\Atlas\SQL;
  * @copyright  (c) 2014 Clippings Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class Join extends Compiler
+class Join
 {
     /**
      * Render multiple Join objects
@@ -29,7 +29,7 @@ class Join extends Compiler
      */
     public static function render(SQL\Join $join)
     {
-        return self::expression(array(
+        return Compiler::expression(array(
             $join->getType(),
             'JOIN',
             $join->getTable() instanceof SQL\Aliased

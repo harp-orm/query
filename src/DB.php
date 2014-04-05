@@ -74,21 +74,21 @@ class DB extends \PDO
 
     public function select()
     {
-        return new Query\Select(null, $this);
+        return new Query\Select($this);
     }
 
     public function update()
     {
-        return new Query\Update(null, $this);
+        return new Query\Update($this);
     }
 
     public function delete()
     {
-        return new Query\Delete(null, $this);
+        return new Query\Delete($this);
     }
 
     public function insert()
     {
-        return new Query\Insert(null, $this);
+        return new Query\Insert($this);
     }
 }

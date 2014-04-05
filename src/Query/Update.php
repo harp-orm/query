@@ -10,23 +10,66 @@ use CL\Atlas\SQL;
  */
 class Update extends AbstractQuery
 {
+    protected $type;
+    protected $table;
+    protected $join;
+    protected $set;
+    protected $where;
+    protected $order;
+    protected $limit;
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function getTable()
+    {
+        return $this->table;
+    }
+
+    public function getJoin()
+    {
+        return $this->join;
+    }
+
+    public function getSet()
+    {
+        return $this->set;
+    }
+
+    public function getWhere()
+    {
+        return $this->where;
+    }
+
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    public function getLimit()
+    {
+        return $this->limit;
+    }
+
     public function type($type)
     {
-        $this->children[AbstractQuery::TYPE] = $type;
+        $this->type = new SQL\SQL($type);
 
         return $this;
     }
 
     public function table($table, $alias = null)
     {
-        $this->children[AbstractQuery::TABLE] []= new SQL\Aliased($table, $alias);
+        $this->table []= new SQL\Aliased($table, $alias);
 
         return $this;
     }
 
     public function join($table, $condition, $type = null)
     {
-        $this->children[AbstractQuery::JOIN] []= new SQL\Join($table, $condition, $type);
+        $this->join []= new SQL\Join($table, $condition, $type);
 
         return $this;
     }
@@ -34,7 +77,7 @@ class Update extends AbstractQuery
     public function set(array $values)
     {
         foreach ($values as $column => $value) {
-            $this->children[AbstractQuery::SET] []= new SQL\Set($column, $value);
+            $this->set []= new SQL\Set($column, $value);
         }
 
         return $this;
@@ -42,28 +85,29 @@ class Update extends AbstractQuery
 
     public function where(array $conditions)
     {
-        $this->children[AbstractQuery::WHERE] []= new SQL\ConditionArray($conditions);
+        $this->where []= new SQL\ConditionArray($conditions);
 
         return $this;
     }
 
     public function whereRaw($conditions)
     {
-        $this->children[AbstractQuery::WHERE] []= new SQL\Condition($conditions, array_slice(func_get_args(), 1));
+        $parameters = array_slice(func_get_args(), 1);
+        $this->where []= new SQL\Condition($conditions, $parameters);
 
         return $this;
     }
 
     public function order($column, $direction = null)
     {
-        $this->children[AbstractQuery::ORDER_BY] []= new SQL\Direction($column, $direction);
+        $this->order []= new SQL\Direction($column, $direction);
 
         return $this;
     }
 
     public function limit($limit)
     {
-        $this->children[AbstractQuery::LIMIT] = (int) $limit;
+        $this->limit = new SQL\IntValue($limit);
 
         return $this;
     }
@@ -72,4 +116,10 @@ class Update extends AbstractQuery
     {
         return Compiler\Update::render($this);
     }
+
+    public function getParameters()
+    {
+        return Compiler\Update::parameters($this);
+    }
+
 }

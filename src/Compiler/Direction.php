@@ -10,7 +10,7 @@ use CL\Atlas\SQL;
  * @copyright  (c) 2014 Clippings Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class Direction extends Compiler
+class Direction
 {
     /**
      * Render multiple Direction objects

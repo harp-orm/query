@@ -47,6 +47,6 @@ SQL;
             '3',
         );
 
-        $this->assertEquals($expectedParameters, $delete->getParameters());
+        $this->assertEquals($expectedParameters, Compiler\Delete::parameters($delete));
     }
 }

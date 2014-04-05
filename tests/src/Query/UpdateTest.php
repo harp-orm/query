@@ -1,4 +1,6 @@
-<?php namespace CL\Atlas\Test\Query;
+<?php
+
+namespace CL\Atlas\Test\Query;
 
 use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Query;
@@ -9,9 +11,9 @@ use CL\Atlas\SQL;
  */
 class UpdateTest extends AbstractTestCase
 {
-
     /**
      * @covers CL\Atlas\Query\Update::type
+     * @covers CL\Atlas\Query\Update::getType
      */
     public function testType()
     {
@@ -19,11 +21,14 @@ class UpdateTest extends AbstractTestCase
 
         $query->type('IGNORE');
 
-        $this->assertEquals('IGNORE', $query->getChild(Query\AbstractQuery::TYPE));
+        $expected = new SQL\SQL('IGNORE');
+
+        $this->assertEquals($expected, $query->getType());
     }
 
     /**
      * @covers CL\Atlas\Query\Update::table
+     * @covers CL\Atlas\Query\Update::getTable
      */
     public function testTable()
     {
@@ -38,11 +43,12 @@ class UpdateTest extends AbstractTestCase
             new SQL\Aliased('table2', 'alias2'),
         );
 
-        $this->assertEquals($expected, $query->getChild(Query\AbstractQuery::TABLE));
+        $this->assertEquals($expected, $query->getTable());
     }
 
     /**
      * @covers CL\Atlas\Query\Update::join
+     * @covers CL\Atlas\Query\Update::getJoin
      */
     public function testJoin()
     {
@@ -57,11 +63,12 @@ class UpdateTest extends AbstractTestCase
             new SQL\Join(array('table2', 'alias2'), 'USING (col1)', 'LEFT'),
         );
 
-        $this->assertEquals($expected, $query->getChild(Query\AbstractQuery::JOIN));
+        $this->assertEquals($expected, $query->getJoin());
     }
 
     /**
      * @covers CL\Atlas\Query\Update::set
+     * @covers CL\Atlas\Query\Update::getSet
      */
     public function testSet()
     {
@@ -77,11 +84,12 @@ class UpdateTest extends AbstractTestCase
             new SQL\Set('name', 'test'),
         );
 
-        $this->assertEquals($expected, $query->getChild(Query\AbstractQuery::SET));
+        $this->assertEquals($expected, $query->getSet());
     }
 
     /**
      * @covers CL\Atlas\Query\Update::where
+     * @covers CL\Atlas\Query\Update::getWhere
      * @covers CL\Atlas\Query\Update::whereRaw
      */
     public function testWhere()
@@ -99,11 +107,12 @@ class UpdateTest extends AbstractTestCase
             new SQL\ConditionArray(array('test3' => 3)),
         );
 
-        $this->assertEquals($expected, $query->getChild(Query\AbstractQuery::WHERE));
+        $this->assertEquals($expected, $query->getWhere());
     }
 
     /**
      * @covers CL\Atlas\Query\Update::order
+     * @covers CL\Atlas\Query\Update::getOrder
      */
     public function testOrder()
     {
@@ -118,11 +127,12 @@ class UpdateTest extends AbstractTestCase
             new SQL\Direction('col2', 'dir2'),
         );
 
-        $this->assertEquals($expected, $query->getChild(Query\AbstractQuery::ORDER_BY));
+        $this->assertEquals($expected, $query->getOrder());
     }
 
     /**
      * @covers CL\Atlas\Query\Update::limit
+     * @covers CL\Atlas\Query\Update::getLimit
      */
     public function testLimit()
     {
@@ -130,7 +140,9 @@ class UpdateTest extends AbstractTestCase
 
         $query->limit(20);
 
-        $this->assertEquals(20, $query->getChild(Query\AbstractQuery::LIMIT));
+        $expected = new SQL\IntValue(20);
+
+        $this->assertEquals($expected, $query->getLimit());
     }
 
     /**

@@ -1,4 +1,6 @@
-<?php namespace CL\Atlas\Test\Query;
+<?php
+
+namespace CL\Atlas\Test\Query;
 
 use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Query;
@@ -12,6 +14,7 @@ class DeleteTest extends AbstractTestCase
 
     /**
      * @covers CL\Atlas\Query\Delete::type
+     * @covers CL\Atlas\Query\Delete::getType
      */
     public function testType()
     {
@@ -19,15 +22,20 @@ class DeleteTest extends AbstractTestCase
 
         $query->type('IGNORE');
 
-        $this->assertEquals('IGNORE', $query->getChild(Query\AbstractQuery::TYPE));
+        $expected = new SQL\SQL('IGNORE');
+
+        $this->assertEquals($expected, $query->getType());
 
         $query->type('IGNORE QUICK');
 
-        $this->assertEquals('IGNORE QUICK', $query->getChild(Query\AbstractQuery::TYPE));
+        $expected = new SQL\SQL('IGNORE QUICK');
+
+        $this->assertEquals($expected, $query->getType());
     }
 
     /**
      * @covers CL\Atlas\Query\Delete::table
+     * @covers CL\Atlas\Query\Delete::getTable
      */
     public function testTable()
     {
@@ -38,15 +46,16 @@ class DeleteTest extends AbstractTestCase
             ->table('table2');
 
         $expected = array(
-            'table1',
-            'table2',
+            new SQL\Aliased('table1'),
+            new SQL\Aliased('table2'),
         );
 
-        $this->assertEquals($expected, $query->getChild(Query\AbstractQuery::TABLE));
+        $this->assertEquals($expected, $query->getTable());
     }
 
     /**
      * @covers CL\Atlas\Query\Delete::from
+     * @covers CL\Atlas\Query\Delete::getFrom
      */
     public function testFrom()
     {
@@ -61,11 +70,12 @@ class DeleteTest extends AbstractTestCase
             new SQL\Aliased('table2', 'alias2'),
         );
 
-        $this->assertEquals($expected, $query->getChild(Query\AbstractQuery::FROM));
+        $this->assertEquals($expected, $query->getFrom());
     }
 
     /**
      * @covers CL\Atlas\Query\Delete::join
+     * @covers CL\Atlas\Query\Delete::getJoin
      */
     public function testJoin()
     {
@@ -80,11 +90,12 @@ class DeleteTest extends AbstractTestCase
             new SQL\Join(array('table2', 'alias2'), 'USING (col1)', 'LEFT'),
         );
 
-        $this->assertEquals($expected, $query->getChild(Query\AbstractQuery::JOIN));
+        $this->assertEquals($expected, $query->getJoin());
     }
 
     /**
      * @covers CL\Atlas\Query\Delete::where
+     * @covers CL\Atlas\Query\Delete::getWhere
      * @covers CL\Atlas\Query\Delete::whereRaw
      */
     public function testWhere()
@@ -102,11 +113,12 @@ class DeleteTest extends AbstractTestCase
             new SQL\ConditionArray(array('test3' => 3)),
         );
 
-        $this->assertEquals($expected, $query->getChild(Query\AbstractQuery::WHERE));
+        $this->assertEquals($expected, $query->getWhere());
     }
 
     /**
      * @covers CL\Atlas\Query\Delete::order
+     * @covers CL\Atlas\Query\Delete::getOrder
      */
     public function testOrder()
     {
@@ -121,12 +133,13 @@ class DeleteTest extends AbstractTestCase
             new SQL\Direction('col2', 'dir2'),
         );
 
-        $this->assertEquals($expected, $query->getChild(Query\AbstractQuery::ORDER_BY));
+        $this->assertEquals($expected, $query->getOrder());
     }
 
 
     /**
      * @covers CL\Atlas\Query\Delete::limit
+     * @covers CL\Atlas\Query\Delete::getLimit
      */
     public function testLimit()
     {
@@ -134,7 +147,9 @@ class DeleteTest extends AbstractTestCase
 
         $query->limit(20);
 
-        $this->assertEquals(20, $query->getChild(Query\AbstractQuery::LIMIT));
+        $expected = new SQL\IntValue(20);
+
+        $this->assertEquals($expected, $query->getLimit());
     }
 
     /**

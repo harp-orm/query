@@ -30,6 +30,7 @@ class InsertTest extends AbstractTestCase
         $args[1] = <<<SQL
 INSERT IGNORE INTO table1 SET name = ?, email = ?
 SQL;
+        $args[2] = array(10, 'email@example.com');
         $rows[] = $args;
 
 
@@ -49,6 +50,7 @@ SQL;
         $args[1] = <<<SQL
 INSERT INTO table1 (id, name) SELECT * FROM table2 WHERE (name = ?)
 SQL;
+        $args[2] = array(10);
         $rows[] = $args;
 
         // ROW 3
@@ -63,6 +65,7 @@ SQL;
         $args[1] = <<<SQL
 INSERT INTO table1 (id, name) VALUES (?, ?), (?, ?)
 SQL;
+        $args[2] = array(1, 'name1', 2, 'name2');
         $rows[] = $args;
 
         return $rows;
@@ -70,10 +73,12 @@ SQL;
 
     /**
      * @covers CL\Atlas\Compiler\Insert::render
+     * @covers CL\Atlas\Compiler\Insert::parameters
      * @dataProvider dataInsert
      */
-    public function testInsert($query, $expected_sql)
+    public function testInsert($query, $expected_sql, $expected_parameters)
     {
         $this->assertEquals($expected_sql, Compiler\Insert::render($query));
+        $this->assertEquals($expected_parameters, Compiler\Insert::parameters($query));
     }
 }

@@ -10,7 +10,7 @@ use CL\Atlas\Query;
  * @copyright  (c) 2014 Clippings Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class Delete extends Compiler
+class Delete
 {
     /**
      * Render a Delete object
@@ -21,31 +21,43 @@ class Delete extends Compiler
     {
         return Compiler::expression(array(
             'DELETE',
-            $query->getChild(Query\AbstractQuery::TYPE),
-            Arr::join(', ', $query->getChild(Query\AbstractQuery::TABLE)),
+            $query->getType(),
+            Arr::join(', ', $query->getTable()),
             Compiler::word(
                 'FROM',
-                Aliased::combine($query->getChild(Query\AbstractQuery::FROM))
+                Aliased::combine($query->getFrom())
             ),
             Join::combine(
-                $query->getChild(Query\AbstractQuery::JOIN)
+                $query->getJoin()
             ),
             Compiler::word(
                 'WHERE',
                 Condition::combine(
-                    $query->getChild(Query\AbstractQuery::WHERE)
+                    $query->getWhere()
                 )
             ),
             Compiler::word(
                 'ORDER BY',
                 Direction::combine(
-                    $query->getChild(Query\AbstractQuery::ORDER_BY)
+                    $query->getOrder()
                 )
             ),
             Compiler::word(
                 'LIMIT',
-                $query->getChild(Query\AbstractQuery::LIMIT)
+                $query->getLimit()
             ),
+        ));
+    }
+
+    public static function parameters(Query\Delete $query)
+    {
+        return Compiler::parameters(array(
+            $query->getTable(),
+            $query->getFrom(),
+            $query->getJoin(),
+            $query->getWhere(),
+            $query->getOrder(),
+            $query->getLimit(),
         ));
     }
 }

@@ -50,6 +50,6 @@ SQL;
             '3',
         );
 
-        $this->assertEquals($expectedParameters, $update->getParameters());
+        $this->assertEquals($expectedParameters, Compiler\Update::parameters($update));
     }
 }

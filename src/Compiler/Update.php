@@ -9,7 +9,7 @@ use CL\Atlas\Query;
  * @copyright  (c) 2014 Clippings Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class Update extends Compiler
+class Update
 {
     /**
      * Render Update object
@@ -20,33 +20,45 @@ class Update extends Compiler
     {
         return Compiler::expression(array(
             'UPDATE',
-            $query->getChild(Query\AbstractQuery::TYPE),
-            Aliased::combine($query->getChild(Query\AbstractQuery::TABLE)),
+            $query->getType(),
+            Aliased::combine($query->getTable()),
             Join::combine(
-                $query->getChild(Query\AbstractQuery::JOIN)
+                $query->getJoin()
             ),
             Compiler::word(
                 'SET',
                 Set::combine(
-                    $query->getChild(Query\AbstractQuery::SET)
+                    $query->getSet()
                 )
             ),
             Compiler::word(
                 'WHERE',
                 Condition::combine(
-                    $query->getChild(Query\AbstractQuery::WHERE)
+                    $query->getWhere()
                 )
             ),
             Compiler::word(
                 'ORDER BY',
                 Direction::combine(
-                    $query->getChild(Query\AbstractQuery::ORDER_BY)
+                    $query->getOrder()
                 )
             ),
             Compiler::word(
                 'LIMIT',
-                $query->getChild(Query\AbstractQuery::LIMIT)
+                $query->getLimit()
             ),
+        ));
+    }
+
+    public static function parameters(Query\Update $query)
+    {
+        return Compiler::parameters(array(
+            $query->getTable(),
+            $query->getJoin(),
+            $query->getSet(),
+            $query->getWhere(),
+            $query->getOrder(),
+            $query->getLimit(),
         ));
     }
 }

@@ -3,6 +3,7 @@
 namespace CL\Atlas\Compiler;
 
 use CL\Atlas\Str;
+use CL\Atlas\Arr;
 
 /**
  * @author     Ivan Kerin
@@ -77,5 +78,21 @@ class Compiler
         }
 
         return Str::replace('/\?/', $parameters, $sql);
+    }
+
+    public static function parameters(array $items)
+    {
+        $parameters = array();
+        $items = array_filter(Arr::flatten($items));
+
+        foreach ($items as $item) {
+            $itemParams = $item->getParameters();
+
+            if ($itemParams !== null) {
+                $parameters []= $itemParams;
+            }
+        }
+
+        return array_values(Arr::flatten($parameters));
     }
 }

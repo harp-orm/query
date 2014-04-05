@@ -9,7 +9,7 @@ use CL\Atlas\Query;
  * @copyright  (c) 2014 Clippings Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class Select extends Compiler
+class Select
 {
     /**
      * Render a Select object
@@ -20,47 +20,62 @@ class Select extends Compiler
     {
         return Compiler::expression(array(
             'SELECT',
-            $query->getChild(Query\AbstractQuery::TYPE),
-            Aliased::combine($query->getChild(Query\AbstractQuery::COLUMNS)) ?: '*',
+            $query->getType(),
+            Aliased::combine($query->getColumns()) ?: '*',
             Compiler::word(
                 'FROM',
-                Aliased::combine($query->getChild(Query\AbstractQuery::FROM))
+                Aliased::combine($query->getFrom())
             ),
             Join::combine(
-                $query->getChild(Query\AbstractQuery::JOIN)
+                $query->getJoin()
             ),
             Compiler::word(
                 'WHERE',
                 Condition::combine(
-                    $query->getChild(Query\AbstractQuery::WHERE)
+                    $query->getWhere()
                 )
             ),
             Compiler::word(
                 'GROUP BY',
                 Direction::combine(
-                    $query->getChild(Query\AbstractQuery::GROUP_BY)
+                    $query->getGroup()
                 )
             ),
             Compiler::word(
                 'HAVING',
                 Condition::combine(
-                    $query->getChild(Query\AbstractQuery::HAVING)
+                    $query->getHaving()
                 )
             ),
             Compiler::word(
                 'ORDER BY',
                 Direction::combine(
-                    $query->getChild(Query\AbstractQuery::ORDER_BY)
+                    $query->getOrder()
                 )
             ),
             Compiler::word(
                 'LIMIT',
-                $query->getChild(Query\AbstractQuery::LIMIT)
+                $query->getLimit()
             ),
             Compiler::word(
                 'OFFSET',
-                $query->getChild(Query\AbstractQuery::OFFSET)
+                $query->getOffset()
             ),
+        ));
+    }
+
+    public static function parameters(Query\Select $query)
+    {
+        return Compiler::parameters(array(
+            $query->getColumns(),
+            $query->getFrom(),
+            $query->getJoin(),
+            $query->getWhere(),
+            $query->getGroup(),
+            $query->getHaving(),
+            $query->getOrder(),
+            $query->getLimit(),
+            $query->getOffset(),
         ));
     }
 }

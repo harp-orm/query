@@ -1,4 +1,6 @@
-<?php namespace CL\Atlas\Test\Query;
+<?php
+
+namespace CL\Atlas\Test\Query;
 
 use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Query;
@@ -9,7 +11,6 @@ use CL\Atlas\SQL;
  */
 class InsertTest extends AbstractTestCase
 {
-
     /**
      * @covers CL\Atlas\Query\Insert::type
      */
@@ -19,7 +20,9 @@ class InsertTest extends AbstractTestCase
 
         $query->type('IGNORE');
 
-        $this->assertEquals('IGNORE', $query->getChild(Query\AbstractQuery::TYPE));
+        $expected = new SQL\SQL('IGNORE');
+
+        $this->assertEquals($expected, $query->getType());
     }
 
     /**
@@ -31,7 +34,9 @@ class InsertTest extends AbstractTestCase
 
         $query->into('posts');
 
-        $this->assertEquals('posts', $query->getChild(Query\AbstractQuery::TABLE));
+        $expected = new SQL\Aliased('posts');
+
+        $this->assertEquals($expected, $query->getTable());
     }
 
     /**
@@ -43,11 +48,15 @@ class InsertTest extends AbstractTestCase
 
         $query->columns(array('posts'));
 
-        $this->assertEquals(array('posts'), $query->getChild(Query\AbstractQuery::COLUMNS));
+        $expected = new SQL\Columns(array('posts'));
+
+        $this->assertEquals($expected, $query->getColumns());
 
         $query->columns(array('col1', 'col2'));
 
-        $this->assertEquals(array('posts', 'col1', 'col2'), $query->getChild(Query\AbstractQuery::COLUMNS));
+        $expected = new SQL\Columns(array('col1', 'col2'));
+
+        $this->assertEquals($expected, $query->getColumns());
     }
 
     /**
@@ -66,7 +75,7 @@ class InsertTest extends AbstractTestCase
             new SQL\Values(array(16, 26)),
         );
 
-        $this->assertEquals($expected, $query->getChild(Query\AbstractQuery::VALUES));
+        $this->assertEquals($expected, $query->getValues());
     }
 
     /**
@@ -86,7 +95,7 @@ class InsertTest extends AbstractTestCase
             new SQL\Set('name', 'test'),
         );
 
-        $this->assertEquals($expected, $query->getChild(Query\AbstractQuery::SET));
+        $this->assertEquals($expected, $query->getSet());
     }
 
     /**
@@ -99,7 +108,7 @@ class InsertTest extends AbstractTestCase
 
         $query->select($select);
 
-        $this->assertSame($select, $query->getChild(Query\AbstractQuery::SELECT));
+        $this->assertSame($select, $query->getSelect());
     }
 
     /**

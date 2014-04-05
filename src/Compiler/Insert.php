@@ -10,7 +10,7 @@ use CL\Atlas\Query;
  * @copyright  (c) 2014 Clippings Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class Insert extends Compiler
+class Insert
 {
     /**
      * Render a Insert object
@@ -21,30 +21,32 @@ class Insert extends Compiler
     {
         return Compiler::expression(array(
             'INSERT',
-            $query->getChild(Query\AbstractQuery::TYPE),
-            Compiler::word('INTO', $query->getChild(Query\AbstractQuery::TABLE)),
-            Compiler::braced(
-                Arr::join(', ', $query->getChild(Query\AbstractQuery::COLUMNS))
-            ),
+            $query->getType(),
+            Compiler::word('INTO', $query->getTable()),
+            Columns::combine($query->getColumns()),
             Compiler::word(
                 'VALUES',
-                Values::combine($query->getChild(Query\AbstractQuery::VALUES))
+                Values::combine($query->getValues())
             ),
             Compiler::word(
                 'SET',
                 Set::combine(
-                    $query->getChild(Query\AbstractQuery::SET)
+                    $query->getSet()
                 )
             ),
-            Compiler::word(
-                'SELECT',
-                Condition::combine(
-                    $query->getChild(Query\AbstractQuery::WHERE)
-                )
-            ),
-            $query->getChild(Query\AbstractQuery::SELECT)
-                ? Select::render($query->getChild(Query\AbstractQuery::SELECT))
+            $query->getSelect()
+                ? Select::render($query->getSelect())
                 : null,
+        ));
+    }
+
+    public static function parameters(Query\Insert $query)
+    {
+        return Compiler::parameters(array(
+            $query->getTable(),
+            $query->getSet(),
+            $query->getValues(),
+            $query->getSelect(),
         ));
     }
 }

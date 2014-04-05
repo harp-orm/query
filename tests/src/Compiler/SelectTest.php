@@ -66,6 +66,6 @@ SQL;
             '7',
         );
 
-        $this->assertEquals($expectedParameters, $select->getParameters());
+        $this->assertEquals($expectedParameters, Compiler\Select::parameters($select));
     }
 }

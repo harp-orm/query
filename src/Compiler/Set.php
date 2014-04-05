@@ -11,7 +11,7 @@ use CL\Atlas\Query;
  * @copyright  (c) 2014 Clippings Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class Set extends Compiler
+class Set
 {
     /**
      * Render multiple Set objects
