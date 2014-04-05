@@ -13,6 +13,7 @@ class DeleteTest extends AbstractTestCase
 {
     /**
      * @covers CL\Atlas\Compiler\Delete::render
+     * @covers CL\Atlas\Compiler\Delete::parameters
      */
     public function testRender()
     {

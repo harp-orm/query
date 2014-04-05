@@ -1,4 +1,6 @@
-<?php namespace CL\Atlas\Query;
+<?php
+
+namespace CL\Atlas\Query;
 
 use CL\Atlas\Arr;
 use CL\Atlas\Compiler;
@@ -11,38 +13,79 @@ use CL\Atlas\SQL;
  */
 class Insert extends AbstractQuery
 {
-    public $type;
-    public $table;
-    public $columns;
-    public $set;
-    public $values;
-    public $select;
+    /**
+     * @var SQL\SQL|null
+     */
+    protected $type;
 
+    /**
+     * @var SQL\Aliased|null
+     */
+    protected $table;
+
+    /**
+     * @var SQL\Columns|null
+     */
+    protected $columns;
+
+    /**
+     * @var SQL\Set[]|null
+     */
+    protected $set;
+
+    /**
+     * @var SQL\Values[]|null
+     */
+    protected $values;
+
+    /**
+     * @var SQL\Select|null
+     */
+    protected $select;
+
+    /**
+     * @return SQL\SQL|null
+     */
     public function getType()
     {
         return $this->type;
     }
 
+    /**
+     * @return SQL\Aliased|null
+     */
     public function getTable()
     {
         return $this->table;
     }
 
+    /**
+     * @return SQL\Columns|null
+     */
     public function getColumns()
     {
         return $this->columns;
     }
 
+    /**
+     * @return SQL\Set[]|null
+     */
     public function getValues()
     {
         return $this->values;
     }
 
+    /**
+     * @return SQL\Values[]|null
+     */
     public function getSet()
     {
         return $this->set;
     }
 
+    /**
+     * @return SQL\Select|null
+     */
     public function getSelect()
     {
         return $this->select;

@@ -13,6 +13,7 @@ class InsertTest extends AbstractTestCase
 {
     /**
      * @covers CL\Atlas\Query\Insert::type
+     * @covers CL\Atlas\Query\Insert::getType
      */
     public function testType()
     {
@@ -27,6 +28,7 @@ class InsertTest extends AbstractTestCase
 
     /**
      * @covers CL\Atlas\Query\Insert::into
+     * @covers CL\Atlas\Query\Insert::getTable
      */
     public function testInto()
     {
@@ -41,6 +43,7 @@ class InsertTest extends AbstractTestCase
 
     /**
      * @covers CL\Atlas\Query\Insert::columns
+     * @covers CL\Atlas\Query\Insert::getColumns
      */
     public function testColumns()
     {
@@ -61,6 +64,7 @@ class InsertTest extends AbstractTestCase
 
     /**
      * @covers CL\Atlas\Query\Insert::values
+     * @covers CL\Atlas\Query\Insert::getValues
      */
     public function testValues()
     {
@@ -80,6 +84,7 @@ class InsertTest extends AbstractTestCase
 
     /**
      * @covers CL\Atlas\Query\Insert::set
+     * @covers CL\Atlas\Query\Insert::getSet
      */
     public function testSet()
     {
@@ -100,6 +105,7 @@ class InsertTest extends AbstractTestCase
 
     /**
      * @covers CL\Atlas\Query\Insert::select
+     * @covers CL\Atlas\Query\Insert::getSelect
      */
     public function testSelect()
     {
@@ -124,4 +130,19 @@ class InsertTest extends AbstractTestCase
 
         $this->assertEquals('INSERT INTO table1 SET name = ?', $query->sql());
     }
+
+    /**
+     * @covers CL\Atlas\Query\Insert::getParameters
+     */
+    public function testGetParameters()
+    {
+        $query = new Query\Insert;
+
+        $query
+            ->into('table1')
+            ->set(array('name' => 10, 'value' => 5));
+
+        $this->assertEquals(array(10, 5), $query->getParameters());
+    }
+
 }

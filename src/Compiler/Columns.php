@@ -14,12 +14,12 @@ class Columns
 {
     /**
      * Render Columns
-     * @param  SQL\Columns|null $items
+     * @param  SQL\Columns|null $columns
      * @return string
      */
-    public static function combine($items)
+    public static function render($columns)
     {
-        return $items ? Columns::render($items) : null;
+        return $columns ? Columns::renderItem($columns) : null;
     }
 
     /**
@@ -27,10 +27,10 @@ class Columns
      * @param  SQL\Columns $item
      * @return string
      */
-    public static function render(SQL\Columns $item)
+    public static function renderItem(SQL\Columns $item)
     {
         return Compiler::braced(
-            Arr::join(', ', $item->getColumns())
+            Arr::join(', ', $item->all())
         );
     }
 }

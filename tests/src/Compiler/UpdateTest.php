@@ -14,6 +14,7 @@ class UpdateTest extends AbstractTestCase
 
     /**
      * @covers CL\Atlas\Compiler\Update::render
+     * @covers CL\Atlas\Compiler\Update::parameters
      */
     public function testUpdate()
     {

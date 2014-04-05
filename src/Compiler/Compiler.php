@@ -80,6 +80,11 @@ class Compiler
         return Str::replace('/\?/', $parameters, $sql);
     }
 
+    /**
+     * Get parameters from Parametrised objects
+     * @param  array  $items
+     * @return array
+     */
     public static function parameters(array $items)
     {
         $parameters = array();
@@ -93,6 +98,6 @@ class Compiler
             }
         }
 
-        return array_values(Arr::flatten($parameters));
+        return Arr::flatten($parameters);
     }
 }

@@ -1,4 +1,6 @@
-<?php namespace CL\Atlas\Query;
+<?php
+
+namespace CL\Atlas\Query;
 
 use CL\Atlas\Compiler;
 use CL\Atlas\SQL;
@@ -10,44 +12,92 @@ use CL\Atlas\SQL;
  */
 class Update extends AbstractQuery
 {
+    /**
+     * @var SQL\SQL
+     */
     protected $type;
+
+    /**
+     * @var SQL\Aliased[]
+     */
     protected $table;
+
+    /**
+     * @var SQL\Join[]
+     */
     protected $join;
+
+    /**
+     * @var SQL\Set[]
+     */
     protected $set;
+
+    /**
+     * @var SQL\Condition[]
+     */
     protected $where;
+
+    /**
+     * @var SQL\Direction[]
+     */
     protected $order;
+
+    /**
+     * @var SQL\IntVal
+     */
     protected $limit;
 
+    /**
+     * @return SQL\SQL
+     */
     public function getType()
     {
         return $this->type;
     }
 
+    /**
+     * @return SQL\Aliased[]
+     */
     public function getTable()
     {
         return $this->table;
     }
 
+    /**
+     * @return SQL\Join[]
+     */
     public function getJoin()
     {
         return $this->join;
     }
 
+    /**
+     * @return SQL\Set[]
+     */
     public function getSet()
     {
         return $this->set;
     }
 
+    /**
+     * @return SQL\Condition[]
+     */
     public function getWhere()
     {
         return $this->where;
     }
 
+    /**
+     * @return SQL\Direction[]
+     */
     public function getOrder()
     {
         return $this->order;
     }
 
+    /**
+     * @return SQL\IntVal
+     */
     public function getLimit()
     {
         return $this->limit;

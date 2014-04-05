@@ -214,4 +214,18 @@ class SelectTest extends AbstractTestCase
 
         $this->assertEquals('SELECT * FROM table1 WHERE (name = ?)', $query->sql());
     }
+
+    /**
+     * @covers CL\Atlas\Query\Select::getParameters
+     */
+    public function testGetParameters()
+    {
+        $query = new Query\Select;
+
+        $query
+            ->from('table1')
+            ->where(array('name' => 10, 'value' => array(2, 3)));
+
+        $this->assertEquals(array(10, 2, 3), $query->getParameters());
+    }
 }

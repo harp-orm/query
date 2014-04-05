@@ -23,7 +23,7 @@ class Insert
             'INSERT',
             $query->getType(),
             Compiler::word('INTO', $query->getTable()),
-            Columns::combine($query->getColumns()),
+            Columns::render($query->getColumns()),
             Compiler::word(
                 'VALUES',
                 Values::combine($query->getValues())

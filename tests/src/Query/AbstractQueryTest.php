@@ -3,11 +3,7 @@
 namespace CL\Atlas\Test\Query;
 
 use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\Query\AbstractQuery;
-use CL\Atlas\SQL\SQL;
 use CL\Atlas\DB;
-use stdClass;
-use CL\Atlas\Test\ParametrisedStub;
 
 /**
  * @group query
@@ -16,6 +12,7 @@ class QueryTest extends AbstractTestCase
 {
     /**
      * @covers CL\Atlas\Query\AbstractQuery::db
+     * @covers CL\Atlas\Query\AbstractQuery::__construct
      */
     public function testDb()
     {

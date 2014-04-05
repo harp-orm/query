@@ -158,4 +158,19 @@ class UpdateTest extends AbstractTestCase
 
         $this->assertEquals('UPDATE table1 SET name = ?', $query->sql());
     }
+
+    /**
+     * @covers CL\Atlas\Query\Update::getParameters
+     */
+    public function testGetParameters()
+    {
+        $query = new Query\Update;
+
+        $query
+            ->table('table1')
+            ->set(array('name' => 10, 'value' => 5));
+
+        $this->assertEquals(array(10, 5), $query->getParameters());
+    }
+
 }

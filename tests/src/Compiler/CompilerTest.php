@@ -1,6 +1,7 @@
 <?php namespace CL\Atlas\Test\Compiler;
 
 use CL\Atlas\Test\AbstractTestCase;
+use CL\Atlas\Test\ParametrisedStub;
 use CL\Atlas\Compiler\Compiler;
 
 /**
@@ -113,4 +114,48 @@ class CompilerTest extends AbstractTestCase
     {
         $this->assertEquals($expected, Compiler::humanize($statement, $parameters));
     }
+
+    public function dataParameters()
+    {
+        return array(
+            array(
+                array(
+                    new ParametrisedStub(array(10, 20)),
+                ),
+                array(10, 20),
+            ),
+            array(
+                array(
+                    new ParametrisedStub(array(1, 2)),
+                    new ParametrisedStub(array(5, 2)),
+                    new ParametrisedStub(),
+                    new ParametrisedStub(array(1)),
+                ),
+                array(1, 2, 5, 2, 1),
+            ),
+            array(
+                array(
+                    array(
+                        new ParametrisedStub(array(1, 2)),
+                        new ParametrisedStub(array(array(8, 9), 1)),
+                    ),
+                    new ParametrisedStub(),
+                    new ParametrisedStub(array(8)),
+                ),
+                array(1, 2, 8, 9, 1, 8),
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider dataParameters
+     * @covers CL\Atlas\Compiler\Compiler::parameters
+     */
+    public function testParameters($items, $expected)
+    {
+        $this->assertEquals($expected, Compiler::parameters($items));
+    }
+
+
+
 }

@@ -165,4 +165,19 @@ class DeleteTest extends AbstractTestCase
 
         $this->assertEquals('DELETE FROM table1 LIMIT 10', $query->sql());
     }
+
+    /**
+     * @covers CL\Atlas\Query\Delete::getParameters
+     */
+    public function testGetParameters()
+    {
+        $query = new Query\Delete;
+
+        $query
+            ->table('table1')
+            ->where(array('name' => 10, 'value' => array(2, 3)));
+
+        $this->assertEquals(array(10, 2, 3), $query->getParameters());
+    }
+
 }

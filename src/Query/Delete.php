@@ -11,44 +11,93 @@ use CL\Atlas\SQL;
  */
 class Delete extends AbstractQuery
 {
+    /**
+     * @var SQL\SQL
+     */
     protected $type;
+
+    /**
+     * @var SQL\Aliased[]
+     */
     protected $table;
+
+    /**
+     * @var SQL\Aliased[]
+     */
     protected $from;
+
+    /**
+     * @var SQL\Join[]
+     */
     protected $join;
+
+    /**
+     * @var SQL\Condition[]
+     */
     protected $where;
+
+    /**
+     * @var SQL\Direction[]
+     */
     protected $order;
+
+    /**
+     * @var SQL\IntValue
+     */
     protected $limit;
 
+
+    /**
+     * @return SQL\SQL|null
+     */
     public function getType()
     {
         return $this->type;
     }
 
+    /**
+     * @return SQL\Aliased[]|null
+     */
     public function getTable()
     {
         return $this->table;
     }
 
+    /**
+     * @return SQL\Aliased[]|null
+     */
     public function getFrom()
     {
         return $this->from;
     }
 
+    /**
+     * @return SQL\Join[]|null
+     */
     public function getJoin()
     {
         return $this->join;
     }
 
+    /**
+     * @return SQL\Condition[]|null
+     */
     public function getWhere()
     {
         return $this->where;
     }
 
+    /**
+     * @return SQL\Direction[]|null
+     */
     public function getOrder()
     {
         return $this->order;
     }
 
+    /**
+     * @return SQL\IntValue|null
+     */
     public function getLimit()
     {
         return $this->limit;

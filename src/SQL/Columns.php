@@ -14,7 +14,7 @@ class Columns extends SQL
         $this->columns = $columns;
     }
 
-    public function getColumns()
+    public function all()
     {
         return $this->columns;
     }

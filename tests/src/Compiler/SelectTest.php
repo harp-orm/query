@@ -13,6 +13,7 @@ class SelectTest extends AbstractTestCase
 {
     /**
      * @covers CL\Atlas\Compiler\Select::render
+     * @covers CL\Atlas\Compiler\Select::parameters
      */
     public function testCompile()
     {

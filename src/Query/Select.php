@@ -1,4 +1,6 @@
-<?php namespace CL\Atlas\Query;
+<?php
+
+namespace CL\Atlas\Query;
 
 use CL\Atlas\Compiler;
 use CL\Atlas\SQL;
@@ -10,62 +12,131 @@ use CL\Atlas\SQL;
  */
 class Select extends AbstractQuery
 {
+    /**
+     * @var SQL\SQL
+     */
     protected $type;
+
+    /**
+     * @var SQL\Aliased[]
+     */
     protected $columns;
+
+    /**
+     * @var SQL\Aliased[]
+     */
     protected $from;
+
+    /**
+     * @var SQL\Join[]
+     */
     protected $join;
+
+    /**
+     * @var SQL\Condition[]
+     */
     protected $where;
+
+    /**
+     * @var SQL\Direction[]
+     */
     protected $group;
+
+    /**
+     * @var SQL\Condition[]
+     */
     protected $having;
+
+    /**
+     * @var SQL\Direction[]
+     */
     protected $order;
+
+    /**
+     * @var SQL\IntVal
+     */
     protected $limit;
+
+    /**
+     * @var SQL\IntVal
+     */
     protected $offset;
 
+    /**
+     * @return SQL\SQL|null
+     */
     public function getType()
     {
         return $this->type;
     }
 
+    /**
+     * @return SQL\Aliased[]|null
+     */
     public function getColumns()
     {
         return $this->columns;
     }
 
+    /**
+     * @return SQL\Aliased[]|null
+     */
     public function getFrom()
     {
         return $this->from;
     }
 
+    /**
+     * @return SQL\Join[]|null
+     */
     public function getJoin()
     {
         return $this->join;
     }
 
+    /**
+     * @return SQL\Condition[]|null
+     */
     public function getWhere()
     {
         return $this->where;
     }
 
+    /**
+     * @return SQL\Direction[]|null
+     */
     public function getGroup()
     {
         return $this->group;
     }
 
+    /**
+     * @return SQL\Condition[]|null
+     */
     public function getHaving()
     {
         return $this->having;
     }
 
+    /**
+     * @return SQL\Direction[]|null
+     */
     public function getOrder()
     {
         return $this->order;
     }
 
+    /**
+     * @return SQL\IntVal|null
+     */
     public function getLimit()
     {
         return $this->limit;
     }
 
+    /**
+     * @return SQL\IntVal|null
+     */
     public function getOffset()
     {
         return $this->offset;
