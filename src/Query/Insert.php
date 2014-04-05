@@ -2,7 +2,6 @@
 
 namespace CL\Atlas\Query;
 
-use CL\Atlas\Arr;
 use CL\Atlas\Compiler;
 use CL\Atlas\SQL;
 
@@ -39,7 +38,7 @@ class Insert extends AbstractQuery
     protected $values;
 
     /**
-     * @var SQL\Select|null
+     * @var Select|null
      */
     protected $select;
 
@@ -84,7 +83,7 @@ class Insert extends AbstractQuery
     }
 
     /**
-     * @return SQL\Select|null
+     * @return Select|null
      */
     public function getSelect()
     {
@@ -135,14 +134,19 @@ class Insert extends AbstractQuery
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function sql()
     {
         return Compiler\Insert::render($this);
     }
 
+    /**
+     * @return array
+     */
     public function getParameters()
     {
         return Compiler\Insert::parameters($this);
     }
-
 }

@@ -13,57 +13,57 @@ use CL\Atlas\SQL;
 class Select extends AbstractQuery
 {
     /**
-     * @var SQL\SQL
+     * @var SQL\SQL|null
      */
     protected $type;
 
     /**
-     * @var SQL\Aliased[]
+     * @var SQL\Aliased[]|null
      */
     protected $columns;
 
     /**
-     * @var SQL\Aliased[]
+     * @var SQL\Aliased[]|null
      */
     protected $from;
 
     /**
-     * @var SQL\Join[]
+     * @var SQL\Join[]|null
      */
     protected $join;
 
     /**
-     * @var SQL\Condition[]
+     * @var SQL\Condition[]|null
      */
     protected $where;
 
     /**
-     * @var SQL\Direction[]
+     * @var SQL\Direction[]|null
      */
     protected $group;
 
     /**
-     * @var SQL\Condition[]
+     * @var SQL\Condition[]|null
      */
     protected $having;
 
     /**
-     * @var SQL\Direction[]
+     * @var SQL\Direction[]|null
      */
     protected $order;
 
     /**
-     * @var SQL\IntVal
+     * @var SQL\IntVal|null
      */
     protected $limit;
 
     /**
-     * @var SQL\IntVal
+     * @var SQL\IntVal|null
      */
     protected $offset;
 
     /**
-     * @return SQL\SQL|null
+     * @return SQL\SQL
      */
     public function getType()
     {
@@ -141,7 +141,6 @@ class Select extends AbstractQuery
     {
         return $this->offset;
     }
-
 
     public function type($type)
     {
@@ -230,11 +229,17 @@ class Select extends AbstractQuery
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function sql()
     {
         return Compiler\Select::render($this);
     }
 
+    /**
+     * @return array
+     */
     public function getParameters()
     {
         return Compiler\Select::parameters($this);

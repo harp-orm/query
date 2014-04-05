@@ -14,7 +14,7 @@ class Values
 {
     /**
      * Render multiple Values objects
-     * @param  array|null $items
+     * @param  SQL\Values[]|null $items
      * @return string|null
      */
     public static function combine($items)

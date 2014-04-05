@@ -14,7 +14,7 @@ class Join
 {
     /**
      * Render multiple Join objects
-     * @param  array|null $items
+     * @param  SQL\Join[]|null $items
      * @return string|null
      */
     public static function combine($items)

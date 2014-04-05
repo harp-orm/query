@@ -43,5 +43,8 @@ abstract class AbstractQuery implements Parametrised
         return Compiler::humanize($this->sql(), $this->getParameters());
     }
 
+    /**
+     * @return string
+     */
     abstract public function sql();
 }

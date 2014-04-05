@@ -43,6 +43,11 @@ class Arr
         return $array ? array_map($callback, $array) : null;
     }
 
+    /**
+     * @param string $separator
+     *
+     * @return string|null
+     */
     public static function join($separator, $array)
     {
         return $array ? join($separator, $array) : null;

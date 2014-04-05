@@ -1,6 +1,5 @@
 <?php namespace CL\Atlas\Query;
 
-use CL\Atlas\Arr;
 use CL\Atlas\Compiler;
 use CL\Atlas\SQL;
 
@@ -12,37 +11,37 @@ use CL\Atlas\SQL;
 class Delete extends AbstractQuery
 {
     /**
-     * @var SQL\SQL
+     * @var SQL\SQL|null
      */
     protected $type;
 
     /**
-     * @var SQL\Aliased[]
+     * @var SQL\Aliased[]|null
      */
     protected $table;
 
     /**
-     * @var SQL\Aliased[]
+     * @var SQL\Aliased[]|null
      */
     protected $from;
 
     /**
-     * @var SQL\Join[]
+     * @var SQL\Join[]|null
      */
     protected $join;
 
     /**
-     * @var SQL\Condition[]
+     * @var SQL\Condition[]|null
      */
     protected $where;
 
     /**
-     * @var SQL\Direction[]
+     * @var SQL\Direction[]|null
      */
     protected $order;
 
     /**
-     * @var SQL\IntValue
+     * @var SQL\IntValue|null
      */
     protected $limit;
 
@@ -160,11 +159,17 @@ class Delete extends AbstractQuery
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function sql()
     {
         return Compiler\Delete::render($this);
     }
 
+    /**
+     * @return array
+     */
     public function getParameters()
     {
         return Compiler\Delete::parameters($this);

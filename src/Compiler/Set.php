@@ -15,7 +15,7 @@ class Set
 {
     /**
      * Render multiple Set objects
-     * @param  array|null $items
+     * @param  SQL\Set[]|null $items
      * @return string|null
      */
     public static function combine($items)

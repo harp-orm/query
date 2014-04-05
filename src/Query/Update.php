@@ -13,42 +13,42 @@ use CL\Atlas\SQL;
 class Update extends AbstractQuery
 {
     /**
-     * @var SQL\SQL
+     * @var SQL\SQL|null
      */
     protected $type;
 
     /**
-     * @var SQL\Aliased[]
+     * @var SQL\Aliased[]|null
      */
     protected $table;
 
     /**
-     * @var SQL\Join[]
+     * @var SQL\Join[]|null
      */
     protected $join;
 
     /**
-     * @var SQL\Set[]
+     * @var SQL\Set[]|null
      */
     protected $set;
 
     /**
-     * @var SQL\Condition[]
+     * @var SQL\Condition[]|null
      */
     protected $where;
 
     /**
-     * @var SQL\Direction[]
+     * @var SQL\Direction[]|null
      */
     protected $order;
 
     /**
-     * @var SQL\IntVal
+     * @var SQL\IntVal|null
      */
     protected $limit;
 
     /**
-     * @return SQL\SQL
+     * @return SQL\SQL|null
      */
     public function getType()
     {
@@ -56,7 +56,7 @@ class Update extends AbstractQuery
     }
 
     /**
-     * @return SQL\Aliased[]
+     * @return SQL\Aliased[]|null
      */
     public function getTable()
     {
@@ -64,7 +64,7 @@ class Update extends AbstractQuery
     }
 
     /**
-     * @return SQL\Join[]
+     * @return SQL\Join[]|null
      */
     public function getJoin()
     {
@@ -72,7 +72,7 @@ class Update extends AbstractQuery
     }
 
     /**
-     * @return SQL\Set[]
+     * @return SQL\Set[]|null
      */
     public function getSet()
     {
@@ -80,7 +80,7 @@ class Update extends AbstractQuery
     }
 
     /**
-     * @return SQL\Condition[]
+     * @return SQL\Condition[]|null
      */
     public function getWhere()
     {
@@ -88,7 +88,7 @@ class Update extends AbstractQuery
     }
 
     /**
-     * @return SQL\Direction[]
+     * @return SQL\Direction[]|null
      */
     public function getOrder()
     {
@@ -96,7 +96,7 @@ class Update extends AbstractQuery
     }
 
     /**
-     * @return SQL\IntVal
+     * @return SQL\IntVal|null
      */
     public function getLimit()
     {
@@ -162,14 +162,19 @@ class Update extends AbstractQuery
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function sql()
     {
         return Compiler\Update::render($this);
     }
 
+    /**
+     * @return array
+     */
     public function getParameters()
     {
         return Compiler\Update::parameters($this);
     }
-
 }

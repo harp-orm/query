@@ -30,6 +30,9 @@ class Aliased extends SQL
         }
     }
 
+    /**
+     * @return string|null
+     */
     public function getAlias()
     {
         return $this->alias;
