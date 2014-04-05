@@ -16,7 +16,7 @@ class Aliased
     /**
      * Render Multiple Aliased objects
      *
-     * @param  SQL\Aliased[] $items
+     * @param  SQL\Aliased[]|null $items
      * @return string|null
      */
     public static function combine($items)

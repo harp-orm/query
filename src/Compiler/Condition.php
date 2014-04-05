@@ -16,7 +16,7 @@ class Condition
     /**
      * Render multiple Condition objects
      *
-     * @param  SQL\Condition[] $conditions
+     * @param  SQL\Condition[]|null $conditions
      * @return string|null
      */
     public static function combine($conditions)

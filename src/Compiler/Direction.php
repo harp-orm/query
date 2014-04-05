@@ -15,7 +15,7 @@ class Direction
     /**
      * Render multiple Direction objects
      *
-     * @param  SQL\Direction[] $items
+     * @param  SQL\Direction[]|null $items
      * @return string|null
      */
     public static function combine($items)
