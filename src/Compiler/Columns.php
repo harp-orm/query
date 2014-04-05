@@ -15,7 +15,7 @@ class Columns
     /**
      * Render Columns
      * @param  SQL\Columns|null $columns
-     * @return string
+     * @return string|null
      */
     public static function render($columns)
     {

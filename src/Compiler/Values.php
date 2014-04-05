@@ -15,7 +15,7 @@ class Values
     /**
      * Render multiple Values objects
      * @param  array|null $items
-     * @return array|null
+     * @return string|null
      */
     public static function combine($items)
     {

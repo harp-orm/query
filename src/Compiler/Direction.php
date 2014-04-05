@@ -16,7 +16,7 @@ class Direction
      * Render multiple Direction objects
      *
      * @param  array|null $items
-     * @return array|null
+     * @return string|null
      */
     public static function combine($items)
     {
