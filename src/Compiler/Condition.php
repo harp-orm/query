@@ -36,7 +36,7 @@ class Condition
     {
         $content = $condition->getContent();
 
-        if ($condition->getParameters() and array_filter($condition->getParameters(), 'is_array')) {
+        if ($condition->getParameters() and self::hasArrays($condition->getParameters())) {
             $renderedParameters = array();
 
             foreach ($condition->getParameters() as $index => $value) {
@@ -47,5 +47,10 @@ class Condition
         }
 
         return $content;
+    }
+
+    public static function hasArrays(array $parameters)
+    {
+        return (bool) array_filter($parameters, 'is_array');
     }
 }

@@ -69,15 +69,25 @@ class Compiler
      */
     public static function humanize($sql, array $parameters)
     {
-        foreach ($parameters as & $param) {
-            if (is_null($param)) {
-                $param = 'NULL';
-            } elseif (! (is_int($param) or is_bool($param))) {
-                $param = "\"{$param}\"";
-            }
-        }
+        $parameters = array_map('CL\Atlas\Compiler\Compiler::escapeValue', $parameters);
 
         return Str::replace('/\?/', $parameters, $sql);
+    }
+
+    /**
+     * Simple escape method for a value in SQL statement
+     * @param  mixed $param
+     * @return string
+     */
+    public static function escapeValue($param)
+    {
+        if (is_null($param)) {
+            return 'NULL';
+        } elseif (is_int($param) or is_bool($param)) {
+            return $param;
+        }
+
+        return "\"{$param}\"";
     }
 
     /**

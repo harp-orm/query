@@ -33,7 +33,7 @@ class Insert
                     $query->getSet()
                 )
             ),
-            $query->getSelect()
+            $query->getSelect() !== null
                 ? Select::render($query->getSelect())
                 : null,
         ));

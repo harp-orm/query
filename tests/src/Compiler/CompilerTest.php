@@ -115,6 +115,26 @@ class CompilerTest extends AbstractTestCase
         $this->assertEquals($expected, Compiler::humanize($statement, $parameters));
     }
 
+    public function dataEscapeValue()
+    {
+        return array(
+            array('10', '"10"'),
+            array(10, '10'),
+            array(true, 1),
+            array(false, 0),
+            array('test this', '"test this"'),
+        );
+    }
+
+    /**
+     * @dataProvider dataEscapeValue
+     * @covers CL\Atlas\Compiler\Compiler::escapeValue
+     */
+    public function testEscapeValue($value, $expected)
+    {
+        $this->assertEquals($expected, Compiler::escapeValue($value));
+    }
+
     public function dataParameters()
     {
         return array(
