@@ -86,9 +86,8 @@ abstract class AbstractWhere extends AbstractQuery
         return $this;
     }
 
-    public function whereRaw($condition)
+    public function whereRaw($condition, array $parameters = null)
     {
-        $parameters = array_slice(func_get_args(), 1);
         $this->where []= new SQL\Condition($condition, $parameters);
 
         return $this;

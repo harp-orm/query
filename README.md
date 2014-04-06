@@ -21,8 +21,8 @@ AbstractQuery::select()
   ->join('table', ['column' => 'column2'])
   ->limit(10)
   ->offset(20)
-  ->select(['name', 'param'])
-  ->select(['name' => 'pasta', 'param'])
+  ->column('name')
+  ->select('name', 'alias')
   ->select([['IF (name = ?) AS name', $name], 'param']);
 ```
 ## License

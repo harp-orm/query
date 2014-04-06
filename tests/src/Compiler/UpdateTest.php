@@ -30,9 +30,9 @@ class UpdateTest extends AbstractTestCase
             ->joinAliased('join1', 'alias_join1', array('col' => 'col2'))
             ->limit(10)
             ->where(array('test' => 'value'))
-            ->whereRaw('test_statement = IF ("test", ?, ?)', 'val1', 'val2')
+            ->whereRaw('test_statement = IF ("test", ?, ?)', array('val1', 'val2'))
             ->set(array('post' => 'new value', 'name' => new SQL('IF ("test", ?, ?)', array('val3', 'val4'))))
-            ->whereRaw('type > ? AND type < ? OR base IN ?', 10, 20, array('1', '2', '3'));
+            ->whereRaw('type > ? AND type < ? OR base IN ?', array(10, 20, array('1', '2', '3')));
 
         $expected_sql = <<<SQL
 UPDATE IGNORE table1, table2 AS alias1 JOIN join1 AS alias_join1 ON col = col2 SET post = ?, name = IF ("test", ?, ?) WHERE (test = ?) AND (test_statement = IF ("test", ?, ?)) AND (type > ? AND type < ? OR base IN (?, ?, ?)) ORDER BY col1 ASC LIMIT 10

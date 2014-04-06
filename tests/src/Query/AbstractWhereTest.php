@@ -42,7 +42,7 @@ class AbstractWhereTest extends AbstractTestCase
 
         $query
             ->where(array('test1' => 1, 'test2' => 2))
-            ->whereRaw('column = ? OR column = ?', 10, 20)
+            ->whereRaw('column = ? OR column = ?', array(10, 20))
             ->where(array('test3' => 3));
 
         $expected = array(

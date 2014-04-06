@@ -82,7 +82,7 @@ class SelectTest extends AbstractTestCase
 
         $query
             ->having(array('test1' => 1, 'test2' => 2))
-            ->havingRaw('column = ? OR column = ?', 10, 20)
+            ->havingRaw('column = ? OR column = ?', array(10, 20))
             ->having(array('test3' => 3));
 
         $expected = array(
