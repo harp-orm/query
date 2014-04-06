@@ -1,4 +1,6 @@
-<?php namespace CL\Atlas\Test;
+<?php
+
+namespace CL\Atlas\Test;
 
 use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Arr;

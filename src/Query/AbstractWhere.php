@@ -1,4 +1,6 @@
-<?php namespace CL\Atlas\Query;
+<?php
+
+namespace CL\Atlas\Query;
 
 use CL\Atlas\SQL;
 

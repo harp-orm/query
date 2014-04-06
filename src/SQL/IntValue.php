@@ -1,4 +1,6 @@
-<?php namespace CL\Atlas\SQL;
+<?php
+
+namespace CL\Atlas\SQL;
 
 /**
  * @author     Ivan Kerin

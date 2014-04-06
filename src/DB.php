@@ -1,4 +1,6 @@
-<?php namespace CL\Atlas;
+<?php
+
+namespace CL\Atlas;
 
 use CL\Atlas\Query;
 use PDO;
@@ -10,8 +12,7 @@ use PDO;
  */
 class DB extends \PDO
 {
-    protected static $default_name = 'default';
-    protected static $configurations;
+    protected static $configs;
     protected static $instances;
 
     public static $defaults = array(
@@ -24,34 +25,26 @@ class DB extends \PDO
         ),
     );
 
-    public static function configuration($name, array $parameters = null)
+    public static function getConfig($name)
     {
-        if ($parameters === null) {
-            return isset(static::$configurations[$name]) ? static::$configurations[$name] : array();
-        }
-
-        static::$configurations[$name] = $parameters;
+        return isset(self::$configs[$name])
+            ? self::$configs[$name]
+            : array();
     }
 
-    public static function defaultName($default_name = null)
+    public static function setConfig($name, array $parameters)
     {
-        if ($default_name !== null) {
-            static::$default_name = $default_name;
-        }
-
-        return static::$default_name;
+        self::$configs[$name] = $parameters;
     }
 
-    public static function instance($name = null)
+    public static function getInstance($name = 'default')
     {
-        $name = $name ?: static::defaultName();
-
-        if (! isset(static::$instances[$name])) {
-            $config = static::configuration($name);
+        if (! isset(self::$instances[$name])) {
+            $config = self::getConfig($name);
 
             $class = get_called_class();
 
-            static::$instances[$name] = new $class($config);
+            self::$instances[$name] = new $class($config);
         }
 
         return static::$instances[$name];

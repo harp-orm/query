@@ -1,4 +1,6 @@
-<?php namespace CL\Atlas\Test\Compiler;
+<?php
+
+namespace CL\Atlas\Test\Compiler;
 
 use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Compiler;

@@ -1,4 +1,6 @@
-<?php namespace CL\Atlas\Test\Compiler;
+<?php
+
+namespace CL\Atlas\Test\Compiler;
 
 use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Compiler;
@@ -10,7 +12,6 @@ use CL\Atlas\SQL;
  */
 class ConditionTest extends AbstractTestCase
 {
-
     /**
      * @covers CL\Atlas\Compiler\Condition::combine
      */
@@ -26,9 +27,12 @@ class ConditionTest extends AbstractTestCase
     {
         return array(
             array('name = ?', array(10), 'name = ?'),
+            array('name = column', array(10), 'name = column'),
+            array('name = column', null, 'name = column'),
             array('name IN ?', array(array(10, 15)), 'name IN (?, ?)'),
         );
     }
+
     /**
      * @dataProvider dataRender
      * @covers CL\Atlas\Compiler\Condition::render
@@ -38,5 +42,23 @@ class ConditionTest extends AbstractTestCase
         $condition = new SQL\Condition($content, $parameters);
 
         $this->assertEquals($expected, Compiler\Condition::render($condition));
+    }
+
+    public function dataExpandParameterArrays()
+    {
+        return array(
+            array('name = ?', array(10), 'name = ?'),
+            array('name = column', array(10), 'name = column'),
+            array('name IN ?', array(array(10, 15)), 'name IN (?, ?)'),
+        );
+    }
+
+    /**
+     * @dataProvider dataExpandParameterArrays
+     * @covers CL\Atlas\Compiler\Condition::expandParameterArrays
+     */
+    public function testExpandParameterArrays($content, $parameters, $expected)
+    {
+        $this->assertEquals($expected, Compiler\Condition::expandParameterArrays($content, $parameters));
     }
 }

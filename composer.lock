@@ -3,32 +3,29 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "f24de923b33d772b36dba58d6879ff16",
+    "hash": "af219eba86b1bb8e969a3af92a8dbef6",
     "packages": [
 
     ],
     "packages-dev": [
         {
-            "name": "openbuildings/environment-backup",
-            "version": "0.1.0",
+            "name": "clippings/env-backup",
+            "version": "0.2.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/OpenBuildings/environment-backup.git",
-                "reference": "ae8437a61fcd39d332ae9a8ae11ab4db3d8103d7"
+                "url": "https://github.com/clippings/env-backup.git",
+                "reference": "23308787a7acaa0ecafa081d745481aa4328acd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenBuildings/environment-backup/zipball/ae8437a61fcd39d332ae9a8ae11ab4db3d8103d7",
-                "reference": "ae8437a61fcd39d332ae9a8ae11ab4db3d8103d7",
+                "url": "https://api.github.com/repos/clippings/env-backup/zipball/23308787a7acaa0ecafa081d745481aa4328acd8",
+                "reference": "23308787a7acaa0ecafa081d745481aa4328acd8",
                 "shasum": ""
-            },
-            "require-dev": {
-                "openbuildings/kohana-test-bootsrap": "dev-master"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Openbuildings\\EnvironmentBackup\\": "src/"
+                "psr-4": {
+                    "CL\\EnvBackup\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -38,13 +35,13 @@
             "authors": [
                 {
                     "name": "Ivan Kerin",
-                    "email": "ivan@openbuildings.com",
-                    "homepage": "https://github.com/OpenBuildings/jam",
+                    "email": "ikerin@gmail.com",
+                    "homepage": "http://www.openbuildings.com",
                     "role": "Author"
                 }
             ],
             "description": "Backup/restore environment variables: globals, static vars, configs",
-            "time": "2013-07-23 16:39:47"
+            "time": "2014-03-25 16:55:26"
         }
     ],
     "aliases": [

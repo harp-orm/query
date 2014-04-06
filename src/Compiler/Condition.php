@@ -35,22 +35,28 @@ class Condition
     public static function render(SQL\Condition $condition)
     {
         $content = $condition->getContent();
+        $parameters = $condition->getParameters();
 
-        if ($condition->getParameters() and self::hasArrays($condition->getParameters())) {
-            $renderedParameters = array();
-
-            foreach ($condition->getParameters() as $index => $value) {
-                $renderedParameters[$index] = is_array($value) ? Compiler::toPlaceholders($value) : '?';
-            }
-
-            $content = Str::replace('/\?/', $renderedParameters, $content);
+        if ($parameters) {
+            $content = self::expandParameterArrays($content, $parameters);
         }
 
         return $content;
     }
 
-    public static function hasArrays(array $parameters)
+    /**
+     * Replace ? for arrays with (?, ?, ?)
+     *
+     * @param  string $content
+     * @param  array  $parameters
+     * @return string
+     */
+    public static function expandParameterArrays($content, array $parameters)
     {
-        return (bool) array_filter($parameters, 'is_array');
+        return preg_replace_callback('/\?/', function() use (& $parameters) {
+            $parameter = current(each($parameters));
+            return is_array($parameter) ? Compiler::toPlaceholders($parameter) : '?';
+        }, $content);
+
     }
 }

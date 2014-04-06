@@ -23,16 +23,8 @@ class Insert
             $query->getType(),
             Compiler::word('INTO', $query->getTable()),
             Columns::render($query->getColumns()),
-            Compiler::word(
-                'VALUES',
-                Values::combine($query->getValues())
-            ),
-            Compiler::word(
-                'SET',
-                Set::combine(
-                    $query->getSet()
-                )
-            ),
+            Compiler::word('VALUES', Values::combine($query->getValues())),
+            Compiler::word('SET', Set::combine($query->getSet())),
             $query->getSelect() !== null
                 ? Select::render($query->getSelect())
                 : null,

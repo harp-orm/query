@@ -22,30 +22,12 @@ class Delete
         return Compiler::expression(array(
             'DELETE',
             $query->getType(),
-            Arr::join(', ', $query->getTable()),
-            Compiler::word(
-                'FROM',
-                Aliased::combine($query->getFrom())
-            ),
-            Join::combine(
-                $query->getJoin()
-            ),
-            Compiler::word(
-                'WHERE',
-                Condition::combine(
-                    $query->getWhere()
-                )
-            ),
-            Compiler::word(
-                'ORDER BY',
-                Direction::combine(
-                    $query->getOrder()
-                )
-            ),
-            Compiler::word(
-                'LIMIT',
-                $query->getLimit()
-            ),
+            Aliased::combine($query->getTable()),
+            Compiler::word('FROM', Aliased::combine($query->getFrom())),
+            Join::combine($query->getJoin()),
+            Compiler::word('WHERE', Condition::combine($query->getWhere())),
+            Compiler::word('ORDER BY', Direction::combine($query->getOrder())),
+            Compiler::word('LIMIT', $query->getLimit()),
         ));
     }
 

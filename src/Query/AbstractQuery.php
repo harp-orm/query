@@ -41,7 +41,7 @@ abstract class AbstractQuery implements Parametrised
     public function db()
     {
         if (! $this->db) {
-            $this->db = DB::instance();
+            $this->db = DB::getInstance();
         }
 
         return $this->db;

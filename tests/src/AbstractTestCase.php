@@ -1,33 +1,34 @@
-<?php namespace CL\Atlas\Test;
+<?php
 
-use Openbuildings\EnvironmentBackup as EB;
+namespace CL\Atlas\Test;
+
+use CL\EnvBackup\Env;
+use CL\EnvBackup\StaticParam;
 use CL\Atlas\DB;
+use PHPUnit_Framework_TestCase;
 
 /**
  * @package Atlas
  * @author Ivan Kerin
  */
-abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
+abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 {
-
     public $env;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->env = new EB\Environment(array(
-            'static' => new EB\Environment_Group_Static,
+        $this->env = new Env(array(
+            new StaticParam('CL\Atlas\DB', 'instances', array())
         ));
 
-        DB::configuration('default', array(
+        $this->env->apply();
+
+        DB::setConfig('default', array(
             'class' => 'DB_Test',
             'dsn' => 'mysql:dbname=test-atlas;host=127.0.0.1',
             'username' => 'root',
-        ));
-
-        $this->env->backup_and_set(array(
-            'CL\Atlas\DB::$instances' => array(),
         ));
     }
 

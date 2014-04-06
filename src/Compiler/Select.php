@@ -22,45 +22,14 @@ class Select
             'SELECT',
             $query->getType(),
             Aliased::combine($query->getColumns()) ?: '*',
-            Compiler::word(
-                'FROM',
-                Aliased::combine($query->getFrom())
-            ),
-            Join::combine(
-                $query->getJoin()
-            ),
-            Compiler::word(
-                'WHERE',
-                Condition::combine(
-                    $query->getWhere()
-                )
-            ),
-            Compiler::word(
-                'GROUP BY',
-                Direction::combine(
-                    $query->getGroup()
-                )
-            ),
-            Compiler::word(
-                'HAVING',
-                Condition::combine(
-                    $query->getHaving()
-                )
-            ),
-            Compiler::word(
-                'ORDER BY',
-                Direction::combine(
-                    $query->getOrder()
-                )
-            ),
-            Compiler::word(
-                'LIMIT',
-                $query->getLimit()
-            ),
-            Compiler::word(
-                'OFFSET',
-                $query->getOffset()
-            ),
+            Compiler::word('FROM', Aliased::combine($query->getFrom())),
+            Join::combine($query->getJoin()),
+            Compiler::word('WHERE', Condition::combine($query->getWhere())),
+            Compiler::word('GROUP BY', Direction::combine($query->getGroup())),
+            Compiler::word('HAVING', Condition::combine($query->getHaving())),
+            Compiler::word('ORDER BY', Direction::combine($query->getOrder())),
+            Compiler::word('LIMIT', $query->getLimit()),
+            Compiler::word('OFFSET', $query->getOffset()),
         ));
     }
 

@@ -1,4 +1,6 @@
-<?php namespace CL\Atlas\Test\SQL;
+<?php
+
+namespace CL\Atlas\Test\SQL;
 
 use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\Query\Query;

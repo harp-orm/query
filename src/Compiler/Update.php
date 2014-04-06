@@ -22,31 +22,11 @@ class Update
             'UPDATE',
             $query->getType(),
             Aliased::combine($query->getTable()),
-            Join::combine(
-                $query->getJoin()
-            ),
-            Compiler::word(
-                'SET',
-                Set::combine(
-                    $query->getSet()
-                )
-            ),
-            Compiler::word(
-                'WHERE',
-                Condition::combine(
-                    $query->getWhere()
-                )
-            ),
-            Compiler::word(
-                'ORDER BY',
-                Direction::combine(
-                    $query->getOrder()
-                )
-            ),
-            Compiler::word(
-                'LIMIT',
-                $query->getLimit()
-            ),
+            Join::combine($query->getJoin()),
+            Compiler::word('SET', Set::combine($query->getSet())),
+            Compiler::word('WHERE', Condition::combine($query->getWhere())),
+            Compiler::word('ORDER BY', Direction::combine($query->getOrder())),
+            Compiler::word('LIMIT', $query->getLimit()),
         ));
     }
 

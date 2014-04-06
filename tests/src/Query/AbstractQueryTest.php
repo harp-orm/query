@@ -46,7 +46,7 @@ class AbstractQueryTest extends AbstractTestCase
 
         $query = $this->getMock('CL\Atlas\Query\AbstractQuery', array('sql', 'getParameters'));
 
-        $this->assertSame(DB::instance(), $query->db());
+        $this->assertSame(DB::getInstance(), $query->db());
     }
 
     /**
