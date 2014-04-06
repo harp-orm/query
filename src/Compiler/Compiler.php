@@ -69,9 +69,11 @@ class Compiler
      */
     public static function humanize($sql, array $parameters)
     {
-        $parameters = array_map('CL\Atlas\Compiler\Compiler::escapeValue', $parameters);
+        $parameters = array_map(__NAMESPACE__.'\Compiler::quoteValue', $parameters);
 
-        return Str::replace('/\?/', $parameters, $sql);
+        return preg_replace_callback('/\?/', function () use (& $parameters) {
+            return current(each($parameters));
+        }, $sql);
     }
 
     /**
@@ -79,7 +81,7 @@ class Compiler
      * @param  mixed $param
      * @return string
      */
-    public static function escapeValue($param)
+    public static function quoteValue($param)
     {
         if (is_null($param)) {
             return 'NULL';

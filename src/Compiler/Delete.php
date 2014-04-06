@@ -2,7 +2,6 @@
 
 namespace CL\Atlas\Compiler;
 
-use CL\Atlas\Arr;
 use CL\Atlas\Query;
 
 /**

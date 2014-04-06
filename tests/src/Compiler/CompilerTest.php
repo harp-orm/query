@@ -117,7 +117,7 @@ class CompilerTest extends AbstractTestCase
         $this->assertEquals($expected, Compiler::humanize($statement, $parameters));
     }
 
-    public function dataEscapeValue()
+    public function dataQuoteValue()
     {
         return array(
             array('10', '"10"'),
@@ -129,12 +129,12 @@ class CompilerTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider dataEscapeValue
-     * @covers CL\Atlas\Compiler\Compiler::escapeValue
+     * @dataProvider dataQuoteValue
+     * @covers CL\Atlas\Compiler\Compiler::quoteValue
      */
-    public function testEscapeValue($value, $expected)
+    public function testQuoteValue($value, $expected)
     {
-        $this->assertEquals($expected, Compiler::escapeValue($value));
+        $this->assertEquals($expected, Compiler::quoteValue($value));
     }
 
     public function dataParameters()

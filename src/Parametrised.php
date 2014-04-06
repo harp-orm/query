@@ -9,6 +9,5 @@ namespace CL\Atlas;
  */
 interface Parametrised
 {
-
     public function getParameters();
 }

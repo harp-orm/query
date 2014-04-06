@@ -12,9 +12,19 @@ use PDO;
  */
 class DB extends \PDO
 {
+    /**
+     * @var array
+     */
     protected static $configs;
+
+    /**
+     * @var DB[]
+     */
     protected static $instances;
 
+    /**
+     * @var array
+     */
     public static $defaults = array(
         'dsn' => 'mysql:dbname=test;host=127.0.0.1',
         'username' => '',
@@ -25,6 +35,9 @@ class DB extends \PDO
         ),
     );
 
+    /**
+     * @param string $name
+     */
     public static function getConfig($name)
     {
         return isset(self::$configs[$name])
@@ -32,19 +45,29 @@ class DB extends \PDO
             : array();
     }
 
+    /**
+     * Set configuration for a given instance name
+     * Must be called before getInstance
+     *
+     * @param string $name
+     * @param array  $parameters
+     */
     public static function setConfig($name, array $parameters)
     {
         self::$configs[$name] = $parameters;
     }
 
+    /**
+     * Get the DB object instance for a given name
+     * Use "default" by default
+     * @param  string $name
+     * @return DB
+     */
     public static function getInstance($name = 'default')
     {
         if (! isset(self::$instances[$name])) {
             $config = self::getConfig($name);
-
-            $class = get_called_class();
-
-            self::$instances[$name] = new $class($config);
+            self::$instances[$name] = new DB($config);
         }
 
         return static::$instances[$name];
@@ -57,7 +80,13 @@ class DB extends \PDO
         parent::__construct($options['dsn'], $options['username'], $options['password'], $options['driver_options']);
     }
 
-    public function execute($sql, $parameters)
+    /**
+     * Run "prepare" a statement and then execute it
+     * @param  string $sql
+     * @param  array  $parameters
+     * @return \PDOStatement
+     */
+    public function execute($sql, array $parameters)
     {
         $statement = $this->prepare($sql);
         $statement->execute($parameters);
@@ -65,21 +94,37 @@ class DB extends \PDO
         return $statement;
     }
 
+    /**
+     * new Select Query for this DB
+     * @return Query\Select
+     */
     public function select()
     {
         return new Query\Select($this);
     }
 
+    /**
+     * new Update Query for this DB
+     * @return Query\Update
+     */
     public function update()
     {
         return new Query\Update($this);
     }
 
+    /**
+     * new Delete Query for this DB
+     * @return Query\Delete
+     */
     public function delete()
     {
         return new Query\Delete($this);
     }
 
+    /**
+     * new Insert Query for this DB
+     * @return Query\Insert
+     */
     public function insert()
     {
         return new Query\Insert($this);

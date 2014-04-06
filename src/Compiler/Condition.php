@@ -3,7 +3,6 @@
 namespace CL\Atlas\Compiler;
 
 use CL\Atlas\Arr;
-use CL\Atlas\Str;
 use CL\Atlas\SQL;
 
 /**
@@ -53,7 +52,7 @@ class Condition
      */
     public static function expandParameterArrays($content, array $parameters)
     {
-        return preg_replace_callback('/\?/', function() use (& $parameters) {
+        return preg_replace_callback('/\?/', function () use (& $parameters) {
             $parameter = current(each($parameters));
             return is_array($parameter) ? Compiler::toPlaceholders($parameter) : '?';
         }, $content);
