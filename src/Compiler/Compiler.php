@@ -2,7 +2,6 @@
 
 namespace CL\Atlas\Compiler;
 
-use CL\Atlas\Str;
 use CL\Atlas\Arr;
 
 /**

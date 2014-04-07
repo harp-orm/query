@@ -20,7 +20,7 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
         parent::setUp();
 
         $this->env = new Env(array(
-            new StaticParam('CL\Atlas\DB', 'instances', array())
+            new StaticParam('CL\Atlas\DB', 'dbs', array())
         ));
 
         $this->env->apply();

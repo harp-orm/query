@@ -10,7 +10,7 @@ use PDO;
  * @copyright  (c) 2014 Clippings Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class DB extends \PDO
+class DB extends PDO
 {
     /**
      * @var array
@@ -20,7 +20,7 @@ class DB extends \PDO
     /**
      * @var DB[]
      */
-    protected static $instances;
+    protected static $dbs;
 
     /**
      * @var array
@@ -47,7 +47,7 @@ class DB extends \PDO
 
     /**
      * Set configuration for a given instance name
-     * Must be called before getInstance
+     * Must be called before get
      *
      * @param string $name
      * @param array  $parameters
@@ -63,14 +63,50 @@ class DB extends \PDO
      * @param  string $name
      * @return DB
      */
-    public static function getInstance($name = 'default')
+    public static function get($name = 'default')
     {
-        if (! isset(self::$instances[$name])) {
+        if (! isset(self::$dbs[$name])) {
             $config = self::getConfig($name);
-            self::$instances[$name] = new DB($config);
+            self::$dbs[$name] = new DB($config);
         }
 
-        return static::$instances[$name];
+        return static::$dbs[$name];
+    }
+
+    /**
+     * new Select Query for this DB
+     * @return Query\Select
+     */
+    public static function select()
+    {
+        return new Query\Select();
+    }
+
+    /**
+     * new Update Query for this DB
+     * @return Query\Update
+     */
+    public static function update()
+    {
+        return new Query\Update();
+    }
+
+    /**
+     * new Delete Query for this DB
+     * @return Query\Delete
+     */
+    public static function delete()
+    {
+        return new Query\Delete();
+    }
+
+    /**
+     * new Insert Query for this DB
+     * @return Query\Insert
+     */
+    public static function insert()
+    {
+        return new Query\Insert();
     }
 
     public function __construct($options)
@@ -92,41 +128,5 @@ class DB extends \PDO
         $statement->execute($parameters);
 
         return $statement;
-    }
-
-    /**
-     * new Select Query for this DB
-     * @return Query\Select
-     */
-    public function select()
-    {
-        return new Query\Select($this);
-    }
-
-    /**
-     * new Update Query for this DB
-     * @return Query\Update
-     */
-    public function update()
-    {
-        return new Query\Update($this);
-    }
-
-    /**
-     * new Delete Query for this DB
-     * @return Query\Delete
-     */
-    public function delete()
-    {
-        return new Query\Delete($this);
-    }
-
-    /**
-     * new Insert Query for this DB
-     * @return Query\Insert
-     */
-    public function insert()
-    {
-        return new Query\Insert($this);
     }
 }

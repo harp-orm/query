@@ -14,44 +14,6 @@ use stdClass;
  */
 class ArrTest extends AbstractTestCase
 {
-
-    public function dataToAssoc()
-    {
-        return array(
-            array(array('name1', 'name2'), array('name1' => null, 'name2' => null)),
-            array(array('name1', 'name2' => 'val2'), array('name1' => null, 'name2' => 'val2')),
-            array(array('name1', 'name2' => new stdClass), array('name1' => null, 'name2' => new stdClass)),
-        );
-    }
-
-    /**
-     * @dataProvider dataToAssoc
-     * @covers CL\Atlas\Arr::toAssoc
-     */
-    public function testToAssoc($array, $expected)
-    {
-        $this->assertEquals($expected, Arr::toAssoc($array));
-    }
-
-    public function dataToArray()
-    {
-        return array(
-            array(array('name1', 'name2'), array('name1', 'name2')),
-            array(array('name1'), array('name1')),
-            array('name1', array('name1')),
-            array(new stdClass, array(new stdClass)),
-        );
-    }
-
-    /**
-     * @dataProvider dataToArray
-     * @covers CL\Atlas\Arr::toArray
-     */
-    public function testToArray($array, $expected)
-    {
-        $this->assertEquals($expected, Arr::toArray($array));
-    }
-
     public function dataMap()
     {
         return array(

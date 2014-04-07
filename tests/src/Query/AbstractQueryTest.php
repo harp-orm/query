@@ -33,7 +33,7 @@ class AbstractQueryTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\AbstractQuery::db
+     * @covers CL\Atlas\Query\AbstractQuery::getDb
      * @covers CL\Atlas\Query\AbstractQuery::__construct
      */
     public function testDb()
@@ -42,11 +42,11 @@ class AbstractQueryTest extends AbstractTestCase
 
         $query = $this->getMock('CL\Atlas\Query\AbstractQuery', array('sql', 'getParameters'), array($db));
 
-        $this->assertSame($db, $query->db());
+        $this->assertSame($db, $query->getDb());
 
         $query = $this->getMock('CL\Atlas\Query\AbstractQuery', array('sql', 'getParameters'));
 
-        $this->assertSame(DB::getInstance(), $query->db());
+        $this->assertSame(DB::get(), $query->getDb());
     }
 
     /**

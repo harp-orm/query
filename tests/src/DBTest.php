@@ -11,7 +11,6 @@ use CL\EnvBackup\StaticParam;
  */
 class DBTest extends AbstractTestCase
 {
-
     /**
      * @covers CL\Atlas\DB::getConfig
      * @covers CL\Atlas\DB::setConfig
@@ -32,10 +31,10 @@ class DBTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\DB::getInstance
+     * @covers CL\Atlas\DB::get
      * @covers CL\Atlas\DB::__construct
      */
-    public function testInstance()
+    public function test()
     {
         DB::setConfig('default', array(
             'dsn' => 'mysql:dbname=test-atlas;host=127.0.0.1',
@@ -47,13 +46,13 @@ class DBTest extends AbstractTestCase
             'username' => 'root',
         ));
 
-        $default = DB::getInstance();
-        $test = DB::getInstance('test');
+        $default = DB::get();
+        $test = DB::get('test');
 
         $this->assertNotSame($default, $test);
 
-        $this->assertSame($default, DB::getInstance());
-        $this->assertSame($test, DB::getInstance('test'));
+        $this->assertSame($default, DB::get());
+        $this->assertSame($test, DB::get('test'));
     }
 
     public function dataExecute()
@@ -70,7 +69,7 @@ class DBTest extends AbstractTestCase
      */
     public function testExecute($sql, $parameters, $expected)
     {
-        $this->assertEquals($expected, DB::getInstance()->execute($sql, $parameters)->fetchAll());
+        $this->assertEquals($expected, DB::get()->execute($sql, $parameters)->fetchAll());
     }
 
     /**
@@ -78,11 +77,11 @@ class DBTest extends AbstractTestCase
      */
     public function testSelect()
     {
-        $select = DB::getInstance()->select()->column('test')->column('test2');
+        $select = DB::select()->column('test')->column('test2');
 
         $this->assertInstanceOf('CL\Atlas\Query\Select', $select);
 
-        $this->assertSame(DB::getInstance(), $select->db());
+        $this->assertSame(DB::get(), $select->getDb());
 
         $this->assertEquals('SELECT test, test2', $select->sql());
     }
@@ -92,11 +91,11 @@ class DBTest extends AbstractTestCase
      */
     public function testUpdate()
     {
-        $update = DB::getInstance()->update()->table('test')->table('test2');
+        $update = DB::update()->table('test')->table('test2');
 
         $this->assertInstanceOf('CL\Atlas\Query\Update', $update);
 
-        $this->assertSame(DB::getInstance(), $update->db());
+        $this->assertSame(DB::get(), $update->getDb());
 
         $this->assertEquals('UPDATE test, test2', $update->sql());
     }
@@ -106,11 +105,11 @@ class DBTest extends AbstractTestCase
      */
     public function testDelete()
     {
-        $delete = DB::getInstance()->delete()->from('test')->from('test2');
+        $delete = DB::delete()->from('test')->from('test2');
 
         $this->assertInstanceOf('CL\Atlas\Query\Delete', $delete);
 
-        $this->assertSame(DB::getInstance(), $delete->db());
+        $this->assertSame(DB::get(), $delete->getDb());
 
         $this->assertEquals('DELETE FROM test, test2', $delete->sql());
     }
@@ -120,11 +119,11 @@ class DBTest extends AbstractTestCase
      */
     public function testInsert()
     {
-        $query = DB::getInstance()->insert()->into('table1')->set(array('name' => 'test2'));
+        $query = DB::insert()->into('table1')->set(array('name' => 'test2'));
 
         $this->assertInstanceOf('CL\Atlas\Query\Insert', $query);
 
-        $this->assertSame(DB::getInstance(), $query->db());
+        $this->assertSame(DB::get(), $query->getDb());
 
         $this->assertEquals('INSERT INTO table1 SET name = ?', $query->sql());
         $this->assertEquals(array('test2'), $query->getParameters());

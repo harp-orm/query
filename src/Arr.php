@@ -11,33 +11,12 @@ namespace CL\Atlas;
  */
 class Arr
 {
-    public static function toAssoc(array $array)
-    {
-        $converted = array();
-
-        foreach ($array as $key => $value) {
-            if (is_numeric($key) and ! is_object($value)) {
-                $converted[$value] = null;
-            } else {
-                $converted[$key] = $value;
-            }
-        }
-
-        return $converted;
-    }
-
     /**
-     * convert to an array - if not an array, make one with a single item - the source object
+     * array_map, handles null array
+     * @param  mixed $callback
+     * @param  array|null $array
+     * @return array|null
      */
-    public static function toArray($array)
-    {
-        if (! is_array($array)) {
-            return array($array);
-        }
-
-        return $array;
-    }
-
     public static function map($callback, $array)
     {
         return $array ? array_map($callback, $array) : null;
@@ -53,6 +32,11 @@ class Arr
         return $array ? join($separator, $array) : null;
     }
 
+    /**
+     * Flatten an array
+     * @param  array  $array
+     * @return array
+     */
     public static function flatten(array $array)
     {
         $result = array();

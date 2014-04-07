@@ -38,15 +38,6 @@ abstract class AbstractQuery implements Parametrised
         return $this->type;
     }
 
-    public function db()
-    {
-        if (! $this->db) {
-            $this->db = DB::getInstance();
-        }
-
-        return $this->db;
-    }
-
     public function type($type)
     {
         $this->type = new SQL\SQL($type);
@@ -54,9 +45,18 @@ abstract class AbstractQuery implements Parametrised
         return $this;
     }
 
+    public function getDb()
+    {
+        if (! $this->db) {
+            $this->db = DB::get();
+        }
+
+        return $this->db;
+    }
+
     public function execute()
     {
-        return $this->db()->execute($this->sql(), $this->getParameters());
+        return $this->getDb()->execute($this->sql(), $this->getParameters());
     }
 
     public function humanize()
