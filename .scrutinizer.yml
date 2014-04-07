@@ -9,7 +9,7 @@ tools:
     config: { level: psr2 }
   external_code_coverage: true
   php_cpd: false
-  php_sim: false
+  php_sim: true
   php_hhvm: true
   php_analyzer: true
   php_pdepend: true
