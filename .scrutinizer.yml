@@ -8,7 +8,8 @@ tools:
   php_cs_fixer:
     config: { level: psr2 }
   external_code_coverage: true
-  php_cpd: true
+  php_cpd: false
+  php_sim: false
   php_hhvm: true
   php_analyzer: true
   php_pdepend: true
