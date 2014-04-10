@@ -124,6 +124,7 @@ class CompilerTest extends AbstractTestCase
             array(10, '10'),
             array(true, 1),
             array(false, 0),
+            array(null, 'NULL'),
             array('test this', '"test this"'),
         );
     }

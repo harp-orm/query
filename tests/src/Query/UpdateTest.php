@@ -53,6 +53,36 @@ class UpdateTest extends AbstractTestCase
     }
 
     /**
+     * @covers CL\Atlas\Query\Update::setMultiple
+     */
+    public function testSetMultiple()
+    {
+        $query = new Query\Update;
+
+        $query
+            ->setMultiple(array(
+                1 => array(
+                    'name1' => 'name1',
+                    'name2' => 10,
+                    'name3' => 'test1',
+                ),
+                13 => array(
+                    'name1' => 'name1',
+                    'name3' => 'test2',
+                ),
+
+            ));
+
+        $expected = array(
+            new SQL\Set('name1', 'name1'),
+            new SQL\SetMultiple('name2', array(1 => 10)),
+            new SQL\SetMultiple('name3', array(1 => 'test1', 13 => 'test2')),
+        );
+
+        $this->assertEquals($expected, $query->getSet());
+    }
+
+    /**
      * @covers CL\Atlas\Query\Update::sql
      */
     public function testSql()

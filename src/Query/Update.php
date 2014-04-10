@@ -4,6 +4,7 @@ namespace CL\Atlas\Query;
 
 use CL\Atlas\Compiler;
 use CL\Atlas\SQL;
+use CL\Atlas\Arr;
 
 /**
  * @author     Ivan Kerin
@@ -53,6 +54,23 @@ class Update extends AbstractWhere
 
         return $this;
     }
+
+    public function setMultiple(array $values, $key = 'id')
+    {
+        $rows = count($values);
+        $values = Arr::flipNested($values);
+
+        foreach ($values as $column => $changes) {
+            if (Arr::isIdenticalValues($changes) and count($changes) === $rows) {
+                $this->set []= new SQL\Set($column, reset($changes));
+            } else {
+                $this->set []= new SQL\SetMultiple($column, $changes, $key);
+            }
+        }
+
+        return $this;
+    }
+
 
     /**
      * @return string

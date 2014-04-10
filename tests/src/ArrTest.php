@@ -51,6 +51,7 @@ class ArrTest extends AbstractTestCase
     {
         $this->assertEquals($expected, Arr::join($separator, $array));
     }
+
     public function dataFlatten()
     {
         return array(
@@ -80,5 +81,82 @@ class ArrTest extends AbstractTestCase
     public function testFlatten($array, $expected)
     {
         $this->assertEquals($expected, Arr::flatten($array));
+    }
+
+    public function dataFlipNested()
+    {
+        return array(
+            array(
+                array(
+                    1 => array('name1' => 'test1'),
+                    3 => array('name1' => 'test3')
+                ),
+                array(
+                    'name1' => array(1 => 'test1', 3 => 'test3'),
+                ),
+            ),
+            array(
+                array(
+                    1 => array('name1' => 'test1', 'name2' => 'test2'),
+                    3 => array('name1' => 'test3', 'name3' => 'test4')
+                ),
+                array(
+                    'name1' => array(1 => 'test1', 3 => 'test3'),
+                    'name2' => array(1 => 'test2'),
+                    'name3' => array(3 => 'test4'),
+                ),
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider dataFlipNested
+     * @covers CL\Atlas\Arr::flipNested
+     */
+    public function testFlipNested($array, $expected)
+    {
+        $this->assertEquals($expected, Arr::flipNested($array));
+    }
+
+
+    public function dataIsIdenticalValues()
+    {
+        return array(
+            array(array('name1', 'name2', 'name3'), false),
+            array(array('name2', 'name2', 'name3'), false),
+            array(array('name2', 'name2', 'name2'), true),
+        );
+    }
+
+    /**
+     * @dataProvider dataIsIdenticalValues
+     * @covers CL\Atlas\Arr::isIdenticalValues
+     */
+    public function testIsIdenticalValues($array, $expected)
+    {
+        $this->assertEquals($expected, Arr::isIdenticalValues($array));
+    }
+
+    public function dataDisassociate()
+    {
+        return array(
+            array(
+                array(1 => 'name1', 2 => 'name2'),
+                array(1, 'name1', 2, 'name2'),
+            ),
+            array(
+                array(1 => 'name1', 3 => 'name2', 20 => 'name3'),
+                array(1, 'name1', 3, 'name2', 20, 'name3'),
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider dataDisassociate
+     * @covers CL\Atlas\Arr::disassociate
+     */
+    public function testDisassociate($array, $expected)
+    {
+        $this->assertEquals($expected, Arr::disassociate($array));
     }
 }

@@ -7,7 +7,7 @@ use CL\Atlas\Query;
 use CL\Atlas\SQL;
 
 /**
- * @group sql.direction
+ * @group sql.set
  */
 class SetTest extends AbstractTestCase
 {
