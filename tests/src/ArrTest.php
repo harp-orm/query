@@ -118,25 +118,6 @@ class ArrTest extends AbstractTestCase
         $this->assertEquals($expected, Arr::flipNested($array));
     }
 
-
-    public function dataIsIdenticalValues()
-    {
-        return array(
-            array(array('name1', 'name2', 'name3'), false),
-            array(array('name2', 'name2', 'name3'), false),
-            array(array('name2', 'name2', 'name2'), true),
-        );
-    }
-
-    /**
-     * @dataProvider dataIsIdenticalValues
-     * @covers CL\Atlas\Arr::isIdenticalValues
-     */
-    public function testIsIdenticalValues($array, $expected)
-    {
-        $this->assertEquals($expected, Arr::isIdenticalValues($array));
-    }
-
     public function dataDisassociate()
     {
         return array(

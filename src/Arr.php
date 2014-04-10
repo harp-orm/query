@@ -56,8 +56,7 @@ class Arr
     {
         $result = array();
 
-        foreach ($arr as $key => $value)
-        {
+        foreach ($arr as $key => $value) {
             $result []= $key;
             $result []= $value;
         }
@@ -65,35 +64,26 @@ class Arr
         return $result;
     }
 
-    public static function isIdenticalValues(array $arr)
-    {
-        return count(array_unique($arr)) === 1;
-    }
-
     /**
      * Transpose 2 dimensional array:
      *
-     * <pre>
-     * array (                   |    |  array (
-     *    1 => array(            |    |      'name' => array(
-     *        'name' => 'val1',  |    |          1 => 'val1',
-     *        'email' => 'val2', |    |          2 => 'val3',
-     *    ),                     | to |      ),
-     *    2 => array(            |    |      'email' => array(
-     *        'name' => 'val3',  |    |          1 => 'val2',
-     *        'email' => 'val4', |    |          2 => 'val4',
-     *    ),                     |    |      )
-     * )                         |    |  )
-     * </pre>
+     *     array (                   |    |  array (
+     *        1 => array(            |    |      'name' => array(
+     *            'name' => 'val1',  |    |          1 => 'val1',
+     *            'email' => 'val2', |    |          2 => 'val3',
+     *        ),                     | to |      ),
+     *        2 => array(            |    |      'email' => array(
+     *            'name' => 'val3',  |    |          1 => 'val2',
+     *            'email' => 'val4', |    |          2 => 'val4',
+     *        ),                     |    |      )
+     *     )                         |    |  )
      */
     public static function flipNested(array $arr)
     {
         $result = array();
 
-        foreach ($arr as $key => $values)
-        {
-            foreach ($values as $innerKey => $value)
-            {
+        foreach ($arr as $key => $values) {
+            foreach ($values as $innerKey => $value) {
                 $result[$innerKey][$key] = $value;
             }
         }

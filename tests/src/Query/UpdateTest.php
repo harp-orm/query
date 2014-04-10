@@ -70,11 +70,10 @@ class UpdateTest extends AbstractTestCase
                     'name1' => 'name1',
                     'name3' => 'test2',
                 ),
-
             ));
 
         $expected = array(
-            new SQL\Set('name1', 'name1'),
+            new SQL\SetMultiple('name1', array(1 => 'name1', 13 => 'name1')),
             new SQL\SetMultiple('name2', array(1 => 10)),
             new SQL\SetMultiple('name3', array(1 => 'test1', 13 => 'test2')),
         );
