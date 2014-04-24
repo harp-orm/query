@@ -1,0 +1,66 @@
+<?php
+
+namespace CL\Atlas\Test\Compiler;
+
+use CL\Atlas\Test\AbstractTestCase;
+use CL\Atlas\Compiler;
+use CL\Atlas\Query;
+use CL\Atlas\SQL\SQL;
+
+/**
+ * @group compiler
+ * @group compiler.union
+ */
+class UnionTest extends AbstractTestCase
+{
+    /**
+     * @covers CL\Atlas\Compiler\Union::render
+     * @covers CL\Atlas\Compiler\Union::parameters
+     */
+    public function testCompile()
+    {
+        $select1 = new Query\Select;
+        $select1
+            ->from('one')
+            ->column('col1')
+            ->type('DISTINCT')
+            ->join('table1', new SQL('USING (col1, col2)'))
+            ->where(array('name' => 'small'));
+
+        $select2 = new Query\Select;
+        $select2
+            ->from('bigtable')
+            ->column('col1')
+            ->column('base')
+            ->column('type')
+            ->where(array('test' => 'value'))
+            ->whereRaw('test_statement = IF ("test", ?, ?)', array('val1', 'val2'))
+            ->join('table2', array('col1' => 'col2'))
+            ->limit(10)
+            ->offset(8)
+            ->order('base')
+            ->group('type');
+
+        $union = new Query\Union;
+        $union
+            ->select($select1)
+            ->select($select2)
+            ->order('col1')
+            ->limit(20);
+
+        $expectedSql = <<<SQL
+(SELECT DISTINCT col1 FROM one JOIN table1 USING (col1, col2) WHERE (name = ?)) UNION (SELECT col1, base, type FROM bigtable JOIN table2 ON col1 = col2 WHERE (test = ?) AND (test_statement = IF ("test", ?, ?)) GROUP BY type ORDER BY base LIMIT 10 OFFSET 8) ORDER BY col1 LIMIT 20
+SQL;
+
+        $this->assertEquals($expectedSql, Compiler\Union::render($union));
+
+        $expectedParameters = array(
+          'small',
+          'value',
+          'val1',
+          'val2',
+        );
+
+        $this->assertEquals($expectedParameters, Compiler\Union::parameters($union));
+    }
+}

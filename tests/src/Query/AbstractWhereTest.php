@@ -53,40 +53,4 @@ class AbstractWhereTest extends AbstractTestCase
 
         $this->assertEquals($expected, $query->getWhere());
     }
-
-    /**
-     * @covers CL\Atlas\Query\AbstractWhere::order
-     * @covers CL\Atlas\Query\AbstractWhere::getOrder
-     */
-    public function testOrder()
-    {
-        $query = $this->getMock('CL\Atlas\Query\AbstractWhere', array('sql', 'getParameters'));
-
-        $query
-            ->order('col1')
-            ->order('col2', 'dir2');
-
-        $expected = array(
-            new SQL\Direction('col1'),
-            new SQL\Direction('col2', 'dir2'),
-        );
-
-        $this->assertEquals($expected, $query->getOrder());
-    }
-
-
-    /**
-     * @covers CL\Atlas\Query\AbstractWhere::limit
-     * @covers CL\Atlas\Query\AbstractWhere::getLimit
-     */
-    public function testLimit()
-    {
-        $query = $this->getMock('CL\Atlas\Query\AbstractWhere', array('sql', 'getParameters'));
-
-        $query->limit(20);
-
-        $expected = new SQL\IntValue(20);
-
-        $this->assertEquals($expected, $query->getLimit());
-    }
 }

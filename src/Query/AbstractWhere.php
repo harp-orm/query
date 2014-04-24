@@ -9,7 +9,7 @@ use CL\Atlas\SQL;
  * @copyright  (c) 2014 Clippings Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-abstract class AbstractWhere extends AbstractQuery
+abstract class AbstractWhere extends AbstractOrderLimit
 {
     /**
      * @var SQL\Join[]|null
@@ -20,16 +20,6 @@ abstract class AbstractWhere extends AbstractQuery
      * @var SQL\Condition[]|null
      */
     protected $where;
-
-    /**
-     * @var SQL\Direction[]|null
-     */
-    protected $order;
-
-    /**
-     * @var SQL\IntValue|null
-     */
-    protected $limit;
 
     /**
      * @return SQL\Join[]|null
@@ -45,22 +35,6 @@ abstract class AbstractWhere extends AbstractQuery
     public function getWhere()
     {
         return $this->where;
-    }
-
-    /**
-     * @return SQL\Direction[]|null
-     */
-    public function getOrder()
-    {
-        return $this->order;
-    }
-
-    /**
-     * @return SQL\IntValue|null
-     */
-    public function getLimit()
-    {
-        return $this->limit;
     }
 
     public function join($table, $condition, $type = null)
@@ -89,20 +63,6 @@ abstract class AbstractWhere extends AbstractQuery
     public function whereRaw($condition, array $parameters = null)
     {
         $this->where []= new SQL\Condition($condition, $parameters);
-
-        return $this;
-    }
-
-    public function order($column, $direction = null)
-    {
-        $this->order []= new SQL\Direction($column, $direction);
-
-        return $this;
-    }
-
-    public function limit($limit)
-    {
-        $this->limit = new SQL\IntValue($limit);
 
         return $this;
     }
