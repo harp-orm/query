@@ -13,6 +13,7 @@ class SelectTest extends AbstractTestCase
 {
     /**
      * @covers CL\Atlas\Query\Select::column
+     * @covers CL\Atlas\Query\Select::prependColumn
      * @covers CL\Atlas\Query\Select::getColumns
      * @covers CL\Atlas\Query\Select::clearColumns
      */
@@ -22,9 +23,11 @@ class SelectTest extends AbstractTestCase
 
         $query
             ->column('column1')
-            ->column('column2', 'alias2');
+            ->column('column2', 'alias2')
+            ->prependColumn('column0', 'alias0');
 
         $expected = array(
+            new SQL\Aliased('column0', 'alias0'),
             new SQL\Aliased('column1'),
             new SQL\Aliased('column2', 'alias2'),
         );

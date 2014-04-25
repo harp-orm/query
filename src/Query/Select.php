@@ -119,6 +119,13 @@ class Select extends AbstractWhere
         return $this;
     }
 
+    public function prependColumn($column, $alias = null)
+    {
+        array_unshift($this->columns, new SQL\Aliased($column, $alias));
+
+        return $this;
+    }
+
     public function from($table, $alias = null)
     {
         $this->from []= new SQL\Aliased($table, $alias);
