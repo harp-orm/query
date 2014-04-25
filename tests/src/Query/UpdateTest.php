@@ -14,6 +14,7 @@ class UpdateTest extends AbstractTestCase
     /**
      * @covers CL\Atlas\Query\Update::table
      * @covers CL\Atlas\Query\Update::getTable
+     * @covers CL\Atlas\Query\Update::clearTable
      */
     public function testTable()
     {
@@ -29,11 +30,16 @@ class UpdateTest extends AbstractTestCase
         );
 
         $this->assertEquals($expected, $query->getTable());
+
+        $query->clearTable();
+
+        $this->assertEmpty($query->getTable());
     }
 
     /**
      * @covers CL\Atlas\Query\Update::set
      * @covers CL\Atlas\Query\Update::getSet
+     * @covers CL\Atlas\Query\Update::clearSet
      */
     public function testSet()
     {
@@ -50,6 +56,10 @@ class UpdateTest extends AbstractTestCase
         );
 
         $this->assertEquals($expected, $query->getSet());
+
+        $query->clearSet();
+
+        $this->assertEmpty($query->getSet());
     }
 
     /**

@@ -77,6 +77,41 @@ class Select extends AbstractWhere
         return $this->offset;
     }
 
+    public function clearColumns()
+    {
+        $this->columns = null;
+
+        return $this;
+    }
+
+    public function clearFrom()
+    {
+        $this->from = null;
+
+        return $this;
+    }
+
+    public function clearGroup()
+    {
+        $this->group = null;
+
+        return $this;
+    }
+
+    public function clearHaving()
+    {
+        $this->having = null;
+
+        return $this;
+    }
+
+    public function clearOffset()
+    {
+        $this->offset = null;
+
+        return $this;
+    }
+
     public function column($column, $alias = null)
     {
         $this->columns []= new SQL\Aliased($column, $alias);

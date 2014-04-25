@@ -53,6 +53,13 @@ abstract class AbstractWhere extends AbstractOrderLimit
         return $this;
     }
 
+    public function clearJoin()
+    {
+        $this->join = null;
+
+        return $this;
+    }
+
     public function where(array $condition)
     {
         $this->where []= new SQL\ConditionArray($condition);
@@ -66,4 +73,12 @@ abstract class AbstractWhere extends AbstractOrderLimit
 
         return $this;
     }
+
+    public function clearWhere()
+    {
+        $this->where = null;
+
+        return $this;
+    }
+
 }

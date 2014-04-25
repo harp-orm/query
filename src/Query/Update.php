@@ -46,6 +46,13 @@ class Update extends AbstractWhere
         return $this;
     }
 
+    public function clearTable()
+    {
+        $this->table = null;
+
+        return $this;
+    }
+
     public function set(array $values)
     {
         foreach ($values as $column => $value) {
@@ -62,6 +69,13 @@ class Update extends AbstractWhere
         foreach ($values as $column => $changes) {
             $this->set []= new SQL\SetMultiple($column, $changes, $key);
         }
+
+        return $this;
+    }
+
+    public function clearSet()
+    {
+        $this->set = null;
 
         return $this;
     }

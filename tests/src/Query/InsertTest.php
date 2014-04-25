@@ -14,6 +14,7 @@ class InsertTest extends AbstractTestCase
     /**
      * @covers CL\Atlas\Query\Insert::into
      * @covers CL\Atlas\Query\Insert::getTable
+     * @covers CL\Atlas\Query\Insert::clearTable
      */
     public function testInto()
     {
@@ -24,11 +25,16 @@ class InsertTest extends AbstractTestCase
         $expected = new SQL\Aliased('posts');
 
         $this->assertEquals($expected, $query->getTable());
+
+        $query->clearTable();
+
+        $this->assertEmpty($query->getTable());
     }
 
     /**
      * @covers CL\Atlas\Query\Insert::columns
      * @covers CL\Atlas\Query\Insert::getColumns
+     * @covers CL\Atlas\Query\Insert::clearColumns
      */
     public function testColumns()
     {
@@ -45,11 +51,16 @@ class InsertTest extends AbstractTestCase
         $expected = new SQL\Columns(array('col1', 'col2'));
 
         $this->assertEquals($expected, $query->getColumns());
+
+        $query->clearColumns();
+
+        $this->assertEmpty($query->getColumns());
     }
 
     /**
      * @covers CL\Atlas\Query\Insert::values
      * @covers CL\Atlas\Query\Insert::getValues
+     * @covers CL\Atlas\Query\Insert::clearValues
      */
     public function testValues()
     {
@@ -65,11 +76,16 @@ class InsertTest extends AbstractTestCase
         );
 
         $this->assertEquals($expected, $query->getValues());
+
+        $query->clearValues();
+
+        $this->assertEmpty($query->getValues());
     }
 
     /**
      * @covers CL\Atlas\Query\Insert::set
      * @covers CL\Atlas\Query\Insert::getSet
+     * @covers CL\Atlas\Query\Insert::clearSet
      */
     public function testSet()
     {
@@ -86,11 +102,16 @@ class InsertTest extends AbstractTestCase
         );
 
         $this->assertEquals($expected, $query->getSet());
+
+        $query->clearSet();
+
+        $this->assertEmpty($query->getSet());
     }
 
     /**
      * @covers CL\Atlas\Query\Insert::select
      * @covers CL\Atlas\Query\Insert::getSelect
+     * @covers CL\Atlas\Query\Insert::clearSelect
      */
     public function testSelect()
     {
@@ -100,6 +121,10 @@ class InsertTest extends AbstractTestCase
         $query->select($select);
 
         $this->assertSame($select, $query->getSelect());
+
+        $query->clearSelect();
+
+        $this->assertEmpty($query->getSelect());
     }
 
     /**

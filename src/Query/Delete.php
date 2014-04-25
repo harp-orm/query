@@ -45,9 +45,23 @@ class Delete extends AbstractWhere
         return $this;
     }
 
+    public function clearTable()
+    {
+        $this->table = null;
+
+        return $this;
+    }
+
     public function from($table, $alias = null)
     {
         $this->from []= new SQL\Aliased($table, $alias);
+
+        return $this;
+    }
+
+    public function clearFrom()
+    {
+        $this->from = null;
 
         return $this;
     }

@@ -44,10 +44,25 @@ abstract class AbstractOrderLimit extends AbstractQuery
         return $this;
     }
 
+    public function clearOrder()
+    {
+        $this->order = null;
+
+        return $this;
+    }
+
     public function limit($limit)
     {
         $this->limit = new SQL\IntValue($limit);
 
         return $this;
     }
+
+    public function clearLimit()
+    {
+        $this->limit = null;
+
+        return $this;
+    }
+
 }

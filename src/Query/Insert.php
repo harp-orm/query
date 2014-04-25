@@ -84,6 +84,13 @@ class Insert extends AbstractQuery
         return $this;
     }
 
+    public function clearTable()
+    {
+        $this->table = null;
+
+        return $this;
+    }
+
     public function columns(array $columns)
     {
         $this->columns = new SQL\Columns($columns);
@@ -91,9 +98,23 @@ class Insert extends AbstractQuery
         return $this;
     }
 
+    public function clearColumns()
+    {
+        $this->columns = null;
+
+        return $this;
+    }
+
     public function values(array $values)
     {
         $this->values []= new SQL\Values($values);
+
+        return $this;
+    }
+
+    public function clearValues()
+    {
+        $this->values = null;
 
         return $this;
     }
@@ -107,9 +128,23 @@ class Insert extends AbstractQuery
         return $this;
     }
 
+    public function clearSet()
+    {
+        $this->set = null;
+
+        return $this;
+    }
+
     public function select(Select $select)
     {
         $this->select = $select;
+
+        return $this;
+    }
+
+    public function clearSelect()
+    {
+        $this->select = null;
 
         return $this;
     }

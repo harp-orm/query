@@ -14,6 +14,7 @@ class SelectTest extends AbstractTestCase
     /**
      * @covers CL\Atlas\Query\Select::column
      * @covers CL\Atlas\Query\Select::getColumns
+     * @covers CL\Atlas\Query\Select::clearColumns
      */
     public function testColumn()
     {
@@ -29,11 +30,16 @@ class SelectTest extends AbstractTestCase
         );
 
         $this->assertEquals($expected, $query->getColumns());
+
+        $query->clearColumns();
+
+        $this->assertEmpty($query->getColumns());
     }
 
     /**
      * @covers CL\Atlas\Query\Select::from
      * @covers CL\Atlas\Query\Select::getFrom
+     * @covers CL\Atlas\Query\Select::clearFrom
      */
     public function testFrom()
     {
@@ -49,11 +55,16 @@ class SelectTest extends AbstractTestCase
         );
 
         $this->assertEquals($expected, $query->getFrom());
+
+        $query->clearFrom();
+
+        $this->assertEmpty($query->getFrom());
     }
 
     /**
      * @covers CL\Atlas\Query\Select::group
      * @covers CL\Atlas\Query\Select::getGroup
+     * @covers CL\Atlas\Query\Select::clearGroup
      */
     public function testGroup()
     {
@@ -69,12 +80,17 @@ class SelectTest extends AbstractTestCase
         );
 
         $this->assertEquals($expected, $query->getGroup());
+
+        $query->clearGroup();
+
+        $this->assertEmpty($query->getGroup());
     }
 
     /**
      * @covers CL\Atlas\Query\Select::having
      * @covers CL\Atlas\Query\Select::getHaving
      * @covers CL\Atlas\Query\Select::havingRaw
+     * @covers CL\Atlas\Query\Select::clearHaving
      */
     public function testHaving()
     {
@@ -92,11 +108,16 @@ class SelectTest extends AbstractTestCase
         );
 
         $this->assertEquals($expected, $query->getHaving());
+
+        $query->clearHaving();
+
+        $this->assertEmpty($query->getHaving());
     }
 
     /**
      * @covers CL\Atlas\Query\Select::offset
      * @covers CL\Atlas\Query\Select::getOffset
+     * @covers CL\Atlas\Query\Select::clearOffset
      */
     public function testOffset()
     {
@@ -107,6 +128,10 @@ class SelectTest extends AbstractTestCase
         $expected = new SQL\IntValue(20);
 
         $this->assertEquals($expected, $query->getOffset());
+
+        $query->clearOffset();
+
+        $this->assertEmpty($query->getOffset());
     }
 
     /**
