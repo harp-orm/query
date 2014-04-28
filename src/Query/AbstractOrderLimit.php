@@ -30,11 +30,31 @@ abstract class AbstractOrderLimit extends AbstractQuery
     }
 
     /**
+     * @param SQL\Direction[] $order
+     */
+    public function setOrder(array $order)
+    {
+        return $this->order = $order;
+
+        return $this;
+    }
+
+    /**
      * @return SQL\IntValue|null
      */
     public function getLimit()
     {
         return $this->limit;
+    }
+
+    /**
+     * @return SQL\IntValue|null
+     */
+    public function setLimit(SQL\IntValue $limit)
+    {
+        return $this->limit = $limit;
+
+        return $this;
     }
 
     public function order($column, $direction = null)

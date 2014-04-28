@@ -14,6 +14,7 @@ class InsertTest extends AbstractTestCase
     /**
      * @covers CL\Atlas\Query\Insert::into
      * @covers CL\Atlas\Query\Insert::getTable
+     * @covers CL\Atlas\Query\Insert::setTable
      * @covers CL\Atlas\Query\Insert::clearTable
      */
     public function testInto()
@@ -29,11 +30,16 @@ class InsertTest extends AbstractTestCase
         $query->clearTable();
 
         $this->assertEmpty($query->getTable());
+
+        $query->setTable($expected);
+
+        $this->assertEquals($expected, $query->getTable());
     }
 
     /**
      * @covers CL\Atlas\Query\Insert::columns
      * @covers CL\Atlas\Query\Insert::getColumns
+     * @covers CL\Atlas\Query\Insert::setColumns
      * @covers CL\Atlas\Query\Insert::clearColumns
      */
     public function testColumns()
@@ -55,11 +61,16 @@ class InsertTest extends AbstractTestCase
         $query->clearColumns();
 
         $this->assertEmpty($query->getColumns());
+
+        $query->setColumns($expected);
+
+        $this->assertEquals($expected, $query->getColumns());
     }
 
     /**
      * @covers CL\Atlas\Query\Insert::values
      * @covers CL\Atlas\Query\Insert::getValues
+     * @covers CL\Atlas\Query\Insert::setValues
      * @covers CL\Atlas\Query\Insert::clearValues
      */
     public function testValues()
@@ -80,11 +91,16 @@ class InsertTest extends AbstractTestCase
         $query->clearValues();
 
         $this->assertEmpty($query->getValues());
+
+        $query->setValues($expected);
+
+        $this->assertEquals($expected, $query->getValues());
     }
 
     /**
      * @covers CL\Atlas\Query\Insert::set
      * @covers CL\Atlas\Query\Insert::getSet
+     * @covers CL\Atlas\Query\Insert::setSet
      * @covers CL\Atlas\Query\Insert::clearSet
      */
     public function testSet()
@@ -106,11 +122,16 @@ class InsertTest extends AbstractTestCase
         $query->clearSet();
 
         $this->assertEmpty($query->getSet());
+
+        $query->setSet($expected);
+
+        $this->assertEquals($expected, $query->getSet());
     }
 
     /**
      * @covers CL\Atlas\Query\Insert::select
      * @covers CL\Atlas\Query\Insert::getSelect
+     * @covers CL\Atlas\Query\Insert::setSelect
      * @covers CL\Atlas\Query\Insert::clearSelect
      */
     public function testSelect()
@@ -125,6 +146,10 @@ class InsertTest extends AbstractTestCase
         $query->clearSelect();
 
         $this->assertEmpty($query->getSelect());
+
+        $query->setSelect($select);
+
+        $this->assertEquals($select, $query->getSelect());
     }
 
     /**

@@ -14,6 +14,7 @@ class DeleteTest extends AbstractTestCase
     /**
      * @covers CL\Atlas\Query\Delete::table
      * @covers CL\Atlas\Query\Delete::getTable
+     * @covers CL\Atlas\Query\Delete::setTable
      * @covers CL\Atlas\Query\Delete::clearTable
      */
     public function testTable()
@@ -34,11 +35,16 @@ class DeleteTest extends AbstractTestCase
         $query->clearTable();
 
         $this->assertEmpty($query->getTable());
+
+        $query->setTable($expected);
+
+        $this->assertEquals($expected, $query->getTable());
     }
 
     /**
      * @covers CL\Atlas\Query\Delete::from
      * @covers CL\Atlas\Query\Delete::getFrom
+     * @covers CL\Atlas\Query\Delete::setFrom
      * @covers CL\Atlas\Query\Delete::clearFrom
      */
     public function testFrom()
@@ -59,6 +65,10 @@ class DeleteTest extends AbstractTestCase
         $query->clearFrom();
 
         $this->assertEmpty($query->getFrom());
+
+        $query->setFrom($expected);
+
+        $this->assertEquals($expected, $query->getFrom());
     }
 
     /**

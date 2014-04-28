@@ -14,6 +14,7 @@ class AbstractWhereTest extends AbstractTestCase
      * @covers CL\Atlas\Query\AbstractWhere::join
      * @covers CL\Atlas\Query\AbstractWhere::joinAliased
      * @covers CL\Atlas\Query\AbstractWhere::getJoin
+     * @covers CL\Atlas\Query\AbstractWhere::setJoin
      * @covers CL\Atlas\Query\AbstractWhere::clearJoin
      */
     public function testJoin()
@@ -34,11 +35,16 @@ class AbstractWhereTest extends AbstractTestCase
         $query->clearJoin();
 
         $this->assertEmpty($query->getJoin());
+
+        $query->setJoin($expected);
+
+        $this->assertEquals($expected, $query->getJoin());
     }
 
     /**
      * @covers CL\Atlas\Query\AbstractWhere::where
      * @covers CL\Atlas\Query\AbstractWhere::getWhere
+     * @covers CL\Atlas\Query\AbstractWhere::setWhere
      * @covers CL\Atlas\Query\AbstractWhere::whereRaw
      * @covers CL\Atlas\Query\AbstractWhere::clearWhere
      */
@@ -62,5 +68,9 @@ class AbstractWhereTest extends AbstractTestCase
         $query->clearWhere();
 
         $this->assertEmpty($query->getWhere());
+
+        $query->setWhere($expected);
+
+        $this->assertEquals($expected, $query->getWhere());
     }
 }

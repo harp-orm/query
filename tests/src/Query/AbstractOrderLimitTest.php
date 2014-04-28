@@ -13,6 +13,7 @@ class AbstractOrderLimitTest extends AbstractTestCase
     /**
      * @covers CL\Atlas\Query\AbstractOrderLimit::order
      * @covers CL\Atlas\Query\AbstractOrderLimit::getOrder
+     * @covers CL\Atlas\Query\AbstractOrderLimit::setOrder
      * @covers CL\Atlas\Query\AbstractOrderLimit::clearOrder
      */
     public function testOrder()
@@ -33,12 +34,17 @@ class AbstractOrderLimitTest extends AbstractTestCase
         $query->clearOrder();
 
         $this->assertEmpty($query->getOrder());
+
+        $query->setOrder($expected);
+
+        $this->assertEquals($expected, $query->getOrder());
     }
 
 
     /**
      * @covers CL\Atlas\Query\AbstractOrderLimit::limit
      * @covers CL\Atlas\Query\AbstractOrderLimit::getLimit
+     * @covers CL\Atlas\Query\AbstractOrderLimit::setLimit
      * @covers CL\Atlas\Query\AbstractOrderLimit::clearLimit
      */
     public function testLimit()
@@ -54,5 +60,9 @@ class AbstractOrderLimitTest extends AbstractTestCase
         $query->clearLimit();
 
         $this->assertEmpty($query->getLimit());
+
+        $query->setLimit($expected);
+
+        $this->assertEquals($expected, $query->getLimit());
     }
 }

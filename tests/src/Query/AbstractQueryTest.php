@@ -14,6 +14,7 @@ class AbstractQueryTest extends AbstractTestCase
     /**
      * @covers CL\Atlas\Query\AbstractQuery::type
      * @covers CL\Atlas\Query\AbstractQuery::getType
+     * @covers CL\Atlas\Query\AbstractQuery::setType
      */
     public function testType()
     {
@@ -28,6 +29,10 @@ class AbstractQueryTest extends AbstractTestCase
         $query->type('IGNORE QUICK');
 
         $expected = new SQL\SQL('IGNORE QUICK');
+
+        $this->assertEquals($expected, $query->getType());
+
+        $query->setType($expected);
 
         $this->assertEquals($expected, $query->getType());
     }

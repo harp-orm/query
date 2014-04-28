@@ -13,6 +13,7 @@ class UnionTest extends AbstractTestCase
     /**
      * @covers CL\Atlas\Query\Union::select
      * @covers CL\Atlas\Query\Union::getSelects
+     * @covers CL\Atlas\Query\Union::setSelects
      * @covers CL\Atlas\Query\Union::clearSelects
      */
     public function testSelect()
@@ -35,6 +36,10 @@ class UnionTest extends AbstractTestCase
         $query->clearSelects();
 
         $this->assertEmpty($query->getSelects());
+
+        $query->setSelects($expected);
+
+        $this->assertEquals($expected, $query->getSelects());
     }
 
 

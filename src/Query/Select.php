@@ -46,11 +46,31 @@ class Select extends AbstractWhere
     }
 
     /**
+     * @param SQL\Aliased[] $columns
+     */
+    public function setColumns(array $columns)
+    {
+        $this->columns = $columns;
+
+        return $this;
+    }
+
+    /**
      * @return SQL\Aliased[]|null
      */
     public function getFrom()
     {
         return $this->from;
+    }
+
+    /**
+     * @param SQL\Aliased[] $from
+     */
+    public function setFrom(array $from)
+    {
+        $this->from = $from;
+
+        return $this;
     }
 
     /**
@@ -62,6 +82,16 @@ class Select extends AbstractWhere
     }
 
     /**
+     * @param SQL\Direction[] $group
+     */
+    public function setGroup(array $group)
+    {
+        $this->group = $group;
+
+        return $this;
+    }
+
+    /**
      * @return SQL\Condition[]|null
      */
     public function getHaving()
@@ -70,11 +100,31 @@ class Select extends AbstractWhere
     }
 
     /**
-     * @return SQL\IntVal|null
+     * @param SQL\Condition[] $having
+     */
+    public function setHaving(array $having)
+    {
+        $this->having = $having;
+
+        return $this;
+    }
+
+    /**
+     * @return SQL\IntValue|null
      */
     public function getOffset()
     {
         return $this->offset;
+    }
+
+    /**
+     * @param SQL\IntValue $offset
+     */
+    public function setOffset(SQL\IntValue $offset)
+    {
+        $this->offset = $offset;
+
+        return $this;
     }
 
     public function clearColumns()

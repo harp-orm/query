@@ -46,6 +46,16 @@ class Insert extends AbstractQuery
     }
 
     /**
+     * @param SQL\Aliased $table
+     */
+    public function setTable(SQL\Aliased $table)
+    {
+        $this->table = $table;
+
+        return $this;
+    }
+
+    /**
      * @return SQL\Columns|null
      */
     public function getColumns()
@@ -54,7 +64,17 @@ class Insert extends AbstractQuery
     }
 
     /**
-     * @return SQL\Set[]|null
+     * @param SQL\Columns $columns
+     */
+    public function setColumns(SQL\Columns $columns)
+    {
+        $this->columns = $columns;
+
+        return $this;
+    }
+
+    /**
+     * @return SQL\Values[]|null
      */
     public function getValues()
     {
@@ -62,11 +82,31 @@ class Insert extends AbstractQuery
     }
 
     /**
-     * @return SQL\Values[]|null
+     * @param SQL\Values[] $values
+     */
+    public function setValues(array $values)
+    {
+        $this->values = $values;
+
+        return $this;
+    }
+
+    /**
+     * @return SQL\Set[]|null
      */
     public function getSet()
     {
         return $this->set;
+    }
+
+    /**
+     * @param SQL\Set[] $set
+     */
+    public function setSet(array $set)
+    {
+        $this->set = $set;
+
+        return $this;
     }
 
     /**
@@ -75,6 +115,16 @@ class Insert extends AbstractQuery
     public function getSelect()
     {
         return $this->select;
+    }
+
+    /**
+     * @param Select $select
+     */
+    public function setSelect(Select $select)
+    {
+        $this->select = $select;
+
+        return $this;
     }
 
     public function into($table)

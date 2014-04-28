@@ -32,11 +32,31 @@ class Update extends AbstractWhere
     }
 
     /**
+     * @param SQL\Table[] $table
+     */
+    public function setTable(array $table)
+    {
+        $this->table = $table;
+
+        return $this;
+    }
+
+    /**
      * @return SQL\Set[]|null
      */
     public function getSet()
     {
         return $this->set;
+    }
+
+    /**
+     * @param SQL\Set[] $set
+     */
+    public function setSet(array $set)
+    {
+        $this->set = $set;
+
+        return $this;
     }
 
     public function table($table, $alias = null)

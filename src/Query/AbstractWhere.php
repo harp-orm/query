@@ -30,11 +30,31 @@ abstract class AbstractWhere extends AbstractOrderLimit
     }
 
     /**
+     * @param SQL\Join[] $join
+     */
+    public function setJoin(array $join)
+    {
+        $this->join = $join;
+
+        return $this;
+    }
+
+    /**
      * @return SQL\Condition[]|null
      */
     public function getWhere()
     {
         return $this->where;
+    }
+
+    /**
+     * @param SQL\Condition[] $where
+     */
+    public function setWhere(array $where)
+    {
+        $this->where = $where;
+
+        return $this;
     }
 
     public function join($table, $condition, $type = null)

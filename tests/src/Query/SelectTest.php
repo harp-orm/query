@@ -15,6 +15,7 @@ class SelectTest extends AbstractTestCase
      * @covers CL\Atlas\Query\Select::column
      * @covers CL\Atlas\Query\Select::prependColumn
      * @covers CL\Atlas\Query\Select::getColumns
+     * @covers CL\Atlas\Query\Select::setColumns
      * @covers CL\Atlas\Query\Select::clearColumns
      */
     public function testColumn()
@@ -37,11 +38,16 @@ class SelectTest extends AbstractTestCase
         $query->clearColumns();
 
         $this->assertEmpty($query->getColumns());
+
+        $query->setColumns($expected);
+
+        $this->assertEquals($expected, $query->getColumns());
     }
 
     /**
      * @covers CL\Atlas\Query\Select::from
      * @covers CL\Atlas\Query\Select::getFrom
+     * @covers CL\Atlas\Query\Select::setFrom
      * @covers CL\Atlas\Query\Select::clearFrom
      */
     public function testFrom()
@@ -62,11 +68,16 @@ class SelectTest extends AbstractTestCase
         $query->clearFrom();
 
         $this->assertEmpty($query->getFrom());
+
+        $query->setFrom($expected);
+
+        $this->assertEquals($expected, $query->getFrom());
     }
 
     /**
      * @covers CL\Atlas\Query\Select::group
      * @covers CL\Atlas\Query\Select::getGroup
+     * @covers CL\Atlas\Query\Select::setGroup
      * @covers CL\Atlas\Query\Select::clearGroup
      */
     public function testGroup()
@@ -87,11 +98,16 @@ class SelectTest extends AbstractTestCase
         $query->clearGroup();
 
         $this->assertEmpty($query->getGroup());
+
+        $query->setGroup($expected);
+
+        $this->assertEquals($expected, $query->getGroup());
     }
 
     /**
      * @covers CL\Atlas\Query\Select::having
      * @covers CL\Atlas\Query\Select::getHaving
+     * @covers CL\Atlas\Query\Select::setHaving
      * @covers CL\Atlas\Query\Select::havingRaw
      * @covers CL\Atlas\Query\Select::clearHaving
      */
@@ -115,11 +131,16 @@ class SelectTest extends AbstractTestCase
         $query->clearHaving();
 
         $this->assertEmpty($query->getHaving());
+
+        $query->setHaving($expected);
+
+        $this->assertEquals($expected, $query->getHaving());
     }
 
     /**
      * @covers CL\Atlas\Query\Select::offset
      * @covers CL\Atlas\Query\Select::getOffset
+     * @covers CL\Atlas\Query\Select::setOffset
      * @covers CL\Atlas\Query\Select::clearOffset
      */
     public function testOffset()
@@ -135,6 +156,10 @@ class SelectTest extends AbstractTestCase
         $query->clearOffset();
 
         $this->assertEmpty($query->getOffset());
+
+        $query->setOffset($expected);
+
+        $this->assertEquals($expected, $query->getOffset());
     }
 
     /**

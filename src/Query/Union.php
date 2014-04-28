@@ -24,6 +24,16 @@ class Union extends AbstractOrderLimit
         return $this->selects;
     }
 
+    /**
+     * @param SQL\Select[] $selects
+     */
+    public function setSelects(array $selects)
+    {
+        $this->selects = $selects;
+
+        return $this;
+    }
+
     public function select(Select $select)
     {
         $this->selects []= $select;

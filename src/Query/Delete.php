@@ -31,11 +31,31 @@ class Delete extends AbstractWhere
     }
 
     /**
+     * @param SQL\Aliased[] $table
+     */
+    public function setTable(array $table)
+    {
+        $this->table = $table;
+
+        return $this;
+    }
+
+    /**
      * @return SQL\Aliased[]|null
      */
     public function getFrom()
     {
         return $this->from;
+    }
+
+    /**
+     * @param SQL\Aliased[] $from
+     */
+    public function setFrom(array $from)
+    {
+        $this->from = $from;
+
+        return $this;
     }
 
     public function table($table)

@@ -38,6 +38,14 @@ abstract class AbstractQuery implements Parametrised
         return $this->type;
     }
 
+    /**
+     * @param SQL\SQL $type
+     */
+    public function setType(SQL\SQL $type)
+    {
+        return $this->type = $type;
+    }
+
     public function type($type)
     {
         $this->type = new SQL\SQL($type);
