@@ -29,7 +29,7 @@ class DeleteTest extends AbstractTestCase
             ->order('col1')
             ->joinAliased('join1', 'alias_join1', array('col' => 'col2'))
             ->limit(10)
-            ->where(array('test' => 'value'))
+            ->where('test', 'value')
             ->whereRaw('test_statement = IF ("test", ?, ?)', array('val1', 'val2'))
             ->whereRaw('type > ? AND type < ? OR base IN ?', array('10', '20', array('1', '2', '3')));
 

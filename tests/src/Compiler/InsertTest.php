@@ -41,7 +41,7 @@ SQL;
         $select = new Query\Select;
         $select
             ->from('table2')
-            ->where(array('name' => '10'));
+            ->where('name', '10');
 
         $args[0] = new Query\Insert;
         $args[0]
@@ -78,9 +78,9 @@ SQL;
      * @covers CL\Atlas\Compiler\Insert::parameters
      * @dataProvider dataInsert
      */
-    public function testInsert($query, $expected_sql, $expected_parameters)
+    public function testInsert($query, $expectedSql, $expectedParameters)
     {
-        $this->assertEquals($expected_sql, Compiler\Insert::render($query));
-        $this->assertEquals($expected_parameters, Compiler\Insert::parameters($query));
+        $this->assertEquals($expectedSql, Compiler\Insert::render($query));
+        $this->assertEquals($expectedParameters, Compiler\Insert::parameters($query));
     }
 }

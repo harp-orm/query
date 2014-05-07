@@ -20,7 +20,7 @@ DB::setConfig('default', array(
 
 $query = DB::select()
     ->from('users')
-    ->where(['seller' => true])
+    ->where('seller', true)
     ->join('profiles', ['profiles.user_id' => 'users.id'])
     ->limit(10);
 

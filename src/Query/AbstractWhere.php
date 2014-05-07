@@ -80,9 +80,9 @@ abstract class AbstractWhere extends AbstractOrderLimit
         return $this;
     }
 
-    public function where(array $condition)
+    public function where($column, $value)
     {
-        $this->where []= new SQL\ConditionArray($condition);
+        $this->where []= new SQL\ConditionValue($column, $value);
 
         return $this;
     }

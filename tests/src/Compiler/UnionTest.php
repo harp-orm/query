@@ -25,7 +25,7 @@ class UnionTest extends AbstractTestCase
             ->column('col1')
             ->type('DISTINCT')
             ->join('table1', new SQL('USING (col1, col2)'))
-            ->where(array('name' => 'small'));
+            ->where('name', 'small');
 
         $select2 = new Query\Select;
         $select2
@@ -33,7 +33,7 @@ class UnionTest extends AbstractTestCase
             ->column('col1')
             ->column('base')
             ->column('type')
-            ->where(array('test' => 'value'))
+            ->where('test', 'value')
             ->whereRaw('test_statement = IF ("test", ?, ?)', array('val1', 'val2'))
             ->join('table2', array('col1' => 'col2'))
             ->limit(10)

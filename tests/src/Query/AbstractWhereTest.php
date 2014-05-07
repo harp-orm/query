@@ -53,14 +53,14 @@ class AbstractWhereTest extends AbstractTestCase
         $query = $this->getMock('CL\Atlas\Query\AbstractWhere', array('sql', 'getParameters'));
 
         $query
-            ->where(array('test1' => 1, 'test2' => 2))
+            ->where('test1', 2)
             ->whereRaw('column = ? OR column = ?', array(10, 20))
-            ->where(array('test3' => 3));
+            ->where('test3', 3);
 
         $expected = array(
-            new SQL\ConditionArray(array('test1' => 1, 'test2' => 2)),
+            new SQL\ConditionValue('test1', 2),
             new SQL\Condition('column = ? OR column = ?', array(10, 20)),
-            new SQL\ConditionArray(array('test3' => 3)),
+            new SQL\ConditionValue('test3', 3),
         );
 
         $this->assertEquals($expected, $query->getWhere());

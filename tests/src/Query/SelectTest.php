@@ -113,17 +113,18 @@ class SelectTest extends AbstractTestCase
      */
     public function testHaving()
     {
+
         $query = new Query\Select;
 
         $query
-            ->having(array('test1' => 1, 'test2' => 2))
+            ->having('test1', 2)
             ->havingRaw('column = ? OR column = ?', array(10, 20))
-            ->having(array('test3' => 3));
+            ->having('test3', 3);
 
         $expected = array(
-            new SQL\ConditionArray(array('test1' => 1, 'test2' => 2)),
+            new SQL\ConditionValue('test1', 2),
             new SQL\Condition('column = ? OR column = ?', array(10, 20)),
-            new SQL\ConditionArray(array('test3' => 3)),
+            new SQL\ConditionValue('test3', 3),
         );
 
         $this->assertEquals($expected, $query->getHaving());
@@ -171,7 +172,7 @@ class SelectTest extends AbstractTestCase
 
         $query
             ->from('table1')
-            ->where(array('name' => 10));
+            ->where('name', 10);
 
         $this->assertEquals('SELECT * FROM table1 WHERE (name = ?)', $query->sql());
     }
@@ -185,7 +186,8 @@ class SelectTest extends AbstractTestCase
 
         $query
             ->from('table1')
-            ->where(array('name' => 10, 'value' => array(2, 3)));
+            ->where('name', 10)
+            ->where('value', array(2, 3));
 
         $this->assertEquals(array(10, 2, 3), $query->getParameters());
     }

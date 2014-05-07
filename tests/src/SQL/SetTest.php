@@ -18,7 +18,7 @@ class SetTest extends AbstractTestCase
         $query = new Query\Select();
         $query
             ->from('table1')
-            ->where(array('name' => 10))
+            ->where('name', 10)
             ->limit(1);
 
         return array(
@@ -34,12 +34,12 @@ class SetTest extends AbstractTestCase
      * @covers CL\Atlas\SQL\Set::getValue
      * @covers CL\Atlas\SQL\Set::getParameters
      */
-    public function testConstruct($column, $value, $expected_column, $expected_value, $expected_params)
+    public function testConstruct($column, $value, $expectedColumn, $expectedValue, $expectedParams)
     {
         $set = new SQL\Set($column, $value);
 
-        $this->assertEquals($expected_column, $set->getContent());
-        $this->assertEquals($expected_value, $set->getValue());
-        $this->assertEquals($expected_params, $set->getParameters());
+        $this->assertEquals($expectedColumn, $set->getContent());
+        $this->assertEquals($expectedValue, $set->getValue());
+        $this->assertEquals($expectedParams, $set->getParameters());
     }
 }

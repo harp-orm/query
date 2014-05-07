@@ -54,11 +54,11 @@ class UnionTest extends AbstractTestCase
 
         $select1
             ->from('table1')
-            ->where(array('name' => 10));
+            ->where('name', 10);
 
         $select2
             ->from('table2')
-            ->where(array('name' => 10));
+            ->where('name', 10);
 
         $query
             ->select($select1)
@@ -78,11 +78,11 @@ class UnionTest extends AbstractTestCase
 
         $select1
             ->from('table1')
-            ->where(array('name' => 10));
+            ->where('name', 10);
 
         $select2
             ->from('table2')
-            ->where(array('name' => array(1, 2)));
+            ->where('name', array(1, 2));
 
         $query
             ->select($select1)

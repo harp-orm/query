@@ -9,27 +9,27 @@ use CL\Atlas\SQL;
 /**
  * @group sql.condition
  */
-class ConditionArrayTest extends AbstractTestCase
+class ConditionValueTest extends AbstractTestCase
 {
 
     public function dataConstruct()
     {
         return array(
             array(
-                array('name' => 10),
-                array(),
+                'name',
+                10,
                 'name = ?',
                 array(10)
             ),
             array(
-                array('name' => 10, 'id' => array(10, 20)),
-                array(),
-                'name = ? AND id IN ?',
-                array(10, array(10, 20))
+                'id',
+                array(10, 20),
+                'id IN ?',
+                array(array(10, 20))
             ),
             array(
-                array('name' => null),
-                array(),
+                'name',
+                null,
                 'name IS ?',
                 array(null)
             ),
@@ -38,13 +38,13 @@ class ConditionArrayTest extends AbstractTestCase
 
     /**
      * @dataProvider dataConstruct
-     * @covers CL\Atlas\SQL\ConditionArray::__construct
+     * @covers CL\Atlas\SQL\ConditionValue::__construct
      */
-    public function testConstruct($argument, $params, $expected_condition, $expected_params)
+    public function testConstruct($column, $value, $expected, $expectedParams)
     {
-        $sqlCondition = new SQL\ConditionArray($argument, $params);
-        $this->assertEquals($expected_condition, $sqlCondition->getContent());
-        $this->assertEquals($expected_params, $sqlCondition->getParameters());
+        $sqlCondition = new SQL\ConditionValue($column, $value);
+        $this->assertEquals($expected, $sqlCondition->getContent());
+        $this->assertEquals($expectedParams, $sqlCondition->getParameters());
     }
 
     public function dataGuessOperator()
@@ -60,10 +60,10 @@ class ConditionArrayTest extends AbstractTestCase
     }
     /**
      * @dataProvider dataGuessOperator
-     * @covers CL\Atlas\SQL\ConditionArray::guessOperator
+     * @covers CL\Atlas\SQL\ConditionValue::guessOperator
      */
     public function testGuessOperator($value, $expected)
     {
-        $this->assertEquals($expected, SQL\ConditionArray::guessOperator($value));
+        $this->assertEquals($expected, SQL\ConditionValue::guessOperator($value));
     }
 }

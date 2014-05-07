@@ -24,7 +24,7 @@ class SelectTest extends AbstractTestCase
             ->from('one')
             ->type('DISTINCT')
             ->join('table1', new SQL('USING (col1, col2)'))
-            ->where(array('name' => 'small'));
+            ->where('name', 'small');
 
         $select = new Query\Select;
         $select
@@ -34,11 +34,11 @@ class SelectTest extends AbstractTestCase
             ->column('col1')
             ->column(new SQL('IF(name = ?, "big", "small")', array(10)), 'type')
             ->column('col3', 'alias_col')
-            ->where(array('test' => 'value'))
+            ->where('test', 'value')
             ->whereRaw('test_statement = IF ("test", ?, ?)', array('val1', 'val2'))
             ->join('table2', array('col1' => 'col2'))
             ->whereRaw('type > ? AND type < ? AND base IN ?', array(10, 20, array('1', '2', '3')))
-            ->having(array('test' => 'value2'))
+            ->having('test', 'value2')
             ->havingRaw('type > ? AND base IN ?', array(20, array('5', '6', '7')))
             ->limit(10)
             ->offset(8)

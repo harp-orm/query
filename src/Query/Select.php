@@ -190,9 +190,9 @@ class Select extends AbstractWhere
         return $this;
     }
 
-    public function having(array $conditions)
+    public function having($column, $value)
     {
-        $this->having []= new SQL\ConditionArray($conditions);
+        $this->having []= new SQL\ConditionValue($column, $value);
 
         return $this;
     }
