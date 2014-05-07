@@ -100,5 +100,4 @@ abstract class AbstractWhere extends AbstractOrderLimit
 
         return $this;
     }
-
 }

@@ -20,7 +20,7 @@ class Union
     public static function render(Query\Union $query)
     {
         return Compiler::expression(array(
-            Arr::join(' UNION ', Arr::map(function(Query\Select $select) {
+            Arr::join(' UNION ', Arr::map(function (Query\Select $select) {
                 return Compiler::braced(Select::render($select));
             }, $query->getSelects())),
             Compiler::word('ORDER BY', Direction::combine($query->getOrder())),

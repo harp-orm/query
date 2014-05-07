@@ -32,7 +32,7 @@ class Update extends AbstractWhere
     }
 
     /**
-     * @param SQL\Table[] $table
+     * @param SQL\Aliased[] $table
      */
     public function setTable(array $table)
     {

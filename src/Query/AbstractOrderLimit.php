@@ -34,7 +34,7 @@ abstract class AbstractOrderLimit extends AbstractQuery
      */
     public function setOrder(array $order)
     {
-        return $this->order = $order;
+        $this->order = $order;
 
         return $this;
     }
@@ -52,7 +52,7 @@ abstract class AbstractOrderLimit extends AbstractQuery
      */
     public function setLimit(SQL\IntValue $limit)
     {
-        return $this->limit = $limit;
+        $this->limit = $limit;
 
         return $this;
     }
@@ -84,5 +84,4 @@ abstract class AbstractOrderLimit extends AbstractQuery
 
         return $this;
     }
-
 }
