@@ -110,7 +110,13 @@ class DBTest extends AbstractTestCase
                 array(LogLevel::ERROR, 'SQLSTATE[42S02]: Base table or view not found: 1146 Table \'test-atlas.usersNotExists\' doesn\'t exist', array()),
             );
 
-            $this->assertEquals($expectedLog, $log);
+            $this->assertCount(2, $log);
+
+            $this->assertEquals(array(LogLevel::INFO, 'SELECT * FROM usersNotExists', array()), $log[0]);
+
+            $this->assertEquals(LogLevel::ERROR, $log[1][0]);
+            $this->assertContains('Table \'test-atlas.usersNotExists\' doesn\'t exist', $log[1][1]);
+            $this->assertEquals(array(), $log[1][2]);
         }
     }
 
