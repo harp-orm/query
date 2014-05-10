@@ -49,15 +49,14 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 
         $this->env->apply();
 
+        $this->logger = new TestLogger();
+
         DB::setConfig('default', array(
             'class' => 'DB_Test',
             'dsn' => 'mysql:dbname=test-atlas;host=127.0.0.1',
             'username' => 'root',
+            'logger' => $this->logger,
         ));
-
-        $this->logger = new TestLogger();
-
-        DB::setLogger('default', $this->logger);
     }
 
     public function tearDown()

@@ -34,34 +34,20 @@ class DBTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\DB::getLogger
-     * @covers CL\Atlas\DB::setLogger
-     */
-    public function testLogger()
-    {
-        $this->getEnv()
-            ->add(new StaticParam('CL\Atlas\DB', 'loggers', array()))
-            ->apply();
-
-        $logger = new TestLogger();
-
-        $this->assertInstanceOf('Psr\Log\NullLogger', DB::getLogger('test'));
-
-        DB::setLogger('test', $logger);
-
-        $this->assertSame($logger, DB::getLogger('test'));
-    }
-
-    /**
      * @covers CL\Atlas\DB::get
      * @covers CL\Atlas\DB::__construct
      * @covers CL\Atlas\DB::getName
+     * @covers CL\Atlas\DB::setLogger
+     * @covers CL\Atlas\DB::getLogger
      */
     public function testGet()
     {
+        $logger = new TestLogger();
+
         DB::setConfig('default', array(
             'dsn' => 'mysql:dbname=test-atlas;host=127.0.0.1',
             'username' => 'root',
+            'logger' => $logger,
         ));
 
         DB::setConfig('test', array(
@@ -72,10 +58,12 @@ class DBTest extends AbstractTestCase
         $default = DB::get();
         $this->assertEquals('default', $default->getName());
         $this->assertSame($default, DB::get());
+        $this->assertSame($logger, $default->getLogger());
 
         $test = DB::get('test');
         $this->assertEquals('test', $test->getName());
         $this->assertSame($test, DB::get('test'));
+        $this->assertInstanceOf('Psr\Log\NullLogger', $test->getLogger());
 
         $this->assertNotSame($default, $test);
     }

@@ -21,11 +21,6 @@ class DB extends PDO
     protected static $configs;
 
     /**
-     * @var array
-     */
-    protected static $loggers;
-
-    /**
      * @var DB[]
      */
     protected static $dbs;
@@ -41,6 +36,7 @@ class DB extends PDO
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         ),
+        'logger' => null,
     );
 
     /**
@@ -53,28 +49,6 @@ class DB extends PDO
         }
 
         return self::$configs[$name];
-    }
-
-    /**
-     * @param string $name
-     * @return LoggerInterface
-     */
-    public static function getLogger($name)
-    {
-        if (! isset(self::$loggers[$name])) {
-            self::$loggers[$name] = new NullLogger();
-        }
-
-        return self::$loggers[$name];
-    }
-
-    /**
-     * @param string $name
-     * @param LoggerInterface $logger
-     */
-    public static function setLogger($name, LoggerInterface $logger)
-    {
-        self::$loggers[$name] = $logger;
     }
 
     /**
@@ -109,6 +83,11 @@ class DB extends PDO
      * @var string
      */
     protected $name;
+
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
 
     /**
      * new Select Query for this DB
@@ -149,10 +128,12 @@ class DB extends PDO
 
     public function __construct($name, array $options = array())
     {
-        $this->name = $name;
         $options = array_replace_recursive(static::$defaults, $options);
 
         parent::__construct($options['dsn'], $options['username'], $options['password'], $options['driverOptions']);
+
+        $this->setLogger($options['logger'] ?: new NullLogger());
+        $this->name = $name;
     }
 
     /**
@@ -161,6 +142,25 @@ class DB extends PDO
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return LoggerInterface
+     */
+    public function getLogger()
+    {
+        return $this->logger;
+    }
+
+    /**
+     * @param LoggerInterface $logger
+     * @return DB $this
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+
+        return $this;
     }
 
     /**
@@ -174,12 +174,12 @@ class DB extends PDO
     {
         $statement = $this->prepare($sql);
 
-        self::getLogger($this->name)->info($sql);
+        $this->logger->info($sql);
 
         try {
             $statement->execute($parameters);
         } catch (PDOException $exception) {
-            self::getLogger($this->name)->error($exception->getMessage());
+            $this->logger->error($exception->getMessage());
 
             throw $exception;
         }
