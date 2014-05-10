@@ -174,7 +174,7 @@ class DB extends PDO
     {
         $statement = $this->prepare($sql);
 
-        $this->logger->info($sql);
+        $this->logger->info($sql, array('parameters' => $parameters));
 
         try {
             $statement->execute($parameters);

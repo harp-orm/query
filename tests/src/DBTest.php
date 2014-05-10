@@ -87,7 +87,7 @@ class DBTest extends AbstractTestCase
         $log = $this->getLogger()->getEntries();
 
         $expectedLog = array(
-            array(LogLevel::INFO, $sql, array()),
+            array(LogLevel::INFO, $sql, array('parameters' => $parameters)),
         );
 
         $this->assertEquals($expectedLog, $log);
@@ -105,14 +105,12 @@ class DBTest extends AbstractTestCase
         } catch (PDOException $e) {
             $log = $this->getLogger()->getEntries();
 
-            $expectedLog = array(
-                array(LogLevel::INFO, 'SELECT * FROM usersNotExists', array()),
-                array(LogLevel::ERROR, 'SQLSTATE[42S02]: Base table or view not found: 1146 Table \'test-atlas.usersNotExists\' doesn\'t exist', array()),
-            );
-
             $this->assertCount(2, $log);
 
-            $this->assertEquals(array(LogLevel::INFO, 'SELECT * FROM usersNotExists', array()), $log[0]);
+            $this->assertEquals(
+                array(LogLevel::INFO, 'SELECT * FROM usersNotExists', array('parameters' => array())),
+                $log[0]
+            );
 
             $this->assertEquals(LogLevel::ERROR, $log[1][0]);
             $this->assertContains('Table \'test-atlas.usersNotExists\' doesn\'t exist', $log[1][1]);
