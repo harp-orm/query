@@ -13,7 +13,31 @@ use PHPUnit_Framework_TestCase;
  */
 abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 {
-    public $env;
+    /**
+     * @var Env
+     */
+    protected $env;
+
+    /**
+     * @var TestLogger
+     */
+    protected $logger;
+
+    /**
+     * @return Env
+     */
+    public function getEnv()
+    {
+        return $this->env;
+    }
+
+    /**
+     * @return TestLogger
+     */
+    public function getLogger()
+    {
+        return $this->logger;
+    }
 
     public function setUp()
     {
@@ -30,6 +54,10 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
             'dsn' => 'mysql:dbname=test-atlas;host=127.0.0.1',
             'username' => 'root',
         ));
+
+        $this->logger = new TestLogger();
+
+        DB::setLogger('default', $this->logger);
     }
 
     public function tearDown()

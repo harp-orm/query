@@ -17,12 +17,20 @@ class ArrTest extends AbstractTestCase
     public function dataMap()
     {
         return array(
-            array(array('name1', 'name2'), function ($item) {
-                return $item.'2';
-            }, array('name12', 'name22')),
-            array(null, function ($item) {
-                return $item.'2';
-            }, null),
+            array(
+                array('name1', 'name2'),
+                function ($item) {
+                    return $item.'2';
+                },
+                array('name12', 'name22')
+            ),
+            array(
+                null,
+                function ($item) {
+                    return $item.'2';
+                },
+                null
+            ),
         );
     }
 
@@ -38,8 +46,16 @@ class ArrTest extends AbstractTestCase
     public function dataJoin()
     {
         return array(
-            array('|', array('name1', 'name2', 'name3'), 'name1|name2|name3'),
-            array('|', null, null),
+            array(
+                '|',
+                array('name1', 'name2', 'name3'),
+                'name1|name2|name3'
+            ),
+            array(
+                '|',
+                null,
+                null
+            ),
         );
     }
 

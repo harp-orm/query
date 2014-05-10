@@ -5,6 +5,8 @@ namespace CL\Atlas\Test;
 use CL\Atlas\Test\AbstractTestCase;
 use CL\Atlas\DB;
 use CL\EnvBackup\StaticParam;
+use PDOException;
+use Psr\Log\LogLevel;
 
 /**
  * @group db
@@ -17,11 +19,12 @@ class DBTest extends AbstractTestCase
      */
     public function testConfiguration()
     {
-        $this->env->add(
-            new StaticParam('CL\Atlas\DB', 'configs', array())
-        );
+        $this->getEnv()
+            ->add(new StaticParam('CL\Atlas\DB', 'configs', array()))
+            ->apply();
 
-        $this->env->apply();
+
+        $this->assertEquals(array(), DB::getConfig('test'), 'Should return an empty array if no config set');
 
         $config = array('some', 'test');
 
@@ -31,10 +34,30 @@ class DBTest extends AbstractTestCase
     }
 
     /**
+     * @covers CL\Atlas\DB::getLogger
+     * @covers CL\Atlas\DB::setLogger
+     */
+    public function testLogger()
+    {
+        $this->getEnv()
+            ->add(new StaticParam('CL\Atlas\DB', 'loggers', array()))
+            ->apply();
+
+        $logger = new TestLogger();
+
+        $this->assertInstanceOf('Psr\Log\NullLogger', DB::getLogger('test'));
+
+        DB::setLogger('test', $logger);
+
+        $this->assertSame($logger, DB::getLogger('test'));
+    }
+
+    /**
      * @covers CL\Atlas\DB::get
      * @covers CL\Atlas\DB::__construct
+     * @covers CL\Atlas\DB::getName
      */
-    public function test()
+    public function testGet()
     {
         DB::setConfig('default', array(
             'dsn' => 'mysql:dbname=test-atlas;host=127.0.0.1',
@@ -47,12 +70,14 @@ class DBTest extends AbstractTestCase
         ));
 
         $default = DB::get();
+        $this->assertEquals('default', $default->getName());
+        $this->assertSame($default, DB::get());
+
         $test = DB::get('test');
+        $this->assertEquals('test', $test->getName());
+        $this->assertSame($test, DB::get('test'));
 
         $this->assertNotSame($default, $test);
-
-        $this->assertSame($default, DB::get());
-        $this->assertSame($test, DB::get('test'));
     }
 
     public function dataExecute()
@@ -70,6 +95,35 @@ class DBTest extends AbstractTestCase
     public function testExecute($sql, $parameters, $expected)
     {
         $this->assertEquals($expected, DB::get()->execute($sql, $parameters)->fetchAll());
+
+        $log = $this->getLogger()->getEntries();
+
+        $expectedLog = array(
+            array(LogLevel::INFO, $sql, array()),
+        );
+
+        $this->assertEquals($expectedLog, $log);
+    }
+
+    /**
+     * @covers CL\Atlas\DB::execute
+     */
+    public function testExecuteWithException()
+    {
+        try {
+            DB::get()->execute('SELECT * FROM usersNotExists');
+
+            $this->fail('Should throw a PDOException');
+        } catch (PDOException $e) {
+            $log = $this->getLogger()->getEntries();
+
+            $expectedLog = array(
+                array(LogLevel::INFO, 'SELECT * FROM usersNotExists', array()),
+                array(LogLevel::ERROR, 'SQLSTATE[42S02]: Base table or view not found: 1146 Table \'test-atlas.usersNotExists\' doesn\'t exist', array()),
+            );
+
+            $this->assertEquals($expectedLog, $log);
+        }
     }
 
     /**

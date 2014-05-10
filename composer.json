@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "ext-pdo": "*"
+        "psr/log": "~1.0"
     },
     "require-dev": {
         "clippings/env-backup": "~0.2.4"

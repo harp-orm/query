@@ -3,7 +3,10 @@
 namespace CL\Atlas;
 
 use CL\Atlas\Query;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use PDO;
+use PDOException;
 
 /**
  * @author     Ivan Kerin
@@ -18,6 +21,11 @@ class DB extends PDO
     protected static $configs;
 
     /**
+     * @var array
+     */
+    protected static $loggers;
+
+    /**
      * @var DB[]
      */
     protected static $dbs;
@@ -29,7 +37,7 @@ class DB extends PDO
         'dsn' => 'mysql:dbname=test;host=127.0.0.1',
         'username' => '',
         'password' => '',
-        'driver_options' => array(
+        'driverOptions' => array(
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         ),
@@ -40,9 +48,33 @@ class DB extends PDO
      */
     public static function getConfig($name)
     {
-        return isset(self::$configs[$name])
-            ? self::$configs[$name]
-            : array();
+        if (! isset(self::$configs[$name])) {
+            self::$configs[$name] = array();
+        }
+
+        return self::$configs[$name];
+    }
+
+    /**
+     * @param string $name
+     * @return LoggerInterface
+     */
+    public static function getLogger($name)
+    {
+        if (! isset(self::$loggers[$name])) {
+            self::$loggers[$name] = new NullLogger();
+        }
+
+        return self::$loggers[$name];
+    }
+
+    /**
+     * @param string $name
+     * @param LoggerInterface $logger
+     */
+    public static function setLogger($name, LoggerInterface $logger)
+    {
+        self::$loggers[$name] = $logger;
     }
 
     /**
@@ -67,11 +99,16 @@ class DB extends PDO
     {
         if (! isset(self::$dbs[$name])) {
             $config = self::getConfig($name);
-            self::$dbs[$name] = new DB($config);
+            self::$dbs[$name] = new DB($name, $config);
         }
 
         return static::$dbs[$name];
     }
+
+    /**
+     * @var string
+     */
+    protected $name;
 
     /**
      * new Select Query for this DB
@@ -102,6 +139,7 @@ class DB extends PDO
 
     /**
      * new Insert Query for this DB
+     *
      * @return Query\Insert
      */
     public static function insert()
@@ -109,23 +147,42 @@ class DB extends PDO
         return new Query\Insert();
     }
 
-    public function __construct($options)
+    public function __construct($name, array $options = array())
     {
+        $this->name = $name;
         $options = array_replace_recursive(static::$defaults, $options);
 
-        parent::__construct($options['dsn'], $options['username'], $options['password'], $options['driver_options']);
+        parent::__construct($options['dsn'], $options['username'], $options['password'], $options['driverOptions']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
      * Run "prepare" a statement and then execute it
+     *
      * @param  string $sql
      * @param  array  $parameters
      * @return \PDOStatement
      */
-    public function execute($sql, array $parameters)
+    public function execute($sql, array $parameters = array())
     {
         $statement = $this->prepare($sql);
-        $statement->execute($parameters);
+
+        self::getLogger($this->name)->info($sql);
+
+        try {
+            $statement->execute($parameters);
+        } catch (PDOException $exception) {
+            self::getLogger($this->name)->error($exception->getMessage());
+
+            throw $exception;
+        }
 
         return $statement;
     }

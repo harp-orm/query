@@ -3,23 +3,60 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "af219eba86b1bb8e969a3af92a8dbef6",
+    "hash": "d81be4470d5cc21760e7bc65d4eb5c1e",
     "packages": [
-
+        {
+            "name": "psr/log",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/fe0936ee26643249e916849d48e3a51d5f5e278b",
+                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Psr\\Log\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "time": "2012-12-21 11:40:51"
+        }
     ],
     "packages-dev": [
         {
             "name": "clippings/env-backup",
-            "version": "0.2.4",
+            "version": "0.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/clippings/env-backup.git",
-                "reference": "23308787a7acaa0ecafa081d745481aa4328acd8"
+                "reference": "b52f0501d525cddcff7ecc28e119c3a3e539c0f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clippings/env-backup/zipball/23308787a7acaa0ecafa081d745481aa4328acd8",
-                "reference": "23308787a7acaa0ecafa081d745481aa4328acd8",
+                "url": "https://api.github.com/repos/clippings/env-backup/zipball/b52f0501d525cddcff7ecc28e119c3a3e539c0f0",
+                "reference": "b52f0501d525cddcff7ecc28e119c3a3e539c0f0",
                 "shasum": ""
             },
             "type": "library",
@@ -41,7 +78,7 @@
                 }
             ],
             "description": "Backup/restore environment variables: globals, static vars, configs",
-            "time": "2014-03-25 16:55:26"
+            "time": "2014-04-30 11:33:23"
         }
     ],
     "aliases": [
@@ -52,8 +89,7 @@
 
     ],
     "platform": {
-        "php": ">=5.3.0",
-        "ext-pdo": "*"
+        "php": ">=5.3.0"
     },
     "platform-dev": [
 
