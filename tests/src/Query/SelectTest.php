@@ -106,9 +106,10 @@ class SelectTest extends AbstractTestCase
 
     /**
      * @covers CL\Atlas\Query\Select::having
+     * @covers CL\Atlas\Query\Select::havingIn
+     * @covers CL\Atlas\Query\Select::havingRaw
      * @covers CL\Atlas\Query\Select::getHaving
      * @covers CL\Atlas\Query\Select::setHaving
-     * @covers CL\Atlas\Query\Select::havingRaw
      * @covers CL\Atlas\Query\Select::clearHaving
      */
     public function testHaving()
@@ -118,13 +119,15 @@ class SelectTest extends AbstractTestCase
 
         $query
             ->having('test1', 2)
+            ->havingIn('test2', array(2, 3))
             ->havingRaw('column = ? OR column = ?', array(10, 20))
             ->having('test3', 3);
 
         $expected = array(
-            new SQL\ConditionValue('test1', 2),
+            new SQL\ConditionIs('test1', 2),
+            new SQL\ConditionIn('test2', array(2, 3)),
             new SQL\Condition('column = ? OR column = ?', array(10, 20)),
-            new SQL\ConditionValue('test3', 3),
+            new SQL\ConditionIs('test3', 3),
         );
 
         $this->assertEquals($expected, $query->getHaving());
@@ -136,6 +139,17 @@ class SelectTest extends AbstractTestCase
         $query->setHaving($expected);
 
         $this->assertEquals($expected, $query->getHaving());
+    }
+
+    /**
+     * @covers CL\Atlas\Query\Select::having
+     * @expectedException InvalidArgumentException
+     */
+    public function testWhereInInvalid()
+    {
+        $query = $this->getMock('CL\Atlas\Query\Select', array('sql', 'getParameters'));
+
+        $query->having('test1', array(2, 3));
     }
 
     /**
@@ -187,7 +201,7 @@ class SelectTest extends AbstractTestCase
         $query
             ->from('table1')
             ->where('name', 10)
-            ->where('value', array(2, 3));
+            ->whereIn('value', array(2, 3));
 
         $this->assertEquals(array(10, 2, 3), $query->getParameters());
     }

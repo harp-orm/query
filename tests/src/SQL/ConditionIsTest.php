@@ -9,7 +9,7 @@ use CL\Atlas\SQL;
 /**
  * @group sql.condition
  */
-class ConditionValueTest extends AbstractTestCase
+class ConditionIsTest extends AbstractTestCase
 {
 
     public function dataConstruct()
@@ -22,12 +22,6 @@ class ConditionValueTest extends AbstractTestCase
                 array(10)
             ),
             array(
-                'id',
-                array(10, 20),
-                'id IN ?',
-                array(array(10, 20))
-            ),
-            array(
                 'name',
                 null,
                 'name IS ?',
@@ -38,19 +32,27 @@ class ConditionValueTest extends AbstractTestCase
 
     /**
      * @dataProvider dataConstruct
-     * @covers CL\Atlas\SQL\ConditionValue::__construct
+     * @covers CL\Atlas\SQL\ConditionIs::__construct
      */
     public function testConstruct($column, $value, $expected, $expectedParams)
     {
-        $sqlCondition = new SQL\ConditionValue($column, $value);
+        $sqlCondition = new SQL\ConditionIs($column, $value);
         $this->assertEquals($expected, $sqlCondition->getContent());
         $this->assertEquals($expectedParams, $sqlCondition->getParameters());
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     * @covers CL\Atlas\SQL\ConditionIs::__construct
+     */
+    public function testConstructInvalid()
+    {
+        new SQL\ConditionIs('name', array(10));
     }
 
     public function dataGuessOperator()
     {
         return array(
-            array(array(10, 20), 'IN'),
             array(null, 'IS'),
             array('test', '='),
             array(20, '='),
@@ -60,10 +62,10 @@ class ConditionValueTest extends AbstractTestCase
     }
     /**
      * @dataProvider dataGuessOperator
-     * @covers CL\Atlas\SQL\ConditionValue::guessOperator
+     * @covers CL\Atlas\SQL\ConditionIs::guessOperator
      */
     public function testGuessOperator($value, $expected)
     {
-        $this->assertEquals($expected, SQL\ConditionValue::guessOperator($value));
+        $this->assertEquals($expected, SQL\ConditionIs::guessOperator($value));
     }
 }

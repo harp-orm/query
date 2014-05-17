@@ -43,9 +43,10 @@ class AbstractWhereTest extends AbstractTestCase
 
     /**
      * @covers CL\Atlas\Query\AbstractWhere::where
+     * @covers CL\Atlas\Query\AbstractWhere::whereIn
+     * @covers CL\Atlas\Query\AbstractWhere::whereRaw
      * @covers CL\Atlas\Query\AbstractWhere::getWhere
      * @covers CL\Atlas\Query\AbstractWhere::setWhere
-     * @covers CL\Atlas\Query\AbstractWhere::whereRaw
      * @covers CL\Atlas\Query\AbstractWhere::clearWhere
      */
     public function testWhere()
@@ -54,13 +55,15 @@ class AbstractWhereTest extends AbstractTestCase
 
         $query
             ->where('test1', 2)
+            ->whereIn('test2', array(2, 3))
             ->whereRaw('column = ? OR column = ?', array(10, 20))
             ->where('test3', 3);
 
         $expected = array(
-            new SQL\ConditionValue('test1', 2),
+            new SQL\ConditionIs('test1', 2),
+            new SQL\ConditionIn('test2', array(2, 3)),
             new SQL\Condition('column = ? OR column = ?', array(10, 20)),
-            new SQL\ConditionValue('test3', 3),
+            new SQL\ConditionIs('test3', 3),
         );
 
         $this->assertEquals($expected, $query->getWhere());
@@ -72,5 +75,16 @@ class AbstractWhereTest extends AbstractTestCase
         $query->setWhere($expected);
 
         $this->assertEquals($expected, $query->getWhere());
+    }
+
+    /**
+     * @covers CL\Atlas\Query\AbstractWhere::where
+     * @expectedException InvalidArgumentException
+     */
+    public function testWhereInInvalid()
+    {
+        $query = $this->getMock('CL\Atlas\Query\AbstractWhere', array('sql', 'getParameters'));
+
+        $query->where('test1', array(2, 3));
     }
 }

@@ -4,6 +4,7 @@ namespace CL\Atlas\Query;
 
 use CL\Atlas\Compiler;
 use CL\Atlas\SQL;
+use InvalidArgumentException;
 
 /**
  * @author     Ivan Kerin
@@ -192,7 +193,18 @@ class Select extends AbstractWhere
 
     public function having($column, $value)
     {
-        $this->having []= new SQL\ConditionValue($column, $value);
+        if (is_array($value)) {
+            throw new InvalidArgumentException('Use "havingIn" for array conditions');
+        }
+
+        $this->having []= new SQL\ConditionIs($column, $value);
+
+        return $this;
+    }
+
+    public function havingIn($column, array $value)
+    {
+        $this->having []= new SQL\ConditionIn($column, $value);
 
         return $this;
     }

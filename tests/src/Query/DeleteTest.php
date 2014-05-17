@@ -95,7 +95,7 @@ class DeleteTest extends AbstractTestCase
         $query
             ->table('table1')
             ->where('name', 10)
-            ->where('value', array(2, 3));
+            ->whereIn('value', array(2, 3));
 
         $this->assertEquals(array(10, 2, 3), $query->getParameters());
     }

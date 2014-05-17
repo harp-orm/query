@@ -3,7 +3,7 @@
 namespace CL\Atlas\Query;
 
 use CL\Atlas\SQL;
-
+use InvalidArgumentException;
 /**
  * @author     Ivan Kerin
  * @copyright  (c) 2014 Clippings Ltd.
@@ -82,7 +82,18 @@ abstract class AbstractWhere extends AbstractOrderLimit
 
     public function where($column, $value)
     {
-        $this->where []= new SQL\ConditionValue($column, $value);
+        if (is_array($value)) {
+            throw new InvalidArgumentException('Use "whereIn" for array conditions');
+        }
+
+        $this->where []= new SQL\ConditionIs($column, $value);
+
+        return $this;
+    }
+
+    public function whereIn($column, array $values)
+    {
+        $this->where []= new SQL\ConditionIn($column, $values);
 
         return $this;
     }

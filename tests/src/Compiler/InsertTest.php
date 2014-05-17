@@ -13,8 +13,6 @@ use CL\Atlas\SQL\SQL;
  */
 class InsertTest extends AbstractTestCase
 {
-
-
     public function dataInsert()
     {
         $rows = array();

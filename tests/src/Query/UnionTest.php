@@ -82,7 +82,7 @@ class UnionTest extends AbstractTestCase
 
         $select2
             ->from('table2')
-            ->where('name', array(1, 2));
+            ->whereIn('name', array(1, 2));
 
         $query
             ->select($select1)
