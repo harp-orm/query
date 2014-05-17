@@ -46,6 +46,10 @@ abstract class AbstractQuery implements Parametrised
         return $this->type = $type;
     }
 
+    /**
+     * @param  string|SQL\SQL $type
+     * @return AbstractQuery $this
+     */
     public function type($type)
     {
         $this->type = new SQL\SQL($type);
@@ -53,6 +57,9 @@ abstract class AbstractQuery implements Parametrised
         return $this;
     }
 
+    /**
+     * @return DB
+     */
     public function getDb()
     {
         if (! $this->db) {
@@ -67,6 +74,9 @@ abstract class AbstractQuery implements Parametrised
         return $this->getDb()->execute($this->sql(), $this->getParameters());
     }
 
+    /**
+     * @return string
+     */
     public function humanize()
     {
         return Compiler::humanize($this->sql(), $this->getParameters());

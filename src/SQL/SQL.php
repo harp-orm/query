@@ -11,7 +11,6 @@ use CL\Atlas\Parametrised;
  */
 class SQL implements Parametrised
 {
-
     protected $parameters;
     protected $content;
 
