@@ -44,6 +44,7 @@ class AbstractWhereTest extends AbstractTestCase
     /**
      * @covers CL\Atlas\Query\AbstractWhere::where
      * @covers CL\Atlas\Query\AbstractWhere::whereIn
+     * @covers CL\Atlas\Query\AbstractWhere::whereNot
      * @covers CL\Atlas\Query\AbstractWhere::whereRaw
      * @covers CL\Atlas\Query\AbstractWhere::getWhere
      * @covers CL\Atlas\Query\AbstractWhere::setWhere
@@ -56,12 +57,14 @@ class AbstractWhereTest extends AbstractTestCase
         $query
             ->where('test1', 2)
             ->whereIn('test2', array(2, 3))
+            ->whereNot('test4', '123')
             ->whereRaw('column = ? OR column = ?', array(10, 20))
             ->where('test3', 3);
 
         $expected = array(
             new SQL\ConditionIs('test1', 2),
             new SQL\ConditionIn('test2', array(2, 3)),
+            new SQL\ConditionNot('test4', '123'),
             new SQL\Condition('column = ? OR column = ?', array(10, 20)),
             new SQL\ConditionIs('test3', 3),
         );

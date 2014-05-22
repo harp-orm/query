@@ -209,6 +209,15 @@ class Select extends AbstractWhere
         return $this;
     }
 
+    public function havingNot($column, $values)
+    {
+        $this->having []= new SQL\ConditionNot($column, $values);
+
+        return $this;
+    }
+
+
+
     public function havingRaw($conditions, array $parameters = null)
     {
         $this->having []= new SQL\Condition($conditions, $parameters);

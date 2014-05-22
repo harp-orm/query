@@ -98,6 +98,13 @@ abstract class AbstractWhere extends AbstractOrderLimit
         return $this;
     }
 
+    public function whereNot($column, $values)
+    {
+        $this->where []= new SQL\ConditionNot($column, $values);
+
+        return $this;
+    }
+
     public function whereRaw($condition, array $parameters = null)
     {
         $this->where []= new SQL\Condition($condition, $parameters);
