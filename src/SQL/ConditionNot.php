@@ -11,23 +11,17 @@ use InvalidArgumentException;
  */
 class ConditionNot extends Condition
 {
-    public static function guessOperator($value)
-    {
-        if (is_null($value)) {
-            return 'IS NOT';
-        } else {
-            return '!=';
-        }
-    }
-
     public function __construct($column, $value)
     {
         if (is_array($value)) {
             throw new InvalidArgumentException('Use ConditionNot for array conditions');
         }
 
-        $operator = self::guessOperator($value);
+        if ($value === null) {
+            parent::__construct("$column IS NOT NULL");
+        } else {
+            parent::__construct("$column != ?", array($value));
+        }
 
-        parent::__construct("$column $operator ?", array($value));
     }
 }

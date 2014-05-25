@@ -24,8 +24,8 @@ class ConditionIsTest extends AbstractTestCase
             array(
                 'name',
                 null,
-                'name IS ?',
-                array(null)
+                'name IS NULL',
+                null,
             ),
         );
     }
@@ -48,24 +48,5 @@ class ConditionIsTest extends AbstractTestCase
     public function testConstructInvalid()
     {
         new SQL\ConditionIs('name', array(10));
-    }
-
-    public function dataGuessOperator()
-    {
-        return array(
-            array(null, 'IS'),
-            array('test', '='),
-            array(20, '='),
-            array(0, '='),
-            array(new SQL\SQL('test'), '='),
-        );
-    }
-    /**
-     * @dataProvider dataGuessOperator
-     * @covers CL\Atlas\SQL\ConditionIs::guessOperator
-     */
-    public function testGuessOperator($value, $expected)
-    {
-        $this->assertEquals($expected, SQL\ConditionIs::guessOperator($value));
     }
 }

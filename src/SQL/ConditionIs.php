@@ -11,23 +11,16 @@ use InvalidArgumentException;
  */
 class ConditionIs extends Condition
 {
-    public static function guessOperator($value)
-    {
-        if (is_null($value)) {
-            return 'IS';
-        } else {
-            return '=';
-        }
-    }
-
     public function __construct($column, $value)
     {
         if (is_array($value)) {
             throw new InvalidArgumentException('Use ConditionIn for array conditions');
         }
 
-        $operator = self::guessOperator($value);
-
-        parent::__construct("$column $operator ?", array($value));
+        if ($value === null) {
+            parent::__construct("$column IS NULL");
+        } else {
+            parent::__construct("$column = ?", array($value));
+        }
     }
 }
