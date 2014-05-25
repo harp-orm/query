@@ -173,11 +173,10 @@ class DB extends PDO
      */
     public function execute($sql, array $parameters = array())
     {
-        $statement = $this->prepare($sql);
-
         $this->logger->info($sql, array('parameters' => $parameters));
 
         try {
+            $statement = $this->prepare($sql);
             $statement->execute($parameters);
         } catch (PDOException $exception) {
             $this->logger->error($exception->getMessage());

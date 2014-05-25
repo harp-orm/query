@@ -72,7 +72,7 @@ class DBTest extends AbstractTestCase
     {
         return array(
             array('SELECT * FROM users WHERE name = ?', array('User 1'), array(array('id' => 1, 'name' => 'User 1'))),
-            array('SELECT * FROM users WHERE name IS NOT ? AND id = ?', array(NULL, 4), array(array('id' => 4, 'name' => 'User 4'))),
+            array('SELECT * FROM users WHERE name IS NOT NULL AND id = ?', array(4), array(array('id' => 4, 'name' => 'User 4'))),
         );
     }
 
