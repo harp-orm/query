@@ -153,6 +153,25 @@ class InsertTest extends AbstractTestCase
     }
 
     /**
+     * @covers CL\Atlas\Query\Insert::getLastInsertId
+     */
+    public function testGetLastInsertId()
+    {
+        $db = $this->getMock(__NAMESPACE__.'\MockDB', ['lastInsertId']);
+
+        $db
+            ->expects($this->once())
+            ->method('lastInsertId')
+            ->will($this->returnValue('123'));
+
+        $query = new Query\Insert($db);
+
+        $id = $query->getLastInsertId();
+
+        $this->assertSame('123', $id);
+    }
+
+    /**
      * @covers CL\Atlas\Query\Insert::sql
      */
     public function testSql()
