@@ -19,7 +19,7 @@ class UpdateTest extends AbstractTestCase
      */
     public function testTable()
     {
-        $query = new Query\Update;
+        $query = new Query\Update();
 
         $query
             ->table('table1')
@@ -49,7 +49,7 @@ class UpdateTest extends AbstractTestCase
      */
     public function testSet()
     {
-        $query = new Query\Update;
+        $query = new Query\Update();
 
         $query
             ->set(array('test' => 20, 'value' => 10))
@@ -77,7 +77,7 @@ class UpdateTest extends AbstractTestCase
      */
     public function testSetMultiple()
     {
-        $query = new Query\Update;
+        $query = new Query\Update();
 
         $query
             ->setMultiple(array(
@@ -106,7 +106,7 @@ class UpdateTest extends AbstractTestCase
      */
     public function testSql()
     {
-        $query = new Query\Update;
+        $query = new Query\Update();
 
         $query
             ->table('table1')
@@ -120,7 +120,7 @@ class UpdateTest extends AbstractTestCase
      */
     public function testGetParameters()
     {
-        $query = new Query\Update;
+        $query = new Query\Update();
 
         $query
             ->table('table1')

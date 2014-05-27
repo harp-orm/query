@@ -20,7 +20,7 @@ class SelectTest extends AbstractTestCase
      */
     public function testColumn()
     {
-        $query = new Query\Select;
+        $query = new Query\Select();
 
         $query
             ->column('column1')
@@ -52,7 +52,7 @@ class SelectTest extends AbstractTestCase
      */
     public function testFrom()
     {
-        $query = new Query\Select;
+        $query = new Query\Select();
 
         $query
             ->from('table1')
@@ -82,7 +82,7 @@ class SelectTest extends AbstractTestCase
      */
     public function testGroup()
     {
-        $query = new Query\Select;
+        $query = new Query\Select();
 
         $query
             ->group('col1')
@@ -115,7 +115,7 @@ class SelectTest extends AbstractTestCase
     public function testHaving()
     {
 
-        $query = new Query\Select;
+        $query = new Query\Select();
 
         $query
             ->having('test1', 2)
@@ -162,7 +162,7 @@ class SelectTest extends AbstractTestCase
      */
     public function testOffset()
     {
-        $query = new Query\Select;
+        $query = new Query\Select();
 
         $query->offset(20);
 
@@ -184,7 +184,7 @@ class SelectTest extends AbstractTestCase
      */
     public function testSql()
     {
-        $query = new Query\Select;
+        $query = new Query\Select();
 
         $query
             ->from('table1')
@@ -198,7 +198,7 @@ class SelectTest extends AbstractTestCase
      */
     public function testGetParameters()
     {
-        $query = new Query\Select;
+        $query = new Query\Select();
 
         $query
             ->from('table1')

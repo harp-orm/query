@@ -19,7 +19,7 @@ class InsertTest extends AbstractTestCase
      */
     public function testInto()
     {
-        $query = new Query\Insert;
+        $query = new Query\Insert();
 
         $query->into('posts');
 
@@ -44,7 +44,7 @@ class InsertTest extends AbstractTestCase
      */
     public function testColumns()
     {
-        $query = new Query\Insert;
+        $query = new Query\Insert();
 
         $query->columns(array('posts'));
 
@@ -75,7 +75,7 @@ class InsertTest extends AbstractTestCase
      */
     public function testValues()
     {
-        $query = new Query\Insert;
+        $query = new Query\Insert();
 
         $query
             ->values(array(10, 20))
@@ -105,7 +105,7 @@ class InsertTest extends AbstractTestCase
      */
     public function testSet()
     {
-        $query = new Query\Insert;
+        $query = new Query\Insert();
 
         $query
             ->set(array('test' => 20, 'value' => 10))
@@ -136,8 +136,8 @@ class InsertTest extends AbstractTestCase
      */
     public function testSelect()
     {
-        $select = new Query\Select;
-        $query = new Query\Insert;
+        $select = new Query\Select();
+        $query = new Query\Insert();
 
         $query->select($select);
 
@@ -157,7 +157,7 @@ class InsertTest extends AbstractTestCase
      */
     public function testSql()
     {
-        $query = new Query\Insert;
+        $query = new Query\Insert();
 
         $query
             ->into('table1')
@@ -171,7 +171,7 @@ class InsertTest extends AbstractTestCase
      */
     public function testGetParameters()
     {
-        $query = new Query\Insert;
+        $query = new Query\Insert();
 
         $query
             ->into('table1')
