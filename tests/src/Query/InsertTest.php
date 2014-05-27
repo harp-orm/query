@@ -157,7 +157,7 @@ class InsertTest extends AbstractTestCase
      */
     public function testGetLastInsertId()
     {
-        $db = $this->getMock(__NAMESPACE__.'\MockDB', ['lastInsertId']);
+        $db = $this->getMock(__NAMESPACE__.'\MockDB', array('lastInsertId'));
 
         $db
             ->expects($this->once())
