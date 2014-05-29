@@ -1,15 +1,15 @@
 <?php
 
-namespace Luna\Query\Test\Compiler;
+namespace Harp\Query\Test\Compiler;
 
-use Luna\Query\Test\AbstractTestCase;
-use Luna\Query\Compiler;
-use Luna\Query\SQL;
+use Harp\Query\Test\AbstractTestCase;
+use Harp\Query\Compiler;
+use Harp\Query\SQL;
 
 /**
  * @group compiler
  * @group compiler.condition
- * @coversDefaultClass Luna\Query\Compiler\Condition
+ * @coversDefaultClass Harp\Query\Compiler\Condition
  */
 class ConditionTest extends AbstractTestCase
 {

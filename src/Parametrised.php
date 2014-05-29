@@ -1,6 +1,6 @@
 <?php
 
-namespace Luna\Query;
+namespace Harp\Query;
 
 /**
  * @author     Ivan Kerin

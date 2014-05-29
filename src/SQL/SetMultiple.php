@@ -1,8 +1,8 @@
 <?php
 
-namespace Luna\Query\SQL;
+namespace Harp\Query\SQL;
 
-use Luna\Query\Arr;
+use Harp\Query\Arr;
 
 /**
  * @author     Ivan Kerin

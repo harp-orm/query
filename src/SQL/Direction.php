@@ -1,6 +1,6 @@
 <?php
 
-namespace Luna\Query\SQL;
+namespace Harp\Query\SQL;
 
 /**
  * @author     Ivan Kerin

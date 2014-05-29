@@ -1,12 +1,12 @@
 <?php
 
-namespace Luna\Query\Test;
+namespace Harp\Query\Test;
 
-use Luna\Query\SQL;
+use Harp\Query\SQL;
 
 /**
  * @group query
- * @coversDefaultClass Luna\Query\AbstractOrderLimit
+ * @coversDefaultClass Harp\Query\AbstractOrderLimit
  */
 class AbstractOrderLimitTest extends AbstractTestCase
 {
@@ -18,7 +18,7 @@ class AbstractOrderLimitTest extends AbstractTestCase
      */
     public function testOrder()
     {
-        $query = $this->getMock('Luna\Query\AbstractOrderLimit', array('sql', 'getParameters'));
+        $query = $this->getMock('Harp\Query\AbstractOrderLimit', array('sql', 'getParameters'));
 
         $query
             ->order('col1')
@@ -49,7 +49,7 @@ class AbstractOrderLimitTest extends AbstractTestCase
      */
     public function testLimit()
     {
-        $query = $this->getMock('Luna\Query\AbstractOrderLimit', array('sql', 'getParameters'));
+        $query = $this->getMock('Harp\Query\AbstractOrderLimit', array('sql', 'getParameters'));
 
         $query->limit(20);
 

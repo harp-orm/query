@@ -1,13 +1,13 @@
 <?php
 
-namespace Luna\Query\Test;
+namespace Harp\Query\Test;
 
-use Luna\Query;
-use Luna\Query\SQL;
+use Harp\Query;
+use Harp\Query\SQL;
 
 /**
  * @group query.select
- * @coversDefaultClass Luna\Query\Select
+ * @coversDefaultClass Harp\Query\Select
  */
 class SelectTest extends AbstractTestCase
 {
@@ -149,7 +149,7 @@ class SelectTest extends AbstractTestCase
      */
     public function testWhereInInvalid()
     {
-        $query = $this->getMock('Luna\Query\Select', array('sql', 'getParameters'));
+        $query = $this->getMock('Harp\Query\Select', array('sql', 'getParameters'));
 
         $query->having('test1', array(2, 3));
     }

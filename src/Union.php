@@ -1,8 +1,8 @@
 <?php
 
-namespace Luna\Query;
+namespace Harp\Query;
 
-use Luna\Query\Compiler;
+use Harp\Query\Compiler;
 
 /**
  * @author     Ivan Kerin

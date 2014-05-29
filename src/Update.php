@@ -1,10 +1,10 @@
 <?php
 
-namespace Luna\Query;
+namespace Harp\Query;
 
-use Luna\Query\Compiler;
-use Luna\Query\SQL;
-use Luna\Query\Arr;
+use Harp\Query\Compiler;
+use Harp\Query\SQL;
+use Harp\Query\Arr;
 
 /**
  * @author     Ivan Kerin

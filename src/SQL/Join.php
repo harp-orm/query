@@ -1,8 +1,8 @@
 <?php
 
-namespace Luna\Query\SQL;
+namespace Harp\Query\SQL;
 
-use Luna\Query\Parametrised;
+use Harp\Query\Parametrised;
 
 /**
  * @author     Ivan Kerin

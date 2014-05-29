@@ -1,10 +1,10 @@
 <?php
 
-namespace Luna\Query\Test;
+namespace Harp\Query\Test;
 
 use CL\EnvBackup\Env;
 use CL\EnvBackup\StaticParam;
-use Luna\Query\DB;
+use Harp\Query\DB;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -44,7 +44,7 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
         parent::setUp();
 
         $this->env = new Env(array(
-            new StaticParam('Luna\Query\DB', 'dbs', array())
+            new StaticParam('Harp\Query\DB', 'dbs', array())
         ));
 
         $this->env->apply();

@@ -1,14 +1,14 @@
 <?php
 
-namespace Luna\Query\Test\Compiler;
+namespace Harp\Query\Test\Compiler;
 
-use Luna\Query\Test\AbstractTestCase;
-use Luna\Query\Test\ParametrisedStub;
-use Luna\Query\Compiler\Compiler;
+use Harp\Query\Test\AbstractTestCase;
+use Harp\Query\Test\ParametrisedStub;
+use Harp\Query\Compiler\Compiler;
 
 /**
  * @group compiler
- * @coversDefaultClass Luna\Query\Compiler\Compiler
+ * @coversDefaultClass Harp\Query\Compiler\Compiler
  */
 class CompilerTest extends AbstractTestCase
 {

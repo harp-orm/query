@@ -1,15 +1,15 @@
 <?php
 
-namespace Luna\Query\Test\SQL;
+namespace Harp\Query\Test\SQL;
 
-use Luna\Query\Test\AbstractTestCase;
-use Luna\Query;
-use Luna\Query\SQL;
-use Luna\Query\Compiler\Compiler;
+use Harp\Query\Test\AbstractTestCase;
+use Harp\Query;
+use Harp\Query\SQL;
+use Harp\Query\Compiler\Compiler;
 
 /**
  * @group sql.set_multiple
- * @coversDefaultClass Luna\Query\SQL\SetMultiple
+ * @coversDefaultClass Harp\Query\SQL\SetMultiple
  */
 class SetMultipleTest extends AbstractTestCase
 {

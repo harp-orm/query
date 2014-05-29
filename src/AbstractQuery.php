@@ -1,11 +1,11 @@
 <?php
 
-namespace Luna\Query;
+namespace Harp\Query;
 
-use Luna\Query\Parametrised;
-use Luna\Query\DB;
-use Luna\Query\SQL;
-use Luna\Query\Compiler\Compiler;
+use Harp\Query\Parametrised;
+use Harp\Query\DB;
+use Harp\Query\SQL;
+use Harp\Query\Compiler\Compiler;
 
 /**
  * @author     Ivan Kerin

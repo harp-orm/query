@@ -1,8 +1,8 @@
 <?php
 
-namespace Luna\Query;
+namespace Harp\Query;
 
-use Luna\Query;
+use Harp\Query;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use PDO;

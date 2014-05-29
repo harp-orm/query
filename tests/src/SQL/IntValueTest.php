@@ -1,13 +1,13 @@
 <?php
 
-namespace Luna\Query\Test\SQL;
+namespace Harp\Query\Test\SQL;
 
-use Luna\Query\Test\AbstractTestCase;
-use Luna\Query\SQL;
+use Harp\Query\Test\AbstractTestCase;
+use Harp\Query\SQL;
 
 /**
  * @group sql.int_value
- * @coversDefaultClass Luna\Query\SQL\IntValue
+ * @coversDefaultClass Harp\Query\SQL\IntValue
  */
 class IntValueTest extends AbstractTestCase
 {

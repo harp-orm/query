@@ -1,12 +1,12 @@
 <?php
 
-namespace Luna\Query\Test;
+namespace Harp\Query\Test;
 
-use Luna\Query;
+use Harp\Query;
 
 /**
  * @group query.union
- * @coversDefaultClass Luna\Query\Union
+ * @coversDefaultClass Harp\Query\Union
  */
 class UnionTest extends AbstractTestCase
 {

@@ -1,5 +1,5 @@
 {
-    "name": "luna-orm/query",
+    "name": "harp-orm/query",
     "description": "SQL Builder for PDO",
     "license": "BSD-3-Clause",
     "authors": [
@@ -22,6 +22,6 @@
         "clippings/env-backup": "~0.2.4"
     },
     "autoload": {
-        "psr-4": {"Luna\\Query\\": "src/"}
+        "psr-4": {"Harp\\Query\\": "src/"}
     }
 }

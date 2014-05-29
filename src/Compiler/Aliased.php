@@ -1,10 +1,10 @@
 <?php
 
-namespace Luna\Query\Compiler;
+namespace Harp\Query\Compiler;
 
-use Luna\Query\Arr;
-use Luna\Query\SQL;
-use Luna\Query;
+use Harp\Query\Arr;
+use Harp\Query\SQL;
+use Harp\Query;
 
 /**
  * @author     Ivan Kerin
@@ -21,7 +21,7 @@ class Aliased
      */
     public static function combine($items)
     {
-        return Arr::join(', ', Arr::map('Luna\Query\Compiler\Aliased::render', $items));
+        return Arr::join(', ', Arr::map('Harp\Query\Compiler\Aliased::render', $items));
     }
 
     /**

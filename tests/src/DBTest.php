@@ -1,15 +1,15 @@
 <?php
 
-namespace Luna\Query\Test;
+namespace Harp\Query\Test;
 
-use Luna\Query\DB;
+use Harp\Query\DB;
 use CL\EnvBackup\StaticParam;
 use PDOException;
 use Psr\Log\LogLevel;
 
 /**
  * @group db
- * @coversDefaultClass Luna\Query\DB
+ * @coversDefaultClass Harp\Query\DB
  */
 class DBTest extends AbstractTestCase
 {
@@ -20,7 +20,7 @@ class DBTest extends AbstractTestCase
     public function testConfiguration()
     {
         $this->getEnv()
-            ->add(new StaticParam('Luna\Query\DB', 'configs', array()))
+            ->add(new StaticParam('Harp\Query\DB', 'configs', array()))
             ->apply();
 
 
@@ -125,7 +125,7 @@ class DBTest extends AbstractTestCase
     {
         $select = DB::select()->column('test')->column('test2');
 
-        $this->assertInstanceOf('Luna\Query\Select', $select);
+        $this->assertInstanceOf('Harp\Query\Select', $select);
 
         $this->assertSame(DB::get(), $select->getDb());
 
@@ -139,7 +139,7 @@ class DBTest extends AbstractTestCase
     {
         $update = DB::update()->table('test')->table('test2');
 
-        $this->assertInstanceOf('Luna\Query\Update', $update);
+        $this->assertInstanceOf('Harp\Query\Update', $update);
 
         $this->assertSame(DB::get(), $update->getDb());
 
@@ -153,7 +153,7 @@ class DBTest extends AbstractTestCase
     {
         $delete = DB::delete()->from('test')->from('test2');
 
-        $this->assertInstanceOf('Luna\Query\Delete', $delete);
+        $this->assertInstanceOf('Harp\Query\Delete', $delete);
 
         $this->assertSame(DB::get(), $delete->getDb());
 
@@ -167,7 +167,7 @@ class DBTest extends AbstractTestCase
     {
         $query = DB::insert()->into('table1')->set(array('name' => 'test2'));
 
-        $this->assertInstanceOf('Luna\Query\Insert', $query);
+        $this->assertInstanceOf('Harp\Query\Insert', $query);
 
         $this->assertSame(DB::get(), $query->getDb());
 

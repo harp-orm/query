@@ -1,13 +1,13 @@
 <?php
 
-namespace Luna\Query\Test;
+namespace Harp\Query\Test;
 
-use Luna\Query;
-use Luna\Query\SQL;
+use Harp\Query;
+use Harp\Query\SQL;
 
 /**
  * @group query.update
- * @coversDefaultClass Luna\Query\Update
+ * @coversDefaultClass Harp\Query\Update
  */
 class UpdateTest extends AbstractTestCase
 {

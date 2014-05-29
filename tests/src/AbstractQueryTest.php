@@ -1,13 +1,13 @@
 <?php
 
-namespace Luna\Query\Test;
+namespace Harp\Query\Test;
 
-use Luna\Query\SQL;
-use Luna\Query\DB;
+use Harp\Query\SQL;
+use Harp\Query\DB;
 
 /**
  * @group query
- * @coversDefaultClass Luna\Query\AbstractQuery
+ * @coversDefaultClass Harp\Query\AbstractQuery
  */
 class AbstractQueryTest extends AbstractTestCase
 {
@@ -18,7 +18,7 @@ class AbstractQueryTest extends AbstractTestCase
      */
     public function testType()
     {
-        $query = $this->getMock('Luna\Query\AbstractQuery', array('sql', 'getParameters'));
+        $query = $this->getMock('Harp\Query\AbstractQuery', array('sql', 'getParameters'));
 
         $query->type('IGNORE');
 
@@ -45,11 +45,11 @@ class AbstractQueryTest extends AbstractTestCase
     {
         $db = new DB(array());
 
-        $query = $this->getMock('Luna\Query\AbstractQuery', array('sql', 'getParameters'), array($db));
+        $query = $this->getMock('Harp\Query\AbstractQuery', array('sql', 'getParameters'), array($db));
 
         $this->assertSame($db, $query->getDb());
 
-        $query = $this->getMock('Luna\Query\AbstractQuery', array('sql', 'getParameters'));
+        $query = $this->getMock('Harp\Query\AbstractQuery', array('sql', 'getParameters'));
 
         $this->assertSame(DB::get(), $query->getDb());
     }
@@ -59,7 +59,7 @@ class AbstractQueryTest extends AbstractTestCase
      */
     public function testExecute()
     {
-        $query = $this->getMock('Luna\Query\AbstractQuery', array('sql', 'getParameters'));
+        $query = $this->getMock('Harp\Query\AbstractQuery', array('sql', 'getParameters'));
 
         $query
             ->expects($this->once())
@@ -83,7 +83,7 @@ class AbstractQueryTest extends AbstractTestCase
      */
     public function testHumanize()
     {
-        $query = $this->getMock('Luna\Query\AbstractQuery', array('sql', 'getParameters'));
+        $query = $this->getMock('Harp\Query\AbstractQuery', array('sql', 'getParameters'));
 
         $query
             ->expects($this->once())

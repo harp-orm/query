@@ -1,21 +1,21 @@
 <?php
 
-namespace Luna\Query\Test\Compiler;
+namespace Harp\Query\Test\Compiler;
 
-use Luna\Query\Test\AbstractTestCase;
-use Luna\Query\Compiler;
-use Luna\Query\SQL;
+use Harp\Query\Test\AbstractTestCase;
+use Harp\Query\Compiler;
+use Harp\Query\SQL;
 
 /**
  * @group compiler
  * @group compiler.columns
- * @coversDefaultClass Luna\Query\Compiler\Columns
+ * @coversDefaultClass Harp\Query\Compiler\Columns
  */
 class ColumnsTest extends AbstractTestCase
 {
 
     /**
-     * @covers Luna\Query\Compiler\Columns::render
+     * @covers Harp\Query\Compiler\Columns::render
      */
     public function testRender()
     {
@@ -38,7 +38,7 @@ class ColumnsTest extends AbstractTestCase
 
     /**
      * @dataProvider dataRenderItem
-     * @covers Luna\Query\Compiler\Columns::renderItem
+     * @covers Harp\Query\Compiler\Columns::renderItem
      */
     public function testRenderItem($values, $expected)
     {

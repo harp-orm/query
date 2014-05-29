@@ -1,14 +1,14 @@
 <?php
 
-namespace Luna\Query\Test\SQL;
+namespace Harp\Query\Test\SQL;
 
-use Luna\Query\Test\AbstractTestCase;
-use Luna\Query\Query;
-use Luna\Query\SQL;
+use Harp\Query\Test\AbstractTestCase;
+use Harp\Query\Query;
+use Harp\Query\SQL;
 
 /**
  * @group sql.condition
- * @coversDefaultClass Luna\Query\SQL\ConditionIs
+ * @coversDefaultClass Harp\Query\SQL\ConditionIs
  */
 class ConditionIsTest extends AbstractTestCase
 {

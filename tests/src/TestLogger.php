@@ -1,6 +1,6 @@
 <?php
 
-namespace Luna\Query\Test;
+namespace Harp\Query\Test;
 
 use Psr\Log\AbstractLogger;
 

@@ -1,16 +1,16 @@
 <?php
 
-namespace Luna\Query\Test\Compiler;
+namespace Harp\Query\Test\Compiler;
 
-use Luna\Query\Test\AbstractTestCase;
-use Luna\Query\Compiler;
-use Luna\Query\SQL;
-use Luna\Query;
+use Harp\Query\Test\AbstractTestCase;
+use Harp\Query\Compiler;
+use Harp\Query\SQL;
+use Harp\Query;
 
 /**
  * @group compiler
  * @group compiler.aliased
- * @coversDefaultClass Luna\Query\Compiler\Aliased
+ * @coversDefaultClass Harp\Query\Compiler\Aliased
  */
 class AliasedTest extends AbstractTestCase
 {

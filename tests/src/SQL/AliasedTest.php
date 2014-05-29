@@ -1,13 +1,13 @@
 <?php
 
-namespace Luna\Query\Test\SQL;
+namespace Harp\Query\Test\SQL;
 
-use Luna\Query\Test\AbstractTestCase;
-use Luna\Query\SQL;
+use Harp\Query\Test\AbstractTestCase;
+use Harp\Query\SQL;
 
 /**
  * @group sql.aliased
- * @coversDefaultClass Luna\Query\SQL\Aliased
+ * @coversDefaultClass Harp\Query\SQL\Aliased
  */
 class AliasedTest extends AbstractTestCase
 {
@@ -24,7 +24,7 @@ class AliasedTest extends AbstractTestCase
         $this->assertEquals('ALIAS', $aliased->getAlias());
         $this->assertNull($aliased->getParameters());
 
-        $query = $this->getMock('Luna\Query\AbstractQuery');
+        $query = $this->getMock('Harp\Query\AbstractQuery');
         $query
             ->expects($this->once())
             ->method('getParameters')

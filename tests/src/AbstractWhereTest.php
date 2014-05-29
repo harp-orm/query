@@ -1,12 +1,12 @@
 <?php
 
-namespace Luna\Query\Test;
+namespace Harp\Query\Test;
 
-use Luna\Query\SQL;
+use Harp\Query\SQL;
 
 /**
  * @group query
- * @coversDefaultClass Luna\Query\AbstractWhere
+ * @coversDefaultClass Harp\Query\AbstractWhere
  */
 class AbstractWhereTest extends AbstractTestCase
 {
@@ -19,7 +19,7 @@ class AbstractWhereTest extends AbstractTestCase
      */
     public function testJoin()
     {
-        $query = $this->getMock('Luna\Query\AbstractWhere', array('sql', 'getParameters'));
+        $query = $this->getMock('Harp\Query\AbstractWhere', array('sql', 'getParameters'));
 
         $query
             ->join('table1', array('col' => 'col2'))
@@ -52,7 +52,7 @@ class AbstractWhereTest extends AbstractTestCase
      */
     public function testWhere()
     {
-        $query = $this->getMock('Luna\Query\AbstractWhere', array('sql', 'getParameters'));
+        $query = $this->getMock('Harp\Query\AbstractWhere', array('sql', 'getParameters'));
 
         $query
             ->where('test1', 2)
@@ -86,7 +86,7 @@ class AbstractWhereTest extends AbstractTestCase
      */
     public function testWhereInInvalid()
     {
-        $query = $this->getMock('Luna\Query\AbstractWhere', array('sql', 'getParameters'));
+        $query = $this->getMock('Harp\Query\AbstractWhere', array('sql', 'getParameters'));
 
         $query->where('test1', array(2, 3));
     }

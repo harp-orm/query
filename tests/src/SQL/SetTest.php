@@ -1,14 +1,14 @@
 <?php
 
-namespace Luna\Query\Test\SQL;
+namespace Harp\Query\Test\SQL;
 
-use Luna\Query\Test\AbstractTestCase;
-use Luna\Query;
-use Luna\Query\SQL;
+use Harp\Query\Test\AbstractTestCase;
+use Harp\Query;
+use Harp\Query\SQL;
 
 /**
  * @group sql.set
- * @coversDefaultClass Luna\Query\SQL\Set
+ * @coversDefaultClass Harp\Query\SQL\Set
  */
 class SetTest extends AbstractTestCase
 {

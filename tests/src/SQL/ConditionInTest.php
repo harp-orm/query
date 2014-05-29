@@ -1,14 +1,14 @@
 <?php
 
-namespace Luna\Query\Test\SQL;
+namespace Harp\Query\Test\SQL;
 
-use Luna\Query\Test\AbstractTestCase;
-use Luna\Query\Query;
-use Luna\Query\SQL;
+use Harp\Query\Test\AbstractTestCase;
+use Harp\Query\Query;
+use Harp\Query\SQL;
 
 /**
  * @group sql.condition
- * @coversDefaultClass Luna\Query\SQL\ConditionIn
+ * @coversDefaultClass Harp\Query\SQL\ConditionIn
  */
 class ConditionInTest extends AbstractTestCase
 {
@@ -44,7 +44,7 @@ class ConditionInTest extends AbstractTestCase
 
     /**
      * @expectedException InvalidArgumentException
-     * @covers Luna\Query\SQL\ConditionIn::__construct
+     * @covers Harp\Query\SQL\ConditionIn::__construct
      */
     public function testConstructInvalid()
     {

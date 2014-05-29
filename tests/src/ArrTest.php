@@ -1,16 +1,16 @@
 <?php
 
-namespace Luna\Query\Test;
+namespace Harp\Query\Test;
 
-use Luna\Query\Arr;
-use Luna\Query\SQL;
-use Luna\Query;
+use Harp\Query\Arr;
+use Harp\Query\SQL;
+use Harp\Query;
 use stdClass;
 
 /**
  * @group util
  * @group util.arr
- * @coversDefaultClass Luna\Query\Arr
+ * @coversDefaultClass Harp\Query\Arr
  */
 class ArrTest extends AbstractTestCase
 {

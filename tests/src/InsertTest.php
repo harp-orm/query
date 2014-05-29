@@ -1,13 +1,13 @@
 <?php
 
-namespace Luna\Query\Test;
+namespace Harp\Query\Test;
 
-use Luna\Query;
-use Luna\Query\SQL;
+use Harp\Query;
+use Harp\Query\SQL;
 
 /**
  * @group query.insert
- * @coversDefaultClass Luna\Query\Insert
+ * @coversDefaultClass Harp\Query\Insert
  */
 class InsertTest extends AbstractTestCase
 {
