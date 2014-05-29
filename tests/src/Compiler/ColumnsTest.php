@@ -1,20 +1,21 @@
 <?php
 
-namespace CL\Atlas\Test\Compiler;
+namespace Luna\Query\Test\Compiler;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\Compiler;
-use CL\Atlas\SQL;
+use Luna\Query\Test\AbstractTestCase;
+use Luna\Query\Compiler;
+use Luna\Query\SQL;
 
 /**
  * @group compiler
  * @group compiler.columns
+ * @coversDefaultClass Luna\Query\Compiler\Columns
  */
 class ColumnsTest extends AbstractTestCase
 {
 
     /**
-     * @covers CL\Atlas\Compiler\Columns::render
+     * @covers Luna\Query\Compiler\Columns::render
      */
     public function testRender()
     {
@@ -37,7 +38,7 @@ class ColumnsTest extends AbstractTestCase
 
     /**
      * @dataProvider dataRenderItem
-     * @covers CL\Atlas\Compiler\Columns::renderItem
+     * @covers Luna\Query\Compiler\Columns::renderItem
      */
     public function testRenderItem($values, $expected)
     {

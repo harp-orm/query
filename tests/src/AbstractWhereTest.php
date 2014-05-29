@@ -1,25 +1,25 @@
 <?php
 
-namespace CL\Atlas\Test\Query;
+namespace Luna\Query\Test;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\SQL;
+use Luna\Query\SQL;
 
 /**
  * @group query
+ * @coversDefaultClass Luna\Query\AbstractWhere
  */
 class AbstractWhereTest extends AbstractTestCase
 {
     /**
-     * @covers CL\Atlas\Query\AbstractWhere::join
-     * @covers CL\Atlas\Query\AbstractWhere::joinAliased
-     * @covers CL\Atlas\Query\AbstractWhere::getJoin
-     * @covers CL\Atlas\Query\AbstractWhere::setJoin
-     * @covers CL\Atlas\Query\AbstractWhere::clearJoin
+     * @covers ::join
+     * @covers ::joinAliased
+     * @covers ::getJoin
+     * @covers ::setJoin
+     * @covers ::clearJoin
      */
     public function testJoin()
     {
-        $query = $this->getMock('CL\Atlas\Query\AbstractWhere', array('sql', 'getParameters'));
+        $query = $this->getMock('Luna\Query\AbstractWhere', array('sql', 'getParameters'));
 
         $query
             ->join('table1', array('col' => 'col2'))
@@ -42,17 +42,17 @@ class AbstractWhereTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\AbstractWhere::where
-     * @covers CL\Atlas\Query\AbstractWhere::whereIn
-     * @covers CL\Atlas\Query\AbstractWhere::whereNot
-     * @covers CL\Atlas\Query\AbstractWhere::whereRaw
-     * @covers CL\Atlas\Query\AbstractWhere::getWhere
-     * @covers CL\Atlas\Query\AbstractWhere::setWhere
-     * @covers CL\Atlas\Query\AbstractWhere::clearWhere
+     * @covers ::where
+     * @covers ::whereIn
+     * @covers ::whereNot
+     * @covers ::whereRaw
+     * @covers ::getWhere
+     * @covers ::setWhere
+     * @covers ::clearWhere
      */
     public function testWhere()
     {
-        $query = $this->getMock('CL\Atlas\Query\AbstractWhere', array('sql', 'getParameters'));
+        $query = $this->getMock('Luna\Query\AbstractWhere', array('sql', 'getParameters'));
 
         $query
             ->where('test1', 2)
@@ -81,12 +81,12 @@ class AbstractWhereTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\AbstractWhere::where
+     * @covers ::where
      * @expectedException InvalidArgumentException
      */
     public function testWhereInInvalid()
     {
-        $query = $this->getMock('CL\Atlas\Query\AbstractWhere', array('sql', 'getParameters'));
+        $query = $this->getMock('Luna\Query\AbstractWhere', array('sql', 'getParameters'));
 
         $query->where('test1', array(2, 3));
     }

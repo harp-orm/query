@@ -1,12 +1,13 @@
 <?php
 
-namespace CL\Atlas\Test\SQL;
+namespace Luna\Query\Test\SQL;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\SQL;
+use Luna\Query\Test\AbstractTestCase;
+use Luna\Query\SQL;
 
 /**
  * @group sql.int_value
+ * @coversDefaultClass Luna\Query\SQL\IntValue
  */
 class IntValueTest extends AbstractTestCase
 {
@@ -21,8 +22,8 @@ class IntValueTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\SQL\IntValue::__construct
      * @dataProvider dataConstruct
+     * @covers ::__construct
      */
     public function testConstruct($value, $expected)
     {

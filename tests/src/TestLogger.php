@@ -1,6 +1,6 @@
 <?php
 
-namespace CL\Atlas\Test;
+namespace Luna\Query\Test;
 
 use Psr\Log\AbstractLogger;
 

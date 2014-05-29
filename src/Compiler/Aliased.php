@@ -1,10 +1,10 @@
 <?php
 
-namespace CL\Atlas\Compiler;
+namespace Luna\Query\Compiler;
 
-use CL\Atlas\Arr;
-use CL\Atlas\SQL;
-use CL\Atlas\Query;
+use Luna\Query\Arr;
+use Luna\Query\SQL;
+use Luna\Query;
 
 /**
  * @author     Ivan Kerin
@@ -21,7 +21,7 @@ class Aliased
      */
     public static function combine($items)
     {
-        return Arr::join(', ', Arr::map('CL\Atlas\Compiler\Aliased::render', $items));
+        return Arr::join(', ', Arr::map('Luna\Query\Compiler\Aliased::render', $items));
     }
 
     /**

@@ -1,19 +1,20 @@
 <?php
 
-namespace CL\Atlas\Test\SQL;
+namespace Luna\Query\Test\SQL;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\SQL;
+use Luna\Query\Test\AbstractTestCase;
+use Luna\Query\SQL;
 
 /**
  * @group sql.aliased
+ * @coversDefaultClass Luna\Query\SQL\Aliased
  */
 class AliasedTest extends AbstractTestCase
 {
     /**
-     * @covers CL\Atlas\SQL\Aliased::__construct
-     * @covers CL\Atlas\SQL\Aliased::getParameters
-     * @covers CL\Atlas\SQL\Aliased::getAlias
+     * @covers ::__construct
+     * @covers ::getParameters
+     * @covers ::getAlias
      */
     public function testConstruct()
     {
@@ -23,7 +24,7 @@ class AliasedTest extends AbstractTestCase
         $this->assertEquals('ALIAS', $aliased->getAlias());
         $this->assertNull($aliased->getParameters());
 
-        $query = $this->getMock('CL\Atlas\Query\AbstractQuery');
+        $query = $this->getMock('Luna\Query\AbstractQuery');
         $query
             ->expects($this->once())
             ->method('getParameters')

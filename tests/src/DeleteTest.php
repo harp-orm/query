@@ -1,21 +1,21 @@
 <?php
 
-namespace CL\Atlas\Test\Query;
+namespace Luna\Query\Test;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\Query;
-use CL\Atlas\SQL;
+use Luna\Query;
+use Luna\Query\SQL;
 
 /**
  * @group query.delete
+ * @coversDefaultClass Luna\Query\Delete
  */
 class DeleteTest extends AbstractTestCase
 {
     /**
-     * @covers CL\Atlas\Query\Delete::table
-     * @covers CL\Atlas\Query\Delete::getTable
-     * @covers CL\Atlas\Query\Delete::setTable
-     * @covers CL\Atlas\Query\Delete::clearTable
+     * @covers ::table
+     * @covers ::getTable
+     * @covers ::setTable
+     * @covers ::clearTable
      */
     public function testTable()
     {
@@ -42,10 +42,10 @@ class DeleteTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Delete::from
-     * @covers CL\Atlas\Query\Delete::getFrom
-     * @covers CL\Atlas\Query\Delete::setFrom
-     * @covers CL\Atlas\Query\Delete::clearFrom
+     * @covers ::from
+     * @covers ::getFrom
+     * @covers ::setFrom
+     * @covers ::clearFrom
      */
     public function testFrom()
     {
@@ -72,7 +72,7 @@ class DeleteTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Delete::sql
+     * @covers ::sql
      */
     public function testSql()
     {
@@ -86,7 +86,7 @@ class DeleteTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Delete::getParameters
+     * @covers ::getParameters
      */
     public function testGetParameters()
     {

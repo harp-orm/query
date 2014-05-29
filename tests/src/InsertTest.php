@@ -1,21 +1,21 @@
 <?php
 
-namespace CL\Atlas\Test\Query;
+namespace Luna\Query\Test;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\Query;
-use CL\Atlas\SQL;
+use Luna\Query;
+use Luna\Query\SQL;
 
 /**
  * @group query.insert
+ * @coversDefaultClass Luna\Query\Insert
  */
 class InsertTest extends AbstractTestCase
 {
     /**
-     * @covers CL\Atlas\Query\Insert::into
-     * @covers CL\Atlas\Query\Insert::getTable
-     * @covers CL\Atlas\Query\Insert::setTable
-     * @covers CL\Atlas\Query\Insert::clearTable
+     * @covers ::into
+     * @covers ::getTable
+     * @covers ::setTable
+     * @covers ::clearTable
      */
     public function testInto()
     {
@@ -37,10 +37,10 @@ class InsertTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Insert::columns
-     * @covers CL\Atlas\Query\Insert::getColumns
-     * @covers CL\Atlas\Query\Insert::setColumns
-     * @covers CL\Atlas\Query\Insert::clearColumns
+     * @covers ::columns
+     * @covers ::getColumns
+     * @covers ::setColumns
+     * @covers ::clearColumns
      */
     public function testColumns()
     {
@@ -68,10 +68,10 @@ class InsertTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Insert::values
-     * @covers CL\Atlas\Query\Insert::getValues
-     * @covers CL\Atlas\Query\Insert::setValues
-     * @covers CL\Atlas\Query\Insert::clearValues
+     * @covers ::values
+     * @covers ::getValues
+     * @covers ::setValues
+     * @covers ::clearValues
      */
     public function testValues()
     {
@@ -98,10 +98,10 @@ class InsertTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Insert::set
-     * @covers CL\Atlas\Query\Insert::getSet
-     * @covers CL\Atlas\Query\Insert::setSet
-     * @covers CL\Atlas\Query\Insert::clearSet
+     * @covers ::set
+     * @covers ::getSet
+     * @covers ::setSet
+     * @covers ::clearSet
      */
     public function testSet()
     {
@@ -129,10 +129,10 @@ class InsertTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Insert::select
-     * @covers CL\Atlas\Query\Insert::getSelect
-     * @covers CL\Atlas\Query\Insert::setSelect
-     * @covers CL\Atlas\Query\Insert::clearSelect
+     * @covers ::select
+     * @covers ::getSelect
+     * @covers ::setSelect
+     * @covers ::clearSelect
      */
     public function testSelect()
     {
@@ -153,7 +153,7 @@ class InsertTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Insert::getLastInsertId
+     * @covers ::getLastInsertId
      */
     public function testGetLastInsertId()
     {
@@ -172,7 +172,7 @@ class InsertTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Insert::sql
+     * @covers ::sql
      */
     public function testSql()
     {
@@ -186,7 +186,7 @@ class InsertTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Insert::getParameters
+     * @covers ::getParameters
      */
     public function testGetParameters()
     {

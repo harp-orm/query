@@ -1,8 +1,8 @@
 <?php
 
-namespace CL\Atlas\SQL;
+namespace Luna\Query\SQL;
 
-use CL\Atlas\Parametrised;
+use Luna\Query\Parametrised;
 
 /**
  * @author     Ivan Kerin

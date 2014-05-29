@@ -1,8 +1,8 @@
 <?php
 
-namespace CL\Atlas\SQL;
+namespace Luna\Query\SQL;
 
-use CL\Atlas\Arr;
+use Luna\Query\Arr;
 
 /**
  * @author     Ivan Kerin

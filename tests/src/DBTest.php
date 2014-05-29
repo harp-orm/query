@@ -1,26 +1,26 @@
 <?php
 
-namespace CL\Atlas\Test;
+namespace Luna\Query\Test;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\DB;
+use Luna\Query\DB;
 use CL\EnvBackup\StaticParam;
 use PDOException;
 use Psr\Log\LogLevel;
 
 /**
  * @group db
+ * @coversDefaultClass Luna\Query\DB
  */
 class DBTest extends AbstractTestCase
 {
     /**
-     * @covers CL\Atlas\DB::getConfig
-     * @covers CL\Atlas\DB::setConfig
+     * @covers ::getConfig
+     * @covers ::setConfig
      */
     public function testConfiguration()
     {
         $this->getEnv()
-            ->add(new StaticParam('CL\Atlas\DB', 'configs', array()))
+            ->add(new StaticParam('Luna\Query\DB', 'configs', array()))
             ->apply();
 
 
@@ -34,11 +34,11 @@ class DBTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\DB::get
-     * @covers CL\Atlas\DB::__construct
-     * @covers CL\Atlas\DB::getName
-     * @covers CL\Atlas\DB::setLogger
-     * @covers CL\Atlas\DB::getLogger
+     * @covers ::get
+     * @covers ::__construct
+     * @covers ::getName
+     * @covers ::setLogger
+     * @covers ::getLogger
      */
     public function testGet()
     {
@@ -77,7 +77,7 @@ class DBTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\DB::execute
+     * @covers ::execute
      * @dataProvider dataExecute
      */
     public function testExecute($sql, $parameters, $expected)
@@ -94,7 +94,7 @@ class DBTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\DB::execute
+     * @covers ::execute
      */
     public function testExecuteWithException()
     {
@@ -119,13 +119,13 @@ class DBTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\DB::select
+     * @covers ::select
      */
     public function testSelect()
     {
         $select = DB::select()->column('test')->column('test2');
 
-        $this->assertInstanceOf('CL\Atlas\Query\Select', $select);
+        $this->assertInstanceOf('Luna\Query\Select', $select);
 
         $this->assertSame(DB::get(), $select->getDb());
 
@@ -133,13 +133,13 @@ class DBTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\DB::update
+     * @covers ::update
      */
     public function testUpdate()
     {
         $update = DB::update()->table('test')->table('test2');
 
-        $this->assertInstanceOf('CL\Atlas\Query\Update', $update);
+        $this->assertInstanceOf('Luna\Query\Update', $update);
 
         $this->assertSame(DB::get(), $update->getDb());
 
@@ -147,13 +147,13 @@ class DBTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\DB::delete
+     * @covers ::delete
      */
     public function testDelete()
     {
         $delete = DB::delete()->from('test')->from('test2');
 
-        $this->assertInstanceOf('CL\Atlas\Query\Delete', $delete);
+        $this->assertInstanceOf('Luna\Query\Delete', $delete);
 
         $this->assertSame(DB::get(), $delete->getDb());
 
@@ -161,13 +161,13 @@ class DBTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\DB::insert
+     * @covers ::insert
      */
     public function testInsert()
     {
         $query = DB::insert()->into('table1')->set(array('name' => 'test2'));
 
-        $this->assertInstanceOf('CL\Atlas\Query\Insert', $query);
+        $this->assertInstanceOf('Luna\Query\Insert', $query);
 
         $this->assertSame(DB::get(), $query->getDb());
 

@@ -1,21 +1,21 @@
 <?php
 
-namespace CL\Atlas\Test\Query;
+namespace Luna\Query\Test;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\Query;
-use CL\Atlas\SQL;
+use Luna\Query;
+use Luna\Query\SQL;
 
 /**
  * @group query.update
+ * @coversDefaultClass Luna\Query\Update
  */
 class UpdateTest extends AbstractTestCase
 {
     /**
-     * @covers CL\Atlas\Query\Update::table
-     * @covers CL\Atlas\Query\Update::getTable
-     * @covers CL\Atlas\Query\Update::setTable
-     * @covers CL\Atlas\Query\Update::clearTable
+     * @covers ::table
+     * @covers ::getTable
+     * @covers ::setTable
+     * @covers ::clearTable
      */
     public function testTable()
     {
@@ -42,10 +42,10 @@ class UpdateTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Update::set
-     * @covers CL\Atlas\Query\Update::getSet
-     * @covers CL\Atlas\Query\Update::setSet
-     * @covers CL\Atlas\Query\Update::clearSet
+     * @covers ::set
+     * @covers ::getSet
+     * @covers ::setSet
+     * @covers ::clearSet
      */
     public function testSet()
     {
@@ -73,7 +73,7 @@ class UpdateTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Update::setMultiple
+     * @covers ::setMultiple
      */
     public function testSetMultiple()
     {
@@ -102,7 +102,7 @@ class UpdateTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Update::sql
+     * @covers ::sql
      */
     public function testSql()
     {
@@ -116,7 +116,7 @@ class UpdateTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Update::getParameters
+     * @covers ::getParameters
      */
     public function testGetParameters()
     {

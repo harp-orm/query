@@ -1,12 +1,13 @@
 <?php
 
-namespace CL\Atlas\Test\SQL;
+namespace Luna\Query\Test\SQL;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\SQL;
+use Luna\Query\Test\AbstractTestCase;
+use Luna\Query\SQL;
 
 /**
  * @group sql.join
+ * @coversDefaultClass Luna\Query\SQL\Join
  */
 class JoinTest extends AbstractTestCase
 {
@@ -43,10 +44,10 @@ class JoinTest extends AbstractTestCase
 
     /**
      * @dataProvider dataConstruct
-     * @covers CL\Atlas\SQL\Join::__construct
-     * @covers CL\Atlas\SQL\Join::getTable
-     * @covers CL\Atlas\SQL\Join::getCondition
-     * @covers CL\Atlas\SQL\Join::getType
+     * @covers ::__construct
+     * @covers ::getTable
+     * @covers ::getCondition
+     * @covers ::getType
      */
     public function testConstruct($table, $condition, $type, $expected_table, $expected_condition, $expected_type)
     {
@@ -58,7 +59,7 @@ class JoinTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\SQL\Join::getParameters
+     * @covers ::getParameters
      */
     public function testGetParameters()
     {
@@ -82,7 +83,7 @@ class JoinTest extends AbstractTestCase
     }
     /**
      * @dataProvider dataArrayToCondition
-     * @covers CL\Atlas\SQL\Join::arrayToCondition
+     * @covers ::arrayToCondition
      */
     public function testArrayToCondition($table, $expected)
     {

@@ -1,8 +1,8 @@
 <?php
 
-namespace CL\Atlas\Query;
+namespace Luna\Query;
 
-use CL\Atlas\Compiler;
+use Luna\Query\Compiler;
 
 /**
  * @author     Ivan Kerin

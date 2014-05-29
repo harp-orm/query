@@ -1,13 +1,14 @@
 <?php
 
-namespace CL\Atlas\Test\SQL;
+namespace Luna\Query\Test\SQL;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\Query;
-use CL\Atlas\SQL;
+use Luna\Query\Test\AbstractTestCase;
+use Luna\Query;
+use Luna\Query\SQL;
 
 /**
  * @group sql.set
+ * @coversDefaultClass Luna\Query\SQL\Set
  */
 class SetTest extends AbstractTestCase
 {
@@ -30,9 +31,9 @@ class SetTest extends AbstractTestCase
 
     /**
      * @dataProvider dataConstruct
-     * @covers CL\Atlas\SQL\Set::__construct
-     * @covers CL\Atlas\SQL\Set::getValue
-     * @covers CL\Atlas\SQL\Set::getParameters
+     * @covers ::__construct
+     * @covers ::getValue
+     * @covers ::getParameters
      */
     public function testConstruct($column, $value, $expectedColumn, $expectedValue, $expectedParams)
     {

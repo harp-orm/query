@@ -1,6 +1,6 @@
 <?php
 
-namespace CL\Atlas\SQL;
+namespace Luna\Query\SQL;
 
 /**
  * @author     Ivan Kerin

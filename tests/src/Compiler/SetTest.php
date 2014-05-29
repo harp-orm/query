@@ -1,20 +1,21 @@
 <?php
 
-namespace CL\Atlas\Test\Compiler;
+namespace Luna\Query\Test\Compiler;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\Compiler;
-use CL\Atlas\Query;
-use CL\Atlas\SQL;
+use Luna\Query\Test\AbstractTestCase;
+use Luna\Query\Compiler;
+use Luna\Query;
+use Luna\Query\SQL;
 
 /**
  * @group compiler
  * @group compiler.set
+ * @coversDefaultClass Luna\Query\Compiler\Set
  */
 class SetTest extends AbstractTestCase
 {
     /**
-     * @covers CL\Atlas\Compiler\Set::combine
+     * @covers ::combine
      */
     public function testCombine()
     {
@@ -40,7 +41,7 @@ class SetTest extends AbstractTestCase
 
     /**
      * @dataProvider dataRender
-     * @covers CL\Atlas\Compiler\Set::render
+     * @covers ::render
      */
     public function testRender($name, $value, $expected)
     {
@@ -66,7 +67,7 @@ class SetTest extends AbstractTestCase
 
     /**
      * @dataProvider dataRenderValue
-     * @covers CL\Atlas\Compiler\Set::renderValue
+     * @covers ::renderValue
      */
     public function testRenderValue($value, $expected)
     {

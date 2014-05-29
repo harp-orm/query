@@ -1,22 +1,23 @@
 <?php
 
-namespace CL\Atlas\Test\Compiler;
+namespace Luna\Query\Test\Compiler;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\Compiler;
-use CL\Atlas\Query;
-use CL\Atlas\SQL\SQL;
+use Luna\Query\Test\AbstractTestCase;
+use Luna\Query\Compiler;
+use Luna\Query;
+use Luna\Query\SQL\SQL;
 
 /**
  * @group compiler
  * @group compiler.update
+ * @coversDefaultClass Luna\Query\Compiler\Update
  */
 class UpdateTest extends AbstractTestCase
 {
 
     /**
-     * @covers CL\Atlas\Compiler\Update::render
-     * @covers CL\Atlas\Compiler\Update::parameters
+     * @covers ::render
+     * @covers ::parameters
      */
     public function testUpdate()
     {

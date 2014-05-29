@@ -1,11 +1,11 @@
 <?php
 
-namespace CL\Atlas\Query;
+namespace Luna\Query;
 
-use CL\Atlas\Parametrised;
-use CL\Atlas\DB;
-use CL\Atlas\SQL;
-use CL\Atlas\Compiler\Compiler;
+use Luna\Query\Parametrised;
+use Luna\Query\DB;
+use Luna\Query\SQL;
+use Luna\Query\Compiler\Compiler;
 
 /**
  * @author     Ivan Kerin

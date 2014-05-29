@@ -1,18 +1,19 @@
 <?php
 
-namespace CL\Atlas\Test\SQL;
+namespace Luna\Query\Test\SQL;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\SQL;
+use Luna\Query\Test\AbstractTestCase;
+use Luna\Query\SQL;
 
 /**
  * @group sql.direction
+ * @coversDefaultClass Luna\Query\SQL\Direction
  */
 class DirectionTest extends AbstractTestCase
 {
     /**
-     * @covers CL\Atlas\SQL\Direction::__construct
-     * @covers CL\Atlas\SQL\Direction::getDirection
+     * @covers ::__construct
+     * @covers ::getDirection
      */
     public function testConstruct()
     {

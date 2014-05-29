@@ -1,13 +1,14 @@
 <?php
 
-namespace CL\Atlas\Test\SQL;
+namespace Luna\Query\Test\SQL;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\Query\Query;
-use CL\Atlas\SQL;
+use Luna\Query\Test\AbstractTestCase;
+use Luna\Query\Query;
+use Luna\Query\SQL;
 
 /**
  * @group sql.condition
+ * @coversDefaultClass Luna\Query\SQL\ConditionNot
  */
 class ConditionNotTest extends AbstractTestCase
 {
@@ -32,7 +33,7 @@ class ConditionNotTest extends AbstractTestCase
 
     /**
      * @dataProvider dataConstruct
-     * @covers CL\Atlas\SQL\ConditionNot::__construct
+     * @covers ::__construct
      */
     public function testConstruct($column, $value, $expected, $expectedParams)
     {
@@ -43,7 +44,7 @@ class ConditionNotTest extends AbstractTestCase
 
     /**
      * @expectedException InvalidArgumentException
-     * @covers CL\Atlas\SQL\ConditionNot::__construct
+     * @covers ::__construct
      */
     public function testConstructInvalid()
     {

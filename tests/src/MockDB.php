@@ -1,8 +1,8 @@
 <?php
 
-namespace CL\Atlas\Test\Query;
+namespace Luna\Query\Test;
 
-use CL\Atlas\DB;
+use Luna\Query\DB;
 
 /**
  * @author     Ivan Kerin

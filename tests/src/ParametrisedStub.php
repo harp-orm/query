@@ -1,8 +1,8 @@
 <?php
 
-namespace CL\Atlas\Test;
+namespace Luna\Query\Test;
 
-use CL\Atlas\Parametrised;
+use Luna\Query\Parametrised;
 
 class ParametrisedStub implements Parametrised
 {

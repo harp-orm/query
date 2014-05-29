@@ -1,20 +1,20 @@
 <?php
 
-namespace CL\Atlas\Test\Query;
+namespace Luna\Query\Test;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\Query;
+use Luna\Query;
 
 /**
  * @group query.union
+ * @coversDefaultClass Luna\Query\Union
  */
 class UnionTest extends AbstractTestCase
 {
     /**
-     * @covers CL\Atlas\Query\Union::select
-     * @covers CL\Atlas\Query\Union::getSelects
-     * @covers CL\Atlas\Query\Union::setSelects
-     * @covers CL\Atlas\Query\Union::clearSelects
+     * @covers ::select
+     * @covers ::getSelects
+     * @covers ::setSelects
+     * @covers ::clearSelects
      */
     public function testSelect()
     {
@@ -44,7 +44,7 @@ class UnionTest extends AbstractTestCase
 
 
     /**
-     * @covers CL\Atlas\Query\Union::sql
+     * @covers ::sql
      */
     public function testSql()
     {
@@ -68,7 +68,7 @@ class UnionTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Union::getParameters
+     * @covers ::getParameters
      */
     public function testGetParameters()
     {

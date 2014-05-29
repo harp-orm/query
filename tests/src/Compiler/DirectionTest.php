@@ -1,20 +1,21 @@
 <?php
 
-namespace CL\Atlas\Test\Compiler;
+namespace Luna\Query\Test\Compiler;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\Compiler;
-use CL\Atlas\SQL;
+use Luna\Query\Test\AbstractTestCase;
+use Luna\Query\Compiler;
+use Luna\Query\SQL;
 
 /**
  * @group compiler
  * @group compiler.direction
+ * @coversDefaultClass Luna\Query\Compiler\Direction
  */
 class DirectionTest extends AbstractTestCase
 {
 
     /**
-     * @covers CL\Atlas\Compiler\Direction::combine
+     * @covers ::combine
      */
     public function testCombine()
     {
@@ -33,7 +34,7 @@ class DirectionTest extends AbstractTestCase
     }
     /**
      * @dataProvider dataRender
-     * @covers CL\Atlas\Compiler\Direction::render
+     * @covers ::render
      */
     public function testRender($content, $parameters, $expected)
     {

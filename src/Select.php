@@ -1,9 +1,9 @@
 <?php
 
-namespace CL\Atlas\Query;
+namespace Luna\Query;
 
-use CL\Atlas\Compiler;
-use CL\Atlas\SQL;
+use Luna\Query\Compiler;
+use Luna\Query\SQL;
 use InvalidArgumentException;
 
 /**

@@ -1,21 +1,22 @@
 <?php
 
-namespace CL\Atlas\Test\Compiler;
+namespace Luna\Query\Test\Compiler;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\Compiler;
-use CL\Atlas\Query;
-use CL\Atlas\SQL\SQL;
+use Luna\Query\Test\AbstractTestCase;
+use Luna\Query\Compiler;
+use Luna\Query;
+use Luna\Query\SQL\SQL;
 
 /**
  * @group compiler
  * @group compiler.select
+ * @coversDefaultClass Luna\Query\Compiler\Select
  */
 class SelectTest extends AbstractTestCase
 {
     /**
-     * @covers CL\Atlas\Compiler\Select::render
-     * @covers CL\Atlas\Compiler\Select::parameters
+     * @covers ::render
+     * @covers ::parameters
      */
     public function testCompile()
     {

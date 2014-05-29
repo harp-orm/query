@@ -1,17 +1,18 @@
 <?php
 
-namespace CL\Atlas\Test\SQL;
+namespace Luna\Query\Test\SQL;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\SQL;
+use Luna\Query\Test\AbstractTestCase;
+use Luna\Query\SQL;
 
 /**
  * @group sql.values
+ * @coversDefaultClass Luna\Query\SQL\Values
  */
 class ValuesTest extends AbstractTestCase
 {
     /**
-     * @covers CL\Atlas\SQL\Values::__construct
+     * @covers ::__construct
      */
     public function testConstruct()
     {

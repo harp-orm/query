@@ -1,13 +1,14 @@
 <?php
 
-namespace CL\Atlas\Test\Compiler;
+namespace Luna\Query\Test\Compiler;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\Test\ParametrisedStub;
-use CL\Atlas\Compiler\Compiler;
+use Luna\Query\Test\AbstractTestCase;
+use Luna\Query\Test\ParametrisedStub;
+use Luna\Query\Compiler\Compiler;
 
 /**
  * @group compiler
+ * @coversDefaultClass Luna\Query\Compiler\Compiler
  */
 class CompilerTest extends AbstractTestCase
 {
@@ -23,7 +24,7 @@ class CompilerTest extends AbstractTestCase
 
     /**
      * @dataProvider dataToPlaceholders
-     * @covers CL\Atlas\Compiler\Compiler::toPlaceholders
+     * @covers ::toPlaceholders
      */
     public function testToPlaceholders($array, $expected)
     {
@@ -41,7 +42,7 @@ class CompilerTest extends AbstractTestCase
 
     /**
      * @dataProvider dataExpression
-     * @covers CL\Atlas\Compiler\Compiler::expression
+     * @covers ::expression
      */
     public function testExpression($array, $expected)
     {
@@ -58,7 +59,7 @@ class CompilerTest extends AbstractTestCase
 
     /**
      * @dataProvider dataWord
-     * @covers CL\Atlas\Compiler\Compiler::word
+     * @covers ::word
      */
     public function testWord($word, $statement, $expected)
     {
@@ -75,7 +76,7 @@ class CompilerTest extends AbstractTestCase
 
     /**
      * @dataProvider dataBraced
-     * @covers CL\Atlas\Compiler\Compiler::braced
+     * @covers ::braced
      */
     public function testBraced($statement, $expected)
     {
@@ -110,7 +111,7 @@ class CompilerTest extends AbstractTestCase
 
     /**
      * @dataProvider dataHumanize
-     * @covers CL\Atlas\Compiler\Compiler::humanize
+     * @covers ::humanize
      */
     public function testHumanize($statement, $parameters, $expected)
     {
@@ -131,7 +132,7 @@ class CompilerTest extends AbstractTestCase
 
     /**
      * @dataProvider dataQuoteValue
-     * @covers CL\Atlas\Compiler\Compiler::quoteValue
+     * @covers ::quoteValue
      */
     public function testQuoteValue($value, $expected)
     {
@@ -172,7 +173,7 @@ class CompilerTest extends AbstractTestCase
 
     /**
      * @dataProvider dataParameters
-     * @covers CL\Atlas\Compiler\Compiler::parameters
+     * @covers ::parameters
      */
     public function testParameters($items, $expected)
     {

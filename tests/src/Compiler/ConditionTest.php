@@ -1,19 +1,20 @@
 <?php
 
-namespace CL\Atlas\Test\Compiler;
+namespace Luna\Query\Test\Compiler;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\Compiler;
-use CL\Atlas\SQL;
+use Luna\Query\Test\AbstractTestCase;
+use Luna\Query\Compiler;
+use Luna\Query\SQL;
 
 /**
  * @group compiler
  * @group compiler.condition
+ * @coversDefaultClass Luna\Query\Compiler\Condition
  */
 class ConditionTest extends AbstractTestCase
 {
     /**
-     * @covers CL\Atlas\Compiler\Condition::combine
+     * @covers ::combine
      */
     public function testCombine()
     {
@@ -35,7 +36,7 @@ class ConditionTest extends AbstractTestCase
 
     /**
      * @dataProvider dataRender
-     * @covers CL\Atlas\Compiler\Condition::render
+     * @covers ::render
      */
     public function testRender($content, $parameters, $expected)
     {
@@ -55,7 +56,7 @@ class ConditionTest extends AbstractTestCase
 
     /**
      * @dataProvider dataExpandParameterArrays
-     * @covers CL\Atlas\Compiler\Condition::expandParameterArrays
+     * @covers ::expandParameterArrays
      */
     public function testExpandParameterArrays($content, $parameters, $expected)
     {

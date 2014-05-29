@@ -1,20 +1,21 @@
 <?php
 
-namespace CL\Atlas\Test\Compiler;
+namespace Luna\Query\Test\Compiler;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\Compiler;
-use CL\Atlas\SQL;
+use Luna\Query\Test\AbstractTestCase;
+use Luna\Query\Compiler;
+use Luna\Query\SQL;
 
 /**
  * @group compiler
  * @group compiler.join
+ * @coversDefaultClass Luna\Query\Compiler\Join
  */
 class JoinTest extends AbstractTestCase
 {
 
     /**
-     * @covers CL\Atlas\Compiler\Join::combine
+     * @covers ::combine
      */
     public function testCombine()
     {
@@ -52,7 +53,7 @@ class JoinTest extends AbstractTestCase
     }
     /**
      * @dataProvider dataRender
-     * @covers CL\Atlas\Compiler\Join::render
+     * @covers ::render
      */
     public function testRender($table, $condition, $type, $expected)
     {

@@ -1,16 +1,16 @@
 <?php
 
-namespace CL\Atlas\Test;
+namespace Luna\Query\Test;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\Arr;
-use CL\Atlas\SQL;
-use CL\Atlas\Query;
+use Luna\Query\Arr;
+use Luna\Query\SQL;
+use Luna\Query;
 use stdClass;
 
 /**
  * @group util
  * @group util.arr
+ * @coversDefaultClass Luna\Query\Arr
  */
 class ArrTest extends AbstractTestCase
 {
@@ -36,7 +36,7 @@ class ArrTest extends AbstractTestCase
 
     /**
      * @dataProvider dataMap
-     * @covers CL\Atlas\Arr::map
+     * @covers ::map
      */
     public function testMap($array, $collection, $expected)
     {
@@ -61,7 +61,7 @@ class ArrTest extends AbstractTestCase
 
     /**
      * @dataProvider dataJoin
-     * @covers CL\Atlas\Arr::join
+     * @covers ::join
      */
     public function testJoin($separator, $array, $expected)
     {
@@ -92,7 +92,7 @@ class ArrTest extends AbstractTestCase
 
     /**
      * @dataProvider dataFlatten
-     * @covers CL\Atlas\Arr::flatten
+     * @covers ::flatten
      */
     public function testFlatten($array, $expected)
     {
@@ -127,7 +127,7 @@ class ArrTest extends AbstractTestCase
 
     /**
      * @dataProvider dataFlipNested
-     * @covers CL\Atlas\Arr::flipNested
+     * @covers ::flipNested
      */
     public function testFlipNested($array, $expected)
     {
@@ -150,7 +150,7 @@ class ArrTest extends AbstractTestCase
 
     /**
      * @dataProvider dataDisassociate
-     * @covers CL\Atlas\Arr::disassociate
+     * @covers ::disassociate
      */
     public function testDisassociate($array, $expected)
     {

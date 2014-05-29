@@ -1,24 +1,24 @@
 <?php
 
-namespace CL\Atlas\Test\Query;
+namespace Luna\Query\Test;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\SQL;
-use CL\Atlas\DB;
+use Luna\Query\SQL;
+use Luna\Query\DB;
 
 /**
  * @group query
+ * @coversDefaultClass Luna\Query\AbstractQuery
  */
 class AbstractQueryTest extends AbstractTestCase
 {
     /**
-     * @covers CL\Atlas\Query\AbstractQuery::type
-     * @covers CL\Atlas\Query\AbstractQuery::getType
-     * @covers CL\Atlas\Query\AbstractQuery::setType
+     * @covers ::type
+     * @covers ::getType
+     * @covers ::setType
      */
     public function testType()
     {
-        $query = $this->getMock('CL\Atlas\Query\AbstractQuery', array('sql', 'getParameters'));
+        $query = $this->getMock('Luna\Query\AbstractQuery', array('sql', 'getParameters'));
 
         $query->type('IGNORE');
 
@@ -38,28 +38,28 @@ class AbstractQueryTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\AbstractQuery::getDb
-     * @covers CL\Atlas\Query\AbstractQuery::__construct
+     * @covers ::getDb
+     * @covers ::__construct
      */
     public function testDb()
     {
         $db = new DB(array());
 
-        $query = $this->getMock('CL\Atlas\Query\AbstractQuery', array('sql', 'getParameters'), array($db));
+        $query = $this->getMock('Luna\Query\AbstractQuery', array('sql', 'getParameters'), array($db));
 
         $this->assertSame($db, $query->getDb());
 
-        $query = $this->getMock('CL\Atlas\Query\AbstractQuery', array('sql', 'getParameters'));
+        $query = $this->getMock('Luna\Query\AbstractQuery', array('sql', 'getParameters'));
 
         $this->assertSame(DB::get(), $query->getDb());
     }
 
     /**
-     * @covers CL\Atlas\Query\AbstractQuery::execute
+     * @covers ::execute
      */
     public function testExecute()
     {
-        $query = $this->getMock('CL\Atlas\Query\AbstractQuery', array('sql', 'getParameters'));
+        $query = $this->getMock('Luna\Query\AbstractQuery', array('sql', 'getParameters'));
 
         $query
             ->expects($this->once())
@@ -79,11 +79,11 @@ class AbstractQueryTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\AbstractQuery::humanize
+     * @covers ::humanize
      */
     public function testHumanize()
     {
-        $query = $this->getMock('CL\Atlas\Query\AbstractQuery', array('sql', 'getParameters'));
+        $query = $this->getMock('Luna\Query\AbstractQuery', array('sql', 'getParameters'));
 
         $query
             ->expects($this->once())

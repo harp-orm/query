@@ -1,15 +1,16 @@
 <?php
 
-namespace CL\Atlas\Test\Compiler;
+namespace Luna\Query\Test\Compiler;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\Compiler;
-use CL\Atlas\Query;
-use CL\Atlas\SQL\SQL;
+use Luna\Query\Test\AbstractTestCase;
+use Luna\Query\Compiler;
+use Luna\Query;
+use Luna\Query\SQL\SQL;
 
 /**
  * @group compiler
  * @group compiler.insert
+ * @coversDefaultClass Luna\Query\Compiler\Insert
  */
 class InsertTest extends AbstractTestCase
 {
@@ -72,8 +73,8 @@ SQL;
     }
 
     /**
-     * @covers CL\Atlas\Compiler\Insert::render
-     * @covers CL\Atlas\Compiler\Insert::parameters
+     * @covers ::render
+     * @covers ::parameters
      * @dataProvider dataInsert
      */
     public function testInsert($query, $expectedSql, $expectedParameters)

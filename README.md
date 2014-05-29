@@ -1,4 +1,4 @@
-# Atlas
+# Luna Query
 
 [![Build Status](https://travis-ci.org/clippings/atlas.png?branch=master)](https://travis-ci.org/clippings/atlas)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/clippings/atlas/badges/quality-score.png?s=429880c25663a4c0c4768fbb4158abe048726e82)](https://scrutinizer-ci.com/g/clippings/atlas/)
@@ -11,7 +11,7 @@ Intelligently manages passing parameters to PDO's execute.
 A Quick example:
 
 ```php
-use CL\Atlas\DB;
+use Luna\Query\DB;
 
 DB::setConfig('default', array(
     'dsn' => 'mysql:dbname=test-atlas;host=127.0.0.1',
@@ -46,8 +46,8 @@ You can use multiple configurations, and set them with ``setConfig``. All the qu
 They go directly to the PDO consturct method. Here's an example:
 
 ```php
-use CL\Atlas\DB;
-use CL\Atlas\Query\Select;
+use Luna\Query\DB;
+use Luna\Query\Select;
 
 DB::setConfig('default', [
     'dsn' => 'mysql:dbname=atlas;host=127.0.0.1',

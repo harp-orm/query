@@ -1,10 +1,10 @@
 <?php
 
-namespace CL\Atlas\Compiler;
+namespace Luna\Query\Compiler;
 
-use CL\Atlas\Arr;
-use CL\Atlas\SQL;
-use CL\Atlas\Query;
+use Luna\Query\Arr;
+use Luna\Query\SQL;
+use Luna\Query;
 
 /**
  * @author     Ivan Kerin

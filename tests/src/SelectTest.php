@@ -1,22 +1,22 @@
 <?php
 
-namespace CL\Atlas\Test\Query;
+namespace Luna\Query\Test;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\Query;
-use CL\Atlas\SQL;
+use Luna\Query;
+use Luna\Query\SQL;
 
 /**
  * @group query.select
+ * @coversDefaultClass Luna\Query\Select
  */
 class SelectTest extends AbstractTestCase
 {
     /**
-     * @covers CL\Atlas\Query\Select::column
-     * @covers CL\Atlas\Query\Select::prependColumn
-     * @covers CL\Atlas\Query\Select::getColumns
-     * @covers CL\Atlas\Query\Select::setColumns
-     * @covers CL\Atlas\Query\Select::clearColumns
+     * @covers ::column
+     * @covers ::prependColumn
+     * @covers ::getColumns
+     * @covers ::setColumns
+     * @covers ::clearColumns
      */
     public function testColumn()
     {
@@ -45,10 +45,10 @@ class SelectTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Select::from
-     * @covers CL\Atlas\Query\Select::getFrom
-     * @covers CL\Atlas\Query\Select::setFrom
-     * @covers CL\Atlas\Query\Select::clearFrom
+     * @covers ::from
+     * @covers ::getFrom
+     * @covers ::setFrom
+     * @covers ::clearFrom
      */
     public function testFrom()
     {
@@ -75,10 +75,10 @@ class SelectTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Select::group
-     * @covers CL\Atlas\Query\Select::getGroup
-     * @covers CL\Atlas\Query\Select::setGroup
-     * @covers CL\Atlas\Query\Select::clearGroup
+     * @covers ::group
+     * @covers ::getGroup
+     * @covers ::setGroup
+     * @covers ::clearGroup
      */
     public function testGroup()
     {
@@ -105,12 +105,12 @@ class SelectTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Select::having
-     * @covers CL\Atlas\Query\Select::havingIn
-     * @covers CL\Atlas\Query\Select::havingRaw
-     * @covers CL\Atlas\Query\Select::getHaving
-     * @covers CL\Atlas\Query\Select::setHaving
-     * @covers CL\Atlas\Query\Select::clearHaving
+     * @covers ::having
+     * @covers ::havingIn
+     * @covers ::havingRaw
+     * @covers ::getHaving
+     * @covers ::setHaving
+     * @covers ::clearHaving
      */
     public function testHaving()
     {
@@ -144,21 +144,21 @@ class SelectTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Select::having
+     * @covers ::having
      * @expectedException InvalidArgumentException
      */
     public function testWhereInInvalid()
     {
-        $query = $this->getMock('CL\Atlas\Query\Select', array('sql', 'getParameters'));
+        $query = $this->getMock('Luna\Query\Select', array('sql', 'getParameters'));
 
         $query->having('test1', array(2, 3));
     }
 
     /**
-     * @covers CL\Atlas\Query\Select::offset
-     * @covers CL\Atlas\Query\Select::getOffset
-     * @covers CL\Atlas\Query\Select::setOffset
-     * @covers CL\Atlas\Query\Select::clearOffset
+     * @covers ::offset
+     * @covers ::getOffset
+     * @covers ::setOffset
+     * @covers ::clearOffset
      */
     public function testOffset()
     {
@@ -180,7 +180,7 @@ class SelectTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Select::sql
+     * @covers ::sql
      */
     public function testSql()
     {
@@ -194,7 +194,7 @@ class SelectTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\Query\Select::getParameters
+     * @covers ::getParameters
      */
     public function testGetParameters()
     {

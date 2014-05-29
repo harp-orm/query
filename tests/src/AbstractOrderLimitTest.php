@@ -1,24 +1,24 @@
 <?php
 
-namespace CL\Atlas\Test\Query;
+namespace Luna\Query\Test;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\SQL;
+use Luna\Query\SQL;
 
 /**
  * @group query
+ * @coversDefaultClass Luna\Query\AbstractOrderLimit
  */
 class AbstractOrderLimitTest extends AbstractTestCase
 {
     /**
-     * @covers CL\Atlas\Query\AbstractOrderLimit::order
-     * @covers CL\Atlas\Query\AbstractOrderLimit::getOrder
-     * @covers CL\Atlas\Query\AbstractOrderLimit::setOrder
-     * @covers CL\Atlas\Query\AbstractOrderLimit::clearOrder
+     * @covers ::order
+     * @covers ::getOrder
+     * @covers ::setOrder
+     * @covers ::clearOrder
      */
     public function testOrder()
     {
-        $query = $this->getMock('CL\Atlas\Query\AbstractOrderLimit', array('sql', 'getParameters'));
+        $query = $this->getMock('Luna\Query\AbstractOrderLimit', array('sql', 'getParameters'));
 
         $query
             ->order('col1')
@@ -42,14 +42,14 @@ class AbstractOrderLimitTest extends AbstractTestCase
 
 
     /**
-     * @covers CL\Atlas\Query\AbstractOrderLimit::limit
-     * @covers CL\Atlas\Query\AbstractOrderLimit::getLimit
-     * @covers CL\Atlas\Query\AbstractOrderLimit::setLimit
-     * @covers CL\Atlas\Query\AbstractOrderLimit::clearLimit
+     * @covers ::limit
+     * @covers ::getLimit
+     * @covers ::setLimit
+     * @covers ::clearLimit
      */
     public function testLimit()
     {
-        $query = $this->getMock('CL\Atlas\Query\AbstractOrderLimit', array('sql', 'getParameters'));
+        $query = $this->getMock('Luna\Query\AbstractOrderLimit', array('sql', 'getParameters'));
 
         $query->limit(20);
 

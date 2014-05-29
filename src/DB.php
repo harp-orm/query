@@ -1,8 +1,8 @@
 <?php
 
-namespace CL\Atlas;
+namespace Luna\Query;
 
-use CL\Atlas\Query;
+use Luna\Query;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use PDO;

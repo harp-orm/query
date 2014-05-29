@@ -1,14 +1,15 @@
 <?php
 
-namespace CL\Atlas\Test\SQL;
+namespace Luna\Query\Test\SQL;
 
-use CL\Atlas\Test\AbstractTestCase;
-use CL\Atlas\Query;
-use CL\Atlas\SQL;
-use CL\Atlas\Compiler\Compiler;
+use Luna\Query\Test\AbstractTestCase;
+use Luna\Query;
+use Luna\Query\SQL;
+use Luna\Query\Compiler\Compiler;
 
 /**
  * @group sql.set_multiple
+ * @coversDefaultClass Luna\Query\SQL\SetMultiple
  */
 class SetMultipleTest extends AbstractTestCase
 {
@@ -34,8 +35,8 @@ class SetMultipleTest extends AbstractTestCase
     }
 
     /**
-     * @covers CL\Atlas\SQL\SetMultiple::__construct
      * @dataProvider dataConstruct
+     * @covers ::__construct
      */
     public function testConstruct($values, $key, $expectedContent)
     {
