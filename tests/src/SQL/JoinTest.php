@@ -58,20 +58,41 @@ class JoinTest extends AbstractTestCase
         $this->assertEquals($expected_type, $join->getType());
     }
 
+    public function dataGetParameters()
+    {
+        return array(
+            array(
+                new SQL\Aliased('table'),
+                new SQL\SQL('ON col = ?', array('param')),
+                array('param')
+            ),
+            array(
+                new SQL\SQL('(SELECT ?)', array('10')),
+                array('col1' => 'col2'),
+                array('10')
+            ),
+            array(
+                new SQL\SQL('(SELECT ?)', array('10')),
+                new SQL\SQL('ON col = ?', array('param')),
+                array('10', 'param')
+            ),
+            array(
+                new SQL\Aliased('table'),
+                array('col1' => 'col2'),
+                null
+            ),
+        );
+    }
+
     /**
      * @covers ::getParameters
+     * @dataProvider dataGetParameters
      */
-    public function testGetParameters()
+    public function testGetParameters($table, $condition, $expected)
     {
-        $condition = new SQL\SQL('ON col = ?', array('param'));
+        $join = new SQL\Join($table, $condition);
 
-        $join = new SQL\Join(new SQL\Aliased('table'), $condition);
-
-        $this->assertEquals(array('param'), $join->getParameters());
-
-        $join = new SQL\Join(new SQL\Aliased('table'), array('col1' => 'col2'));
-
-        $this->assertNull($join->getParameters());
+        $this->assertSame($expected, $join->getParameters());
     }
 
     public function dataArrayToCondition()

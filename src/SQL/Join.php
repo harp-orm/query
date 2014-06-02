@@ -49,11 +49,14 @@ class Join extends SQL
 
     public function getParameters()
     {
+        $parameters = $this->table->getParameters();
+
         if ($this->condition instanceof Parametrised) {
-            return $this->condition->getParameters();
+            $conditionParameters = $this->condition->getParameters();
+            $parameters = array_merge((array) $parameters, (array) $conditionParameters);
         }
 
-        return parent::getParameters();
+        return $parameters;
     }
 
     public function getType()
