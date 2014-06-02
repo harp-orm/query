@@ -216,7 +216,12 @@ class Select extends AbstractWhere
         return $this;
     }
 
+    public function havingLike($column, $value)
+    {
+        $this->having []= new SQL\ConditionLike($column, $value);
 
+        return $this;
+    }
 
     public function havingRaw($conditions, array $parameters = null)
     {

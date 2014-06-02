@@ -45,6 +45,7 @@ class AbstractWhereTest extends AbstractTestCase
      * @covers ::where
      * @covers ::whereIn
      * @covers ::whereNot
+     * @covers ::whereLike
      * @covers ::whereRaw
      * @covers ::getWhere
      * @covers ::setWhere
@@ -58,6 +59,7 @@ class AbstractWhereTest extends AbstractTestCase
             ->where('test1', 2)
             ->whereIn('test2', array(2, 3))
             ->whereNot('test4', '123')
+            ->whereLike('test5', '123%')
             ->whereRaw('column = ? OR column = ?', array(10, 20))
             ->where('test3', 3);
 
@@ -65,6 +67,7 @@ class AbstractWhereTest extends AbstractTestCase
             new SQL\ConditionIs('test1', 2),
             new SQL\ConditionIn('test2', array(2, 3)),
             new SQL\ConditionNot('test4', '123'),
+            new SQL\ConditionLike('test5', '123%'),
             new SQL\Condition('column = ? OR column = ?', array(10, 20)),
             new SQL\ConditionIs('test3', 3),
         );

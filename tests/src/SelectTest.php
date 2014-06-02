@@ -107,6 +107,8 @@ class SelectTest extends AbstractTestCase
     /**
      * @covers ::having
      * @covers ::havingIn
+     * @covers ::havingLike
+     * @covers ::havingNot
      * @covers ::havingRaw
      * @covers ::getHaving
      * @covers ::setHaving
@@ -121,6 +123,7 @@ class SelectTest extends AbstractTestCase
             ->having('test1', 2)
             ->havingIn('test2', array(2, 3))
             ->havingNot('test4', '123')
+            ->havingLike('test5', '123%')
             ->havingRaw('column = ? OR column = ?', array(10, 20))
             ->having('test3', 3);
 
@@ -128,6 +131,7 @@ class SelectTest extends AbstractTestCase
             new SQL\ConditionIs('test1', 2),
             new SQL\ConditionIn('test2', array(2, 3)),
             new SQL\ConditionNot('test4', '123'),
+            new SQL\ConditionLike('test5', '123%'),
             new SQL\Condition('column = ? OR column = ?', array(10, 20)),
             new SQL\ConditionIs('test3', 3),
         );

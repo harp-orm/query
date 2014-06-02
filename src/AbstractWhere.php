@@ -91,6 +91,13 @@ abstract class AbstractWhere extends AbstractOrderLimit
         return $this;
     }
 
+    public function whereLike($column, $value)
+    {
+        $this->where []= new SQL\ConditionLike($column, $value);
+
+        return $this;
+    }
+
     public function whereIn($column, array $values)
     {
         $this->where []= new SQL\ConditionIn($column, $values);
