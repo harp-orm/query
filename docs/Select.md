@@ -166,7 +166,7 @@ $select->whereNot('name', 'test');
 
 // Custom column SQL
 // SELECT * FROM users WHERE name = IF(id = 5, 'test', 'test2') OR name = 'test3'
-$select->whereRaw("name = IF(id = 5, 'test', 'test2') OR name = 'test3'", [5, 'test', 'test2']);
+$select->whereRaw("name = IF(id = ?, ?, ?) OR name = ?", [5, 'test', 'test2', 'test3']);
 ```
 
 ## Joining tables
@@ -300,7 +300,7 @@ $select->havingNot('name', 'test');
 
 // Custom column SQL
 // SELECT * FROM users HAVING name = IF(id = 5, 'test', 'test2') OR name = 'test3'
-$select->havingRaw("name = IF(id = 5, 'test', 'test2') OR name = 'test3'", [5, 'test', 'test2']);
+$select->havingRaw("name = IF(id = ?, ?, ?) OR name = ?", [5, 'test', 'test2', 'test3']);
 ```
 
 ## Clearing
