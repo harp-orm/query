@@ -8,15 +8,15 @@
 A query builder library, extending PDO to allow writing queries in object oriented style.
 Intelligently manages passing parameters to PDO's execute.
 
-A Quick example:
+## Quick usage example
 
 ```php
 use Harp\Query\DB;
 
-DB::setConfig('default', array(
-    'dsn' => 'mysql:dbname=test-atlas;host=127.0.0.1',
+DB::setConfig([
+    'dsn' => 'mysql:dbname=test-db;host=127.0.0.1',
     'username' => 'root',
-));
+]);
 
 $query = DB::select()
     ->from('users')
@@ -34,9 +34,22 @@ echo $query->humanize();
 
 The query ``execute()`` method will generate a PDOStatement object that can be iterated over. All the variables are passed as position parameters ("seller = ?") so are properly escaped by the PDO driver.
 
-## Configurations
+## Connecting to the database
 
-You can use multiple configurations, and set them with ``setConfig``. All the queries use the 'default' config by default, but you can set them explicitly to alternative configs. The available config opyions are:
+Connecting to the database is a 2 step process. First you need to define the configuration for the database, later you will use that configuration to create a connection object (``DB``). This allows to lazy-load the connection object.
+
+```php
+DB::setConfig([
+    'dsn' => 'mysql:dbname=test-db;host=127.0.0.1',
+    'username' => 'root',
+]);
+
+// ...
+$db = DB::get();
+```
+After that you will use the database connection object (``$db``). To execute queries and retrieve data.
+
+The available configuration options are:
 
  - dsn
  - username
@@ -46,43 +59,54 @@ You can use multiple configurations, and set them with ``setConfig``. All the qu
 They go directly to the PDO consturct method. Here's an example:
 
 ```php
-use Harp\Query\DB;
-use Harp\Query\Select;
-
-DB::setConfig('default', [
-    'dsn' => 'mysql:dbname=atlas;host=127.0.0.1',
-    'username' => 'root',
-]);
-
-DB::setConfig('testing', [
+DB::setConfig([
     'dsn' => 'mysql:dbname=test-atlas;host=127.0.0.1',
     'username' => 'root',
-    'password' => '***',
+    'password' => 'qkum4hctpwh',
     'driver_options' => [
         PDO::ATTR\_DEFAULT\_FETCH\_MODE => PDO::FETCH\_BOTH,
     ],
 ]);
-
-$config = DB::getConfig('testing');
-
-$select = new Select(DB::get('testing'));
-
 ```
 
-## Select
+You can connect to different databases by setting alternative configurations. The second argument of ``setConfig`` allows you to "name" a configuration. After that you can get the connection with this configuration by calling ``DB::get($name)``
 
-Tretrieve data from the database, use Query\Select class. It has the following methods:
+```php
+DB::setConfig(array(
+    'dsn' => 'mysql:dbname=test-db;host=127.0.0.1',
+    'username' => 'alternative',
+), 'alternative-db');
 
- - columns
- - from
- - group
- - having
- - offset
- - join
- - where
- - order
- - limit
+// ...
+$db = DB::get('alternative-db');
+```
 
+## Retrieving data (Select)
+
+Tretrieve data from the database, use Query\Select class.
+
+An example select:
+
+```php
+
+$select = DB::get()->select()
+    ->from('users')
+    ->column('users.*')
+    ->where('username', 'Tom')
+    ->whereIn('type', ['big', 'small'])
+    ->limit(10)
+    ->order('created_at', 'DESC');
+
+$result = $select->execute();
+
+foreach ($result as $row) {
+    var_dump($row);
+}
+```
+
+## Detailed docs
+
+- [Query Select](/docs/Select.md)
 
 ## License
 
