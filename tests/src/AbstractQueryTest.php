@@ -15,6 +15,7 @@ class AbstractQueryTest extends AbstractTestCase
      * @covers ::type
      * @covers ::getType
      * @covers ::setType
+     * @covers ::clearType
      */
     public function testType()
     {
@@ -35,6 +36,10 @@ class AbstractQueryTest extends AbstractTestCase
         $query->setType($expected);
 
         $this->assertEquals($expected, $query->getType());
+
+        $query->clearType();
+
+        $this->assertNull($query->getType());
     }
 
     /**

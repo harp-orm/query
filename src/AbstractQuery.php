@@ -47,6 +47,16 @@ abstract class AbstractQuery implements Parametrised
     }
 
     /**
+     * @return AbstractQuery $this
+     */
+    public function clearType()
+    {
+        $this->type = null;
+
+        return $this;
+    }
+
+    /**
      * @param  string|SQL\SQL $type
      * @return AbstractQuery $this
      */
