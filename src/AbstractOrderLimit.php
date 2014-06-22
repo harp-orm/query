@@ -40,6 +40,16 @@ abstract class AbstractOrderLimit extends AbstractQuery
     }
 
     /**
+     * @return AbstractOrderLimit $this
+     */
+    public function clearOrder()
+    {
+        $this->order = null;
+
+        return $this;
+    }
+
+    /**
      * @return SQL\IntValue|null
      */
     public function getLimit()
@@ -58,6 +68,16 @@ abstract class AbstractOrderLimit extends AbstractQuery
     }
 
     /**
+     * @return AbstractOrderLimit $this
+     */
+    public function clearLimit()
+    {
+        $this->limit = null;
+
+        return $this;
+    }
+
+    /**
      * @param  string|SQL\SQL $column
      * @param  string|SQL\SQL $direction
      * @return AbstractOrderLimit $this
@@ -70,32 +90,12 @@ abstract class AbstractOrderLimit extends AbstractQuery
     }
 
     /**
-     * @return AbstractOrderLimit $this
-     */
-    public function clearOrder()
-    {
-        $this->order = null;
-
-        return $this;
-    }
-
-    /**
      * @param  string|int|SQL\SQL $limit
      * @return AbstractOrderLimit $this
      */
     public function limit($limit)
     {
         $this->limit = new SQL\IntValue($limit);
-
-        return $this;
-    }
-
-    /**
-     * @return AbstractOrderLimit $this
-     */
-    public function clearLimit()
-    {
-        $this->limit = null;
 
         return $this;
     }
