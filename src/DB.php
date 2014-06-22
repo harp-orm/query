@@ -9,6 +9,15 @@ use PDO;
 use PDOException;
 
 /**
+ * The core class holding the connections to the databases. All your queries should originate from this class.
+ * Allows multiple database connections.
+ *
+ * By default  PDO::ATTR_EMULATE_PREPARES is set to false. This allows connecting to mysql with mysqlnd,
+ * for better performance, and native types. If you are using a different database, you could change this
+ * to false if it provides better performance for you.
+ *
+ * Uses psr/log for logging. This allows you to set up any logging mechanism you want, e.g. monolog.
+ *
  * @author     Ivan Kerin
  * @copyright  (c) 2014 Clippings Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
@@ -69,6 +78,7 @@ class DB extends PDO
     /**
      * Get the DB object instance for a given name
      * Use "default" by default
+     *
      * @param  string $name
      * @return DB
      */
@@ -94,6 +104,7 @@ class DB extends PDO
 
     /**
      * new Select Query for this DB
+     *
      * @return Query\Select
      */
     public static function select()
@@ -103,6 +114,7 @@ class DB extends PDO
 
     /**
      * new Update Query for this DB
+     *
      * @return Query\Update
      */
     public static function update()
@@ -112,6 +124,7 @@ class DB extends PDO
 
     /**
      * new Delete Query for this DB
+     *
      * @return Query\Delete
      */
     public static function delete()
@@ -129,6 +142,10 @@ class DB extends PDO
         return new Query\Insert();
     }
 
+    /**
+     * @param array  $options
+     * @param string $name
+     */
     public function __construct(array $options = array(), $name = DB::NAME)
     {
         $options = array_replace_recursive(static::$defaults, $options);
