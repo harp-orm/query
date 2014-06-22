@@ -1,6 +1,6 @@
 # Select Query
 
-Selecting data is performed with ``Select`` object. You usually don't create it directly, but use the ``select`` method of your DB object, so it knows from where to retrieve the data.
+Selecting data is performed with [Select object](/src/Select.php). You usually don't create it directly, but use the ``select`` method of your DB object, so it knows from where to retrieve the data.
 
 ```php
 use Harp\Query\DB;
@@ -56,9 +56,9 @@ $select->type('DISTINCT');
 
 ## Selecting a table
 
-To set a table to select from,  use the ``from`` method. It accepts two arguments - __table__ and __alias__. If you want do a nested select, you can provide a ``Select`` class.
+To set a table to select from,  use the ``from`` method. It accepts two arguments - __table__ and __alias__. If you want do a nested select, you can provide a [Select object](/src/Select.php).
 
-If you want to use a custom sql with some parameters, you can pass an ``SQL`` object.
+If you want to use a custom sql with some parameters, you can pass an [SQL object](/src/SQL/SQL.php).
 
 ```php
 use Harp\Query\DB;
@@ -88,7 +88,7 @@ $select->from(new SQL('sql_func(?)', ['my test']));
 
 To set columns to select, use the ``column`` method. It will append a column name to the columns list. It accepts two arguments - __column__ and __alias__. If you want to prepend a column to the list use ``prependColumn``.
 
-If you want to use a custom sql with some parameters, you can pass an ``SQL`` object.
+If you want to use a custom sql with some parameters, you can pass an [SQL object](/src/SQL/SQL.php).
 
 If you do not provide a column, generic "*" is used.
 
