@@ -1,8 +1,10 @@
 # Select Query
 
-Selecting data is performed with Query\Select object. You usually don't create it directly, but use the ``select`` method of your DB object, so it knows from where to retrieve the data.
+Selecting data is performed with ``Select`` object. You usually don't create it directly, but use the ``select`` method of your DB object, so it knows from where to retrieve the data.
 
 ```php
+use Harp\Query\DB;
+
 $select = DB::get()->select()->from('users');
 
 $result = $select->execute();
@@ -17,6 +19,8 @@ foreach ($result as $row) {
 If you want to see the SQL that the select object will generate you can use the ``sql`` method. This will give you the raw SQL that will be sent to the driver, with all the placeholders as "?".
 
 ```php
+use Harp\Query\DB;
+
 $select = DB::get()->select()->from('users')->where('name', 'test');
 
 // SELECT * FROM users WHERE name = ?
@@ -26,19 +30,23 @@ echo $select->sql();
 You can get the fully rendered sql with all the placeholders properly filled, using ``humanize`` method.
 
 ```php
+use Harp\Query\DB;
+
 $select = DB::get()->select()->from('users')->where('name', 'test');
 
 // SELECT * FROM users WHERE name = 'test'
 echo $select->humanize();
 ```
 
-> __Warning!__ Do not use ``humanize`` to send sql to the database as the escaping is rudimentary and may fail. Internally only ``sql`` method is used to comunicate with the server.
+> __Warning!__ Do not use ``humanize`` to send sql to the database as the escaping is rudimentary and may fail. Internally only ``sql`` method is used to communicate with the server.
 
 ## Select type
 
 SQL has special keywords that you can place in front of your select. Those keywords can be provided with the ``type`` method.
 
 ```php
+use Harp\Query\DB;
+
 $select = DB::get()->select()->from('users');
 
 // Distinct select
@@ -48,11 +56,14 @@ $select->type('DISTINCT');
 
 ## Selecting a table
 
-To set a table to select from,  use the ``from`` method. It accepts two arguments - __tableName__ and __alias__. If you want do a nested select, you can provide a Query\Select class.
+To set a table to select from,  use the ``from`` method. It accepts two arguments - __table__ and __alias__. If you want do a nested select, you can provide a ``Select`` class.
 
-If you want to use a custom sql with some parameters, you can pass an SQL\SQL object.
+If you want to use a custom sql with some parameters, you can pass an ``SQL`` object.
 
 ```php
+use Harp\Query\DB;
+use Harp\Query\SQL\SQL;
+
 $select = DB::get()->select();
 
 // Normal select
@@ -70,18 +81,21 @@ $select->from($nested, 'external');
 
 // Custom SQL
 // SELECT * FROM sql_func('my test') AS test
-$select->from(new SQL\SQL('sql_func(?)', ['my test']));
+$select->from(new SQL('sql_func(?)', ['my test']));
 ```
 
 ## Selecting columns
 
-To set columns to select, use the ``column`` method. It will append a column name to the columns list. It accepts two arguments - __columnName__ and __alias__. If you want to prepend a column to the list use ``prependColumn``.
+To set columns to select, use the ``column`` method. It will append a column name to the columns list. It accepts two arguments - __column__ and __alias__. If you want to prepend a column to the list use ``prependColumn``.
 
-If you want to use a custom sql with some parameters, you can pass an SQL\SQL object.
+If you want to use a custom sql with some parameters, you can pass an ``SQL`` object.
 
 If you do not provide a column, generic "*" is used.
 
 ```php
+use Harp\Query\DB;
+use Harp\Query\SQL\SQL;
+
 $select = DB::get()->select()->from('users');
 
 // No column provided
@@ -114,16 +128,18 @@ $select
 
 // Custom SQL
 // SELECT sql_func('my test') AS alias_name FROM users
-$select->column(new SQL\SQL('sql_func(?)', ['my test']), 'alias_name');
+$select->column(new SQL('sql_func(?)', ['my test']), 'alias_name');
 ```
 
 ## Where condition
 
-You can assign where conditions using ``where``, ``whereIn``, ``whereLike``, ``whereNot`` or ``whereRaw`` methods. Each of them accepts two arguments __columnName__ and __value__.
+You can assign where conditions using ``where``, ``whereIn``, ``whereLike``, ``whereNot`` or ``whereRaw`` methods. Each of them accepts two arguments __column__ and __value__.
 
 Calling the methods multiple times will "AND" all the conditions. If you need to provide "OR" conditions, use the ``whereRaw`` method.
 
 ```php
+use Harp\Query\DB;
+
 $select = DB::get()->select()->from('users');
 
 // Single value
@@ -160,6 +176,8 @@ using the SQL\SQL object. Columns conditions are set with a raw string. Optional
 as [column1 => column2] which will represent an "ON column1 = column2" condition.
 
 ```php
+use Harp\Query\DB;
+
 $select = DB::get()->select()->from('users');
 
 // Normal join
@@ -194,6 +212,8 @@ You can assign "ORDER BY" and "GROUP BY" statements with ``order`` and ``group``
 If you want to use a custom sql with some parameters, you can pass an SQL\SQL object.
 
 ```php
+use Harp\Query\DB;
+
 $select = DB::get()->select()->from('users');
 
 // Normal order
@@ -230,6 +250,8 @@ $select
 You can set limit and offset via ``limit`` and ``offset`` methods.
 
 ```php
+use Harp\Query\DB;
+
 $select = DB::get()->select()->from('users');
 
 // Limit
@@ -245,11 +267,13 @@ $select
 
 ## Having condition
 
-You can assign having conditions using ``having``, ``havingIn``, ``havingLike``, ``havingNot`` or ``havingRaw`` methods. Each of them accepts two arguments __columnName__ and __value__.
+You can assign having conditions using ``having``, ``havingIn``, ``havingLike``, ``havingNot`` or ``havingRaw`` methods. Each of them accepts two arguments __column__ and __value__.
 
 Calling the methods multiple times will "AND" all the conditions. If you need to provide "OR" conditions, use the ``havingRaw`` method.
 
 ```php
+use Harp\Query\DB;
+
 $select = DB::get()->select()->from('users');
 
 // Single value
@@ -283,38 +307,38 @@ $select->havingRaw("name = IF(id = 5, 'test', 'test2') OR name = 'test3'", [5, '
 
 Sometimes you will need to clear the previously set values. To do that you need to call one of the ``clear\*`` methods.
 
-- clearColumns()
-- clearFrom()
-- clearGroup()
-- clearHaving()
-- clearJoin()
-- clearLimit()
-- clearOffset()
-- clearOrder()
-- clearType()
-- clearWhere()
+- __clearColumns__()
+- __clearFrom__()
+- __clearGroup__()
+- __clearHaving__()
+- __clearJoin__()
+- __clearLimit__()
+- __clearOffset__()
+- __clearOrder__()
+- __clearType__()
+- __clearWhere__()
 
-## Appendix
+## Method list
 
 A full list of available query methods:
 
-- column($column, $alias = null)
-- from($table, $alias = null)
-- group($column, $direction = null)
-- having($column, $value)
-- havingIn($column, array $values)
-- havingLike($column, $value)
-- havingNot($column, $value)
-- havingRaw($sql, $parameters)
-- join($table, $conditions, $type)
-- joinAliased($table, $alias, $conditions, $type)
-- limit($limit)
-- offset($offset)
-- order($column, $direction = null)
-- prependColumn($column, $alias = null)
-- type($type)
-- where($column, $value)
-- whereIn($column, array $values)
-- whereLike($column, $value)
-- whereNot($column, $value)
-- whereRaw($sql, $parameters)
+- __column__($column, $alias = null)
+- __from__($table, $alias = null)
+- __group__($column, $direction = null)
+- __having__($column, $value)
+- __havingIn__($column, array $values)
+- __havingLike__($column, $value)
+- __havingNot__($column, $value)
+- __havingRaw__($sql, $parameters)
+- __join__($table, $conditions, $type)
+- __joinAliased__($table, $alias, $conditions, $type)
+- __limit__($limit)
+- __offset__($offset)
+- __order__($column, $direction = null)
+- __prependColumn__($column, $alias = null)
+- __type__($type)
+- __where__($column, $value)
+- __whereIn__($column, array $values)
+- __whereLike__($column, $value)
+- __whereNot__($column, $value)
+- __whereRaw__($sql, $parameters)
