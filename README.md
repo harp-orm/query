@@ -56,7 +56,7 @@ The available configuration options are:
  - password
  - driver_options
 
-They go directly to the PDO consturct method. Here's an example:
+They go directly to the PDO construct method. Here's an example:
 
 ```php
 DB::setConfig([
@@ -88,6 +88,7 @@ Tretrieve data from the database, use Query\Select class.
 An example select:
 
 ```php
+use Harp\Query\DB;
 
 $select = DB::get()->select()
     ->from('users')
