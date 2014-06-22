@@ -43,7 +43,7 @@ class AbstractQueryTest extends AbstractTestCase
      */
     public function testDb()
     {
-        $db = new DB(array());
+        $db = DB::get();
 
         $query = $this->getMock('Harp\Query\AbstractQuery', array('sql', 'getParameters'), array($db));
 

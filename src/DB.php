@@ -15,6 +15,8 @@ use PDOException;
  */
 class DB extends PDO
 {
+    const NAME = 'default';
+
     /**
      * @var array
      */
@@ -43,7 +45,7 @@ class DB extends PDO
     /**
      * @param string $name
      */
-    public static function getConfig($name)
+    public static function getConfig($name = DB::NAME)
     {
         if (! isset(self::$configs[$name])) {
             self::$configs[$name] = array();
@@ -59,7 +61,7 @@ class DB extends PDO
      * @param string $name
      * @param array  $parameters
      */
-    public static function setConfig($name, array $parameters)
+    public static function setConfig(array $parameters, $name = DB::NAME)
     {
         self::$configs[$name] = $parameters;
     }
@@ -70,11 +72,11 @@ class DB extends PDO
      * @param  string $name
      * @return DB
      */
-    public static function get($name = 'default')
+    public static function get($name = DB::NAME)
     {
         if (! isset(self::$dbs[$name])) {
             $config = self::getConfig($name);
-            self::$dbs[$name] = new DB($name, $config);
+            self::$dbs[$name] = new DB($config, $name);
         }
 
         return static::$dbs[$name];
@@ -127,7 +129,7 @@ class DB extends PDO
         return new Query\Insert();
     }
 
-    public function __construct($name, array $options = array())
+    public function __construct(array $options = array(), $name = DB::NAME)
     {
         $options = array_replace_recursive(static::$defaults, $options);
 

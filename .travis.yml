@@ -19,8 +19,8 @@ install:
 
 before_script:
   - mkdir -p build/logs
-  - mysql -e 'create database `test-atlas`;'
-  - mysql --default-character-set=utf8 test-atlas < tests/mysql.sql
+  - mysql -e 'create database `harp-orm/query`;'
+  - mysql --default-character-set=utf8 harp-orm/query < tests/mysql.sql
 
 script:
   - phpunit --coverage-clover build/logs/clover.xml

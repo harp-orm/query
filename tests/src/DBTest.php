@@ -28,7 +28,7 @@ class DBTest extends AbstractTestCase
 
         $config = array('some', 'test');
 
-        DB::setConfig('test', $config);
+        DB::setConfig($config, 'test');
 
         $this->assertSame($config, DB::getConfig('test'));
     }
@@ -44,16 +44,16 @@ class DBTest extends AbstractTestCase
     {
         $logger = new TestLogger();
 
-        DB::setConfig('default', array(
-            'dsn' => 'mysql:dbname=test-atlas;host=127.0.0.1',
+        DB::setConfig(array(
+            'dsn' => 'mysql:dbname=harp-orm/query;host=127.0.0.1',
             'username' => 'root',
             'logger' => $logger,
         ));
 
-        DB::setConfig('test', array(
-            'dsn' => 'mysql:dbname=test-atlas;host=127.0.0.1',
+        DB::setConfig(array(
+            'dsn' => 'mysql:dbname=harp-orm/query;host=127.0.0.1',
             'username' => 'root',
-        ));
+        ), 'test');
 
         $default = DB::get();
         $this->assertEquals('default', $default->getName());
@@ -113,7 +113,7 @@ class DBTest extends AbstractTestCase
             );
 
             $this->assertEquals(LogLevel::ERROR, $log[1][0]);
-            $this->assertContains('Table \'test-atlas.usersNotExists\' doesn\'t exist', $log[1][1]);
+            $this->assertContains('Table \'harp-orm/query.usersNotExists\' doesn\'t exist', $log[1][1]);
             $this->assertEquals(array(), $log[1][2]);
         }
     }

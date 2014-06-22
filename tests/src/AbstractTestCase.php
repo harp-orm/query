@@ -51,9 +51,9 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 
         $this->logger = new TestLogger();
 
-        DB::setConfig('default', array(
+        DB::setConfig(array(
             'class' => 'DB_Test',
-            'dsn' => 'mysql:dbname=test-atlas;host=127.0.0.1',
+            'dsn' => 'mysql:dbname=harp-orm/query;host=127.0.0.1',
             'username' => 'root',
             'logger' => $this->logger,
         ));
