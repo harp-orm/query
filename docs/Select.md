@@ -171,9 +171,7 @@ $select->whereRaw("name = IF(id = ?, ?, ?) OR name = ?", [5, 'test', 'test2', 't
 
 ## Joining tables
 
-You can join multiple tables using ``join`` and ``joinAliased`` methods. The table name can be a custom SQL,
-using the SQL\SQL object. Columns conditions are set with a raw string. Optionally you can set them as array,
-as [column1 => column2] which will represent an "ON column1 = column2" condition.
+You can join multiple tables using ``join`` and ``joinAliased`` methods. The table name can be a custom SQL, using the SQL\SQL object. Columns conditions are set with a raw string. Optionally you can set them as array, as [column1 => column2] which will represent an "ON column1 = column2" condition.
 
 ```php
 use Harp\Query\DB;

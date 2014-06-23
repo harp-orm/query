@@ -83,7 +83,7 @@ $db = DB::get('alternative-db');
 
 ## Retrieving data (Select)
 
-Tretrieve data from the database, use Query\Select class.
+Tretrieve data from the database, use [Select class](/src/Select.php).
 
 An example select:
 
@@ -105,9 +105,68 @@ foreach ($result as $row) {
 }
 ```
 
+## Inserting data (Insert)
+
+Tretrieve insert new data to the database, use [Insert class](/src/Insert.php).
+
+An example insert:
+
+```php
+use Harp\Query\DB;
+
+$insert = DB::get()->insert()
+    ->into('users')
+    ->set([
+        'name' => 'Tom',
+        'family_name' => 'Soyer'
+    ]);
+
+$insert->execute();
+
+echo $insert->getLastInsertId();
+```
+
+## Deleting data (Delete)
+
+Tretrieve delete data from the database, use [Delete class](/src/Delete.php).
+
+An example delete:
+
+```php
+use Harp\Query\DB;
+
+$delete = DB::get()->delete()
+    ->from('users')
+    ->where('score', 10)
+    ->limit(10);
+
+$delete->execute();
+```
+
+## Updating data (Update)
+
+Tretrieve update data in the database, use [Update class](/src/Update.php).
+
+An example update:
+
+```php
+use Harp\Query\DB;
+
+$update = DB::get()->update()
+    ->table('users')
+    ->set(['name' => 'New Name'])
+    ->where('id', 10);
+
+$update->execute();
+```
+
 ## Detailed docs
 
-- [Query Select](/docs/Select.md)
+- [Select](/docs/Select.md)
+- [Insert](/docs/Insert.md)
+- [Delete](/docs/Delete.md)
+- [Update](/docs/Update.md)
+- [Union](/docs/Union.md)
 
 ## License
 
