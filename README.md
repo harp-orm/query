@@ -42,6 +42,7 @@ PHP has quite a lot of excellent query builder classes already. For example [Par
 - Use PSR coding standards and Symfony naming conventions for more familiar and readable codebase.
 - Use PSR logging to integrate with any compatible logger.
 - Support more rarely used SQL constructs, e.g. INSERT IGNORE, UNION, UPDATE JOIN etc.
+- Precise methods to express intent more clearly e.g. methods like where, whereIn, whereLike allow you to write exactly what you intend, and not expect guesswork from the library. This can provide more error-free codebase.
 - Fully covered with DockBlocks so static code analysis on packages built on top of it can be more accurate
 - Full test coverage
 
