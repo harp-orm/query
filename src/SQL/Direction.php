@@ -9,8 +9,15 @@ namespace Harp\Query\SQL;
  */
 class Direction extends SQL
 {
+    /**
+     * @var string
+     */
     protected $direction;
 
+    /**
+     * @param string $column
+     * @param string $direction
+     */
     public function __construct($column, $direction = null)
     {
         parent::__construct($column);
@@ -18,6 +25,9 @@ class Direction extends SQL
         $this->direction = $direction;
     }
 
+    /**
+     * @return string|null
+     */
     public function getDirection()
     {
         return $this->direction;

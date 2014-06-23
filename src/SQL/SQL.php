@@ -11,9 +11,20 @@ use Harp\Query\Parametrised;
  */
 class SQL implements Parametrised
 {
+    /**
+     * @var array
+     */
     protected $parameters;
+
+    /**
+     * @var string
+     */
     protected $content;
 
+    /**
+     * @param string $content
+     * @param array  $parameters
+     */
     public function __construct($content, array $parameters = null)
     {
         $this->content = $content;
@@ -28,11 +39,17 @@ class SQL implements Parametrised
         return $this->content;
     }
 
+    /**
+     * @return string
+     */
     public function getContent()
     {
         return $this->content;
     }
 
+    /**
+     * @return array
+     */
     public function getParameters()
     {
         return $this->parameters;

@@ -11,6 +11,10 @@ use InvalidArgumentException;
  */
 class ConditionNot extends Condition
 {
+    /**
+     * @param string $column
+     * @param mixed  $value
+     */
     public function __construct($column, $value)
     {
         if (is_array($value)) {

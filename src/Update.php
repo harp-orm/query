@@ -41,6 +41,13 @@ class Update extends AbstractWhere
         return $this;
     }
 
+    public function clearTable()
+    {
+        $this->table = null;
+
+        return $this;
+    }
+
     /**
      * @return SQL\Set[]|null
      */
@@ -59,6 +66,18 @@ class Update extends AbstractWhere
         return $this;
     }
 
+    public function clearSet()
+    {
+        $this->set = null;
+
+        return $this;
+    }
+
+    /**
+     * @param  string|SQL\SQL $table
+     * @param  string         $alias
+     * @return Update                $this
+     */
     public function table($table, $alias = null)
     {
         $this->table []= new SQL\Aliased($table, $alias);
@@ -66,13 +85,10 @@ class Update extends AbstractWhere
         return $this;
     }
 
-    public function clearTable()
-    {
-        $this->table = null;
-
-        return $this;
-    }
-
+    /**
+     * @param  array $values
+     * @return Update        $this
+     */
     public function set(array $values)
     {
         foreach ($values as $column => $value) {
@@ -82,6 +98,11 @@ class Update extends AbstractWhere
         return $this;
     }
 
+    /**
+     * @param array  $values
+     * @param string $key
+     * @return Update        $this
+     */
     public function setMultiple(array $values, $key = 'id')
     {
         $values = Arr::flipNested($values);
@@ -89,13 +110,6 @@ class Update extends AbstractWhere
         foreach ($values as $column => $changes) {
             $this->set []= new SQL\SetMultiple($column, $changes, $key);
         }
-
-        return $this;
-    }
-
-    public function clearSet()
-    {
-        $this->set = null;
 
         return $this;
     }

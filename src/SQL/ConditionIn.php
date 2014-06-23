@@ -11,6 +11,10 @@ use InvalidArgumentException;
  */
 class ConditionIn extends Condition
 {
+    /**
+     * @param string $column
+     * @param array  $value
+     */
     public function __construct($column, array $value)
     {
         if (empty($value)) {

@@ -13,6 +13,10 @@ class Aliased extends SQL
 {
     protected $alias;
 
+    /**
+     * @param string|Parametrised $content
+     * @param string              $alias
+     */
     public function __construct($content, $alias = null)
     {
         parent::__construct($content);
@@ -20,6 +24,9 @@ class Aliased extends SQL
         $this->alias = $alias;
     }
 
+    /**
+     * @return array|null
+     */
     public function getParameters()
     {
         if ($this->getContent() instanceof Parametrised) {

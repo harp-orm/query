@@ -9,6 +9,9 @@ namespace Harp\Query\SQL;
  */
 class IntValue extends SQL
 {
+    /**
+     * @param integer $value
+     */
     public function __construct($value)
     {
         parent::__construct((string) (int) $value);

@@ -11,6 +11,11 @@ use Harp\Query\Arr;
  */
 class SetMultiple extends Set
 {
+    /**
+     * @param string $column
+     * @param array  $values
+     * @param string $key
+     */
     public function __construct($column, array $values, $key = 'id')
     {
         $cases = str_repeat('WHEN ? THEN ? ', count($values));

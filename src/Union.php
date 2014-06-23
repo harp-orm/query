@@ -34,16 +34,23 @@ class Union extends AbstractOrderLimit
         return $this;
     }
 
-    public function select(Select $select)
+    /**
+     * @return Union $this
+     */
+    public function clearSelects()
     {
-        $this->selects []= $select;
+        $this->selects = null;
 
         return $this;
     }
 
-    public function clearSelects()
+    /**
+     * @param  Select $select
+     * @return Union          $this
+     */
+    public function select(Select $select)
     {
-        $this->selects = null;
+        $this->selects []= $select;
 
         return $this;
     }

@@ -11,11 +11,17 @@ class Columns extends SQL
 {
     protected $columns;
 
+    /**
+     * @param array $columns
+     */
     public function __construct(array $columns)
     {
         $this->columns = $columns;
     }
 
+    /**
+     * @return array
+     */
     public function all()
     {
         return $this->columns;

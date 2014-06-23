@@ -11,8 +11,15 @@ use Harp\Query\Parametrised;
  */
 class Set extends SQL
 {
+    /**
+     * @var array
+     */
     protected $value;
 
+    /**
+     * @param string $column
+     * @param mixed  $value
+     */
     public function __construct($column, $value)
     {
         parent::__construct($column);
@@ -20,6 +27,9 @@ class Set extends SQL
         $this->value = $value;
     }
 
+    /**
+     * @return array
+     */
     public function getParameters()
     {
         if ($this->value instanceof Parametrised) {
@@ -29,6 +39,9 @@ class Set extends SQL
         return array($this->value);
     }
 
+    /**
+     * @return mixed
+     */
     public function getValue()
     {
         return $this->value;

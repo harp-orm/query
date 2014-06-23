@@ -11,6 +11,10 @@ use InvalidArgumentException;
  */
 class ConditionLike extends Condition
 {
+    /**
+     * @param string $column
+     * @param mixed  $value
+     */
     public function __construct($column, $value)
     {
         parent::__construct("$column LIKE ?", array($value));

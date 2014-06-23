@@ -57,6 +57,16 @@ class Select extends AbstractWhere
     }
 
     /**
+     * @return Select $this
+     */
+    public function clearColumns()
+    {
+        $this->columns = null;
+
+        return $this;
+    }
+
+    /**
      * @return SQL\Aliased[]|null
      */
     public function getFrom()
@@ -70,6 +80,16 @@ class Select extends AbstractWhere
     public function setFrom(array $from)
     {
         $this->from = $from;
+
+        return $this;
+    }
+
+    /**
+     * @return Select $this
+     */
+    public function clearFrom()
+    {
+        $this->from = null;
 
         return $this;
     }
@@ -93,11 +113,31 @@ class Select extends AbstractWhere
     }
 
     /**
+     * @return Select $this
+     */
+    public function clearGroup()
+    {
+        $this->group = null;
+
+        return $this;
+    }
+
+    /**
      * @return SQL\Condition[]|null
      */
     public function getHaving()
     {
         return $this->having;
+    }
+
+    /**
+     * @return Select $this
+     */
+    public function clearHaving()
+    {
+        $this->having = null;
+
+        return $this;
     }
 
     /**
@@ -128,34 +168,9 @@ class Select extends AbstractWhere
         return $this;
     }
 
-    public function clearColumns()
-    {
-        $this->columns = null;
-
-        return $this;
-    }
-
-    public function clearFrom()
-    {
-        $this->from = null;
-
-        return $this;
-    }
-
-    public function clearGroup()
-    {
-        $this->group = null;
-
-        return $this;
-    }
-
-    public function clearHaving()
-    {
-        $this->having = null;
-
-        return $this;
-    }
-
+    /**
+     * @return Select $this
+     */
     public function clearOffset()
     {
         $this->offset = null;
@@ -163,6 +178,11 @@ class Select extends AbstractWhere
         return $this;
     }
 
+    /**
+     * @param  string|SQL\SQL $column
+     * @param  string         $alias
+     * @return Select         $this
+     */
     public function column($column, $alias = null)
     {
         $this->columns []= new SQL\Aliased($column, $alias);
@@ -170,6 +190,11 @@ class Select extends AbstractWhere
         return $this;
     }
 
+    /**
+     * @param  string|SQL\SQL $column
+     * @param  string         $alias
+     * @return Select         $this
+     */
     public function prependColumn($column, $alias = null)
     {
         array_unshift($this->columns, new SQL\Aliased($column, $alias));
@@ -177,6 +202,11 @@ class Select extends AbstractWhere
         return $this;
     }
 
+    /**
+     * @param  string|SQL\SQL|Select $column
+     * @param  string                $alias
+     * @return Select                $this
+     */
     public function from($table, $alias = null)
     {
         $this->from []= new SQL\Aliased($table, $alias);
@@ -184,6 +214,11 @@ class Select extends AbstractWhere
         return $this;
     }
 
+    /**
+     * @param  string $column
+     * @param  string $direction
+     * @return Select $this
+     */
     public function group($column, $direction = null)
     {
         $this->group []= new SQL\Direction($column, $direction);
@@ -191,6 +226,11 @@ class Select extends AbstractWhere
         return $this;
     }
 
+    /**
+     * @param  string $column
+     * @param  string $direction
+     * @return Select $this
+     */
     public function having($column, $value)
     {
         if (is_array($value)) {
@@ -202,20 +242,35 @@ class Select extends AbstractWhere
         return $this;
     }
 
-    public function havingIn($column, array $value)
+    /**
+     * @param  string $column
+     * @param  array  $values
+     * @return Select $this
+     */
+    public function havingIn($column, array $values)
     {
-        $this->having []= new SQL\ConditionIn($column, $value);
+        $this->having []= new SQL\ConditionIn($column, $values);
 
         return $this;
     }
 
-    public function havingNot($column, $values)
+    /**
+     * @param  string $column
+     * @param  string $value
+     * @return Select $this
+     */
+    public function havingNot($column, $value)
     {
-        $this->having []= new SQL\ConditionNot($column, $values);
+        $this->having []= new SQL\ConditionNot($column, $value);
 
         return $this;
     }
 
+    /**
+     * @param  string $column
+     * @param  string $value
+     * @return Select $this
+     */
     public function havingLike($column, $value)
     {
         $this->having []= new SQL\ConditionLike($column, $value);
@@ -223,6 +278,11 @@ class Select extends AbstractWhere
         return $this;
     }
 
+    /**
+     * @param  string $conditions
+     * @param  array  $parameters
+     * @return Select             $this
+     */
     public function havingRaw($conditions, array $parameters = null)
     {
         $this->having []= new SQL\Condition($conditions, $parameters);
@@ -230,6 +290,10 @@ class Select extends AbstractWhere
         return $this;
     }
 
+    /**
+     * @param  integer $offset
+     * @return Select          $this
+     */
     public function offset($offset)
     {
         $this->offset = new SQL\IntValue($offset);

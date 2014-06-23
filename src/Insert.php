@@ -56,6 +56,16 @@ class Insert extends AbstractQuery
     }
 
     /**
+     * @return Insert $this
+     */
+    public function clearTable()
+    {
+        $this->table = null;
+
+        return $this;
+    }
+
+    /**
      * @return SQL\Columns|null
      */
     public function getColumns()
@@ -69,6 +79,16 @@ class Insert extends AbstractQuery
     public function setColumns(SQL\Columns $columns)
     {
         $this->columns = $columns;
+
+        return $this;
+    }
+
+    /**
+     * @return Insert
+     */
+    public function clearColumns()
+    {
+        $this->columns = null;
 
         return $this;
     }
@@ -92,6 +112,16 @@ class Insert extends AbstractQuery
     }
 
     /**
+     * @return Insert $this
+     */
+    public function clearValues()
+    {
+        $this->values = null;
+
+        return $this;
+    }
+
+    /**
      * @return SQL\Set[]|null
      */
     public function getSet()
@@ -105,6 +135,16 @@ class Insert extends AbstractQuery
     public function setSet(array $set)
     {
         $this->set = $set;
+
+        return $this;
+    }
+
+    /**
+     * @return Insert $this
+     */
+    public function clearSet()
+    {
+        $this->set = null;
 
         return $this;
     }
@@ -127,6 +167,20 @@ class Insert extends AbstractQuery
         return $this;
     }
 
+    /**
+     * @return Insert
+     */
+    public function clearSelect()
+    {
+        $this->select = null;
+
+        return $this;
+    }
+
+    /**
+     * @param  string $table
+     * @return Insert $this
+     */
     public function into($table)
     {
         $this->table = new SQL\Aliased($table);
@@ -134,13 +188,10 @@ class Insert extends AbstractQuery
         return $this;
     }
 
-    public function clearTable()
-    {
-        $this->table = null;
-
-        return $this;
-    }
-
+    /**
+     * @param  array  $columns
+     * @return Insert $this
+     */
     public function columns(array $columns)
     {
         $this->columns = new SQL\Columns($columns);
@@ -148,13 +199,10 @@ class Insert extends AbstractQuery
         return $this;
     }
 
-    public function clearColumns()
-    {
-        $this->columns = null;
-
-        return $this;
-    }
-
+    /**
+     * @param  array  $values
+     * @return Insert $this
+     */
     public function values(array $values)
     {
         $this->values []= new SQL\Values($values);
@@ -162,13 +210,10 @@ class Insert extends AbstractQuery
         return $this;
     }
 
-    public function clearValues()
-    {
-        $this->values = null;
-
-        return $this;
-    }
-
+    /**
+     * @param  array $values
+     * @return Insert $this
+     */
     public function set(array $values)
     {
         foreach ($values as $column => $value) {
@@ -178,13 +223,10 @@ class Insert extends AbstractQuery
         return $this;
     }
 
-    public function clearSet()
-    {
-        $this->set = null;
-
-        return $this;
-    }
-
+    /**
+     * @param  Select $select
+     * @return Insert $this
+     */
     public function select(Select $select)
     {
         $this->select = $select;
@@ -192,13 +234,11 @@ class Insert extends AbstractQuery
         return $this;
     }
 
-    public function clearSelect()
-    {
-        $this->select = null;
-
-        return $this;
-    }
-
+    /**
+     * Calls lastInsertId method on the parent PDO object
+     *
+     * @return string|integer
+     */
     public function getLastInsertId()
     {
         return $this->getDb()->lastInsertId();

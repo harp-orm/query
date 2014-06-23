@@ -77,6 +77,12 @@ abstract class AbstractWhere extends AbstractOrderLimit
         return $this;
     }
 
+    /**
+     * @param  string|SQL\SQL $table
+     * @param  string|array   $condition
+     * @param  string         $type
+     * @return AbstractWhere             $this
+     */
     public function join($table, $condition, $type = null)
     {
         $table = new SQL\Aliased($table);
@@ -85,6 +91,13 @@ abstract class AbstractWhere extends AbstractOrderLimit
         return $this;
     }
 
+    /**
+     * @param  string|SQL\SQL $table
+     * @param  string         $alias
+     * @param  string|array   $condition
+     * @param  string         $type
+     * @return AbstractWhere             $this
+     */
     public function joinAliased($table, $alias, $condition, $type = null)
     {
         $table = new SQL\Aliased($table, $alias);
@@ -93,6 +106,11 @@ abstract class AbstractWhere extends AbstractOrderLimit
         return $this;
     }
 
+    /**
+     * @param  string $column
+     * @param  mixed  $value
+     * @return AbstractWhere
+     */
     public function where($column, $value)
     {
         if (is_array($value)) {
@@ -104,6 +122,11 @@ abstract class AbstractWhere extends AbstractOrderLimit
         return $this;
     }
 
+    /**
+     * @param  string $column
+     * @param  mixed  $value
+     * @return AbstractWhere
+     */
     public function whereLike($column, $value)
     {
         $this->where []= new SQL\ConditionLike($column, $value);
@@ -111,6 +134,11 @@ abstract class AbstractWhere extends AbstractOrderLimit
         return $this;
     }
 
+    /**
+     * @param  string $column
+     * @param  array  $values
+     * @return AbstractWhere
+     */
     public function whereIn($column, array $values)
     {
         $this->where []= new SQL\ConditionIn($column, $values);
@@ -118,13 +146,23 @@ abstract class AbstractWhere extends AbstractOrderLimit
         return $this;
     }
 
-    public function whereNot($column, $values)
+    /**
+     * @param  string $column
+     * @param  mixed  $value
+     * @return AbstractWhere
+     */
+    public function whereNot($column, $value)
     {
-        $this->where []= new SQL\ConditionNot($column, $values);
+        $this->where []= new SQL\ConditionNot($column, $value);
 
         return $this;
     }
 
+    /**
+     * @param  string $condition
+     * @param  array  $parameters
+     * @return AbstractWhere
+     */
     public function whereRaw($condition, array $parameters = null)
     {
         $this->where []= new SQL\Condition($condition, $parameters);
