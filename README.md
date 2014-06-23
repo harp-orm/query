@@ -34,6 +34,17 @@ echo $query->humanize();
 
 The query ``execute()`` method will generate a PDOStatement object that can be iterated over. All the variables are passed as position parameters ("seller = ?") so are properly escaped by the PDO driver.
 
+## Why?
+
+PHP has quite a lot of excellent query builder classes already. For example [Paris/Idiom](http://j4mie.github.io/idiormandparis/), [Kohana Query Builder](http://kohanaframework.org/3.3/guide/database/query/builder) etc. Why have another one? Here is my elevator pitch:
+
+- Integrate with PDO - since it already has quite a lot of support for different DB drivers, harp-orm/query can use all that wealth of functionality out of the box. The base DB class extends PDO class, and the select result is actually PDOStatement object. And all of this [already has great docs](http://us3.php.net/manual/en/book.pdo.php)
+- Use PSR coding standards and Symfony naming conventions for more familiar and readable codebase.
+- Use PSR logging to integrate with any compatible logger.
+- Support more rarely used SQL constructs, e.g. INSERT IGNORE, UNION, UPDATE JOIN etc.
+- Fully covered with DockBlocks so static code analysis on packages built on top of it can be more accurate
+- Full test coverage
+
 ## Connecting to the database
 
 Connecting to the database is a 2 step process. First you need to define the configuration for the database, later you will use that configuration to create a connection object (``DB``). This allows to lazy-load the connection object.
