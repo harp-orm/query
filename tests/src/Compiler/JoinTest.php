@@ -10,6 +10,10 @@ use Harp\Query\SQL;
  * @group compiler
  * @group compiler.join
  * @coversDefaultClass Harp\Query\Compiler\Join
+ *
+ * @author     Ivan Kerin <ikerin@gmail.com>
+ * @copyright  (c) 2014 Clippings Ltd.
+ * @license    http://spdx.org/licenses/BSD-3-Clause
  */
 class JoinTest extends AbstractTestCase
 {

@@ -8,6 +8,10 @@ use Harp\Query\SQL;
 /**
  * @group query.delete
  * @coversDefaultClass Harp\Query\Delete
+ *
+ * @author     Ivan Kerin <ikerin@gmail.com>
+ * @copyright  (c) 2014 Clippings Ltd.
+ * @license    http://spdx.org/licenses/BSD-3-Clause
  */
 class DeleteTest extends AbstractTestCase
 {

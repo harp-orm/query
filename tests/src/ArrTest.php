@@ -11,6 +11,10 @@ use stdClass;
  * @group util
  * @group util.arr
  * @coversDefaultClass Harp\Query\Arr
+ *
+ * @author     Ivan Kerin <ikerin@gmail.com>
+ * @copyright  (c) 2014 Clippings Ltd.
+ * @license    http://spdx.org/licenses/BSD-3-Clause
  */
 class ArrTest extends AbstractTestCase
 {

@@ -10,6 +10,10 @@ use Harp\Query\SQL;
  * @group compiler
  * @group compiler.values
  * @coversDefaultClass Harp\Query\Compiler\Values
+ *
+ * @author     Ivan Kerin <ikerin@gmail.com>
+ * @copyright  (c) 2014 Clippings Ltd.
+ * @license    http://spdx.org/licenses/BSD-3-Clause
  */
 class ValuesTest extends AbstractTestCase
 {

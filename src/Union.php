@@ -5,9 +5,9 @@ namespace Harp\Query;
 use Harp\Query\Compiler;
 
 /**
- * @author     Ivan Kerin
+ * @author     Ivan Kerin <ikerin@gmail.com>
  * @copyright  (c) 2014 Clippings Ltd.
- * @license    http://www.opensource.org/licenses/isc-license.txt
+ * @license    http://spdx.org/licenses/BSD-3-Clause
  */
 class Union extends AbstractOrderLimit
 {

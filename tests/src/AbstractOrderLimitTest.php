@@ -7,6 +7,10 @@ use Harp\Query\SQL;
 /**
  * @group query
  * @coversDefaultClass Harp\Query\AbstractOrderLimit
+ *
+ * @author     Ivan Kerin <ikerin@gmail.com>
+ * @copyright  (c) 2014 Clippings Ltd.
+ * @license    http://spdx.org/licenses/BSD-3-Clause
  */
 class AbstractOrderLimitTest extends AbstractTestCase
 {

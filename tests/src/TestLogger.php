@@ -6,6 +6,10 @@ use Psr\Log\AbstractLogger;
 
 /**
  * A dummy logger used for testing
+ *
+ * @author     Ivan Kerin <ikerin@gmail.com>
+ * @copyright  (c) 2014 Clippings Ltd.
+ * @license    http://spdx.org/licenses/BSD-3-Clause
  */
 class TestLogger extends AbstractLogger
 {

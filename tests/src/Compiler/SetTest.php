@@ -11,6 +11,10 @@ use Harp\Query\SQL;
  * @group compiler
  * @group compiler.set
  * @coversDefaultClass Harp\Query\Compiler\Set
+ *
+ * @author     Ivan Kerin <ikerin@gmail.com>
+ * @copyright  (c) 2014 Clippings Ltd.
+ * @license    http://spdx.org/licenses/BSD-3-Clause
  */
 class SetTest extends AbstractTestCase
 {

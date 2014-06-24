@@ -11,6 +11,10 @@ use Harp\Query\SQL\SQL;
  * @group compiler
  * @group compiler.delete
  * @coversDefaultClass Harp\Query\Compiler\Delete
+ *
+ * @author     Ivan Kerin <ikerin@gmail.com>
+ * @copyright  (c) 2014 Clippings Ltd.
+ * @license    http://spdx.org/licenses/BSD-3-Clause
  */
 class DeleteTest extends AbstractTestCase
 {

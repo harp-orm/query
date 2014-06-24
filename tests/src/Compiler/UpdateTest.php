@@ -11,6 +11,10 @@ use Harp\Query\SQL\SQL;
  * @group compiler
  * @group compiler.update
  * @coversDefaultClass Harp\Query\Compiler\Update
+ *
+ * @author     Ivan Kerin <ikerin@gmail.com>
+ * @copyright  (c) 2014 Clippings Ltd.
+ * @license    http://spdx.org/licenses/BSD-3-Clause
  */
 class UpdateTest extends AbstractTestCase
 {
