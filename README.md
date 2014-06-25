@@ -102,7 +102,7 @@ An example select:
 ```php
 use Harp\Query\DB;
 
-$select = DB::get()->select()
+$select = DB::select()
     ->from('users')
     ->column('users.*')
     ->where('username', 'Tom')
@@ -126,7 +126,7 @@ An example insert:
 ```php
 use Harp\Query\DB;
 
-$insert = DB::get()->insert()
+$insert = DB::insert()
     ->into('users')
     ->set([
         'name' => 'Tom',
@@ -147,7 +147,7 @@ An example delete:
 ```php
 use Harp\Query\DB;
 
-$delete = DB::get()->delete()
+$delete = DB::delete()
     ->from('users')
     ->where('score', 10)
     ->limit(10);
@@ -164,7 +164,7 @@ An example update:
 ```php
 use Harp\Query\DB;
 
-$update = DB::get()->update()
+$update = DB::update()
     ->table('users')
     ->set(['name' => 'New Name'])
     ->where('id', 10);

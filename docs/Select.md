@@ -5,7 +5,7 @@ Selecting data is performed with [Select object](/src/Select.php). You usually d
 ```php
 use Harp\Query\DB;
 
-$select = DB::get()->select()->from('users');
+$select = DB::select()->from('users');
 
 $result = $select->execute();
 
@@ -21,7 +21,7 @@ If you want to see the SQL that the select object will generate you can use the 
 ```php
 use Harp\Query\DB;
 
-$select = DB::get()->select()->from('users')->where('name', 'test');
+$select = DB::select()->from('users')->where('name', 'test');
 
 // SELECT * FROM users WHERE name = ?
 echo $select->sql();
@@ -32,7 +32,7 @@ You can get the fully rendered sql with all the placeholders properly filled, us
 ```php
 use Harp\Query\DB;
 
-$select = DB::get()->select()->from('users')->where('name', 'test');
+$select = DB::select()->from('users')->where('name', 'test');
 
 // SELECT * FROM users WHERE name = 'test'
 echo $select->humanize();
@@ -47,7 +47,7 @@ SQL has special keywords that you can place in front of your select. Those keywo
 ```php
 use Harp\Query\DB;
 
-$select = DB::get()->select()->from('users');
+$select = DB::select()->from('users');
 
 // Distinct select
 // SELECT DISTINCT * FROM users
@@ -64,7 +64,7 @@ If you want to use a custom sql with some parameters, you can pass an [SQL objec
 use Harp\Query\DB;
 use Harp\Query\SQL\SQL;
 
-$select = DB::get()->select();
+$select = DB::select();
 
 // Normal select
 // SELECT * FROM users
@@ -76,7 +76,7 @@ $select->from('users', 'clients');
 
 // Nested select
 // SELECT * FROM (SELECT FROM clients) AS external
-$nested = DB::get()->select()->from('clients');
+$nested = DB::select()->from('clients');
 $select->from($nested, 'external');
 
 // Custom SQL
@@ -96,7 +96,7 @@ If you do not provide a column, generic "*" is used.
 use Harp\Query\DB;
 use Harp\Query\SQL\SQL;
 
-$select = DB::get()->select()->from('users');
+$select = DB::select()->from('users');
 
 // No column provided
 // SELECT * FROM users
@@ -140,7 +140,7 @@ Calling the methods multiple times will "AND" all the conditions. If you need to
 ```php
 use Harp\Query\DB;
 
-$select = DB::get()->select()->from('users');
+$select = DB::select()->from('users');
 
 // Single value
 // SELECT * FROM users WHERE id = 1
@@ -176,7 +176,7 @@ You can join multiple tables using ``join`` and ``joinAliased`` methods. The tab
 ```php
 use Harp\Query\DB;
 
-$select = DB::get()->select()->from('users');
+$select = DB::select()->from('users');
 
 // Normal join
 // SELECT * FROM users JOIN profiles ON users.id = profiles.user_id
@@ -212,7 +212,7 @@ If you want to use a custom sql with some parameters, you can pass an SQL\SQL ob
 ```php
 use Harp\Query\DB;
 
-$select = DB::get()->select()->from('users');
+$select = DB::select()->from('users');
 
 // Normal order
 // SELECT * FROM users ORDER BY id
@@ -250,7 +250,7 @@ You can set limit and offset via ``limit`` and ``offset`` methods.
 ```php
 use Harp\Query\DB;
 
-$select = DB::get()->select()->from('users');
+$select = DB::select()->from('users');
 
 // Limit
 // SELECT * FROM users LIMIT 10
@@ -272,7 +272,7 @@ Calling the methods multiple times will "AND" all the conditions. If you need to
 ```php
 use Harp\Query\DB;
 
-$select = DB::get()->select()->from('users');
+$select = DB::select()->from('users');
 
 // Single value
 // SELECT * FROM users HAVING id = 1

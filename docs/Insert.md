@@ -7,7 +7,7 @@ Use ``getLastInsertId`` to get the ID of the newly added records. If multiple re
 ```php
 use Harp\Query\DB;
 
-$insert = DB::get()->insert()
+$insert = DB::insert()
     ->into('users')
     ->set([
         'name' => 'test',
@@ -26,7 +26,7 @@ If you want to see what SQL the insert object will generate you can use the ``sq
 ```php
 use Harp\Query\DB;
 
-$insert = DB::get()->insert()
+$insert = DB::insert()
     ->into('users')
     ->set([
         'name' => 'test',
@@ -42,7 +42,7 @@ You can get the fully rendered sql with all the placeholders properly filled, us
 ```php
 use Harp\Query\DB;
 
-$insert = DB::get()->insert()
+$insert = DB::insert()
     ->into('users')
     ->set([
         'name' => 'test',
@@ -62,7 +62,7 @@ SQL has special keywords that you can place in front of your insert query. Those
 ```php
 use Harp\Query\DB;
 
-$insert = DB::get()->insert()
+$insert = DB::insert()
     ->type('IGNORE')
     ->into('users')
     ->set(['name' => 'test']);
@@ -79,7 +79,7 @@ To insert one row into a database use the ``set`` method, it accepts an array of
 ```php
 use Harp\Query\DB;
 
-$insert = DB::get()->insert()->into('users');
+$insert = DB::insert()->into('users');
 
 // Normal select
 // INSERT INTO users SET name = 'test', score = 100
@@ -97,7 +97,7 @@ To insert multiple rows into a database use can the ``columns`` and ``values`` m
 ```php
 use Harp\Query\DB;
 
-$insert = DB::get()->insert()->into('users');
+$insert = DB::insert()->into('users');
 
 // Normal select
 // INSERT INTO users (name, score) VALUES ('Tom', 100), ('John', 200)
@@ -114,14 +114,14 @@ You can insert rows, based on a select, using ``columns`` and ``select`` methods
 ```php
 use Harp\Query\DB;
 
-$insert = DB::get()->insert()->into('users');
+$insert = DB::insert()->into('users');
 
 // Normal select
 // INSERT INTO users (name, score) SELECT username, popularity FROM profiles WHERE name = 10
 $insert
     ->columns('name', 'score')
     ->select(
-        DB::get()->select()
+        DB::select()
             ->from('profiles')
             ->column('username')
             ->column('popularity')

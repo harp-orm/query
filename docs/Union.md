@@ -5,17 +5,17 @@ If you need to combine the results of multiple selects from differnt tables into
 ```php
 use Harp\Query\DB;
 
-$select1 = DB::get()->select()
+$select1 = DB::select()
     ->from('users')
     ->column('name')
     ->where('name', 'Tom');
 
-$select2 = DB::get()->select()
+$select2 = DB::select()
     ->from('profiles')
     ->where('name', 'John')
     ->column('name');
 
-$union = DB::get()->union()
+$union = DB::union()
     ->select($select1)
     ->select($select2);
 
@@ -33,17 +33,17 @@ If you want to see what SQL the union object will generate you can use the ``sql
 ```php
 use Harp\Query\DB;
 
-$select1 = DB::get()->select()
+$select1 = DB::select()
     ->from('users')
     ->column('name')
     ->where('name', 'Tom');
 
-$select2 = DB::get()->select()
+$select2 = DB::select()
     ->from('profiles')
     ->where('name', 'John')
     ->column('name');
 
-$union = DB::get()->union()
+$union = DB::union()
     ->select($select1)
     ->select($select2);
 
@@ -71,12 +71,12 @@ You can add "order" and "limit" to the union sql to be applied to the whole resu
 ```php
 use Harp\Query\DB;
 
-$select1 = DB::get()->select()
+$select1 = DB::select()
     ->from('users')
     ->column('name')
     ->where('name', 'Tom');
 
-$select2 = DB::get()->select()
+$select2 = DB::select()
     ->from('profiles')
     ->where('name', 'John')
     ->column('name');
@@ -86,7 +86,7 @@ $select2 = DB::get()->select()
 // (SELECT name FROM profiles WHERE name = ?)
 // ORDER BY name, DESC
 // LIMIT 20
-$union = DB::get()->union()
+$union = DB::union()
     ->select($select1)
     ->select($select2)
     ->order('name', 'DESC')

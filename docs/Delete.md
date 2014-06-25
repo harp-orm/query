@@ -5,7 +5,7 @@ Deleting data is performed with a [Delete object](/src/Delete.php). You usually 
 ```php
 use Harp\Query\DB;
 
-$delete = DB::get()->delete()
+$delete = DB::delete()
     ->from('users')
     ->where('name', 10)
     ->order('name', 'DESC')
@@ -21,7 +21,7 @@ If you want to see what SQL the delete object will generate you can use the ``sq
 ```php
 use Harp\Query\DB;
 
-$delete = DB::get()->delete()
+$delete = DB::delete()
     ->from('users')
     ->where('name', 10)
     ->limit(10);
@@ -35,7 +35,7 @@ You can get the fully rendered sql with all the placeholders properly filled, us
 ```php
 use Harp\Query\DB;
 
-$delete = DB::get()->delete()
+$delete = DB::delete()
     ->from('users')
     ->where('name', 10)
     ->limit(10);
@@ -53,7 +53,7 @@ SQL has special keywords that you can place in front of your delete query. Those
 ```php
 use Harp\Query\DB;
 
-$delete = DB::get()->delete()
+$delete = DB::delete()
     ->from('users')
     ->where('name', 10)
     ->limit(10);
@@ -73,7 +73,7 @@ Calling the methods multiple times will "AND" all the conditions. If you need to
 ```php
 use Harp\Query\DB;
 
-$delete = DB::get()->delete()->from('users');
+$delete = DB::delete()->from('users');
 
 // Single value
 // DELETE FROM users WHERE id = 1
@@ -109,7 +109,7 @@ To delete from more than one table use a combination of ``table`` and ``from`` m
 ```php
 use Harp\Query\DB;
 
-$delete = DB::get()->delete();
+$delete = DB::delete();
 
 // DELETE users FROM users,profiles WHERE users.id = profiles.user_id
 $delete
@@ -128,7 +128,7 @@ The table name can be a custom SQL, using the SQL\SQL object. Columns conditions
 ```php
 use Harp\Query\DB;
 
-$delete = DB::get()->delete()->from('users');
+$delete = DB::delete()->from('users');
 
 // Normal join
 // DELETE FROM users JOIN profiles ON users.id = profiles.user_id

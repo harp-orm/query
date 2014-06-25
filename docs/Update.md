@@ -5,7 +5,7 @@ Updating data is performed with an [Update object](/src/Update.php). You usually
 ```php
 use Harp\Query\DB;
 
-$update = DB::get()->update()
+$update = DB::update()
     ->table('users')
     ->set([
         'name' => 'test',
@@ -23,7 +23,7 @@ If you want to see what SQL the update object will generate you can use the ``sq
 ```php
 use Harp\Query\DB;
 
-$update = DB::get()->update()
+$update = DB::update()
     ->table('users')
     ->set([
         'name' => 'test',
@@ -40,7 +40,7 @@ You can get the fully rendered sql with all the placeholders properly filled, us
 ```php
 use Harp\Query\DB;
 
-$update = DB::get()->update()
+$update = DB::update()
     ->table('users')
     ->set([
         'name' => 'test',
@@ -61,7 +61,7 @@ SQL has special keywords that you can place in front of your delete query. Those
 ```php
 use Harp\Query\DB;
 
-$update = DB::get()->update()
+$update = DB::update()
     ->table('users')
     ->set([
         'name' => 'test',
@@ -83,7 +83,7 @@ Calling the methods multiple times will "AND" all the conditions. If you need to
 ```php
 use Harp\Query\DB;
 
-$update = DB::get()->update()->table('users')->set(['name' => 'test']);
+$update = DB::update()->table('users')->set(['name' => 'test']);
 
 // Single value
 // UPDATE users SET name = 'test' WHERE id = 1
@@ -119,7 +119,7 @@ To update more than one table simply call ``table`` multiple times.
 ```php
 use Harp\Query\DB;
 
-$update = DB::get()->update();
+$update = DB::update();
 
 // UPDATE users,profiles SET users.name = 'test', profiles.username = 'test' WHERE users.id = profiles.user_id
 $update
@@ -141,7 +141,7 @@ The table name can be a custom SQL, using the SQL\SQL object. Columns conditions
 ```php
 use Harp\Query\DB;
 
-$update = DB::get()->update()->table('users')->set(['name' => 'test']);
+$update = DB::update()->table('users')->set(['name' => 'test']);
 
 // Normal join
 // UPDATE users SET name = 'test' JOIN profiles ON users.id = profiles.user_id
@@ -177,7 +177,7 @@ Here's how to use it:
 ```php
 use Harp\Query\DB;
 
-$update = DB::get()->update()->table('users');
+$update = DB::update()->table('users');
 
 // UPDATE users
 // SET

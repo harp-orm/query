@@ -12,7 +12,7 @@ use PDOException;
  * The core class holding the connections to the databases. All your queries should originate from this class.
  * Allows multiple database connections.
  *
- * By default  PDO::ATTR_EMULATE_PREPARES is set to false. This allows connecting to mysql with mysqlnd,
+ * By default PDO::ATTR_EMULATE_PREPARES is set to false. This allows connecting to mysql with mysqlnd,
  * for better performance, and native types. If you are using a different database, you could change this
  * to false if it provides better performance for you.
  *
