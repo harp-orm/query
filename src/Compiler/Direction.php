@@ -20,7 +20,7 @@ class Direction
      */
     public static function combine($items)
     {
-        return Arr::join(', ', Arr::map(__NAMESPACE__."\Direction::render", $items));
+        return Arr::join(', ', Arr::map(__CLASS__."::render", $items));
     }
 
     /**

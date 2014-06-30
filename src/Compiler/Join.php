@@ -19,7 +19,7 @@ class Join
      */
     public static function combine($items)
     {
-        return Arr::join(' ', Arr::map(__NAMESPACE__."\Join::render", $items));
+        return Arr::join(' ', Arr::map(__CLASS__."::render", $items));
     }
 
     /**

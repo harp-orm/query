@@ -21,7 +21,7 @@ class Aliased
      */
     public static function combine($items)
     {
-        return Arr::join(', ', Arr::map('Harp\Query\Compiler\Aliased::render', $items));
+        return Arr::join(', ', Arr::map(__CLASS__.'::render', $items));
     }
 
     /**

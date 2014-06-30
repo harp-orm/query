@@ -20,7 +20,7 @@ class Set
      */
     public static function combine($items)
     {
-        return Arr::join(', ', Arr::map(__NAMESPACE__."\Set::render", $items));
+        return Arr::join(', ', Arr::map(__CLASS__."::render", $items));
     }
 
     /**

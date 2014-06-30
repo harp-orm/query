@@ -19,7 +19,7 @@ class Values
      */
     public static function combine($items)
     {
-        return Arr::join(', ', Arr::map(__NAMESPACE__."\Values::render", $items));
+        return Arr::join(', ', Arr::map(__CLASS__."::render", $items));
     }
 
     /**
