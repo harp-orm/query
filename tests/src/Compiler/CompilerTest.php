@@ -40,14 +40,16 @@ class CompilerTest extends AbstractTestCase
 
         $this->assertNull(Compiler::getDb());
 
-        Compiler::withDb($db1, function() use ($db1, $db2) {
-            $this->assertSame($db1, Compiler::getDb());
+        $self = $this;
 
-            Compiler::withDb($db2, function() use ($db2) {
-                $this->assertSame($db2, Compiler::getDb());
+        Compiler::withDb($db1, function() use ($db1, $db2, $self) {
+            $self->assertSame($db1, Compiler::getDb());
+
+            Compiler::withDb($db2, function() use ($db2, $self) {
+                $self->assertSame($db2, Compiler::getDb());
             });
 
-            $this->assertSame($db1, Compiler::getDb());
+            $self->assertSame($db1, Compiler::getDb());
         });
 
         $this->assertNull(Compiler::getDb());
