@@ -12,7 +12,7 @@ use Harp\Query\Parametrised;
 class Set extends SQL
 {
     /**
-     * @var array
+     * @var mixed
      */
     protected $value;
 
