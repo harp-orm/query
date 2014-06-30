@@ -136,7 +136,7 @@ class SelectTest extends AbstractTestCase
             new SQL\ConditionIn('test2', array(2, 3)),
             new SQL\ConditionNot('test4', '123'),
             new SQL\ConditionLike('test5', '123%'),
-            new SQL\Condition('column = ? OR column = ?', array(10, 20)),
+            new SQL\Condition(null, 'column = ? OR column = ?', array(10, 20)),
             new SQL\ConditionIs('test3', 3),
         );
 
@@ -198,7 +198,7 @@ class SelectTest extends AbstractTestCase
             ->from('table1')
             ->where('name', 10);
 
-        $this->assertEquals('SELECT * FROM table1 WHERE (name = ?)', $query->sql());
+        $this->assertEquals('SELECT * FROM `table1` WHERE (`name` = ?)', $query->sql());
     }
 
     /**

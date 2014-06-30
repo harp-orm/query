@@ -19,13 +19,13 @@ class ConditionIsTest extends AbstractTestCase
             array(
                 'name',
                 10,
-                'name = ?',
+                '= ?',
                 array(10)
             ),
             array(
                 'name',
                 null,
-                'name IS NULL',
+                'IS NULL',
                 null,
             ),
         );
@@ -38,6 +38,7 @@ class ConditionIsTest extends AbstractTestCase
     public function testConstruct($column, $value, $expected, $expectedParams)
     {
         $sqlCondition = new SQL\ConditionIs($column, $value);
+        $this->assertEquals($column, $sqlCondition->getColumn());
         $this->assertEquals($expected, $sqlCondition->getContent());
         $this->assertEquals($expectedParams, $sqlCondition->getParameters());
     }

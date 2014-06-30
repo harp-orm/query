@@ -9,4 +9,22 @@ namespace Harp\Query\SQL;
  */
 class Condition extends SQL
 {
+    private $column;
+
+    /**
+     * @param string|SQL $column
+     * @param string $content
+     * @param array $parameters
+     */
+    public function __construct($column, $content, array $parameters = array())
+    {
+        $this->column = $column;
+
+        parent::__construct($content, $parameters);
+    }
+
+    public function getColumn()
+    {
+        return $this->column;
+    }
 }

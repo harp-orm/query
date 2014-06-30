@@ -16,30 +16,13 @@ class Join extends SQL
     protected $type;
 
     /**
-     * @param  array  $condition
-     * @return string
-     */
-    public static function arrayToCondition(array $condition)
-    {
-        $statements = array();
-
-        foreach ($condition as $column => $foreign_column) {
-            $statements [] = "$column = $foreign_column";
-        }
-
-        return 'ON '.join(' AND ', $statements);
-    }
-
-    /**
      * @param SQL          $table
      * @param string|array $condition
      * @param string       $type
      */
     public function __construct(SQL $table, $condition, $type = null)
     {
-        $this->condition = is_array($condition)
-            ? self::arrayToCondition($condition)
-            : $condition;
+        $this->condition = $condition;
 
         $this->type = $type;
 
@@ -55,7 +38,7 @@ class Join extends SQL
     }
 
     /**
-     * @return string
+     * @return string|array
      */
     public function getCondition()
     {

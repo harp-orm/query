@@ -3,6 +3,8 @@
 namespace Harp\Query\Compiler;
 
 use Harp\Query\Arr;
+use Harp\Query\DB;
+use Closure;
 
 /**
  * @author     Ivan Kerin <ikerin@gmail.com>
@@ -11,6 +13,8 @@ use Harp\Query\Arr;
  */
 class Compiler
 {
+    private static $db;
+
     /**
      * Convert array of values to placeholders
      * array(1, 2) -> (?, ?)
@@ -26,6 +30,14 @@ class Compiler
     }
 
     /**
+     * @return DB
+     */
+    public static function getDb()
+    {
+        return self::$db;
+    }
+
+    /**
      * Concat multiple parts with " "
      *
      * @param  array  $parts
@@ -34,6 +46,33 @@ class Compiler
     public static function expression(array $parts)
     {
         return implode(' ', array_filter($parts));
+    }
+
+    public static function withDb(DB $db, Closure $yield)
+    {
+        $old_db = self::$db;
+
+        self::$db = $db;
+
+        $result = $yield();
+
+        self::$db = $old_db;
+
+        return $result;
+    }
+
+    public static function name($name)
+    {
+        if (is_string($name)) {
+            return implode('.', array_map(__CLASS__.'::escapeName', explode('.', $name)));
+        }
+
+        return $name;
+    }
+
+    private static function escapeName($name)
+    {
+        return (self::$db !== null and $name) ? self::$db->escapeName($name) : $name;
     }
 
     /**

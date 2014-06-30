@@ -21,6 +21,6 @@ class ConditionIn extends Condition
             throw new InvalidArgumentException('Values must not be empty array');
         }
 
-        parent::__construct("$column IN ?", array($value));
+        parent::__construct($column, "IN ?", array($value));
     }
 }

@@ -36,11 +36,13 @@ class Aliased
 
         if ($content instanceof Query\Select) {
             $content = "(".Select::render($content).")";
+        } else {
+            $content = Compiler::name($content);
         }
 
         return Compiler::expression(array(
             $content,
-            Compiler::word('AS', $aliased->getAlias())
+            Compiler::word('AS', Compiler::name($aliased->getAlias()))
         ));
     }
 }

@@ -13,36 +13,18 @@ use Harp\Query\Compiler\Compiler;
  */
 class SetMultipleTest extends AbstractTestCase
 {
-    public function dataConstruct()
-    {
-        return array(
-            array(
-                array(1 => 'test'),
-                'id',
-                new SQL\SQL('CASE id WHEN ? THEN ? ELSE col_name END', array(1, 'test'))
-            ),
-            array(
-                array(1 => 'test', 10 => 'test2'),
-                'id',
-                new SQL\SQL('CASE id WHEN ? THEN ? WHEN ? THEN ? ELSE col_name END', array(1, 'test', 10, 'test2'))
-            ),
-            array(
-                array(1 => 'test', 10 => 'test2'),
-                'guid',
-                new SQL\SQL('CASE guid WHEN ? THEN ? WHEN ? THEN ? ELSE col_name END', array(1, 'test', 10, 'test2'))
-            ),
-        );
-    }
-
     /**
-     * @dataProvider dataConstruct
      * @covers ::__construct
+     * @covers ::getKey
+     * @covers ::getParameters
      */
-    public function testConstruct($values, $key, $expectedContent)
+    public function testConstruct()
     {
-        $set = new SQL\SetMultiple('col_name', $values, $key);
+        $set = new SQL\SetMultiple('col_name', array(1 => 'test', 10 => 'test2'), 'guid');
 
         $this->assertEquals('col_name', $set->getContent());
-        $this->assertEquals($expectedContent, $set->getValue());
+        $this->assertEquals(array(1 => 'test', 10 => 'test2'), $set->getValue());
+        $this->assertEquals(array(1, 'test', 10, 'test2'), $set->getParameters());
+        $this->assertEquals('guid', $set->getKey());
     }
 }

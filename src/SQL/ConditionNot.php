@@ -22,9 +22,9 @@ class ConditionNot extends Condition
         }
 
         if ($value === null) {
-            parent::__construct("$column IS NOT NULL");
+            parent::__construct($column, "IS NOT NULL");
         } else {
-            parent::__construct("$column != ?", array($value));
+            parent::__construct($column, "!= ?", array($value));
         }
 
     }

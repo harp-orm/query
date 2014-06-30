@@ -25,6 +25,13 @@ use PDOException;
 class DB extends PDO
 {
     const NAME = 'default';
+    const ESCAPING_MYSQL = 1;
+    const ESCAPING_STANDARD = 2;
+
+    private static $escapeWrappers = array(
+        self::ESCAPING_MYSQL => '`',
+        self::ESCAPING_STANDARD => '"',
+    );
 
     /**
      * @var array
@@ -49,6 +56,7 @@ class DB extends PDO
             PDO::ATTR_EMULATE_PREPARES => false,
         ),
         'logger' => null,
+        'escaping' => null,
     );
 
     /**
@@ -96,6 +104,12 @@ class DB extends PDO
      * @var string
      */
     protected $name;
+
+
+    /**
+     * @var string
+     */
+    protected $escapeWrapper;
 
     /**
      * @var LoggerInterface
@@ -153,6 +167,7 @@ class DB extends PDO
         parent::__construct($options['dsn'], $options['username'], $options['password'], $options['driverOptions']);
 
         $this->setLogger($options['logger'] ?: new NullLogger());
+        $this->setEscaping($options['escaping']);
         $this->name = $name;
     }
 
@@ -181,6 +196,34 @@ class DB extends PDO
         $this->logger = $logger;
 
         return $this;
+    }
+
+    /**
+     * @param LoggerInterface $logger
+     * @return DB $this
+     */
+    public function setEscaping($escaping)
+    {
+        $this->escapeWrapper = isset(self::$escapeWrappers[$escaping])
+            ? self::$escapeWrappers[$escaping]
+            : null;
+
+        return $this;
+    }
+
+    /**
+     * @param  string $name
+     * @return string
+     */
+    public function escapeName($name)
+    {
+        if ($this->escapeWrapper) {
+            return $this->escapeWrapper
+                .str_replace($this->escapeWrapper, '\\'.$this->escapeWrapper, $name)
+                .$this->escapeWrapper;
+        } else {
+            return $name;
+        }
     }
 
     /**

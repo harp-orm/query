@@ -40,7 +40,10 @@ class Condition
             $content = self::expandParameterArrays($content, $parameters);
         }
 
-        return $content;
+        return Compiler::expression(array(
+            Compiler::name($condition->getColumn()),
+            $content
+        ));
     }
 
     /**

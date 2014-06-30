@@ -19,13 +19,13 @@ class ConditionNotTest extends AbstractTestCase
             array(
                 'name',
                 10,
-                'name != ?',
+                '!= ?',
                 array(10)
             ),
             array(
                 'name',
                 null,
-                'name IS NOT NULL',
+                'IS NOT NULL',
                 null,
             ),
         );
@@ -38,6 +38,7 @@ class ConditionNotTest extends AbstractTestCase
     public function testConstruct($column, $value, $expected, $expectedParams)
     {
         $sqlCondition = new SQL\ConditionNot($column, $value);
+        $this->assertEquals($column, $sqlCondition->getColumn());
         $this->assertEquals($expected, $sqlCondition->getContent());
         $this->assertEquals($expectedParams, $sqlCondition->getParameters());
     }

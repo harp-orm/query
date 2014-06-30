@@ -186,7 +186,7 @@ class InsertTest extends AbstractTestCase
             ->into('table1')
             ->set(array('name' => 10));
 
-        $this->assertEquals('INSERT INTO table1 SET name = ?', $query->sql());
+        $this->assertEquals('INSERT INTO `table1` SET `name` = ?', $query->sql());
     }
 
     /**

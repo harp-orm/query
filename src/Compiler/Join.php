@@ -23,7 +23,27 @@ class Join
     }
 
     /**
+     * @param  array  $condition
+     * @return string
+     */
+    public static function renderArrayCondition(array $condition)
+    {
+        $statements = array();
+
+        foreach ($condition as $column => $foreignColumn) {
+            $statements [] = Compiler::expression(array(
+                Compiler::name($column),
+                '=',
+                Compiler::name($foreignColumn)
+            ));
+        }
+
+        return 'ON '.join(' AND ', $statements);
+    }
+
+    /**
      * Render a Join object
+     *
      * @param  SQL\Join $join
      * @return string
      */
@@ -35,7 +55,9 @@ class Join
             $join->getTable() instanceof SQL\Aliased
                 ? Aliased::render($join->getTable())
                 : $join->getTable(),
-            $join->getCondition(),
+            is_array($join->getCondition())
+                ? self::renderArrayCondition($join->getCondition())
+                : $join->getCondition(),
         ));
     }
 }

@@ -68,7 +68,7 @@ class UnionTest extends AbstractTestCase
             ->select($select1)
             ->select($select2);
 
-        $this->assertEquals('(SELECT * FROM table1 WHERE (name = ?)) UNION (SELECT * FROM table2 WHERE (name = ?))', $query->sql());
+        $this->assertEquals('(SELECT * FROM `table1` WHERE (`name` = ?)) UNION (SELECT * FROM `table2` WHERE (`name` = ?))', $query->sql());
     }
 
     /**

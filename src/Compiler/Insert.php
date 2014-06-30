@@ -18,17 +18,20 @@ class Insert
      */
     public static function render(Query\Insert $query)
     {
-        return Compiler::expression(array(
-            'INSERT',
-            $query->getType(),
-            Compiler::word('INTO', $query->getTable()),
-            Columns::render($query->getColumns()),
-            Compiler::word('VALUES', Values::combine($query->getValues())),
-            Compiler::word('SET', Set::combine($query->getSet())),
-            $query->getSelect() !== null
-                ? Select::render($query->getSelect())
-                : null,
-        ));
+        return Compiler::withDb($query->getDb(), function () use ($query) {
+
+            return Compiler::expression(array(
+                'INSERT',
+                $query->getType(),
+                Compiler::word('INTO', Aliased::render($query->getTable())),
+                Columns::render($query->getColumns()),
+                Compiler::word('VALUES', Values::combine($query->getValues())),
+                Compiler::word('SET', Set::combine($query->getSet())),
+                $query->getSelect() !== null
+                    ? Select::render($query->getSelect())
+                    : null,
+            ));
+        });
     }
 
     public static function parameters(Query\Insert $query)

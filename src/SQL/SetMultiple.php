@@ -12,20 +12,29 @@ use Harp\Query\Arr;
 class SetMultiple extends Set
 {
     /**
+     * @var string
+     */
+    private $key;
+
+    /**
      * @param string $column
      * @param array  $values
      * @param string $key
      */
     public function __construct($column, array $values, $key = 'id')
     {
-        $cases = str_repeat('WHEN ? THEN ? ', count($values));
+        $this->key = $key;
 
-        parent::__construct(
-            $column,
-            new SQL(
-                "CASE {$key} {$cases}ELSE $column END",
-                Arr::disassociate($values)
-            )
-        );
+        parent::__construct($column, $values);
+    }
+
+    public function getKey()
+    {
+        return $this->key;
+    }
+
+    public function getParameters()
+    {
+        return Arr::disassociate($this->getValue());
     }
 }

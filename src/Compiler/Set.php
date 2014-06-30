@@ -25,18 +25,34 @@ class Set
 
     /**
      * Render the value of Set object
-     * @param  mixed $value
+     * @param  mixed $item
      * @return string
      */
-    public static function renderValue($value)
+    public static function renderValue(SQL\Set $item)
     {
-        if ($value instanceof SQL\SQL) {
-            return $value->getContent();
-        } elseif ($value instanceof Query\Select) {
-            return Compiler::braced(Select::render($value));
+        if ($item->getValue() instanceof SQL\SQL) {
+            return $item->getValue()->getContent();
+        } elseif ($item->getValue() instanceof Query\Select) {
+            return Compiler::braced(Select::render($item->getValue()));
+        } elseif ($item instanceof SQL\SetMultiple) {
+            return self::renderMultiple($item->getValue(), $item->getContent(), $item->getKey());
         } else {
             return '?';
         }
+    }
+
+    public static function renderMultiple(array $values, $column, $key)
+    {
+        $cases = trim(str_repeat('WHEN ? THEN ? ', count($values)));
+
+        return Compiler::expression(array(
+            'CASE',
+            $key,
+            $cases,
+            'ELSE',
+            Compiler::name($column),
+            'END'
+        ));
     }
 
     /**
@@ -46,6 +62,10 @@ class Set
      */
     public static function render(SQL\Set $item)
     {
-        return $item->getContent().' = '.self::renderValue($item->getValue());
+        return Compiler::expression(array(
+            Compiler::name($item->getContent()),
+            '=',
+            self::renderValue($item)
+        ));
     }
 }

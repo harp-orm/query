@@ -43,6 +43,8 @@ class DBTest extends AbstractTestCase
      * @covers ::getName
      * @covers ::setLogger
      * @covers ::getLogger
+     * @covers ::setEscaping
+     * @covers ::escapeName
      */
     public function testGet()
     {
@@ -52,6 +54,7 @@ class DBTest extends AbstractTestCase
             'dsn' => 'mysql:dbname=harp-orm/query;host=127.0.0.1',
             'username' => 'root',
             'logger' => $logger,
+            'escaping' => DB::ESCAPING_STANDARD,
         ));
 
         DB::setConfig(array(
@@ -63,11 +66,14 @@ class DBTest extends AbstractTestCase
         $this->assertEquals('default', $default->getName());
         $this->assertSame($default, DB::get());
         $this->assertSame($logger, $default->getLogger());
+        $this->assertSame('"test table name"', $default->escapeName('test table name'));
+        $this->assertSame('"test \"table\" name"', $default->escapeName('test "table" name'));
 
         $test = DB::get('test');
         $this->assertEquals('test', $test->getName());
         $this->assertSame($test, DB::get('test'));
         $this->assertInstanceOf('Psr\Log\NullLogger', $test->getLogger());
+        $this->assertSame('test table name', $test->escapeName('test table name'));
 
         $this->assertNotSame($default, $test);
     }
@@ -133,7 +139,7 @@ class DBTest extends AbstractTestCase
 
         $this->assertSame(DB::get(), $select->getDb());
 
-        $this->assertEquals('SELECT test, test2', $select->sql());
+        $this->assertEquals('SELECT `test`, `test2`', $select->sql());
     }
 
     /**
@@ -147,7 +153,7 @@ class DBTest extends AbstractTestCase
 
         $this->assertSame(DB::get(), $update->getDb());
 
-        $this->assertEquals('UPDATE test, test2', $update->sql());
+        $this->assertEquals('UPDATE `test`, `test2`', $update->sql());
     }
 
     /**
@@ -161,7 +167,7 @@ class DBTest extends AbstractTestCase
 
         $this->assertSame(DB::get(), $delete->getDb());
 
-        $this->assertEquals('DELETE FROM test, test2', $delete->sql());
+        $this->assertEquals('DELETE FROM `test`, `test2`', $delete->sql());
     }
 
     /**
@@ -175,7 +181,7 @@ class DBTest extends AbstractTestCase
 
         $this->assertSame(DB::get(), $query->getDb());
 
-        $this->assertEquals('INSERT INTO table1 SET name = ?', $query->sql());
+        $this->assertEquals('INSERT INTO `table1` SET `name` = ?', $query->sql());
         $this->assertEquals(array('test2'), $query->getParameters());
     }
 }

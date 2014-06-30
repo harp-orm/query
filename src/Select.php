@@ -285,7 +285,7 @@ class Select extends AbstractWhere
      */
     public function havingRaw($conditions, array $parameters = null)
     {
-        $this->having []= new SQL\Condition($conditions, $parameters);
+        $this->having []= new SQL\Condition(null, $conditions, $parameters);
 
         return $this;
     }

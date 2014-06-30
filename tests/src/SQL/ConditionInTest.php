@@ -19,13 +19,13 @@ class ConditionInTest extends AbstractTestCase
             array(
                 'name',
                 array(10),
-                'name IN ?',
+                'IN ?',
                 array(array(10))
             ),
             array(
                 'name',
                 array(10, 20),
-                'name IN ?',
+                'IN ?',
                 array(array(10, 20))
             ),
         );
@@ -38,6 +38,7 @@ class ConditionInTest extends AbstractTestCase
     public function testConstruct($column, $value, $expected, $expectedParams)
     {
         $sqlCondition = new SQL\ConditionIn($column, $value);
+        $this->assertEquals($column, $sqlCondition->getColumn());
         $this->assertEquals($expected, $sqlCondition->getContent());
         $this->assertEquals($expectedParams, $sqlCondition->getParameters());
     }

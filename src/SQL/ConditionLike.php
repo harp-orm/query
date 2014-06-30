@@ -17,6 +17,6 @@ class ConditionLike extends Condition
      */
     public function __construct($column, $value)
     {
-        parent::__construct("$column LIKE ?", array($value));
+        parent::__construct($column, "LIKE ?", array($value));
     }
 }

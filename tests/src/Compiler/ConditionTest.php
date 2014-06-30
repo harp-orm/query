@@ -22,8 +22,8 @@ class ConditionTest extends AbstractTestCase
      */
     public function testCombine()
     {
-        $condition1 = new SQL\Condition('name = ?', array(2));
-        $condition2 = new SQL\Condition('param = ?', array(3));
+        $condition1 = new SQL\Condition('name', '= ?', array(2));
+        $condition2 = new SQL\Condition('param', '= ?', array(3));
 
         $this->assertEquals('(name = ?) AND (param = ?)', Compiler\Condition::combine(array($condition1, $condition2)));
     }
@@ -31,10 +31,10 @@ class ConditionTest extends AbstractTestCase
     public function dataRender()
     {
         return array(
-            array('name = ?', array(10), 'name = ?'),
-            array('name = column', array(10), 'name = column'),
-            array('name = column', null, 'name = column'),
-            array('name IN ?', array(array(10, 15)), 'name IN (?, ?)'),
+            array('name', '= ?', array(10), 'name = ?'),
+            array('name', '= column', array(10), 'name = column'),
+            array('name', '= column', array(), 'name = column'),
+            array('name', 'IN ?', array(array(10, 15)), 'name IN (?, ?)'),
         );
     }
 
@@ -42,9 +42,9 @@ class ConditionTest extends AbstractTestCase
      * @dataProvider dataRender
      * @covers ::render
      */
-    public function testRender($content, $parameters, $expected)
+    public function testRender($column, $content, $parameters, $expected)
     {
-        $condition = new SQL\Condition($content, $parameters);
+        $condition = new SQL\Condition($column, $content, $parameters);
 
         $this->assertEquals($expected, Compiler\Condition::render($condition));
     }

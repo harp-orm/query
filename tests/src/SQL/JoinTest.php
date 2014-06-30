@@ -20,7 +20,7 @@ class JoinTest extends AbstractTestCase
                 array('col' => 'col2'),
                 'LEFT',
                 new SQL\Aliased('table'),
-                'ON col = col2',
+                array('col' => 'col2'),
                 'LEFT'
             ),
             array(
@@ -36,7 +36,7 @@ class JoinTest extends AbstractTestCase
                 array('col' => 'col2'),
                 null,
                 new SQL\SQL('CUSTOM SQL'),
-                'ON col = col2',
+                array('col' => 'col2'),
                 null
             ),
         );
@@ -49,13 +49,13 @@ class JoinTest extends AbstractTestCase
      * @covers ::getCondition
      * @covers ::getType
      */
-    public function testConstruct($table, $condition, $type, $expected_table, $expected_condition, $expected_type)
+    public function testConstruct($table, $condition, $type, $expectedTable, $expectedCondition, $expectedType)
     {
         $join = new SQL\Join($table, $condition, $type);
 
-        $this->assertEquals($expected_table, $join->getTable());
-        $this->assertEquals($expected_condition, $join->getCondition());
-        $this->assertEquals($expected_type, $join->getType());
+        $this->assertEquals($expectedTable, $join->getTable());
+        $this->assertEquals($expectedCondition, $join->getCondition());
+        $this->assertEquals($expectedType, $join->getType());
     }
 
     public function dataGetParameters()
@@ -93,21 +93,5 @@ class JoinTest extends AbstractTestCase
         $join = new SQL\Join($table, $condition);
 
         $this->assertSame($expected, $join->getParameters());
-    }
-
-    public function dataArrayToCondition()
-    {
-        return array(
-            array(array('col1' => 'col2'), 'ON col1 = col2'),
-            array(array('col1' => 'col2', 'table1.col1' => 'table2.col2'), 'ON col1 = col2 AND table1.col1 = table2.col2'),
-        );
-    }
-    /**
-     * @dataProvider dataArrayToCondition
-     * @covers ::arrayToCondition
-     */
-    public function testArrayToCondition($table, $expected)
-    {
-        $this->assertEquals($expected, SQL\Join::arrayToCondition($table));
     }
 }

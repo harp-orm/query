@@ -5,6 +5,8 @@ namespace Harp\Query\Test\Compiler;
 use Harp\Query\Test\AbstractTestCase;
 use Harp\Query\Test\ParametrisedStub;
 use Harp\Query\Compiler\Compiler;
+use Harp\Query\SQL\SQL;
+use Harp\Query\DB;
 
 /**
  * @group compiler
@@ -16,6 +18,64 @@ use Harp\Query\Compiler\Compiler;
  */
 class CompilerTest extends AbstractTestCase
 {
+    /**
+     * @covers ::withDb
+     * @covers ::getDb
+     */
+    public function testWithDb()
+    {
+        DB::setConfig(array(
+            'dsn' => 'mysql:dbname=harp-orm/query;host=127.0.0.1',
+            'username' => 'root',
+        ), 'test1');
+
+        DB::setConfig(array(
+            'dsn' => 'mysql:dbname=harp-orm/query;host=127.0.0.1',
+            'username' => 'root',
+        ), 'test2');
+
+
+        $db1 = DB::get('test1');
+        $db2 = DB::get('test2');
+
+        $this->assertNull(Compiler::getDb());
+
+        Compiler::withDb($db1, function() use ($db1, $db2) {
+            $this->assertSame($db1, Compiler::getDb());
+
+            Compiler::withDb($db2, function() use ($db2) {
+                $this->assertSame($db2, Compiler::getDb());
+            });
+
+            $this->assertSame($db1, Compiler::getDb());
+        });
+
+        $this->assertNull(Compiler::getDb());
+    }
+
+    /**
+     * @covers ::name
+     * @covers ::escapeName
+     */
+    public function testName()
+    {
+        DB::setConfig(array(
+            'dsn' => 'mysql:dbname=harp-orm/query;host=127.0.0.1',
+            'username' => 'root',
+            'escaping' => DB::ESCAPING_STANDARD,
+        ), 'test1');
+
+        $db1 = DB::get('test1');
+
+        $this->assertEquals('test1', Compiler::name('test1'));
+        $this->assertEquals(new SQL('Test'), Compiler::name(new SQL('Test')));
+        $this->assertEquals('test1.name', Compiler::name('test1.name'));
+
+        Compiler::withDb($db1, function() {
+            $this->assertEquals('"test1"', Compiler::name('test1'));
+            $this->assertEquals('"test1"."name"', Compiler::name('test1.name'));
+        });
+    }
 
     public function dataToPlaceholders()
     {

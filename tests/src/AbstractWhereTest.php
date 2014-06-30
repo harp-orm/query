@@ -72,7 +72,7 @@ class AbstractWhereTest extends AbstractTestCase
             new SQL\ConditionIn('test2', array(2, 3)),
             new SQL\ConditionNot('test4', '123'),
             new SQL\ConditionLike('test5', '123%'),
-            new SQL\Condition('column = ? OR column = ?', array(10, 20)),
+            new SQL\Condition(null, 'column = ? OR column = ?', array(10, 20)),
             new SQL\ConditionIs('test3', 3),
         );
 

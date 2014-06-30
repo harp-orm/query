@@ -116,7 +116,7 @@ class UpdateTest extends AbstractTestCase
             ->table('table1')
             ->set(array('name' => 10));
 
-        $this->assertEquals('UPDATE table1 SET name = ?', $query->sql());
+        $this->assertEquals('UPDATE `table1` SET `name` = ?', $query->sql());
     }
 
     /**

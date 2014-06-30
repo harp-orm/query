@@ -32,7 +32,7 @@ class Direction
     public static function render(SQL\Direction $item)
     {
         return Compiler::expression(array(
-            $item->getContent(),
+            Compiler::name($item->getContent()),
             $item->getDirection(),
         ));
     }

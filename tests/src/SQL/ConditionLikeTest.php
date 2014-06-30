@@ -19,13 +19,13 @@ class ConditionLikeTest extends AbstractTestCase
             array(
                 'name',
                 'test',
-                'name LIKE ?',
+                'LIKE ?',
                 array('test')
             ),
             array(
                 'name',
                 '%test%',
-                'name LIKE ?',
+                'LIKE ?',
                 array('%test%')
             ),
         );
@@ -38,6 +38,7 @@ class ConditionLikeTest extends AbstractTestCase
     public function testConstruct($column, $value, $expected, $expectedParams)
     {
         $sqlCondition = new SQL\ConditionLike($column, $value);
+        $this->assertEquals($column, $sqlCondition->getColumn());
         $this->assertEquals($expected, $sqlCondition->getContent());
         $this->assertEquals($expectedParams, $sqlCondition->getParameters());
     }

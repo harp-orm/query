@@ -35,7 +35,7 @@ class UnionTest extends AbstractTestCase
         $select2 = new Query\Select;
         $select2
             ->from('bigtable')
-            ->column('col1')
+            ->column('bigtable.col1')
             ->column('base')
             ->column('type')
             ->where('test', 'value')
@@ -54,7 +54,7 @@ class UnionTest extends AbstractTestCase
             ->limit(20);
 
         $expectedSql = <<<SQL
-(SELECT DISTINCT col1 FROM one JOIN table1 USING (col1, col2) WHERE (name = ?)) UNION (SELECT col1, base, type FROM bigtable JOIN table2 ON col1 = col2 WHERE (test = ?) AND (test_statement = IF ("test", ?, ?)) GROUP BY type ORDER BY base LIMIT 10 OFFSET 8) ORDER BY col1 LIMIT 20
+(SELECT DISTINCT `col1` FROM `one` JOIN `table1` USING (col1, col2) WHERE (`name` = ?)) UNION (SELECT `bigtable`.`col1`, `base`, `type` FROM `bigtable` JOIN `table2` ON `col1` = `col2` WHERE (`test` = ?) AND (test_statement = IF ("test", ?, ?)) GROUP BY `type` ORDER BY `base` LIMIT 10 OFFSET 8) ORDER BY `col1` LIMIT 20
 SQL;
 
         $this->assertEquals($expectedSql, Compiler\Union::render($union));

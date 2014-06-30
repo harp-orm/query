@@ -65,4 +65,21 @@ class JoinTest extends AbstractTestCase
 
         $this->assertEquals($expected, Compiler\Join::render($join));
     }
+
+
+    public function dataRenderArrayCondition()
+    {
+        return array(
+            array(array('col1' => 'col2'), 'ON col1 = col2'),
+            array(array('col1' => 'col2', 'table1.col1' => 'table2.col2'), 'ON col1 = col2 AND table1.col1 = table2.col2'),
+        );
+    }
+    /**
+     * @dataProvider dataRenderArrayCondition
+     * @covers ::renderArrayCondition
+     */
+    public function testRenderArrayCondition($conditions, $expected)
+    {
+        $this->assertEquals($expected, Compiler\Join::renderArrayCondition($conditions));
+    }
 }

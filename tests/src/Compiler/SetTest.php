@@ -38,7 +38,7 @@ class SetTest extends AbstractTestCase
 
         return array(
             array('name', 'param1', 'name = ?'),
-            array('name', $query, 'name = (SELECT * FROM table1 WHERE (name = ?))'),
+            array('name', $query, 'name = (SELECT * FROM `table1` WHERE (`name` = ?))'),
             array('name', $sql, 'name = IF(name = "test", "big", "samll")'),
         );
     }
@@ -63,18 +63,20 @@ class SetTest extends AbstractTestCase
         $sql = new SQL\SQL('IF(name = "test", "big", "samll")');
 
         return array(
-            array('param1', '?'),
-            array($query, '(SELECT * FROM table1 WHERE (name = ?))'),
-            array($sql, 'IF(name = "test", "big", "samll")'),
+            array(new SQL\Set('col', 'param1'), '?'),
+            array(new SQL\Set('col', $query), '(SELECT * FROM `table1` WHERE (`name` = ?))'),
+            array(new SQL\Set('col', $sql), 'IF(name = "test", "big", "samll")'),
+            array(new SQL\SetMultiple('col', array(1 => 'test', 2 => 'param')), 'CASE id WHEN ? THEN ? WHEN ? THEN ? ELSE col END'),
         );
     }
 
     /**
      * @dataProvider dataRenderValue
      * @covers ::renderValue
+     * @covers ::renderMultiple
      */
-    public function testRenderValue($value, $expected)
+    public function testRenderValue($item, $expected)
     {
-        $this->assertEquals($expected, Compiler\Set::renderValue($value));
+        $this->assertEquals($expected, Compiler\Set::renderValue($item));
     }
 }

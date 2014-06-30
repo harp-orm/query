@@ -57,6 +57,7 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
             'dsn' => 'mysql:dbname=harp-orm/query;host=127.0.0.1',
             'username' => 'root',
             'logger' => $this->logger,
+            'escaping' => DB::ESCAPING_MYSQL,
         ));
     }
 

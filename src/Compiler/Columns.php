@@ -30,7 +30,7 @@ class Columns
     public static function renderItem(SQL\Columns $item)
     {
         return Compiler::braced(
-            Arr::join(', ', $item->all())
+            Arr::join(', ', Arr::map(__NAMESPACE__.'\Compiler::name', $item->all()))
         );
     }
 }

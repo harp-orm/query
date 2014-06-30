@@ -86,7 +86,7 @@ class DeleteTest extends AbstractTestCase
             ->from('table1')
             ->limit(10);
 
-        $this->assertEquals('DELETE FROM table1 LIMIT 10', $query->sql());
+        $this->assertEquals('DELETE FROM `table1` LIMIT 10', $query->sql());
     }
 
     /**

@@ -18,16 +18,18 @@ class Delete
      */
     public static function render(Query\Delete $query)
     {
-        return Compiler::expression(array(
-            'DELETE',
-            $query->getType(),
-            Aliased::combine($query->getTable()),
-            Compiler::word('FROM', Aliased::combine($query->getFrom())),
-            Join::combine($query->getJoin()),
-            Compiler::word('WHERE', Condition::combine($query->getWhere())),
-            Compiler::word('ORDER BY', Direction::combine($query->getOrder())),
-            Compiler::word('LIMIT', $query->getLimit()),
-        ));
+        return Compiler::withDb($query->getDb(), function () use ($query) {
+            return Compiler::expression(array(
+                'DELETE',
+                $query->getType(),
+                Aliased::combine($query->getTable()),
+                Compiler::word('FROM', Aliased::combine($query->getFrom())),
+                Join::combine($query->getJoin()),
+                Compiler::word('WHERE', Condition::combine($query->getWhere())),
+                Compiler::word('ORDER BY', Direction::combine($query->getOrder())),
+                Compiler::word('LIMIT', $query->getLimit()),
+            ));
+        });
     }
 
     public static function parameters(Query\Delete $query)
