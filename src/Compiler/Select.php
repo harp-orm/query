@@ -36,7 +36,7 @@ class Select
     }
 
     /**
-     * @param  QuerySelect $query
+     * @param  Query\Select $query
      * @return array
      */
     public static function parameters(Query\Select $query)

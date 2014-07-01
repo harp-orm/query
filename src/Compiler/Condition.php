@@ -36,7 +36,7 @@ class Condition
         $content = $condition->getContent();
         $parameters = $condition->getParameters();
 
-        if ($parameters) {
+        if ($parameters AND is_string($content)) {
             $content = self::expandParameterArrays($content, $parameters);
         }
 

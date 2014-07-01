@@ -75,7 +75,7 @@ class Compiler
         if (is_string($name)) {
             $parts = explode('.', $name);
 
-            $parts = array_map(function($part) {
+            $parts = array_map(function ($part) {
                 return self::escapeName($part);
             }, $parts);
 

@@ -36,7 +36,7 @@ class Insert
     }
 
     /**
-     * @param  QueryInsert $query
+     * @param  Query\Insert $query
      * @return array
      */
     public static function parameters(Query\Insert $query)

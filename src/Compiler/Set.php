@@ -30,12 +30,15 @@ class Set
      */
     public static function renderValue(SQL\Set $item)
     {
-        if ($item->getValue() instanceof SQL\SQL) {
-            return $item->getValue()->getContent();
-        } elseif ($item->getValue() instanceof Query\Select) {
-            return Compiler::braced(Select::render($item->getValue()));
-        } elseif ($item instanceof SQL\SetMultiple) {
-            return self::renderMultiple($item->getValue(), $item->getContent(), $item->getKey());
+        $value = $item->getValue();
+        $content = $item->getContent();
+
+        if ($value instanceof SQL\SQL) {
+            return $value->getContent();
+        } elseif ($value instanceof Query\Select) {
+            return Compiler::braced(Select::render($value));
+        } elseif ($item instanceof SQL\SetMultiple AND is_string($content)) {
+            return self::renderMultiple($value, $content, $item->getKey());
         } else {
             return '?';
         }

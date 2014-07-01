@@ -31,7 +31,7 @@ class Union
     }
 
     /**
-     * @param  QueryUnion $query
+     * @param  Query\Union $query
      * @return array
      */
     public static function parameters(Query\Union $query)

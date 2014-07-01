@@ -33,7 +33,7 @@ class Delete
     }
 
     /**
-     * @param  QueryDelete $query
+     * @param  Query\Delete $query
      * @return array
      */
     public static function parameters(Query\Delete $query)

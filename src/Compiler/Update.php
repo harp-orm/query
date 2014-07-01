@@ -33,7 +33,7 @@ class Update
     }
 
     /**
-     * @param  QueryUpdate $query
+     * @param  Query\Update $query
      * @return array
      */
     public static function parameters(Query\Update $query)
