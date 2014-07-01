@@ -7,6 +7,11 @@ php:
   - 5.6
   - hhvm
 
+notifications:
+  email: false
+  slack:
+    secure: Sz+7ETAeGvtnuq8dclS8UQeTaQx+JL8apWpWSw1b0WvctH8pmJmvk+YNQ5fhi+4and35a1c/j0FfP/m15fkRR2fn+y5KK/NTnbJu/xVdSBonYFeHuQhsmUACZwPzLSZTxlAt+VT/ncG77jSR4HglzqDltlKnVvDinsS288Oovo4=
+
 before_install:
   # Set the GitHub OAuth token to make use of the 6000 per hour rate limit
   # This is read only token for only public repos
