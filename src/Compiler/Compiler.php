@@ -48,6 +48,11 @@ class Compiler
         return implode(' ', array_filter($parts));
     }
 
+    /**
+     * @param  DB      $db
+     * @param  Closure $yield
+     * @return mixed
+     */
     public static function withDb(DB $db, Closure $yield)
     {
         $old_db = self::$db;
@@ -61,12 +66,18 @@ class Compiler
         return $result;
     }
 
+    /**
+     * @param  mixed $name
+     * @return mixed
+     */
     public static function name($name)
     {
         if (is_string($name)) {
             $parts = explode('.', $name);
 
-            $parts = array_map('Harp\Query\Compiler\Compiler::escapeName', $parts);
+            $parts = array_map(function($part) {
+                return self::escapeName($part);
+            }, $parts);
 
             return implode('.', $parts);
         }
@@ -74,6 +85,10 @@ class Compiler
         return $name;
     }
 
+    /**
+     * @param  string $name
+     * @return string
+     */
     private static function escapeName($name)
     {
         return (self::$db !== null and $name) ? self::$db->escapeName($name) : $name;

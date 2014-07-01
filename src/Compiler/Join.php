@@ -50,16 +50,13 @@ class Join
     public static function render(SQL\Join $join)
     {
         $condition = $join->getCondition();
+        $table = $join->getTable();
 
         return Compiler::expression(array(
             $join->getType(),
             'JOIN',
-            $join->getTable() instanceof SQL\Aliased
-                ? Aliased::render($join->getTable())
-                : $join->getTable(),
-            is_array($condition)
-                ? self::renderArrayCondition($condition)
-                : $condition,
+            $table instanceof SQL\Aliased ? Aliased::render($table) : $table,
+            is_array($condition) ? self::renderArrayCondition($condition) : $condition,
         ));
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Harp\Query\SQL;
 
+use Harp\Query\Parametrised;
+
 /**
  * @author     Ivan Kerin <ikerin@gmail.com>
  * @copyright  (c) 2014 Clippings Ltd.
@@ -15,7 +17,7 @@ class Direction extends SQL
     protected $direction;
 
     /**
-     * @param string $column
+     * @param string|SQL $column
      * @param string $direction
      */
     public function __construct($column, $direction = null)
@@ -23,6 +25,13 @@ class Direction extends SQL
         parent::__construct($column);
 
         $this->direction = $direction;
+    }
+
+    public function getParameters()
+    {
+        if ($this->getContent() instanceof Parametrised) {
+            return $this->getContent()->getParameters();
+        }
     }
 
     /**

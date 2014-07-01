@@ -17,12 +17,12 @@ class SQL implements Parametrised
     protected $parameters;
 
     /**
-     * @var string
+     * @var string|Parametrised
      */
     protected $content;
 
     /**
-     * @param string $content
+     * @param string|Parametrised $content
      * @param array  $parameters
      */
     public function __construct($content, array $parameters = null)
@@ -40,7 +40,7 @@ class SQL implements Parametrised
     }
 
     /**
-     * @return string
+     * @return string|Parametrised
      */
     public function getContent()
     {

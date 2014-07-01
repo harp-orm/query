@@ -215,8 +215,8 @@ class Select extends AbstractWhere
     }
 
     /**
-     * @param  string $column
-     * @param  string $direction
+     * @param  string|SQL\SQL $column
+     * @param  string         $direction
      * @return Select $this
      */
     public function group($column, $direction = null)

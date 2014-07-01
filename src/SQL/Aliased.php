@@ -29,8 +29,10 @@ class Aliased extends SQL
      */
     public function getParameters()
     {
-        if ($this->getContent() instanceof Parametrised) {
-            return $this->getContent()->getParameters();
+        $content = $this->getContent();
+
+        if ($content instanceof Parametrised) {
+            return $content->getParameters();
         }
     }
 

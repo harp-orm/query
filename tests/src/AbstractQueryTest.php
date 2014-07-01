@@ -31,6 +31,12 @@ class AbstractQueryTest extends AbstractTestCase
 
         $this->assertEquals($expected, $query->getType());
 
+        $expected = new SQL\SQL('IGNORE TEST');
+
+        $query->type($expected);
+
+        $this->assertSame($expected, $query->getType());
+
         $query->type('IGNORE QUICK');
 
         $expected = new SQL\SQL('IGNORE QUICK');

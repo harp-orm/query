@@ -17,7 +17,7 @@ class Union extends AbstractOrderLimit
     protected $selects;
 
     /**
-     * @return SQL\Select[]|null
+     * @return Query\Select[]|null
      */
     public function getSelects()
     {
@@ -25,7 +25,7 @@ class Union extends AbstractOrderLimit
     }
 
     /**
-     * @param SQL\Select[] $selects
+     * @param Query\Select[] $selects
      */
     public function setSelects(array $selects)
     {

@@ -79,7 +79,7 @@ abstract class AbstractOrderLimit extends AbstractQuery
 
     /**
      * @param  string|SQL\SQL $column
-     * @param  string|SQL\SQL $direction
+     * @param  string         $direction
      * @return AbstractOrderLimit $this
      */
     public function order($column, $direction = null)
@@ -90,7 +90,7 @@ abstract class AbstractOrderLimit extends AbstractQuery
     }
 
     /**
-     * @param  string|int|SQL\SQL $limit
+     * @param  string|int $limit
      * @return AbstractOrderLimit $this
      */
     public function limit($limit)
