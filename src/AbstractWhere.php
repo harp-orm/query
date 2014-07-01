@@ -163,7 +163,7 @@ abstract class AbstractWhere extends AbstractOrderLimit
      * @param  array  $parameters
      * @return AbstractWhere
      */
-    public function whereRaw($condition, array $parameters = null)
+    public function whereRaw($condition, array $parameters = array())
     {
         $this->where []= new SQL\Condition(null, $condition, $parameters);
 

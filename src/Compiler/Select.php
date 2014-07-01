@@ -35,6 +35,10 @@ class Select
         });
     }
 
+    /**
+     * @param  QuerySelect $query
+     * @return array
+     */
     public static function parameters(Query\Select $query)
     {
         return Compiler::parameters(array(

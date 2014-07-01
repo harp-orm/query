@@ -64,7 +64,11 @@ class Compiler
     public static function name($name)
     {
         if (is_string($name)) {
-            return implode('.', array_map(__CLASS__.'::escapeName', explode('.', $name)));
+            $parts = explode('.', $name);
+
+            $parts = array_map('Harp\Query\Compiler\Compiler::escapeName', $parts);
+
+            return implode('.', $parts);
         }
 
         return $name;

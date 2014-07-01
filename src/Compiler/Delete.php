@@ -32,6 +32,10 @@ class Delete
         });
     }
 
+    /**
+     * @param  QueryDelete $query
+     * @return array
+     */
     public static function parameters(Query\Delete $query)
     {
         return Compiler::parameters(array(

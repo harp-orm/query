@@ -237,7 +237,7 @@ class Insert extends AbstractQuery
     /**
      * Calls lastInsertId method on the parent PDO object
      *
-     * @return string|integer
+     * @return string
      */
     public function getLastInsertId()
     {

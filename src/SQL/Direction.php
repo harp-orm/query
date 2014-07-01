@@ -26,7 +26,7 @@ class Direction extends SQL
     }
 
     /**
-     * @return string|null
+     * @return string
      */
     public function getDirection()
     {

@@ -58,7 +58,7 @@ abstract class AbstractOrderLimit extends AbstractQuery
     }
 
     /**
-     * @return SQL\IntValue|null
+     * @return AbstractOrderLimit $this
      */
     public function setLimit(SQL\IntValue $limit)
     {

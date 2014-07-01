@@ -13,8 +13,8 @@ use Harp\Query\Arr;
 class Union
 {
     /**
-     * Render a Select object
-     * @param  Query\Select $query
+     * Render a Union object
+     * @param  Query\Union $query
      * @return string
      */
     public static function render(Query\Union $query)
@@ -30,6 +30,10 @@ class Union
         });
     }
 
+    /**
+     * @param  QueryUnion $query
+     * @return array
+     */
     public static function parameters(Query\Union $query)
     {
         return Compiler::parameters(array(

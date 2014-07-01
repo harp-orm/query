@@ -34,7 +34,7 @@ class Select extends AbstractWhere
     protected $having;
 
     /**
-     * @var SQL\IntVal|null
+     * @var SQL\IntValue|null
      */
     protected $offset;
 
@@ -203,7 +203,7 @@ class Select extends AbstractWhere
     }
 
     /**
-     * @param  string|SQL\SQL|Select $column
+     * @param  string|SQL\SQL|Select $table
      * @param  string                $alias
      * @return Select                $this
      */
@@ -228,7 +228,7 @@ class Select extends AbstractWhere
 
     /**
      * @param  string $column
-     * @param  string $direction
+     * @param  string $value
      * @return Select $this
      */
     public function having($column, $value)
@@ -283,7 +283,7 @@ class Select extends AbstractWhere
      * @param  array  $parameters
      * @return Select             $this
      */
-    public function havingRaw($conditions, array $parameters = null)
+    public function havingRaw($conditions, array $parameters = array())
     {
         $this->having []= new SQL\Condition(null, $conditions, $parameters);
 

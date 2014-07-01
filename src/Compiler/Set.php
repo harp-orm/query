@@ -25,7 +25,7 @@ class Set
 
     /**
      * Render the value of Set object
-     * @param  mixed $item
+     * @param  SQL\Set $item
      * @return string
      */
     public static function renderValue(SQL\Set $item)
@@ -41,6 +41,12 @@ class Set
         }
     }
 
+    /**
+     * @param  array  $values
+     * @param  string $column
+     * @param  string $key
+     * @return string
+     */
     public static function renderMultiple(array $values, $column, $key)
     {
         $cases = trim(str_repeat('WHEN ? THEN ? ', count($values)));

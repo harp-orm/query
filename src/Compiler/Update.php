@@ -32,6 +32,10 @@ class Update
         });
     }
 
+    /**
+     * @param  QueryUpdate $query
+     * @return array
+     */
     public static function parameters(Query\Update $query)
     {
         return Compiler::parameters(array(

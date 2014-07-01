@@ -199,7 +199,7 @@ class DB extends PDO
     }
 
     /**
-     * @param LoggerInterface $logger
+     * @param int $escaping
      * @return DB $this
      */
     public function setEscaping($escaping)

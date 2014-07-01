@@ -23,7 +23,7 @@ class Insert
             return Compiler::expression(array(
                 'INSERT',
                 $query->getType(),
-                Compiler::word('INTO', Aliased::render($query->getTable())),
+                Compiler::word('INTO', $query->getTable() !== null ? Aliased::render($query->getTable()) : null),
                 Columns::render($query->getColumns()),
                 Compiler::word('VALUES', Values::combine($query->getValues())),
                 Compiler::word('SET', Set::combine($query->getSet())),
@@ -34,6 +34,10 @@ class Insert
         });
     }
 
+    /**
+     * @param  QueryInsert $query
+     * @return array
+     */
     public static function parameters(Query\Insert $query)
     {
         return Compiler::parameters(array(
