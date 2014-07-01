@@ -76,7 +76,7 @@ class Compiler
             $parts = explode('.', $name);
 
             $parts = array_map(function ($part) {
-                return self::escapeName($part);
+                return Compiler::escapeName($part);
             }, $parts);
 
             return implode('.', $parts);
