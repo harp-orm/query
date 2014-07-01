@@ -89,7 +89,7 @@ class Compiler
      * @param  string $name
      * @return string
      */
-    private static function escapeName($name)
+    public static function escapeName($name)
     {
         return (self::$db !== null and $name) ? self::$db->escapeName($name) : $name;
     }
