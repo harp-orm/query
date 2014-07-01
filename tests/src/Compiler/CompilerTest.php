@@ -73,9 +73,11 @@ class CompilerTest extends AbstractTestCase
         $this->assertEquals(new SQL('Test'), Compiler::name(new SQL('Test')));
         $this->assertEquals('test1.name', Compiler::name('test1.name'));
 
-        Compiler::withDb($db1, function() {
-            $this->assertEquals('"test1"', Compiler::name('test1'));
-            $this->assertEquals('"test1"."name"', Compiler::name('test1.name'));
+        $self = $this;
+
+        Compiler::withDb($db1, function() use ($self) {
+            $self->assertEquals('"test1"', Compiler::name('test1'));
+            $self->assertEquals('"test1"."name"', Compiler::name('test1.name'));
         });
     }
 
