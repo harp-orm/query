@@ -37,7 +37,7 @@ class Set
             return $value->getContent();
         } elseif ($value instanceof Query\Select) {
             return Compiler::braced(Select::render($value));
-        } elseif ($item instanceof SQL\SetMultiple AND is_string($content)) {
+        } elseif ($item instanceof SQL\SetMultiple and is_string($content)) {
             return self::renderMultiple($value, $content, $item->getKey());
         } else {
             return '?';
