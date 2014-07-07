@@ -51,7 +51,7 @@ class UpdateTest extends AbstractTestCase
             ->whereRaw('type > ? AND type < ? OR base IN ?', array(10, 20, array('1', '2', '3')));
 
         $expectedSql = <<<SQL
-UPDATE IGNORE `table1`, `table2` AS `alias1` JOIN `join1` AS `alias_join1` ON `col` = `col2` SET `post` = ?, `name` = IF ("test", ?, ?), `param1` = CASE id WHEN ? THEN ? WHEN ? THEN ? ELSE `param1` END, `param3` = CASE id WHEN ? THEN ? WHEN ? THEN ? ELSE `param3` END, `param2` = CASE id WHEN ? THEN ? ELSE `param2` END WHERE (`test` = ?) AND (test_statement = IF ("test", ?, ?)) AND (type > ? AND type < ? OR base IN (?, ?, ?)) ORDER BY `col1` ASC LIMIT 10
+UPDATE IGNORE `table1`, `table2` AS `alias1` JOIN `join1` AS `alias_join1` ON `col` = `col2` SET `post` = ?, `name` = IF ("test", ?, ?), `param1` = CASE `id` WHEN ? THEN ? WHEN ? THEN ? ELSE `param1` END, `param3` = CASE `id` WHEN ? THEN ? WHEN ? THEN ? ELSE `param3` END, `param2` = CASE `id` WHEN ? THEN ? ELSE `param2` END WHERE (`test` = ?) AND (test_statement = IF ("test", ?, ?)) AND (type > ? AND type < ? OR base IN (?, ?, ?)) ORDER BY `col1` ASC LIMIT 10
 SQL;
         $this->assertEquals($expectedSql, Compiler\Update::render($update));
 

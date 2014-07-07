@@ -56,7 +56,7 @@ class Set
 
         return Compiler::expression(array(
             'CASE',
-            $key,
+            Compiler::name($key),
             $cases,
             'ELSE',
             Compiler::name($column),
