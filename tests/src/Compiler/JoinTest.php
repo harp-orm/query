@@ -71,6 +71,7 @@ class JoinTest extends AbstractTestCase
     {
         return array(
             array(array('col1' => 'col2'), 'ON col1 = col2'),
+            array(array('table1.col1' => new SQL\SQL('> ?', array(32))), 'ON table1.col1 > ?'),
             array(array('col1' => 'col2', 'table1.col1' => 'table2.col2'), 'ON col1 = col2 AND table1.col1 = table2.col2'),
         );
     }

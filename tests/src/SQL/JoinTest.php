@@ -67,6 +67,11 @@ class JoinTest extends AbstractTestCase
                 array('param')
             ),
             array(
+                new SQL\Aliased('table'),
+                array('col1' => new SQL\SQL(' < ?', array(20)), 'col2' => new SQL\SQL('= ?', [32])),
+                array(20, 32),
+            ),
+            array(
                 new SQL\SQL('(SELECT ?)', array('10')),
                 array('col1' => 'col2'),
                 array('10')

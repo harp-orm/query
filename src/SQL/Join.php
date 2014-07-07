@@ -52,9 +52,13 @@ class Join extends SQL
     {
         $parameters = $this->table->getParameters();
 
-        if ($this->condition instanceof Parametrised) {
-            $conditionParameters = $this->condition->getParameters();
-            $parameters = array_merge((array) $parameters, (array) $conditionParameters);
+        $conditions = is_array($this->condition) ? $this->condition : array($this->condition);
+
+        foreach ($conditions as $conditionPart) {
+            if ($conditionPart instanceof Parametrised) {
+                $conditionParameters = $conditionPart->getParameters();
+                $parameters = array_merge((array) $parameters, (array) $conditionParameters);
+            }
         }
 
         return $parameters;

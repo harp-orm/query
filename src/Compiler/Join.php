@@ -31,11 +31,11 @@ class Join
         $statements = array();
 
         foreach ($condition as $column => $foreignColumn) {
-            $statements [] = Compiler::expression(array(
-                Compiler::name($column),
-                '=',
-                Compiler::name($foreignColumn)
-            ));
+            $link = $foreignColumn instanceof SQL\SQL
+                ? $foreignColumn
+                : '= '.Compiler::name($foreignColumn);
+
+            $statements [] = Compiler::name($column).' '.$link;
         }
 
         return 'ON '.join(' AND ', $statements);
