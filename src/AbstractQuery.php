@@ -21,11 +21,11 @@ abstract class AbstractQuery implements Parametrised
     protected $db;
 
     /**
-     * @var SQL\SQL|null
+     * @var SQL\SQL
      */
     protected $type;
 
-    public function __construct(DB $db = null)
+    public function __construct(DB $db)
     {
         $this->db = $db;
     }
@@ -74,10 +74,6 @@ abstract class AbstractQuery implements Parametrised
      */
     public function getDb()
     {
-        if (! $this->db) {
-            $this->db = DB::get();
-        }
-
         return $this->db;
     }
 

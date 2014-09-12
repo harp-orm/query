@@ -7,6 +7,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use PDO;
 use PDOException;
+use InvalidArgumentException;
 
 /**
  * The core class holding the connections to the databases. All your queries should originate from this class.
@@ -22,108 +23,73 @@ use PDOException;
  * @copyright  (c) 2014 Clippings Ltd.
  * @license    http://spdx.org/licenses/BSD-3-Clause
  */
-class DB extends PDO
+class DB
 {
-    const NAME = 'default';
-    const ESCAPING_MYSQL = 1;
-    const ESCAPING_STANDARD = 2;
+    const ESCAPING_NONE = '';
+    const ESCAPING_MYSQL = '`';
+    const ESCAPING_STANDARD = '"';
 
-    private static $escapeWrappers = array(
-        self::ESCAPING_MYSQL => '`',
-        self::ESCAPING_STANDARD => '"',
+    private static $escapings = array(
+        self::ESCAPING_NONE,
+        self::ESCAPING_MYSQL,
+        self::ESCAPING_STANDARD,
     );
-
-    /**
-     * @var array
-     */
-    protected static $configs;
-
-    /**
-     * @var DB[]
-     */
-    protected static $dbs;
-
-    /**
-     * @var array
-     */
-    public static $defaults = array(
-        'dsn' => 'mysql:dbname=test;host=127.0.0.1',
-        'username' => '',
-        'password' => '',
-        'driverOptions' => array(
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_EMULATE_PREPARES => false,
-        ),
-        'logger' => null,
-        'escaping' => null,
-    );
-
-    /**
-     * @param string $name
-     */
-    public static function getConfig($name = DB::NAME)
-    {
-        if (! isset(self::$configs[$name])) {
-            self::$configs[$name] = array();
-        }
-
-        return self::$configs[$name];
-    }
-
-    /**
-     * Set configuration for a given instance name
-     * Must be called before get
-     *
-     * @param string $name
-     * @param array  $parameters
-     */
-    public static function setConfig(array $parameters, $name = DB::NAME)
-    {
-        self::$configs[$name] = $parameters;
-    }
-
-    /**
-     * Get the DB object instance for a given name
-     * Use "default" by default
-     *
-     * @param  string $name
-     * @return DB
-     */
-    public static function get($name = DB::NAME)
-    {
-        if (! isset(self::$dbs[$name])) {
-            $config = self::getConfig($name);
-            self::$dbs[$name] = new DB($config, $name);
-        }
-
-        return static::$dbs[$name];
-    }
 
     /**
      * @var string
      */
-    protected $name;
-
+    private $escaping;
 
     /**
-     * @var string
+     * @var PDO
      */
-    protected $escapeWrapper;
+    private $pdo;
 
     /**
      * @var LoggerInterface
      */
-    protected $logger;
+    private $logger;
+
+    private $dsn;
+    private $username;
+    private $password;
+    private $driverOptions;
+
+    public function __construct($dsn = 'mysql:dbname=test;host=127.0.0.1', $username = '', $password = '', array $driverOptions = array())
+    {
+        $this->dsn = $dsn;
+        $this->username = $username;
+        $this->password = $password;
+        $this->driverOptions = array(
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_EMULATE_PREPARES => false,
+        ) + $driverOptions;
+
+        $this->logger = new NullLogger();
+        $this->escaping = self::ESCAPING_MYSQL;
+    }
+
+    /**
+     * @return PDO
+     */
+    public function getPdo()
+    {
+        if (! $this->pdo) {
+            $this->pdo = new PDO($this->dsn, $this->username, $this->password, $this->driverOptions);
+        }
+
+        return $this->pdo;
+    }
 
     /**
      * new Select Query for this DB
      *
      * @return Query\Select
      */
-    public static function select()
+    public function select()
     {
-        return new Query\Select();
+        return new Query\Select($this);
     }
 
     /**
@@ -131,9 +97,9 @@ class DB extends PDO
      *
      * @return Query\Update
      */
-    public static function update()
+    public function update()
     {
-        return new Query\Update();
+        return new Query\Update($this);
     }
 
     /**
@@ -141,9 +107,9 @@ class DB extends PDO
      *
      * @return Query\Delete
      */
-    public static function delete()
+    public function delete()
     {
-        return new Query\Delete();
+        return new Query\Delete($this);
     }
 
     /**
@@ -151,32 +117,9 @@ class DB extends PDO
      *
      * @return Query\Insert
      */
-    public static function insert()
+    public function insert()
     {
-        return new Query\Insert();
-    }
-
-    /**
-     * @param array  $options
-     * @param string $name
-     */
-    public function __construct(array $options = array(), $name = DB::NAME)
-    {
-        $options = array_replace_recursive(static::$defaults, $options);
-
-        parent::__construct($options['dsn'], $options['username'], $options['password'], $options['driverOptions']);
-
-        $this->setLogger($options['logger'] ?: new NullLogger());
-        $this->setEscaping($options['escaping']);
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
+        return new Query\Insert($this);
     }
 
     /**
@@ -199,16 +142,28 @@ class DB extends PDO
     }
 
     /**
-     * @param int $escaping
+     * @param string $escaping
      * @return DB $this
      */
     public function setEscaping($escaping)
     {
-        $this->escapeWrapper = isset(self::$escapeWrappers[$escaping])
-            ? self::$escapeWrappers[$escaping]
-            : null;
+        if (! in_array($escaping, self::$escapings)) {
+            throw new InvalidArgumentException(
+                'Escaping can be DB::ESCAPING_MYSQL, DB::ESCAPING_STANDARD or DB::ESCAPING_NONE'
+            );
+        }
+
+        $this->escaping = $escaping;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEscaping()
+    {
+        return $this->escaping;
     }
 
     /**
@@ -217,10 +172,10 @@ class DB extends PDO
      */
     public function escapeName($name)
     {
-        if ($this->escapeWrapper) {
-            return $this->escapeWrapper
-                .str_replace($this->escapeWrapper, '\\'.$this->escapeWrapper, $name)
-                .$this->escapeWrapper;
+        if ($this->escaping) {
+            return $this->escaping
+                .str_replace($this->escaping, '\\'.$this->escaping, $name)
+                .$this->escaping;
         } else {
             return $name;
         }
@@ -238,7 +193,7 @@ class DB extends PDO
         $this->logger->info($sql, array('parameters' => $parameters));
 
         try {
-            $statement = $this->prepare($sql);
+            $statement = $this->getPdo()->prepare($sql);
             $statement->execute($parameters);
         } catch (PDOException $exception) {
             $this->logger->error($exception->getMessage());
