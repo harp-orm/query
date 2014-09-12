@@ -191,4 +191,32 @@ class DBTest extends AbstractTestCase
         $this->assertEquals('INSERT INTO `table1` SET `name` = ?', $query->sql());
         $this->assertEquals(array('test2'), $query->getParameters());
     }
+
+    /**
+     * @covers ::getLastInsertId
+     */
+    public function testGetLastInsertId()
+    {
+        $db = $this->getMock(
+            'Harp\Query\DB',
+            array('getPdo'),
+            array('mysql:dbname=harp-orm/query;host=127.0.0.1', 'root')
+        );
+
+        $pdo = $this->getMock('stdClass', array('lastInsertId'));
+        $pdo
+            ->expects($this->once())
+            ->method('lastInsertId')
+            ->will($this->returnValue('123'));
+
+        $db
+            ->expects($this->once())
+            ->method('getPdo')
+            ->will($this->returnValue($pdo));
+
+        $id = $db->getLastInsertId();
+
+        $this->assertSame('123', $id);
+    }
+
 }

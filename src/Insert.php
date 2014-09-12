@@ -241,7 +241,7 @@ class Insert extends AbstractQuery
      */
     public function getLastInsertId()
     {
-        return $this->getDb()->lastInsertId();
+        return $this->getDb()->getLastInsertId();
     }
 
     /**

@@ -182,6 +182,14 @@ class DB
     }
 
     /**
+     * @return string
+     */
+    public function getLastInsertId()
+    {
+        return $this->getPdo()->lastInsertId();
+    }
+
+    /**
      * Run "prepare" a statement and then execute it
      *
      * @param  string $sql

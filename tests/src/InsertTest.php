@@ -163,13 +163,13 @@ class InsertTest extends AbstractTestCase
     {
         $db = $this->getMock(
             'Harp\Query\DB',
-            array('lastInsertId'),
+            array('getLastInsertId'),
             array('mysql:dbname=harp-orm/query;host=127.0.0.1', 'root')
         );
 
         $db
             ->expects($this->once())
-            ->method('lastInsertId')
+            ->method('getLastInsertId')
             ->will($this->returnValue('123'));
 
         $query = new Query\Insert($db);
