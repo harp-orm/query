@@ -13,12 +13,9 @@ Intelligently manages passing parameters to PDO's execute.
 ```php
 use Harp\Query\DB;
 
-DB::setConfig([
-    'dsn' => 'mysql:dbname=test-db;host=127.0.0.1',
-    'username' => 'root',
-]);
+$db = new DB('mysql:dbname=test-db;host=127.0.0.1', 'root');
 
-$query = DB::select()
+$query = $db->select()
     ->from('users')
     ->where('seller', true)
     ->join('profiles', ['profiles.user_id' => 'users.id'])
@@ -48,49 +45,35 @@ PHP has quite a lot of excellent query builder classes already. For example [Par
 
 ## Connecting to the database
 
-Connecting to the database is a 2 step process. First you need to define the configuration for the database, later you will use that configuration to create a connection object (``DB``). This allows to lazy-load the connection object.
+Connecting to the database is a done with the "DB" object. It lazy loads a PDO connection object, and has the same arguments.
 
 ```php
-DB::setConfig([
-    'dsn' => 'mysql:dbname=test-db;host=127.0.0.1',
-    'username' => 'root',
-]);
+use Harp\Query\DB;
 
-// ...
-$db = DB::get();
-```
-After that you will use the database connection object (``$db``). To execute queries and retrieve data.
-
-The available configuration options are:
-
- - dsn
- - username
- - password
- - driver_options
-
-They go directly to the PDO construct method. Here's an example:
-
-```php
-DB::setConfig([
-    'dsn' => 'mysql:dbname=test-atlas;host=127.0.0.1',
-    'username' => 'root',
-    'password' => 'qkum4hctpwh',
-    'driver_options' => [
-        PDO::ATTR\_DEFAULT\_FETCH\_MODE => PDO::FETCH\_BOTH,
-    ],
-]);
+$db = new DB(
+    'mysql:dbname=test-db;host=127.0.0.1',
+    'root',
+    'mypass',
+    [PDO::ATTR\_DEFAULT\_FETCH\_MODE => PDO::FETCH\_BOTH]
+);
+$db->getPdo();
 ```
 
-You can connect to different databases by setting alternative configurations. The second argument of ``setConfig`` allows you to "name" a configuration. After that you can get the connection with this configuration by calling ``DB::get($name)``
+You can set some additional option for the DB object
 
-```php
-DB::setConfig(array(
-    'dsn' => 'mysql:dbname=test-db;host=127.0.0.1',
-    'username' => 'alternative',
-), 'alternative-db');
+```
+$logger = new NullLogger(); // Some PSR logger
+$db->setLogger($logger);
 
-// ...
-$db = DB::get('alternative-db');
+// Standard sql '"' double quotes to escape table / column names
+$db->setEscaping(DB::ESCAPING_STANDARD);
+
+// Mysql '`' backticks to escape table / column names
+// This is the default option
+$db->setEscaping(DB::ESCAPING_MYSQL);
+
+// No escaping for table / column names
+$db->setEscaping(DB::ESCAPING_NONE);
 ```
 
 ## Retrieving data (Select)
@@ -102,7 +85,9 @@ An example select:
 ```php
 use Harp\Query\DB;
 
-$select = DB::select()
+$db = new DB('mysql:dbname=test-db;host=127.0.0.1', 'root');
+
+$select = $db->select()
     ->from('users')
     ->column('users.*')
     ->where('username', 'Tom')
@@ -126,7 +111,9 @@ An example insert:
 ```php
 use Harp\Query\DB;
 
-$insert = DB::insert()
+$db = new DB('mysql:dbname=test-db;host=127.0.0.1', 'root');
+
+$insert = $db->insert()
     ->into('users')
     ->set([
         'name' => 'Tom',
@@ -147,7 +134,9 @@ An example delete:
 ```php
 use Harp\Query\DB;
 
-$delete = DB::delete()
+$db = new DB('mysql:dbname=test-db;host=127.0.0.1', 'root');
+
+$delete = $db->delete()
     ->from('users')
     ->where('score', 10)
     ->limit(10);
@@ -164,7 +153,9 @@ An example update:
 ```php
 use Harp\Query\DB;
 
-$update = DB::update()
+$db = new DB('mysql:dbname=test-db;host=127.0.0.1', 'root');
+
+$update = $db->update()
     ->table('users')
     ->set(['name' => 'New Name'])
     ->where('id', 10);

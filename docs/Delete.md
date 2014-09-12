@@ -5,7 +5,9 @@ Deleting data is performed with a [Delete object](/src/Delete.php). You usually 
 ```php
 use Harp\Query\DB;
 
-$delete = DB::delete()
+$db = new DB('mysql:dbname=test-db;host=127.0.0.1', 'root');
+
+$delete = $db->delete()
     ->from('users')
     ->where('name', 10)
     ->order('name', 'DESC')
@@ -19,9 +21,7 @@ $delete->execute();
 If you want to see what SQL the delete object will generate you can use the ``sql`` method. This will give you the raw SQL that will be sent to the driver, with all the placeholders as "?".
 
 ```php
-use Harp\Query\DB;
-
-$delete = DB::delete()
+$delete = $db->delete()
     ->from('users')
     ->where('name', 10)
     ->limit(10);
@@ -33,9 +33,7 @@ echo $delete->sql();
 You can get the fully rendered sql with all the placeholders properly filled, using ``humanize`` method.
 
 ```php
-use Harp\Query\DB;
-
-$delete = DB::delete()
+$delete = $db->delete()
     ->from('users')
     ->where('name', 10)
     ->limit(10);
@@ -51,9 +49,7 @@ echo $delete->humanize();
 SQL has special keywords that you can place in front of your delete query. Those keywords can be provided with the ``type`` method.
 
 ```php
-use Harp\Query\DB;
-
-$delete = DB::delete()
+$delete = $db->delete()
     ->from('users')
     ->where('name', 10)
     ->limit(10);
@@ -71,9 +67,7 @@ You can assign where conditions using ``where``, ``whereIn``, ``whereLike``, ``w
 Calling the methods multiple times will "AND" all the conditions. If you need to provide "OR" conditions, use the ``whereRaw`` method.
 
 ```php
-use Harp\Query\DB;
-
-$delete = DB::delete()->from('users');
+$delete = $db->delete()->from('users');
 
 // Single value
 // DELETE FROM users WHERE id = 1
@@ -107,9 +101,7 @@ $delete->whereRaw("name = IF(id = ?, ?, ?) OR name = ?", [5, 'test', 'test2', 't
 To delete from more than one table use a combination of ``table`` and ``from`` methods. You can call these tables more than once for multiple tables. Tables in "from" will be used for matching selecting the rows, while rows will be deleted only from tables in "table".
 
 ```php
-use Harp\Query\DB;
-
-$delete = DB::delete();
+$delete = $db->delete();
 
 // DELETE users FROM users,profiles WHERE users.id = profiles.user_id
 $delete
@@ -126,9 +118,7 @@ Another way to delete using multiple tables is by using ``join`` or ``joinAliase
 The table name can be a custom SQL, using the SQL\SQL object. Columns conditions are set with a raw string. Optionally you can set them as array, as [column1 => column2] which will represent an "ON column1 = column2" condition.
 
 ```php
-use Harp\Query\DB;
-
-$delete = DB::delete()->from('users');
+$delete = $db->delete()->from('users');
 
 // Normal join
 // DELETE FROM users JOIN profiles ON users.id = profiles.user_id

@@ -5,7 +5,9 @@ Selecting data is performed with [Select object](/src/Select.php). You usually d
 ```php
 use Harp\Query\DB;
 
-$select = DB::select()->from('users');
+$db = new DB('mysql:dbname=test-db;host=127.0.0.1', 'root');
+
+$select = $db->select()->from('users');
 
 $result = $select->execute();
 
@@ -19,9 +21,7 @@ foreach ($result as $row) {
 If you want to see the SQL that the select object will generate you can use the ``sql`` method. This will give you the raw SQL that will be sent to the driver, with all the placeholders as "?".
 
 ```php
-use Harp\Query\DB;
-
-$select = DB::select()->from('users')->where('name', 'test');
+$select = $db->select()->from('users')->where('name', 'test');
 
 // SELECT * FROM users WHERE name = ?
 echo $select->sql();
@@ -30,9 +30,7 @@ echo $select->sql();
 You can get the fully rendered sql with all the placeholders properly filled, using ``humanize`` method.
 
 ```php
-use Harp\Query\DB;
-
-$select = DB::select()->from('users')->where('name', 'test');
+$select = $db->select()->from('users')->where('name', 'test');
 
 // SELECT * FROM users WHERE name = 'test'
 echo $select->humanize();
@@ -45,9 +43,7 @@ echo $select->humanize();
 SQL has special keywords that you can place in front of your select. Those keywords can be provided with the ``type`` method.
 
 ```php
-use Harp\Query\DB;
-
-$select = DB::select()->from('users');
+$select = $db->select()->from('users');
 
 // Distinct select
 // SELECT DISTINCT * FROM users
@@ -138,9 +134,7 @@ You can assign where conditions using ``where``, ``whereIn``, ``whereLike``, ``w
 Calling the methods multiple times will "AND" all the conditions. If you need to provide "OR" conditions, use the ``whereRaw`` method.
 
 ```php
-use Harp\Query\DB;
-
-$select = DB::select()->from('users');
+$select = $db->select()->from('users');
 
 // Single value
 // SELECT * FROM users WHERE id = 1
@@ -174,9 +168,7 @@ $select->whereRaw("name = IF(id = ?, ?, ?) OR name = ?", [5, 'test', 'test2', 't
 You can join multiple tables using ``join`` and ``joinAliased`` methods. The table name can be a custom SQL, using the SQL\SQL object. Columns conditions are set with a raw string. Optionally you can set them as array, as [column1 => column2] which will represent an "ON column1 = column2" condition.
 
 ```php
-use Harp\Query\DB;
-
-$select = DB::select()->from('users');
+$select = $db->select()->from('users');
 
 // Normal join
 // SELECT * FROM users JOIN profiles ON users.id = profiles.user_id
@@ -210,9 +202,7 @@ You can assign "ORDER BY" and "GROUP BY" statements with ``order`` and ``group``
 If you want to use a custom sql with some parameters, you can pass an SQL\SQL object.
 
 ```php
-use Harp\Query\DB;
-
-$select = DB::select()->from('users');
+$select = $db->select()->from('users');
 
 // Normal order
 // SELECT * FROM users ORDER BY id
@@ -248,9 +238,7 @@ $select
 You can set limit and offset via ``limit`` and ``offset`` methods.
 
 ```php
-use Harp\Query\DB;
-
-$select = DB::select()->from('users');
+$select = $db->select()->from('users');
 
 // Limit
 // SELECT * FROM users LIMIT 10
@@ -270,9 +258,7 @@ You can assign having conditions using ``having``, ``havingIn``, ``havingLike``,
 Calling the methods multiple times will "AND" all the conditions. If you need to provide "OR" conditions, use the ``havingRaw`` method.
 
 ```php
-use Harp\Query\DB;
-
-$select = DB::select()->from('users');
+$select = $db->select()->from('users');
 
 // Single value
 // SELECT * FROM users HAVING id = 1

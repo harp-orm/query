@@ -3,9 +3,9 @@
 Updating data is performed with an [Update object](/src/Update.php). You usually don't create it directly, but use the ``update`` method of your DB object, so it knows from where to delete the rows.
 
 ```php
-use Harp\Query\DB;
+$db = new DB('mysql:dbname=test-db;host=127.0.0.1', 'root');
 
-$update = DB::update()
+$update = $db->update()
     ->table('users')
     ->set([
         'name' => 'test',
@@ -21,9 +21,7 @@ $update->execute();
 If you want to see what SQL the update object will generate you can use the ``sql`` method. This will give you the raw SQL that will be sent to the driver, with all the placeholders as "?".
 
 ```php
-use Harp\Query\DB;
-
-$update = DB::update()
+$update $db->update()
     ->table('users')
     ->set([
         'name' => 'test',
@@ -38,9 +36,7 @@ echo $update->sql();
 You can get the fully rendered sql with all the placeholders properly filled, using ``humanize`` method.
 
 ```php
-use Harp\Query\DB;
-
-$update = DB::update()
+$update $db->update()
     ->table('users')
     ->set([
         'name' => 'test',
@@ -59,9 +55,7 @@ echo $update->humanize();
 SQL has special keywords that you can place in front of your delete query. Those keywords can be provided with the ``type`` method.
 
 ```php
-use Harp\Query\DB;
-
-$update = DB::update()
+$update $db->update()
     ->table('users')
     ->set([
         'name' => 'test',
@@ -81,9 +75,7 @@ You can assign where conditions using ``where``, ``whereIn``, ``whereLike``, ``w
 Calling the methods multiple times will "AND" all the conditions. If you need to provide "OR" conditions, use the ``whereRaw`` method.
 
 ```php
-use Harp\Query\DB;
-
-$update = DB::update()->table('users')->set(['name' => 'test']);
+$update $db->update()->table('users')->set(['name' => 'test']);
 
 // Single value
 // UPDATE users SET name = 'test' WHERE id = 1
@@ -117,9 +109,7 @@ $update->whereRaw("name = IF(id = ?, ?, ?) OR name = ?", [5, 'test', 'test2', 't
 To update more than one table simply call ``table`` multiple times.
 
 ```php
-use Harp\Query\DB;
-
-$update = DB::update();
+$update $db->update();
 
 // UPDATE users,profiles SET users.name = 'test', profiles.username = 'test' WHERE users.id = profiles.user_id
 $update
@@ -139,9 +129,7 @@ Another way to update multiple tables is by using ``join`` or ``joinAliased`` me
 The table name can be a custom SQL, using the SQL\SQL object. Columns conditions are set with a raw string. Optionally you can set them as array, as [column1 => column2] which will represent an "ON column1 = column2" condition.
 
 ```php
-use Harp\Query\DB;
-
-$update = DB::update()->table('users')->set(['name' => 'test']);
+$update $db->update()->table('users')->set(['name' => 'test']);
 
 // Normal join
 // UPDATE users SET name = 'test' JOIN profiles ON users.id = profiles.user_id
@@ -175,9 +163,7 @@ Update class gives you the option of updating multiple rows with a single query.
 Here's how to use it:
 
 ```php
-use Harp\Query\DB;
-
-$update = DB::update()->table('users');
+$update $db->update()->table('users');
 
 // UPDATE users
 // SET

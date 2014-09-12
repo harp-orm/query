@@ -7,7 +7,9 @@ Use ``getLastInsertId`` to get the ID of the newly added records. If multiple re
 ```php
 use Harp\Query\DB;
 
-$insert = DB::insert()
+$db = new DB('mysql:dbname=test-db;host=127.0.0.1', 'root');
+
+$insert = $db->insert()
     ->into('users')
     ->set([
         'name' => 'test',
@@ -24,9 +26,7 @@ echo $insert->getLastInsertId();
 If you want to see what SQL the insert object will generate you can use the ``sql`` method. This will give you the raw SQL that will be sent to the driver, with all the placeholders as "?".
 
 ```php
-use Harp\Query\DB;
-
-$insert = DB::insert()
+$insert = $db->insert()
     ->into('users')
     ->set([
         'name' => 'test',
@@ -40,9 +40,7 @@ echo $insert->sql();
 You can get the fully rendered sql with all the placeholders properly filled, using ``humanize`` method.
 
 ```php
-use Harp\Query\DB;
-
-$insert = DB::insert()
+$insert = $db->insert()
     ->into('users')
     ->set([
         'name' => 'test',
@@ -60,9 +58,7 @@ echo $insert->humanize();
 SQL has special keywords that you can place in front of your insert query. Those keywords can be provided with the ``type`` method.
 
 ```php
-use Harp\Query\DB;
-
-$insert = DB::insert()
+$insert = $db->insert()
     ->type('IGNORE')
     ->into('users')
     ->set(['name' => 'test']);
@@ -77,9 +73,7 @@ $insert->type('IGNORE');
 To insert one row into a database use the ``set`` method, it accepts an array of column => value. All the values will be placed as placeholders and escaped properly.
 
 ```php
-use Harp\Query\DB;
-
-$insert = DB::insert()->into('users');
+$insert = $db->insert()->into('users');
 
 // Normal select
 // INSERT INTO users SET name = 'test', score = 100
@@ -95,9 +89,7 @@ $insert
 To insert multiple rows into a database use can the ``columns`` and ``values`` methods. You need to call ``columns`` once with the column names, and then can call ``values`` multiple times for each row. All the values will be placed as placeholders and escaped properly.
 
 ```php
-use Harp\Query\DB;
-
-$insert = DB::insert()->into('users');
+$insert = $db->insert()->into('users');
 
 // Normal select
 // INSERT INTO users (name, score) VALUES ('Tom', 100), ('John', 200)
@@ -112,9 +104,7 @@ $insert
 You can insert rows, based on a select, using ``columns`` and ``select`` methods. You need to call ``columns`` once with the column names, then pass a ``Select`` object with the ``select`` method.
 
 ```php
-use Harp\Query\DB;
-
-$insert = DB::insert()->into('users');
+$insert = $db->insert()->into('users');
 
 // Normal select
 // INSERT INTO users (name, score) SELECT username, popularity FROM profiles WHERE name = 10

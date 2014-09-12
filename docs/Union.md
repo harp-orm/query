@@ -5,17 +5,19 @@ If you need to combine the results of multiple selects from differnt tables into
 ```php
 use Harp\Query\DB;
 
-$select1 = DB::select()
+$db = new DB('mysql:dbname=test-db;host=127.0.0.1', 'root');
+
+$select1 = $db->select()
     ->from('users')
     ->column('name')
     ->where('name', 'Tom');
 
-$select2 = DB::select()
+$select2 = $db->select()
     ->from('profiles')
     ->where('name', 'John')
     ->column('name');
 
-$union = DB::union()
+$union = $db->union()
     ->select($select1)
     ->select($select2);
 
@@ -31,14 +33,12 @@ foreach ($result as $row) {
 If you want to see what SQL the union object will generate you can use the ``sql`` method. This will give you the raw SQL that will be sent to the driver, with all the placeholders as "?".
 
 ```php
-use Harp\Query\DB;
-
-$select1 = DB::select()
+$select1 = $db->select()
     ->from('users')
     ->column('name')
     ->where('name', 'Tom');
 
-$select2 = DB::select()
+$select2 = $db->select()
     ->from('profiles')
     ->where('name', 'John')
     ->column('name');
@@ -69,14 +69,12 @@ echo $insert->humanize();
 You can add "order" and "limit" to the union sql to be applied to the whole result.
 
 ```php
-use Harp\Query\DB;
-
-$select1 = DB::select()
+$select1 = $db->select()
     ->from('users')
     ->column('name')
     ->where('name', 'Tom');
 
-$select2 = DB::select()
+$select2 = $db->select()
     ->from('profiles')
     ->where('name', 'John')
     ->column('name');
