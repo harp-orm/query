@@ -22,7 +22,11 @@ class AbstractOrderLimitTest extends AbstractTestCase
      */
     public function testOrder()
     {
-        $query = $this->getMock('Harp\Query\AbstractOrderLimit', array('sql', 'getParameters'));
+        $query = $this->getMock(
+            'Harp\Query\AbstractOrderLimit',
+            array('sql', 'getParameters'),
+            array(self::getDb())
+        );
 
         $query
             ->order('col1')
@@ -53,7 +57,11 @@ class AbstractOrderLimitTest extends AbstractTestCase
      */
     public function testLimit()
     {
-        $query = $this->getMock('Harp\Query\AbstractOrderLimit', array('sql', 'getParameters'));
+        $query = $this->getMock(
+            'Harp\Query\AbstractOrderLimit',
+            array('sql', 'getParameters'),
+            array(self::getDb())
+        );
 
         $query->limit(20);
 

@@ -23,7 +23,7 @@ class AbstractWhereTest extends AbstractTestCase
      */
     public function testJoin()
     {
-        $query = $this->getMock('Harp\Query\AbstractWhere', array('sql', 'getParameters'));
+        $query = $this->getMock('Harp\Query\AbstractWhere', array('sql', 'getParameters'), array(self::getDb()));
 
         $query
             ->join('table1', array('col' => 'col2'))
@@ -57,7 +57,7 @@ class AbstractWhereTest extends AbstractTestCase
      */
     public function testWhere()
     {
-        $query = $this->getMock('Harp\Query\AbstractWhere', array('sql', 'getParameters'));
+        $query = $this->getMock('Harp\Query\AbstractWhere', array('sql', 'getParameters'), array(self::getDb()));
 
         $query
             ->where('test1', 2)
@@ -93,7 +93,7 @@ class AbstractWhereTest extends AbstractTestCase
      */
     public function testWhereInInvalid()
     {
-        $query = $this->getMock('Harp\Query\AbstractWhere', array('sql', 'getParameters'));
+        $query = $this->getMock('Harp\Query\AbstractWhere', array('sql', 'getParameters'), array(self::getDb()));
 
         $query->where('test1', array(2, 3));
     }

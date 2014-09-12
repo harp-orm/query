@@ -26,7 +26,7 @@ class InsertTest extends AbstractTestCase
         // ROW 1
         // --------------------
 
-        $args[0] = new Query\Insert;
+        $args[0] = new Query\Insert(self::getNewDb());
         $args[0]
             ->type('IGNORE')
             ->into('table1')
@@ -41,12 +41,12 @@ SQL;
 
         // ROW 2
         // --------------------
-        $select = new Query\Select;
+        $select = new Query\Select(self::getNewDb());
         $select
             ->from('table2')
             ->where('name', '10');
 
-        $args[0] = new Query\Insert;
+        $args[0] = new Query\Insert(self::getNewDb());
         $args[0]
             ->into('table1')
             ->columns(array('id', 'name'))
@@ -60,7 +60,7 @@ SQL;
 
         // ROW 3
         // --------------------
-        $args[0] = new Query\Insert;
+        $args[0] = new Query\Insert(self::getNewDb());
         $args[0]
             ->into('table1')
             ->columns(array('id', 'name'))

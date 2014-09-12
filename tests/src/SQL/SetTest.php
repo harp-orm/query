@@ -16,7 +16,7 @@ class SetTest extends AbstractTestCase
     public function dataConstruct()
     {
         $sql = new SQL\SQL('IF (column, 10, ?)', array(20));
-        $query = new Query\Select();
+        $query = new Query\Select(self::getNewDb());
         $query
             ->from('table1')
             ->where('name', 10)

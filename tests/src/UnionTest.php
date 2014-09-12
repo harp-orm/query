@@ -22,9 +22,9 @@ class UnionTest extends AbstractTestCase
      */
     public function testSelect()
     {
-        $query = new Query\Union();
-        $select1 = new Query\Select();
-        $select2 = new Query\Select();
+        $query = new Query\Union(self::getDb());
+        $select1 = new Query\Select(self::getDb());
+        $select2 = new Query\Select(self::getDb());
 
         $query
             ->select($select1)
@@ -52,9 +52,9 @@ class UnionTest extends AbstractTestCase
      */
     public function testSql()
     {
-        $query = new Query\Union();
-        $select1 = new Query\Select();
-        $select2 = new Query\Select();
+        $query = new Query\Union(self::getDb());
+        $select1 = new Query\Select(self::getDb());
+        $select2 = new Query\Select(self::getDb());
 
         $select1
             ->from('table1')
@@ -76,9 +76,9 @@ class UnionTest extends AbstractTestCase
      */
     public function testGetParameters()
     {
-        $query = new Query\Union();
-        $select1 = new Query\Select();
-        $select2 = new Query\Select();
+        $query = new Query\Union(self::getDb());
+        $select1 = new Query\Select(self::getDb());
+        $select2 = new Query\Select(self::getDb());
 
         $select1
             ->from('table1')

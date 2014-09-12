@@ -24,19 +24,8 @@ class CompilerTest extends AbstractTestCase
      */
     public function testWithDb()
     {
-        DB::setConfig(array(
-            'dsn' => 'mysql:dbname=harp-orm/query;host=127.0.0.1',
-            'username' => 'root',
-        ), 'test1');
-
-        DB::setConfig(array(
-            'dsn' => 'mysql:dbname=harp-orm/query;host=127.0.0.1',
-            'username' => 'root',
-        ), 'test2');
-
-
-        $db1 = DB::get('test1');
-        $db2 = DB::get('test2');
+        $db1 = self::getNewDb();
+        $db2 = self::getNewDb();
 
         $this->assertNull(Compiler::getDb());
 
@@ -61,13 +50,7 @@ class CompilerTest extends AbstractTestCase
      */
     public function testName()
     {
-        DB::setConfig(array(
-            'dsn' => 'mysql:dbname=harp-orm/query;host=127.0.0.1',
-            'username' => 'root',
-            'escaping' => DB::ESCAPING_STANDARD,
-        ), 'test1');
-
-        $db1 = DB::get('test1');
+        $db1 = self::getNewDb()->setEscaping(DB::ESCAPING_STANDARD);
 
         $this->assertEquals('test1', Compiler::name('test1'));
         $this->assertEquals(new SQL('Test'), Compiler::name(new SQL('Test')));

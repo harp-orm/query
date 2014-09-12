@@ -2,8 +2,6 @@
 
 namespace Harp\Query\Test;
 
-use CL\EnvBackup\Env;
-use CL\EnvBackup\StaticParam;
 use Harp\Query\DB;
 use PHPUnit_Framework_TestCase;
 
@@ -15,56 +13,34 @@ use PHPUnit_Framework_TestCase;
 abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var Env
+     * @var DB
      */
-    protected $env;
+    private static $db;
 
     /**
-     * @var TestLogger
+     * @return DB
      */
-    protected $logger;
-
-    /**
-     * @return Env
-     */
-    public function getEnv()
+    public static function getDb()
     {
-        return $this->env;
+        return self::$db;
+    }
+
+    public static function setUpBeforeClass()
+    {
+        parent::setUpBeforeClass();
+
+        self::$db = self::getNewDb();
     }
 
     /**
-     * @return TestLogger
+     * @return DB
      */
-    public function getLogger()
+    public static function getNewDb()
     {
-        return $this->logger;
-    }
+        $db = new DB('mysql:dbname=harp-orm/query;host=127.0.0.1', 'root');
+        $db->setEscaping(DB::ESCAPING_MYSQL);
+        $db->setLogger(new TestLogger());
 
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->env = new Env(array(
-            new StaticParam('Harp\Query\DB', 'dbs', array())
-        ));
-
-        $this->env->apply();
-
-        $this->logger = new TestLogger();
-
-        DB::setConfig(array(
-            'class' => 'DB_Test',
-            'dsn' => 'mysql:dbname=harp-orm/query;host=127.0.0.1',
-            'username' => 'root',
-            'logger' => $this->logger,
-            'escaping' => DB::ESCAPING_MYSQL,
-        ));
-    }
-
-    public function tearDown()
-    {
-        $this->env->restore();
-
-        parent::tearDown();
+        return $db;
     }
 }

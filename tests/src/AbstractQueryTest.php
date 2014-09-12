@@ -23,7 +23,11 @@ class AbstractQueryTest extends AbstractTestCase
      */
     public function testType()
     {
-        $query = $this->getMock('Harp\Query\AbstractQuery', array('sql', 'getParameters'));
+        $query = $this->getMock(
+            'Harp\Query\AbstractQuery',
+            array('sql', 'getParameters'),
+            array(self::getDb())
+        );
 
         $query->type('IGNORE');
 
@@ -58,15 +62,13 @@ class AbstractQueryTest extends AbstractTestCase
      */
     public function testDb()
     {
-        $db = DB::get();
+        $query = $this->getMock(
+            'Harp\Query\AbstractQuery',
+            array('sql', 'getParameters'),
+            array(self::getDb())
+        );
 
-        $query = $this->getMock('Harp\Query\AbstractQuery', array('sql', 'getParameters'), array($db));
-
-        $this->assertSame($db, $query->getDb());
-
-        $query = $this->getMock('Harp\Query\AbstractQuery', array('sql', 'getParameters'));
-
-        $this->assertSame(DB::get(), $query->getDb());
+        $this->assertSame(self::getDb(), $query->getDb());
     }
 
     /**
@@ -74,7 +76,11 @@ class AbstractQueryTest extends AbstractTestCase
      */
     public function testExecute()
     {
-        $query = $this->getMock('Harp\Query\AbstractQuery', array('sql', 'getParameters'));
+        $query = $this->getMock(
+            'Harp\Query\AbstractQuery',
+            array('sql', 'getParameters'),
+            array(self::getDb())
+        );
 
         $query
             ->expects($this->once())
@@ -98,7 +104,11 @@ class AbstractQueryTest extends AbstractTestCase
      */
     public function testHumanize()
     {
-        $query = $this->getMock('Harp\Query\AbstractQuery', array('sql', 'getParameters'));
+        $query = $this->getMock(
+            'Harp\Query\AbstractQuery',
+            array('sql', 'getParameters'),
+            array(self::getDb())
+        );
 
         $query
             ->expects($this->once())

@@ -24,7 +24,7 @@ class AliasedTest extends AbstractTestCase
         $this->assertEquals('ALIAS', $aliased->getAlias());
         $this->assertNull($aliased->getParameters());
 
-        $query = $this->getMock('Harp\Query\AbstractQuery');
+        $query = $this->getMock('Harp\Query\Select', array('getParameters'), array(self::getDb()));
         $query
             ->expects($this->once())
             ->method('getParameters')

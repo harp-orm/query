@@ -24,7 +24,7 @@ class SelectTest extends AbstractTestCase
      */
     public function testColumn()
     {
-        $query = new Query\Select();
+        $query = new Query\Select(self::getDb());
 
         $query
             ->column('column1')
@@ -56,7 +56,7 @@ class SelectTest extends AbstractTestCase
      */
     public function testFrom()
     {
-        $query = new Query\Select();
+        $query = new Query\Select(self::getDb());
 
         $query
             ->from('table1')
@@ -86,7 +86,7 @@ class SelectTest extends AbstractTestCase
      */
     public function testGroup()
     {
-        $query = new Query\Select();
+        $query = new Query\Select(self::getDb());
 
         $query
             ->group('col1')
@@ -121,7 +121,7 @@ class SelectTest extends AbstractTestCase
     public function testHaving()
     {
 
-        $query = new Query\Select();
+        $query = new Query\Select(self::getDb());
 
         $query
             ->having('test1', 2)
@@ -157,7 +157,7 @@ class SelectTest extends AbstractTestCase
      */
     public function testWhereInInvalid()
     {
-        $query = $this->getMock('Harp\Query\Select', array('sql', 'getParameters'));
+        $query = $this->getMock('Harp\Query\Select', array('sql', 'getParameters'), array(self::getDb()));
 
         $query->having('test1', array(2, 3));
     }
@@ -170,7 +170,7 @@ class SelectTest extends AbstractTestCase
      */
     public function testOffset()
     {
-        $query = new Query\Select();
+        $query = new Query\Select(self::getDb());
 
         $query->offset(20);
 
@@ -192,7 +192,7 @@ class SelectTest extends AbstractTestCase
      */
     public function testSql()
     {
-        $query = new Query\Select();
+        $query = new Query\Select(self::getDb());
 
         $query
             ->from('table1')
@@ -206,7 +206,7 @@ class SelectTest extends AbstractTestCase
      */
     public function testGetParameters()
     {
-        $query = new Query\Select();
+        $query = new Query\Select(self::getDb());
 
         $query
             ->from('table1')

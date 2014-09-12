@@ -18,64 +18,16 @@ use Psr\Log\LogLevel;
 class DBTest extends AbstractTestCase
 {
     /**
-     * @covers ::getConfig
-     * @covers ::setConfig
-     */
-    public function testConfiguration()
-    {
-        $this->getEnv()
-            ->add(new StaticParam('Harp\Query\DB', 'configs', array()))
-            ->apply();
-
-
-        $this->assertEquals(array(), DB::getConfig('test'), 'Should return an empty array if no config set');
-
-        $config = array('some', 'test');
-
-        DB::setConfig($config, 'test');
-
-        $this->assertSame($config, DB::getConfig('test'));
-    }
-
-    /**
-     * @covers ::get
-     * @covers ::__construct
-     * @covers ::getName
-     * @covers ::setLogger
      * @covers ::getLogger
-     * @covers ::setEscaping
-     * @covers ::escapeName
+     * @covers ::getPdo
+     * @covers ::__construct
      */
-    public function testGet()
+    public function testConstruct()
     {
-        $logger = new TestLogger();
+        $db = new DB('mysql:dbname=harp-orm/query;host=127.0.0.1', 'root');
 
-        DB::setConfig(array(
-            'dsn' => 'mysql:dbname=harp-orm/query;host=127.0.0.1',
-            'username' => 'root',
-            'logger' => $logger,
-            'escaping' => DB::ESCAPING_STANDARD,
-        ));
-
-        DB::setConfig(array(
-            'dsn' => 'mysql:dbname=harp-orm/query;host=127.0.0.1',
-            'username' => 'root',
-        ), 'test');
-
-        $default = DB::get();
-        $this->assertEquals('default', $default->getName());
-        $this->assertSame($default, DB::get());
-        $this->assertSame($logger, $default->getLogger());
-        $this->assertSame('"test table name"', $default->escapeName('test table name'));
-        $this->assertSame('"test \"table\" name"', $default->escapeName('test "table" name'));
-
-        $test = DB::get('test');
-        $this->assertEquals('test', $test->getName());
-        $this->assertSame($test, DB::get('test'));
-        $this->assertInstanceOf('Psr\Log\NullLogger', $test->getLogger());
-        $this->assertSame('test table name', $test->escapeName('test table name'));
-
-        $this->assertNotSame($default, $test);
+        $this->assertInstanceOf('PDO', $db->getPdo());
+        $this->assertInstanceOf('Psr\Log\LoggerInterface', $db->getLogger());
     }
 
     public function dataExecute()
@@ -87,14 +39,50 @@ class DBTest extends AbstractTestCase
     }
 
     /**
+     * @covers ::setLogger
+     * @covers ::getLogger
+     */
+    public function testLogger()
+    {
+        $db = new DB();
+
+        $this->assertInstanceOf('Psr\Log\NullLogger', $db->getLogger());
+
+        $db->setLogger(new TestLogger());
+
+        $this->assertInstanceOf('Harp\Query\Test\TestLogger', $db->getLogger());
+    }
+
+    /**
+     * @covers ::setEscaping
+     * @covers ::getEscaping
+     */
+    public function testEscaping()
+    {
+        $db = new DB();
+
+        $this->assertEquals(DB::ESCAPING_MYSQL, $db->getEscaping());
+
+        $db->setEscaping(DB::ESCAPING_STANDARD);
+
+        $this->assertEquals(DB::ESCAPING_STANDARD, $db->getEscaping());
+
+        $this->setExpectedException('InvalidArgumentException', 'Escaping can be DB::ESCAPING_MYSQL, DB::ESCAPING_STANDARD or DB::ESCAPING_NONE');
+
+        $db->setEscaping('asd');
+    }
+
+    /**
      * @covers ::execute
      * @dataProvider dataExecute
      */
     public function testExecute($sql, $parameters, $expected)
     {
-        $this->assertEquals($expected, DB::get()->execute($sql, $parameters)->fetchAll());
+        $db = self::getNewDb();
 
-        $log = $this->getLogger()->getEntries();
+        $this->assertEquals($expected, $db->execute($sql, $parameters)->fetchAll());
+
+        $log = $db->getLogger()->getEntries();
 
         $expectedLog = array(
             array(LogLevel::INFO, $sql, array('parameters' => $parameters)),
@@ -104,16 +92,35 @@ class DBTest extends AbstractTestCase
     }
 
     /**
+     * @covers ::escapeName
+     */
+    public function testEscapeName()
+    {
+        $db = self::getNewDb();
+
+        $db->setEscaping(DB::ESCAPING_STANDARD);
+
+        $this->assertEquals('"string test"', $db->escapeName('string test'));
+
+        $db->setEscaping(DB::ESCAPING_NONE);
+
+        $this->assertEquals('string test', $db->escapeName('string test'));
+    }
+
+
+    /**
      * @covers ::execute
      */
     public function testExecuteWithException()
     {
+        $db = self::getNewDb();
+
         try {
-            DB::get()->execute('SELECT * FROM usersNotExists');
+            $db->execute('SELECT * FROM usersNotExists');
 
             $this->fail('Should throw a PDOException');
         } catch (PDOException $e) {
-            $log = $this->getLogger()->getEntries();
+            $log = $db->getLogger()->getEntries();
 
             $this->assertCount(2, $log);
 
@@ -133,11 +140,11 @@ class DBTest extends AbstractTestCase
      */
     public function testSelect()
     {
-        $select = DB::select()->column('test')->column('test2');
+        $select = self::getDb()->select()->column('test')->column('test2');
 
         $this->assertInstanceOf('Harp\Query\Select', $select);
 
-        $this->assertSame(DB::get(), $select->getDb());
+        $this->assertSame(self::getDb(), $select->getDb());
 
         $this->assertEquals('SELECT `test`, `test2`', $select->sql());
     }
@@ -147,11 +154,11 @@ class DBTest extends AbstractTestCase
      */
     public function testUpdate()
     {
-        $update = DB::update()->table('test')->table('test2');
+        $update = self::getDb()->update()->table('test')->table('test2');
 
         $this->assertInstanceOf('Harp\Query\Update', $update);
 
-        $this->assertSame(DB::get(), $update->getDb());
+        $this->assertSame(self::getDb(), $update->getDb());
 
         $this->assertEquals('UPDATE `test`, `test2`', $update->sql());
     }
@@ -161,11 +168,11 @@ class DBTest extends AbstractTestCase
      */
     public function testDelete()
     {
-        $delete = DB::delete()->from('test')->from('test2');
+        $delete = self::getDb()->delete()->from('test')->from('test2');
 
         $this->assertInstanceOf('Harp\Query\Delete', $delete);
 
-        $this->assertSame(DB::get(), $delete->getDb());
+        $this->assertSame(self::getDb(), $delete->getDb());
 
         $this->assertEquals('DELETE FROM `test`, `test2`', $delete->sql());
     }
@@ -175,11 +182,11 @@ class DBTest extends AbstractTestCase
      */
     public function testInsert()
     {
-        $query = DB::insert()->into('table1')->set(array('name' => 'test2'));
+        $query = self::getDb()->insert()->into('table1')->set(array('name' => 'test2'));
 
         $this->assertInstanceOf('Harp\Query\Insert', $query);
 
-        $this->assertSame(DB::get(), $query->getDb());
+        $this->assertSame(self::getDb(), $query->getDb());
 
         $this->assertEquals('INSERT INTO `table1` SET `name` = ?', $query->sql());
         $this->assertEquals(array('test2'), $query->getParameters());

@@ -24,7 +24,7 @@ class DeleteTest extends AbstractTestCase
      */
     public function testRender()
     {
-        $delete = new Query\Delete;
+        $delete = new Query\Delete(self::getDb());
         $delete
             ->table('table1')
             ->table('alias1')

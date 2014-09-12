@@ -32,7 +32,7 @@ class AliasedTest extends AbstractTestCase
 
     public function dataRender()
     {
-        $query = new Query\Select();
+        $query = new Query\Select(self::getNewDb());
         $query
             ->from('table2')
             ->limit(1);

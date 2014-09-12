@@ -23,7 +23,7 @@ class DeleteTest extends AbstractTestCase
      */
     public function testTable()
     {
-        $query = new Query\Delete();
+        $query = new Query\Delete(self::getDb());
 
         $query
             ->table('table1')
@@ -53,7 +53,7 @@ class DeleteTest extends AbstractTestCase
      */
     public function testFrom()
     {
-        $query = new Query\Delete();
+        $query = new Query\Delete(self::getDb());
 
         $query
             ->from('table1')
@@ -80,7 +80,7 @@ class DeleteTest extends AbstractTestCase
      */
     public function testSql()
     {
-        $query = new Query\Delete();
+        $query = new Query\Delete(self::getDb());
 
         $query
             ->from('table1')
@@ -94,7 +94,7 @@ class DeleteTest extends AbstractTestCase
      */
     public function testGetParameters()
     {
-        $query = new Query\Delete();
+        $query = new Query\Delete(self::getDb());
 
         $query
             ->table('table1')

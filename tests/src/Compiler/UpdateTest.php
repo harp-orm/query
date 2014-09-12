@@ -26,7 +26,7 @@ class UpdateTest extends AbstractTestCase
     public function testUpdate()
     {
 
-        $update = new Query\Update;
+        $update = new Query\Update(self::getDb());
         $update
             ->type('IGNORE')
             ->table('table1')

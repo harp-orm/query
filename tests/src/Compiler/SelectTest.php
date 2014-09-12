@@ -24,14 +24,14 @@ class SelectTest extends AbstractTestCase
      */
     public function testCompile()
     {
-        $select2 = new Query\Select;
+        $select2 = new Query\Select(self::getDb());
         $select2
             ->from('one')
             ->type('DISTINCT')
             ->join('table1', new SQL('USING (col1, col2)'))
             ->where('table1.name', 'small');
 
-        $select = new Query\Select;
+        $select = new Query\Select(self::getDb());
         $select
             ->from('bigtable')
             ->from('smalltable', 'alias')

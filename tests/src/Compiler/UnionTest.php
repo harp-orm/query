@@ -24,7 +24,7 @@ class UnionTest extends AbstractTestCase
      */
     public function testCompile()
     {
-        $select1 = new Query\Select;
+        $select1 = new Query\Select(self::getDb());
         $select1
             ->from('one')
             ->column('col1')
@@ -32,7 +32,7 @@ class UnionTest extends AbstractTestCase
             ->join('table1', new SQL('USING (col1, col2)'))
             ->where('name', 'small');
 
-        $select2 = new Query\Select;
+        $select2 = new Query\Select(self::getDb());
         $select2
             ->from('bigtable')
             ->column('bigtable.col1')
@@ -46,7 +46,7 @@ class UnionTest extends AbstractTestCase
             ->order('base')
             ->group('type');
 
-        $union = new Query\Union;
+        $union = new Query\Union(self::getDb());
         $union
             ->select($select1)
             ->select($select2)

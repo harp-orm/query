@@ -31,7 +31,7 @@ class SetTest extends AbstractTestCase
 
     public function dataRender()
     {
-        $query = new Query\Select();
+        $query = new Query\Select(self::getNewDb());
         $query->from('table1')->where('name', 'Peter');
 
         $sql = new SQL\SQL('IF(name = "test", "big", "samll")');
@@ -57,7 +57,7 @@ class SetTest extends AbstractTestCase
 
     public function dataRenderValue()
     {
-        $query = new Query\Select();
+        $query = new Query\Select(self::getNewDb());
         $query->from('table1')->where('name', 'Peter');
 
         $sql = new SQL\SQL('IF(name = "test", "big", "samll")');

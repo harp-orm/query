@@ -23,7 +23,7 @@ class InsertTest extends AbstractTestCase
      */
     public function testInto()
     {
-        $query = new Query\Insert();
+        $query = new Query\Insert(self::getDb());
 
         $query->into('posts');
 
@@ -48,7 +48,7 @@ class InsertTest extends AbstractTestCase
      */
     public function testColumns()
     {
-        $query = new Query\Insert();
+        $query = new Query\Insert(self::getDb());
 
         $query->columns(array('posts'));
 
@@ -79,7 +79,7 @@ class InsertTest extends AbstractTestCase
      */
     public function testValues()
     {
-        $query = new Query\Insert();
+        $query = new Query\Insert(self::getDb());
 
         $query
             ->values(array(10, 20))
@@ -109,7 +109,7 @@ class InsertTest extends AbstractTestCase
      */
     public function testSet()
     {
-        $query = new Query\Insert();
+        $query = new Query\Insert(self::getDb());
 
         $query
             ->set(array('test' => 20, 'value' => 10))
@@ -140,8 +140,8 @@ class InsertTest extends AbstractTestCase
      */
     public function testSelect()
     {
-        $select = new Query\Select();
-        $query = new Query\Insert();
+        $select = new Query\Select(self::getDb());
+        $query = new Query\Insert(self::getDb());
 
         $query->select($select);
 
@@ -161,7 +161,11 @@ class InsertTest extends AbstractTestCase
      */
     public function testGetLastInsertId()
     {
-        $db = $this->getMock(__NAMESPACE__.'\MockDB', array('lastInsertId'));
+        $db = $this->getMock(
+            'Harp\Query\DB',
+            array('lastInsertId'),
+            array('mysql:dbname=harp-orm/query;host=127.0.0.1', 'root')
+        );
 
         $db
             ->expects($this->once())
@@ -180,7 +184,7 @@ class InsertTest extends AbstractTestCase
      */
     public function testSql()
     {
-        $query = new Query\Insert();
+        $query = new Query\Insert(self::getDb());
 
         $query
             ->into('table1')
@@ -194,7 +198,7 @@ class InsertTest extends AbstractTestCase
      */
     public function testGetParameters()
     {
-        $query = new Query\Insert();
+        $query = new Query\Insert(self::getDb());
 
         $query
             ->into('table1')
