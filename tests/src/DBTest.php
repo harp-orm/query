@@ -5,6 +5,7 @@ namespace Harp\Query\Test;
 use Harp\Query\DB;
 use CL\EnvBackup\StaticParam;
 use PDOException;
+use PDO;
 use Psr\Log\LogLevel;
 
 /**
@@ -217,6 +218,115 @@ class DBTest extends AbstractTestCase
         $id = $db->getLastInsertId();
 
         $this->assertSame('123', $id);
+    }
+
+    /**
+     * @covers ::beginTransaction
+     */
+    public function testBeginTransaction()
+    {
+        $db = $this->getMock(
+            'Harp\Query\DB',
+            array('getPdo'),
+            array('mysql:dbname=harp-orm/query;host=127.0.0.1', 'root')
+        );
+
+        $pdo = $this->getMock('stdClass', array('beginTransaction'));
+        $pdo
+            ->expects($this->once())
+            ->method('beginTransaction')
+            ->will($this->returnValue(true));
+
+        $db
+            ->expects($this->once())
+            ->method('getPdo')
+            ->will($this->returnValue($pdo));
+
+        $result = $db->beginTransaction();
+
+        $this->assertTrue($result);
+    }
+
+    /**
+     * @covers ::commit
+     */
+    public function testCommit()
+    {
+        $db = $this->getMock(
+            'Harp\Query\DB',
+            array('getPdo'),
+            array('mysql:dbname=harp-orm/query;host=127.0.0.1', 'root')
+        );
+
+        $pdo = $this->getMock('stdClass', array('commit'));
+        $pdo
+            ->expects($this->once())
+            ->method('commit')
+            ->will($this->returnValue(true));
+
+        $db
+            ->expects($this->once())
+            ->method('getPdo')
+            ->will($this->returnValue($pdo));
+
+        $result = $db->commit();
+
+        $this->assertTrue($result);
+    }
+
+    /**
+     * @covers ::rollback
+     */
+    public function testRollback()
+    {
+        $db = $this->getMock(
+            'Harp\Query\DB',
+            array('getPdo'),
+            array('mysql:dbname=harp-orm/query;host=127.0.0.1', 'root')
+        );
+
+        $pdo = $this->getMock('stdClass', array('rollback'));
+        $pdo
+            ->expects($this->once())
+            ->method('rollback')
+            ->will($this->returnValue(true));
+
+        $db
+            ->expects($this->once())
+            ->method('getPdo')
+            ->will($this->returnValue($pdo));
+
+        $result = $db->rollback();
+
+        $this->assertTrue($result);
+    }
+
+    /**
+     * @covers ::quote
+     */
+    public function testQuote()
+    {
+        $db = $this->getMock(
+            'Harp\Query\DB',
+            array('getPdo'),
+            array('mysql:dbname=harp-orm/query;host=127.0.0.1', 'root')
+        );
+
+        $pdo = $this->getMock('stdClass', array('quote'));
+        $pdo
+            ->expects($this->once())
+            ->method('quote')
+            ->with($this->identicalTo(123), $this->identicalTo(PDO::PARAM_INT))
+            ->will($this->returnValue('123'));
+
+        $db
+            ->expects($this->once())
+            ->method('getPdo')
+            ->will($this->returnValue($pdo));
+
+        $result = $db->quote(123, PDO::PARAM_INT);
+
+        $this->assertSame('123', $result);
     }
 
 }

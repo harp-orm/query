@@ -190,6 +190,47 @@ class DB
     }
 
     /**
+     * Call pdo's beginTransaction method
+     *
+     * @return boolean
+     */
+    public function beginTransaction()
+    {
+        return $this->getPdo()->beginTransaction();
+    }
+
+    /**
+     * Call pdo's rollback method
+     *
+     * @return boolean
+     */
+    public function rollback()
+    {
+        return $this->getPdo()->rollback();
+    }
+
+
+    /**
+     * Call pdo's quote method
+     *
+     * @return boolean
+     */
+    public function quote($string, $parameter_type = PDO::PARAM_STR)
+    {
+        return $this->getPdo()->quote($string, $parameter_type);
+    }
+
+    /**
+     * Call pdo's commit method
+     *
+     * @return boolean
+     */
+    public function commit()
+    {
+        return $this->getPdo()->commit();
+    }
+
+    /**
      * Run "prepare" a statement and then execute it
      *
      * @param  string $sql
